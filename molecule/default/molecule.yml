@@ -25,6 +25,7 @@ provisioner:
   playbooks:
     prepare: prepare.yml
     converge: converge.yml
+    verify: verify.yml
   inventory:
     host_vars:
       localhost:

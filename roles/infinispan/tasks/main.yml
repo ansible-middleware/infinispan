@@ -91,11 +91,3 @@
   when:
     - jdg_healthcheck is defined
     - jdg.port is defined
-
-- include_tasks: cache.yml
-  vars:
-    jdg_url: "http://{{ jdg.bind_addr }}:{{ jdg.port }}"
-    jdg_username: "{{ jdg.users[0].name }}"
-    jdg_password: "{{ jdg.users[0].password }}"
-    cache:
-      name: kitchensink_sql_cache

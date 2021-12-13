@@ -1,0 +1,31 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Populate service facts
+      ansible.builtin.service_facts:
+    - name: "Add entry to test cache"
+      ansible.builtin.uri:
+        url: http://localhost:11222/rest/v2/caches/test_cache/test_entry
+        method: POST
+        url_username: "supervisor"
+        url_password: "itsme"
+        status_code: 
+          - 204
+          - 409
+    - name: "Check test cache status"
+      ansible.builtin.uri:
+        url: http://localhost:11222/rest/v2/caches/test_cache
+        url_username: "supervisor"
+        url_password: "itsme"
+      register: test_cache_status
+    - assert:
+        that:
+          - test_cache_status.json.size == 1
+        fail_msg: "Test cache error"
+    - debug:
+        msg: "{{ test_cache_status }}"        
+    - name: Check if infinispan service started
+      assert:
+        that:
+          - ansible_facts.services["jdg.service"]["state"] == "running"
