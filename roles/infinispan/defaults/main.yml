@@ -14,7 +14,7 @@ infinispan_installation_path: "/opt/infinispan-server-{{ infinispan_version }}/"
 # common config for datagrid/infinispan service
 jdg_app_download_dir: "/opt/apps"
 jdg_enable: "{{ True if jdg_rhn_id is defined else False }}"
-jdg_healthcheck: yes
+jdg_healthcheck: True
 jdg:
   home: "{{jdg_default_installation_path if jdg_rhn_id is defined else infinispan_installation_path }}"
   bind_addr: "{{ override_jdg_bind_addr | default('localhost') }}"

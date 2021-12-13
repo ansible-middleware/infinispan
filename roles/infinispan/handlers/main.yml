@@ -1,5 +1,5 @@
 ---
-- name: restart jdg
+- name: Restart infinispan/jdg
   systemd:
     name: "{{ jdg.service.name }}" 
     state: restarted  

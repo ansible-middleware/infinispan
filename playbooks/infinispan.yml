@@ -1,0 +1,15 @@
+---
+- name: Playbook for infinispan Hosts
+  hosts: infinispan
+  become: yes
+  collections:
+    - middleware_automation.redhat_csp_download
+  roles:
+    - redhat_csp_download
+  tasks:
+    - set_fact:
+        jdg_enable: False
+        override_jdg_bind_address: "{{ ansible_nodename }}"
+    - name: "infinispan"
+      include_role:
+        name: infinispan
