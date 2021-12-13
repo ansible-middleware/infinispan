@@ -1,0 +1,19 @@
+# This script allows you to run Infinispan Server as a systemd service.
+# Modify environment properties in this script as appropriate.
+# Copy this script to the following location: /etc/systemd/system
+# Activate with 'systemctl daemon-reload'
+#               'systemctl start|enable jdg'
+
+[Unit]
+Description=Infinispan Server Service
+After=network.target
+
+[Service]
+Environment="ISPN_PIDFILE=/run/jdg.pid"
+ExecStart=/bin/sh -c '{{ jdg.home }}/bin/server.sh -c {{ jdg.config.name }} -b {{ jdg.bind_addr }} &'
+Type=forking
+TimeoutSec=30
+PIDFile=/run/jdg.pid
+
+[Install]
+WantedBy=multi-user.target

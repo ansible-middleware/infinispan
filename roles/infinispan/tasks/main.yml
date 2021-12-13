@@ -1,0 +1,100 @@
+---
+- assert:
+    that:
+      - jdg is defined
+      - jdg.home is defined
+      - jdg.user is defined
+      - jdg.user.name is defined
+      - jdg.group is defined
+      - jdg.group.name is defined
+      - jdg_version is defined
+    quiet: true
+
+- include_tasks: prereqs.yml
+
+- name: "Create group {{ jdg.group.name }}"
+  group:
+    name: "{{ jdg.group.name }}"
+    state: present
+    gid: "{{ jdg.group.id | default(omit) }}"
+
+- name: "Create user {{ jdg.user.name }}"
+  user:
+    name: "{{ jdg.user.name }}"
+    state: present
+    uid: "{{ jdg.user.id | default(omit) }}"
+
+- name: "Create download directory"
+  file:
+    path: "{{ jdg_app_download_dir }}"
+    state: directory
+
+- include_tasks: tasks/install.yml
+
+- include_tasks: tasks/firewalld.yml
+
+- debug:
+    msg: "{{ 'Red Hat Datagrid' if jdg_rhn_id is defined else 'Infinispan' }} installed at path {{ jdg.home }}"
+
+- name: "Configure systemd unit file for JDG service"
+  template:
+    src: templates/infinispan.service.j2
+    dest: /etc/systemd/system/jdg.service
+    owner: root
+    group: root
+    mode: 0644
+  register: jdg_daemon_reload
+  notify:
+    - restart jdg
+
+- name: "Perform daemon-reload to ensure the changes on jdg service are picked up"
+  systemd:
+    daemon_reload: yes
+  when:
+    - jdg_daemon_reload is defined
+    - jdg_daemon_reload.changed
+
+- name: "Ensures JDG configuration is deployed: {{ jdg.config.name }}"
+  template:
+    src: "{{ jdg.config.template }}"
+    dest: "{{ jdg.home }}/server/conf/{{ jdg.config.name }}"
+    owner: "{{ jdg.user.name }}"
+    group: "{{ jdg.group.name }}"
+    mode: 0644
+    backup: yes
+  when:
+    - jdg.config is defined
+    - jdg.config.name is defined
+  notify:
+    - restart jdg
+
+- include_tasks: jdg_user.yml
+  vars:
+    users: "{{ jdg.users }}"
+  when:
+    - jdg.users is defined
+    - jdg.users | length > 0
+
+- name: Ensures JDG service is running and enabled
+  systemd:
+    name: jdg
+    state: started
+    enabled: yes
+
+- meta: flush_handlers
+
+- name: "Wait for all used ports to be open"
+  wait_for:
+    port: "{{ jdg.port }}"
+    delay: 0
+  when:
+    - jdg_healthcheck is defined
+    - jdg.port is defined
+
+- include_tasks: cache.yml
+  vars:
+    jdg_url: "http://{{ jdg.bind_addr }}:{{ jdg.port }}"
+    jdg_username: "{{ jdg.users[0].name }}"
+    jdg_password: "{{ jdg.users[0].password }}"
+    cache:
+      name: kitchensink_sql_cache

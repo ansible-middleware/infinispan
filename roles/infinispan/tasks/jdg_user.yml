@@ -1,0 +1,24 @@
+---
+- assert:
+    that:
+      - users is defined
+      - users | length > 0
+    quiet: true
+
+- name: "Ensures {{ jdg.config.users }} exists."
+  template:
+    src: templates/users.properties.j2
+    dest: "{{ jdg.home }}/server/conf/{{ jdg.config.users }}"
+    owner: "{{ jdg.user.name }}"
+    group: "{{ jdg.group.name }}"
+    mode: 0655
+
+- name: "Ensures {{ jdg.config.groups }} exists"  
+  template:
+    src: templates/groups.properties.j2
+    dest: "{{ jdg.home }}/server/conf/{{ jdg.config.groups }}"
+    owner: "{{ jdg.user.name }}"
+    group: "{{ jdg.group.name }}"
+    mode: 0655
+
+

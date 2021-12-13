@@ -1,0 +1,16 @@
+---
+- assert:
+    that:
+      - cache is defined
+      - cache.name is defined
+      - jdg_url is defined
+    quiet: true
+
+- block:
+    - include_tasks: query_cache.yml
+      vars:
+        method: GET
+  rescue:
+    - include_tasks: query_cache.yml
+      vars:
+        method: POST

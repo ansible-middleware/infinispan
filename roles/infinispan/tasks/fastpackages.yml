@@ -1,0 +1,30 @@
+---
+- set_fact:
+    update_cache: true
+    packages_to_install: []
+
+
+- block:
+    - name: "Check if package {{ package_name }} is already installed"
+      command: rpm -q {{ package_name }}
+      args:
+        warn: no
+      register: rpm_info
+      changed_when: rpm_info.failed
+  
+  rescue:
+    - name: "If package {{ package_name }} is missing, install package using yum."
+      set_fact:
+        packages_to_install: "{{ packages_to_install + [ package_name ] }}"
+      when: rpm_info.failed
+
+  loop: "{{ packages_list | flatten }}"
+  loop_control:
+    loop_var: package_name
+
+- name: "Install packages: {{ packages_to_install }}"
+  become: yes
+  yum:
+    name: "{{ packages_to_install }}"
+    state: latest
+  when: packages_to_install | length > 0

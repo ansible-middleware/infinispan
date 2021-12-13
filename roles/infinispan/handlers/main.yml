@@ -1,0 +1,5 @@
+---
+- name: restart jdg
+  systemd:
+    name: "{{ jdg.service.name }}" 
+    state: restarted  

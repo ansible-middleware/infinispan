@@ -1,0 +1,22 @@
+namespace: middleware_automation
+name: infinispan
+version: "0.0.1"
+readme: README.md
+authors:
+  - Romain Pelisse <rpelisse@redhat.com>
+  - Matthew Fernandez <matferna@redhat.com>
+  - Guido Grazioli <ggraziol@redhat.com>
+description: Install and configure an Infinispan service.
+license_file: "LICENSE"
+tags:
+  - infinispan
+  - redhat
+  - rhel
+  - rhn
+  - server
+dependencies:
+  - "middleware_automation.redhat_csp_download": ">=1.2.1"
+repository: https://github.com/ansible-middleware/infinispan
+documentation: https://github.com/ansible-middleware/infinispan
+homepage: https://github.com/ansible-middleware/infinispan
+issues: https://github.com/ansible-middleware/infinispan/issues

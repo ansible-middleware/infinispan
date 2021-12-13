@@ -1,0 +1,38 @@
+---
+name: CI
+"on":
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python_version: ["3.9"]
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          path: ansible_collections/middleware_automation/infinispan
+
+      - name: Set up Python ${{ matrix.python_version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python_version }}
+
+      - name: Install yamllint and ansible
+        run: |
+          python -m pip install --upgrade pip
+          pip install yamllint ansible-core
+
+      - name: Create default collection path symlink
+        run: |
+          mkdir -p /home/runner/.ansible
+          ln -s /home/runner/work/middleware_automation/infinispan /home/runner/.ansible/collections
+
+      - name: Run sanity tests
+        run: ansible-test sanity --docker -v --color --python ${{ matrix.python_version }}
+        working-directory: ./ansible_collections/middleware_automation/infinispan

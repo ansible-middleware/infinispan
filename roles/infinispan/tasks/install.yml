@@ -1,0 +1,62 @@
+- block:
+    - set_fact:
+        archive: "{{ jdg_app_download_dir }}/{{ infinispan_bundle }}"
+
+    - stat:
+        path: "{{ archive }}"
+      register: archive_path
+
+    - name: Download infinispan archive to target
+      get_url:
+        url: "{{ infinispan_download_url }}"
+        dest: "{{ archive }}"
+        owner: "{{ jdg.user.name }}"
+        group: "{{ jdg.group.name }}"
+      when:
+        - archive_path is defined
+        - archive_path.stat is defined
+        - not archive_path.stat.exists
+
+    - name: Extract infinispan archive on target
+      unarchive:
+        remote_src: yes
+        src: "{{ archive }}"
+        dest: "/opt"
+        creates: "{{ infinispan_installation_path }}"
+        owner: "{{ jdg.user.name }}"
+        group: "{{ jdg.group.name }}"
+      notify:
+        - restart jdg
+  become: yes
+  when: not jdg_enable
+
+- block:
+    - assert:
+        that:
+          - jdg_rhn_id is defined
+        quiet: true
+        fail_msg: "Can't install Red Hat Datagrid without RHN ID."
+
+    - set_fact:
+        archive: "{{ jdg_app_download_dir }}/{{ jdg_bundle }}"
+
+    - stat:
+        path: "{{ archive }}"
+      register: archive_path
+
+    - include_tasks: download_from_rhn.yml
+      vars:
+        rhn_id_file: "{{ jdg_rhn_id }}"
+        zipfile_dest: "{{ archive }}"
+        work_dir: "/opt"
+        target_dir: "{{ jdg_default_installation_path }}"
+  become: yes
+  when: jdg_enable
+
+- name: "Reown installation directory to {{ jdg.user.name }}"
+  file:
+    path: "{{ jdg.home }}"
+    owner: "{{ jdg.user.name }}"
+    group: "{{ jdg.group.name }}"
+    recurse: true
+  changed_when: false

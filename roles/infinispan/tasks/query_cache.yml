@@ -1,0 +1,20 @@
+---
+- assert:
+    that:
+      - cache is defined
+      - cache.name is defined
+      - jdg_url is defined
+      - method is defined
+    quiet: true
+
+- set_fact:
+    rest_cache_api_path: /rest/v2/caches/
+
+- name: "Ensures cache {{ cache.name }} exists."
+  uri:
+    url: "{{ jdg_url }}/{{ rest_cache_api_path }}/{{ cache.name }}"
+    method: "{{ method }}"
+    user: "{{ jdg_username | default(omit) }}"
+    password: "{{ jdg_password | default(omit) }}"
+    force_basic_auth: yes
+    status_code: 200
