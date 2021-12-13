@@ -26,7 +26,7 @@
         owner: "{{ jdg.user.name }}"
         group: "{{ jdg.group.name }}"
       notify:
-        - restart jdg
+        - restart infinispan
   become: yes
   when: not jdg_enable
 

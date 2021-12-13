@@ -1,10 +1,8 @@
 ---
 dependency:
   name: galaxy
-  options:
-    requirements-file: requirements.yml
 driver:
-  name: docker
+  name: podman
 platforms:
   - name: instance
     image: registry.access.redhat.com/ubi8/ubi-init:latest
@@ -18,7 +16,14 @@ platforms:
       - 0.0.0.0:7800:7800/TCP
 provisioner:
   name: ansible
+  config_options:
+    defaults:
+      interpreter_python: auto_silent
+      callback_whitelist: profile_tasks, timer, yaml
+    ssh_connection:
+      pipelining: false
   playbooks:
+    prepare: prepare.yml
     converge: converge.yml
   inventory:
     host_vars:

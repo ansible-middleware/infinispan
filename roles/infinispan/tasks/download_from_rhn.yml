@@ -59,7 +59,7 @@
       when:
         - not target_dir_state.stat.exists
       notify:
-        - restart jdg
+        - restart infinispan
 
     - debug:
         msg: "{{ target_dir }} already exists, skipping decompressing {{ zipfile_dest }}"

@@ -8,6 +8,6 @@
     - "{{ jvm_package | default('java-1.8.0-openjdk-devel') }}"
 
 - name: "Ensures required packages are installed"
-  ansible.builtin.include_tasks: fastpackages.yml
+  ansible.builtin.include_tasks: fastpackages/install.yml
   vars:
     packages_list: "{{ required_packages }}"

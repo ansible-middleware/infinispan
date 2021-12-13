@@ -10,6 +10,7 @@ description: Install and configure an Infinispan service.
 license_file: "LICENSE"
 tags:
   - infinispan
+  - datagrid
   - redhat
   - rhel
   - rhn

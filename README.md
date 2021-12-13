@@ -1,6 +1,6 @@
 # Ansible Collection - infinispan
 
-[![Build Status](https://github.com/ansible-middleware/infinispan/workflows/CI/badge.svg?branch=master)](https://github.com/ansible-middleware/infinispan/actions/workflows/ci.yml)
+[![Build Status](https://github.com/ansible-middleware/infinispan/workflows/CI/badge.svg?branch=main)](https://github.com/ansible-middleware/infinispan/actions/workflows/ci.yml)
 
 
 Collection to install [Infinispan](https://infinispan.org/) or [Red Hat DataGrid](https://www.redhat.com/en/technologies/jboss-middleware/data-grid) server configurations, with optional remote caches for [Keycloak](https://www.keycloak.org/) or [Red Hat Single Sign-On](https://access.redhat.com/products/red-hat-single-sign-on). 

@@ -1,14 +1,10 @@
 ---
-- name: Playbook for infinispan Hosts
+- name: Converge
   hosts: all
-  collections:
-    - middleware_automation.redhat_csp_download
-  roles:
-    - redhat_csp_download
+  vars: 
+    jdg_enable: False
+    override_jdg_bind_address: "{{ ansible_nodename }}"
   tasks:
-    - set_fact:
-        jdg_enable: False
-        override_jdg_bind_address: "{{ ansible_nodename }}"
-    - name: "infinispan"
+    - name: Include infinispan role
       include_role:
-        name: infinispan
+        name: ../../roles/infinispan

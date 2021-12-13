@@ -48,7 +48,7 @@
     mode: 0644
   register: jdg_daemon_reload
   notify:
-    - restart jdg
+    - restart infinispan
 
 - name: "Perform daemon-reload to ensure the changes on jdg service are picked up"
   systemd:
@@ -69,7 +69,7 @@
     - jdg.config is defined
     - jdg.config.name is defined
   notify:
-    - restart jdg
+    - restart infinispan
 
 - include_tasks: jdg_user.yml
   vars:
