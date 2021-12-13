@@ -34,8 +34,6 @@
 
 - include_tasks: tasks/install.yml
 
-- include_tasks: tasks/firewalld.yml
-
 - debug:
     msg: "{{ 'Red Hat Datagrid' if jdg_rhn_id is defined else 'Infinispan' }} installed at path {{ jdg.home }}"
 
