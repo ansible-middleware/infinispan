@@ -32,6 +32,9 @@
       file:
         path: "{{ work_dir }}"
         state: directory
+        owner: "{{ jdg.user.name }}"
+        group: "{{ jdg.group.name }}"
+        mode: 0750
 
     - name: "Check target directory: {{ target_dir }}"
       stat:

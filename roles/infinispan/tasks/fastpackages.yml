@@ -26,5 +26,5 @@
   become: yes
   yum:
     name: "{{ packages_to_install }}"
-    state: latest
+    state: present
   when: packages_to_install | length > 0

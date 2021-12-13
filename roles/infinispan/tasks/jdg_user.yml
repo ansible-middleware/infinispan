@@ -20,5 +20,3 @@
     owner: "{{ jdg.user.name }}"
     group: "{{ jdg.group.name }}"
     mode: 0655
-
-

@@ -28,6 +28,9 @@
   file:
     path: "{{ jdg_app_download_dir }}"
     state: directory
+    owner: "{{ jdg.user.name }}"
+    group: "{{ jdg.group.name }}"
+    mode: 0750
 
 - include_tasks: tasks/install.yml
 
