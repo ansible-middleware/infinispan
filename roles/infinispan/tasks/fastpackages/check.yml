@@ -12,4 +12,3 @@
       set_fact:
         packages_to_install: "{{ packages_to_install + [ package_name ] }}"
       when: rpm_info.failed
-
