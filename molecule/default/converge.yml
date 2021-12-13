@@ -1,7 +1,6 @@
 ---
 - name: Playbook for infinispan Hosts
   hosts: all
-  become: yes
   collections:
     - middleware_automation.redhat_csp_download
   roles:
