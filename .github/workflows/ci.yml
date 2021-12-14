@@ -40,3 +40,6 @@ jobs:
       - name: Run molecule test
         run: molecule test --all
         working-directory: ./ansible_collections/middleware_automation/infinispan
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
