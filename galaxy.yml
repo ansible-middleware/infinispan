@@ -1,6 +1,6 @@
 namespace: middleware_automation
 name: infinispan
-version: "0.0.1"
+version: "0.0.2"
 readme: README.md
 authors:
   - Romain Pelisse <rpelisse@redhat.com>
@@ -16,7 +16,7 @@ tags:
   - rhn
   - server
 dependencies:
-  - "middleware_automation.redhat_csp_download": ">=1.2.1"
+  "middleware_automation.redhat_csp_download": ">=1.2.1"
 repository: https://github.com/ansible-middleware/infinispan
 documentation: https://github.com/ansible-middleware/infinispan
 homepage: https://github.com/ansible-middleware/infinispan

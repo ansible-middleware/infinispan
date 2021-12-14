@@ -29,6 +29,18 @@ collections:
   - name: middleware_automation.infinispan
 ```
 
+### Choosing between Red Hat products and upstream project
+
+The roles supports installing Red Hat Datagrid from the Customer Portal, when the following variables are defined:
+
+```
+rhn_username: '<customer_portal_username>'
+rhn_password: '<customer_portal_password>'
+jdg_rhn_id: '<datagrid_product_id>'
+```
+
+where `datagrid_product_id` is the ID for the specific Data Grid version, ie. _98151_ will install version _8.2.0_)
+
 ## License
 
 Apache License v2.0 or later
