@@ -1,15 +1,12 @@
 ---
 - name: Converge
   hosts: all
-  vars: 
-    jdg_enable: False
-    override_jdg_bind_address: "{{ ansible_nodename }}"
-    supervisor_password: "itsme"
   tasks:
     - name: Include infinispan role
       include_role:
         name: ../../roles/infinispan
       vars:
+        supervisor_password: "itsme"
         infinispan_users:
           - { name: 'testuser', password: 'test', roles: 'observer' }
     - name: Create test cache
