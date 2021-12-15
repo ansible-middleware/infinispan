@@ -95,7 +95,7 @@
 - name: Create keycloak remote caches
   include_tasks: keycloak.yml
   when:
-    - jdg_keycloak_cache|bool
+    - jdg_keycloak_cache.enabled
 
 - name: "Check keycloak remote caches"
   include_tasks: query_cache.yml
@@ -107,5 +107,5 @@
     cache:
       name: sessions
   when:
-    - jdg_healthcheck|bool
-    - jdg_keycloak_cache|bool
+    - jdg_healthcheck
+    - jdg_keycloak_cache.enabled
