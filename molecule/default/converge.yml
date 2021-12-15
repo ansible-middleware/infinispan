@@ -4,17 +4,21 @@
   vars: 
     jdg_enable: False
     override_jdg_bind_address: "{{ ansible_nodename }}"
+    supervisor_password: "itsme"
   tasks:
     - name: Include infinispan role
       include_role:
         name: ../../roles/infinispan
+      vars:
+        infinispan_users:
+          - { name: 'testuser', password: 'test', roles: 'observer' }
     - name: Create test cache
       include_role:
         name: ../../roles/infinispan
         tasks_from: cache.yml
       vars:
         jdg_url: "http://{{ jdg.bind_addr }}:{{ jdg.port }}"
-        jdg_username: "{{ jdg.users[0].name }}"
-        jdg_password: "{{ jdg.users[0].password }}"
+        jdg_username: "supervisor"
+        jdg_password: "itsme"
         cache:
           name: test_cache

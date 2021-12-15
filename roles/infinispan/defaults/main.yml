@@ -31,7 +31,7 @@ jdg:
     name: "{{ override_jdg_group | default('jdg') }}"
   service:
     name: "{{ override_jdg_service_name | default('jdg') }}"
-  users: "{{ [ jdg_supervisor ] + infinispan_users }}"
+  users: "{{ [ jdg_supervisor ] + infinispan_users|default([]) }}"
 
 jdg_supervisor:
   name: 'supervisor'
