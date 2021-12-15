@@ -13,3 +13,7 @@
     - name: "infinispan"
       include_role:
         name: infinispan
+      vars:
+        supervisor_password: "itsme"
+        create_keycloak_caches: False
+        infinispan_users: []

@@ -31,13 +31,17 @@ jdg:
     name: "{{ override_jdg_group | default('jdg') }}"
   service:
     name: "{{ override_jdg_service_name | default('jdg') }}"
-  users:
-    - { name: 'supervisor', password: 'itsme', roles: 'supervisor' }
+  users: "{{ [ jdg_supervisor ] + infinispan_users }}"
+
+jdg_supervisor:
+  name: 'supervisor'
+  password: "{{ supervisor_password|default('itsme') }}"
+  roles: 'supervisor'
 
 jdg_default_realm_tls: False
 
 jdg_keycloak_cache:
-  enabled: True
+  enabled: "{{ create_keycloak_caches }}"
   caches:
     - sessions
     - offlineSessions
