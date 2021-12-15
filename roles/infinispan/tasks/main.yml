@@ -89,5 +89,23 @@
     port: "{{ jdg.port }}"
     delay: 0
   when:
-    - jdg_healthcheck is defined
+    - jdg_healthcheck
     - jdg.port is defined
+
+- name: Create keycloak remote caches
+  include_tasks: keycloak.yml
+  when:
+    - jdg_keycloak_cache|bool
+
+- name: "Check keycloak remote caches"
+  include_tasks: query_cache.yml
+  vars:
+    jdg_url: "http://{{ jdg.bind_addr }}:{{ jdg.port }}"
+    jdg_username: "{{ jdg_supervisor.name }}"
+    jdg_password: "{{ jdg_supervisor.password }}"
+    method: GET
+    cache:
+      name: sessions
+  when:
+    - jdg_healthcheck|bool
+    - jdg_keycloak_cache|bool

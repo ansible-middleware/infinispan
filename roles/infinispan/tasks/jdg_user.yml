@@ -11,7 +11,7 @@
     dest: "{{ jdg.home }}/server/conf/{{ jdg.config.users }}"
     owner: "{{ jdg.user.name }}"
     group: "{{ jdg.group.name }}"
-    mode: 0655
+    mode: 0644
 
 - name: "Ensures {{ jdg.config.groups }} exists"  
   template:
@@ -19,4 +19,4 @@
     dest: "{{ jdg.home }}/server/conf/{{ jdg.config.groups }}"
     owner: "{{ jdg.user.name }}"
     group: "{{ jdg.group.name }}"
-    mode: 0655
+    mode: 0644

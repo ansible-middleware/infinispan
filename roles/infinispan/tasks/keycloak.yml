@@ -1,0 +1,10 @@
+---
+- name: "Create keycloak remote caches"
+  include_tasks: cache.yml
+  vars:
+    jdg_url: "http://{{ jdg.bind_addr }}:{{ jdg.port }}"
+    jdg_username: "{{ jdg_supervisor.name }}"
+    jdg_password: "{{ jdg_supervisor.password }}"
+    cache:
+      name: "{{ item }}"
+  loop: "{{ jdg_keycloak_cache.caches | flatten }}"

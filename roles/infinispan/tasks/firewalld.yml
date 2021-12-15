@@ -14,7 +14,7 @@
 
 - name: Configure firewall for jdg ports
   become: yes
-  ansible.posix.firewalld:
+  firewalld:
     port: "{{ item }}"
     permanent: true
     state: enabled
