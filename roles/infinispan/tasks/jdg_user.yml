@@ -12,6 +12,8 @@
     owner: "{{ jdg.user.name }}"
     group: "{{ jdg.group.name }}"
     mode: 0644
+  notify:
+    - restart infinispan
 
 - name: "Ensures {{ jdg.config.groups }} exists"  
   template:
@@ -20,3 +22,5 @@
     owner: "{{ jdg.user.name }}"
     group: "{{ jdg.group.name }}"
     mode: 0644
+  notify:
+    - restart infinispan
