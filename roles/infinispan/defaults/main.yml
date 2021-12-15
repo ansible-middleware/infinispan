@@ -19,7 +19,7 @@ jdg:
   home: "{{jdg_default_installation_path if jdg_rhn_id is defined else infinispan_installation_path }}"
   bind_addr: "{{ override_jdg_bind_addr | default('localhost') }}"
   port: "{{ override_jdg_port | default('11222') }}"
-  jgroups_port: "7800"
+  jgroups_port: "{{ override_jdg_jgroups_port | default('7800') }}"
   config:
     name: "{{ override_jdg_config | default('jdg.xml') }}"
     template: "{{ override_jdg_config_template | default('templates/infinispan.xml.j2') }}"
@@ -40,8 +40,9 @@ jdg_supervisor:
 
 jdg_default_realm_tls: False
 
+infinispan_keycloak_caches: False
 jdg_keycloak_cache:
-  enabled: "{{ create_keycloak_caches }}"
+  enabled: "{{ infinispan_keycloak_caches }}"
   caches:
     - sessions
     - offlineSessions

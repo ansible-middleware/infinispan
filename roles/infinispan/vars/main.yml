@@ -1,4 +1,3 @@
 ---
 supervisor_password:
-create_keycloak_caches:
 infinispan_users: []
