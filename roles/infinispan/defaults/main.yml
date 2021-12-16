@@ -16,7 +16,8 @@ jdg_app_download_dir: "/opt/apps"
 jdg_enable: "{{ True if jdg_rhn_id is defined else False }}"
 jdg_healthcheck: True
 jdg:
-  home: "{{jdg_default_installation_path if jdg_rhn_id is defined else infinispan_installation_path }}"
+  home: "{{ jdg_default_installation_path if jdg_rhn_id is defined else infinispan_installation_path }}"
+  version: "{{ jdg_version if jdg_rhn_id is defined else infinispan_version }}"
   bind_addr: "{{ override_jdg_bind_addr | default('localhost') }}"
   port: "{{ override_jdg_port | default('11222') }}"
   jgroups_port: "{{ override_jdg_jgroups_port | default('7800') }}"
@@ -30,12 +31,12 @@ jdg:
   group:
     name: "{{ override_jdg_group | default('jdg') }}"
   service:
-    name: "{{ override_jdg_service_name | default('jdg') }}"
-  users: "{{ [ jdg_supervisor ] + infinispan_users|default([]) }}"
+    name: "{{ override_jdg_service_name | default('jdg' if jdg_rhn_id is defined else 'infinispan') }}"
+  users: "{{ [ jdg_supervisor ] + infinispan_users }}"
 
 jdg_supervisor:
   name: 'supervisor'
-  password: "{{ supervisor_password|default('itsme') }}"
+  password: "{{ supervisor_password }}"
   roles: 'supervisor'
 
 jdg_default_realm_tls: False

@@ -7,7 +7,8 @@
       - jdg.user.name is defined
       - jdg.group is defined
       - jdg.group.name is defined
-      - jdg_version is defined
+      - jdg.version is defined
+      - supervisor_password is defined and supervisor_password|length > 0
     quiet: true
 
 - include_tasks: prereqs.yml
