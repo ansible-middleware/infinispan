@@ -33,7 +33,6 @@ infinispan_users:
   - { name: 'testuser2', password: 'test', roles: 'application' }
 ```
 
-
 Dependencies
 ------------
 
@@ -58,6 +57,32 @@ The following is an example playbook that makes use of the role to install Infin
             supervisor_password: "changeme"
             infinispan_users: []
 ```
+
+Choosing what to install
+------------------------
+
+The role will install Red Hat DataGrid when the following variables are defined in the playbook execution:
+
+```
+jdg_rhn_id: '98151'
+rhn_username: '<customer portal account username>'
+rhn_password: '<customer portal account password>'
+```
+
+Keycloak integration
+--------------------
+
+Enabling `infinispan_keycloak_caches` will prepare the following caches in a dedicated cache container for remote keycloak access:
+
+    - sessions
+    - offlineSessions
+    - clientSessions
+    - offlineClientSessions
+    - loginFailures
+    - actionTokens
+    - work
+
+for more details, refer to the: [INSTALLATION AND CONFIGURATION GUIDE - 3.4.6. Infinispan caches](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.5/html-single/server_installation_and_configuration_guide/index#cache)
 
 License
 -------

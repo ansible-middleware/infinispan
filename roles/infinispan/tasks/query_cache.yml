@@ -12,7 +12,7 @@
 
 - name: "Ensures cache {{ cache.name }} exists."
   uri:
-    url: "{{ jdg_url }}/{{ rest_cache_api_path }}/{{ cache.name }}"
+    url: "{{ jdg_url }}{{ rest_cache_api_path }}{{ cache.name }}"
     method: "{{ method }}"
     user: "{{ jdg_username | default(omit) }}"
     password: "{{ jdg_password | default(omit) }}"

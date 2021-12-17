@@ -38,23 +38,7 @@
 - debug:
     msg: "{{ 'Red Hat Datagrid' if jdg_rhn_id is defined else 'Infinispan' }} installed at path {{ jdg.home }}"
 
-- name: "Configure systemd unit file for JDG service"
-  template:
-    src: templates/infinispan.service.j2
-    dest: /etc/systemd/system/jdg.service
-    owner: root
-    group: root
-    mode: 0644
-  register: jdg_daemon_reload
-  notify:
-    - restart infinispan
-
-- name: "Perform daemon-reload to ensure the changes on jdg service are picked up"
-  systemd:
-    daemon_reload: yes
-  when:
-    - jdg_daemon_reload is defined
-    - jdg_daemon_reload.changed
+- include_tasks: tasks/systemd.yml
 
 - name: "Ensures JDG configuration is deployed: {{ jdg.config.name }}"
   template:
