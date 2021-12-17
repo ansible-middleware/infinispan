@@ -10,7 +10,7 @@
 - set_fact:
     rhn_download_url: "{{ jdg_download_url }}{{ rhn_id_file }}"
 
-- name: "Install zipfile from RHN: {{ rhn_download_url }}"
+- name: "Install zipfile DataGrid from RHN: {{ rhn_download_url }}"
   redhat_csp_download:
     url: "{{ rhn_download_url }}"
     dest: "{{ zipfile_dest }}"

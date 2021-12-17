@@ -40,7 +40,7 @@
 
 - include_tasks: tasks/systemd.yml
 
-- name: "Ensures JDG configuration is deployed: {{ jdg.config.name }}"
+- name: "Ensures {{ jdg.service.name }} configuration is deployed: {{ jdg.config.name }}"
   template:
     src: "{{ jdg.config.template }}"
     dest: "{{ jdg.home }}/server/conf/{{ jdg.config.name }}"
@@ -61,9 +61,9 @@
     - jdg.users is defined
     - jdg.users | length > 0
 
-- name: Ensures JDG service is running and enabled
+- name: "Ensures {{ jdg.service.name }} service is running and enabled"
   systemd:
-    name: jdg
+    name: "{{ jdg.service.name }}"
     state: started
     enabled: yes
 
@@ -80,17 +80,4 @@
 - name: Create keycloak remote caches
   include_tasks: keycloak.yml
   when:
-    - jdg_keycloak_cache.enabled
-
-- name: "Check keycloak remote caches"
-  include_tasks: query_cache.yml
-  vars:
-    jdg_url: "http://{{ jdg.bind_addr }}:{{ jdg.port }}"
-    jdg_username: "{{ jdg_supervisor.name }}"
-    jdg_password: "{{ jdg_supervisor.password }}"
-    method: GET
-    cache:
-      name: sessions
-  when:
-    - jdg_healthcheck
     - jdg_keycloak_cache.enabled

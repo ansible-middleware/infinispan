@@ -1,4 +1,4 @@
-- name: "Configure systemd unit file for JDG service"
+- name: "Configure systemd unit file for {{ jdg.service.name }} service"
   template:
     src: templates/infinispan.service.j2
     dest: "/etc/systemd/system/{{ jdg.service.name }}.service"
@@ -9,7 +9,7 @@
   notify:
     - restart infinispan
 
-- name: "Perform daemon-reload to ensure the changes on jdg service are picked up"
+- name: "Perform daemon-reload to ensure the changes on {{ jdg.service.name }} service are picked up"
   systemd:
     daemon_reload: yes
   when:
