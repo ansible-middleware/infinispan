@@ -7,7 +7,7 @@
     - name: Check if infinispan service started
       assert:
         that:
-          - ansible_facts.services["jdg.service"]["state"] == "running"
+          - ansible_facts.services["infinispan.service"]["state"] == "running"
     - name: "Add entry to test cache"
       ansible.builtin.uri:
         url: http://localhost:11222/rest/v2/caches/test_cache/test_entry
