@@ -20,6 +20,7 @@ jdg:
   version: "{{ jdg_version if jdg_rhn_id is defined else infinispan_version }}"
   bind_addr: "{{ override_jdg_bind_addr | default('localhost') }}"
   port: "{{ override_jdg_port | default('11222') }}"
+  jgroups_bind_addr: "{{ override_jdg_jgroups_bind_addr | default('0.0.0.0') }}"
   jgroups_port: "{{ override_jdg_jgroups_port | default('7800') }}"
   config:
     name: "{{ override_jdg_config | default('jdg.xml') }}"
