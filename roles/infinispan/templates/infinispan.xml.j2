@@ -13,9 +13,9 @@
 
     <cache-container name="default" statistics="true">
 {% if jdg_keycloak_cache.enabled or jdg_jgroups_jdbcping %}
-      <transport cluster="${infinispan.cluster.name:cluster}" stack="${infinispan.cluster.stack:datagrid-jdbcping}" node-name="${infinispan.node.name:}"/>
+      <transport cluster="${infinispan.cluster.name:datagrid-cluster}" stack="${infinispan.cluster.stack:datagrid-jdbcping}" node-name="${infinispan.node.name:}"/>
 {% else %}
-      <transport cluster="${infinispan.cluster.name:cluster}" stack="${infinispan.cluster.stack:tcp}" node-name="${infinispan.node.name:}"/>
+      <transport cluster="${infinispan.cluster.name:datagrid-cluster}" stack="${infinispan.cluster.stack:tcp}" node-name="${infinispan.node.name:}"/>
 {% endif %}
       <security>
         <authorization>
@@ -27,6 +27,7 @@
 {% if jdg_keycloak_cache.enabled %}
     <!-- keycloak caches -->
     <cache-container name="keycloak" statistics="true">
+      <transport cluster="${infinispan.cluster.name:datagrid-cluster}" stack="${infinispan.cluster.stack:tcp}" node-name="${infinispan.node.name:}"/>
 {% for keycloak_cache in jdg_keycloak_cache.caches %}
       <replicated-cache name="{{ keycloak_cache }}" mode="SYNC">
         <transaction mode="NONE" locking="PESSIMISTIC"/>
