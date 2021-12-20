@@ -1,6 +1,7 @@
 ---
 - name: Converge
   hosts: all
+  gather_facts: yes
   tasks:
     - name: Include infinispan role
       include_role:

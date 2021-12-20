@@ -2,7 +2,7 @@
 dependency:
   name: galaxy
 driver:
-  name: docker
+  name: podman
 platforms:
   - name: instance
     image: registry.access.redhat.com/ubi8/ubi-init:latest
@@ -10,10 +10,7 @@ platforms:
     privileged: true
     command: "/usr/sbin/init"
     port_bindings:
-      - 11222:11222
-    published_ports:
-      - 0.0.0.0:11222:11222/TCP
-      - 0.0.0.0:7800:7800/TCP
+      - "11222/tcp"
 provisioner:
   name: ansible
   config_options:

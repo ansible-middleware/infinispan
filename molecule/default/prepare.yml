@@ -2,7 +2,9 @@
 - name: Prepare
   hosts: all
   tasks:
-    - name: Install sudo
+    - name: Install requirements for tests
       yum:
-        name: sudo
+        name:
+          - sudo
+          - iproute
         state: present
