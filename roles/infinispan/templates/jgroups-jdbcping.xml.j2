@@ -8,10 +8,10 @@
 		thread_pool.enabled="true" thread_pool.min_threads="2"
 		thread_pool.max_threads="30" thread_pool.keep_alive_time="5000" />
 
-    <JDBC_PING connection_url="jdg_jgroups_jdbc.mariadb.connection_url"
-		connection_username="jdg_jgroups_jdbc.mariadb.db_user"
-		connection_password="jdg_jgroups_jdbc.mariadb.db_password"
-		connection_driver="jdg_jgroups_jdbc.mariadb.driver_class"
+    <JDBC_PING connection_url="{{ jdg_jgroups_jdbc.mariadb.connection_url }}"
+		connection_username="{{ jdg_jgroups_jdbc.mariadb.db_user }}"
+		connection_password="{{ jdg_jgroups_jdbc.mariadb.db_password }}"
+		connection_driver="{{ jdg_jgroups_jdbc.mariadb.driver_class }}"
 		initialize_sql="CREATE TABLE IF NOT EXISTS JGROUPSPING (
                         own_addr varchar(200) NOT NULL,
                         cluster_name varchar(200) NOT NULL,
