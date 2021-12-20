@@ -5,8 +5,18 @@
         xmlns="urn:infinispan:config:12.1"
         xmlns:server="urn:infinispan:server:12.1">
 
+{% if jdg_keycloak_cache.enabled or jdg_jgroups_jdbcping %}
+   <jgroups>
+      <stack-file name="datagrid-jdbcping" path="jgroups-jdbcping.xml"/>
+   </jgroups>
+{% endif %}
+
     <cache-container name="default" statistics="true">
+{% if jdg_keycloak_cache.enabled or jdg_jgroups_jdbcping %}
+      <transport cluster="${infinispan.cluster.name:cluster}" stack="${infinispan.cluster.stack:datagrid-jdbcping}" node-name="${infinispan.node.name:}"/>
+{% else %}
       <transport cluster="${infinispan.cluster.name:cluster}" stack="${infinispan.cluster.stack:tcp}" node-name="${infinispan.node.name:}"/>
+{% endif %}
       <security>
         <authorization>
           <role name="supervisor" permissions="READ WRITE EXEC CREATE"/>

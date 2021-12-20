@@ -24,6 +24,7 @@ jdg:
   config:
     name: "{{ override_jdg_config | default('jdg.xml') }}"
     template: "{{ override_jdg_config_template | default('templates/infinispan.xml.j2') }}"
+    jgroups_template: "{{ override_jdg_config_jgroups_template | default('templates/jgroups-jdbcping.xml.j2') }}"
     users: "{{ override_jdg_config_users_properties | default('users.properties') }}"
     groups: "{{ override_jdg_config_group_properties | default('groups.properties') }}"
   user:
@@ -40,6 +41,17 @@ jdg_supervisor:
   roles: 'supervisor'
 
 jdg_default_realm_tls: False
+
+jdg_jgroups_jdbcping: "{{ True if infinispan_keycloak_caches else False }}"
+jdg_jgroups_jdbc:
+  mariadb:
+    enabled: "{{ jdg_jgroups_jdbcping }}"
+    driver_class: org.mariadb.jdbc.Driver
+    driver_jar_filename: "mariadb-java-client-2.7.4.jar"
+    driver_jar_url: "https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/2.7.4/mariadb-java-client-2.7.4.jar"
+    connection_url: "{{ mariadb_jdbc_url | default('jdbc:mariadb://localhost:3306/keycloak') }}"
+    db_user: "{{ mariadb_db_user | default('keycloak-user') }}"
+    db_password: "{{ mariadb_db_pass | default('keycloak-pass') }}"
 
 infinispan_keycloak_caches: False
 jdg_keycloak_cache:

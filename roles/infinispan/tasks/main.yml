@@ -51,8 +51,35 @@
   when:
     - jdg.config is defined
     - jdg.config.name is defined
+    - jdg.service.name is defined
   notify:
     - restart infinispan
+
+- name: "Ensures {{ jdg.service.name }} jgroups configuration is deployed"
+  template:
+    src: "{{ jdg.config.jgroups_template }}"
+    dest: "{{ jdg.home }}/server/conf/jgroups-jdbcping.xml"
+    owner: "{{ jdg.user.name }}"
+    group: "{{ jdg.group.name }}"
+    mode: 0644
+  when:
+    - jdg.config is defined
+    - jdg.config.name is defined
+    - jdg.service.name is defined
+    - jdg_jgroups_jdbcping
+  notify:
+    - restart infinispan
+
+- name: Download mariadb driver jar to target
+  get_url:
+    url: "{{ jdg_jgroups_jdbc.mariadb.driver_jar_url }}"
+    dest: "{{ jdg.home }}/lib/{{ jdg_jgroups_jdbc.mariadb.driver_jar_filename }}"
+    owner: "{{ jdg.user.name }}"
+    group: "{{ jdg.group.name }}"
+    mode: 0644
+  when:
+    - jdg.config is defined
+    - jdg_jgroups_jdbcping
 
 - include_tasks: jdg_user.yml
   vars:
