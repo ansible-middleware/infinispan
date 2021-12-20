@@ -39,7 +39,7 @@ jdg:
 jdg_supervisor:
   name: 'supervisor'
   password: "{{ supervisor_password }}"
-  roles: 'supervisor'
+  roles: 'admin'
 
 jdg_default_realm_tls: False
 
