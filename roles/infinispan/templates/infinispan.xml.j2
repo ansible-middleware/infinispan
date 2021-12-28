@@ -66,7 +66,7 @@
     <cache-container name="default" statistics="true">
 {% if jdg_jgroups_relay and jdg_jgroups_jdbcping %}
       <transport cluster="{{ jdg_jgroups_relay_site }}" stack="xsite" node-name="{{ inventory_hostname }}"  machine="{{ inventory_hostname }}" site="{{ jdg_jgroups_relay_site }}"/>
-{% else if jdg_keycloak_cache.enabled or jdg_jgroups_jdbcping %}
+{% elif jdg_keycloak_cache.enabled or jdg_jgroups_jdbcping %}
       <transport cluster="datagrid" stack="datagrid" node-name="{{ inventory_hostname }}" machine="{{ inventory_hostname }}"/>
 {% else %}
       <transport cluster="datagrid" stack="tcp" node-name="{{ inventory_hostname }}"/>
@@ -112,7 +112,7 @@
       </interfaces>
 
       <socket-bindings default-interface="public" port-offset="${infinispan.socket.binding.port-offset:0}">
-         <socket-binding name="default" port="${infinispan.bind.port:11222}"/>
+         <socket-binding name="default" port="{{ jdg.port }}"/>
          <socket-binding name="memcached" port="11221"/>
       </socket-bindings>
 
