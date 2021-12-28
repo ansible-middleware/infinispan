@@ -22,3 +22,4 @@
   loop:
     - "{{ jdg.port }}/tcp"
     - "{{ jdg.jgroups_port }}/tcp"
+    - "{{ jdg.jgroups_relay_port }}/tcp"

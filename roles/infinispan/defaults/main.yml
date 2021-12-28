@@ -15,53 +15,22 @@ infinispan_installation_path: "/opt/infinispan-server-{{ infinispan_version }}/"
 jdg_app_download_dir: "/opt/apps"
 jdg_enable: "{{ True if jdg_rhn_id is defined else False }}"
 jdg_healthcheck: True
-jdg:
-  home: "{{ jdg_default_installation_path if jdg_rhn_id is defined else infinispan_installation_path }}"
-  version: "{{ jdg_version if jdg_rhn_id is defined else infinispan_version }}"
-  bind_addr: "{{ override_jdg_bind_addr | default('localhost') }}"
-  port: "{{ override_jdg_port | default('11222') }}"
-  jgroups_bind_addr: "{{ override_jdg_jgroups_bind_addr | default(ansible_all_ipv4_addresses[0]) }}"
-  jgroups_port: "{{ override_jdg_jgroups_port | default('7800') }}"
-  config:
-    name: "{{ override_jdg_config | default('jdg.xml') }}"
-    template: "{{ override_jdg_config_template | default('templates/infinispan.xml.j2') }}"
-    jgroups_template: "{{ override_jdg_config_jgroups_template | default('templates/jgroups-jdbcping.xml.j2') }}"
-    users: "{{ override_jdg_config_users_properties | default('users.properties') }}"
-    groups: "{{ override_jdg_config_group_properties | default('groups.properties') }}"
-  user:
-    name: "{{ override_jdg_user | default('jdg') }}"
-  group:
-    name: "{{ override_jdg_group | default('jdg') }}"
-  service:
-    name: "{{ override_jdg_service_name | default('jdg' if jdg_rhn_id is defined else 'infinispan') }}"
-  users: "{{ [ jdg_supervisor ] + infinispan_users }}"
+jdg_bind_address: localhost
+jdg_port: 11222
+jdg_jgroups_port: 7800
+jdg_jgroups_relay_port: 7801
 
-jdg_supervisor:
-  name: 'supervisor'
-  password: "{{ supervisor_password }}"
-  roles: 'admin'
-
+# flag to enable protocol encryption
 jdg_default_realm_tls: False
 
-jdg_jgroups_jdbcping: "{{ True if infinispan_keycloak_caches else False }}"
-jdg_jgroups_jdbc:
-  mariadb:
-    enabled: "{{ jdg_jgroups_jdbcping }}"
-    driver_class: org.mariadb.jdbc.Driver
-    driver_jar_filename: "mariadb-java-client-2.7.4.jar"
-    driver_jar_url: "https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/2.7.4/mariadb-java-client-2.7.4.jar"
-    connection_url: "{{ mariadb_jdbc_url | default('jdbc:mariadb://localhost:3306/keycloak') }}"
-    db_user: "{{ mariadb_db_user | default('keycloak-user') }}"
-    db_password: "{{ mariadb_db_pass | default('keycloak-pass') }}"
+# flag to enable clustering on jdbc discovery
+jdg_jgroups_jdbcping: "{{ True if infinispan_keycloak_caches or jdg_jgroups_relay else False }}"
+# flag to enable cross-DC relay
+jdg_jgroups_relay: False
+# list of sites (clusters) in the cross-DC global view
+jdg_jgroups_relay_sites: []
+# site (cluster) this node belongs to
+jdg_jgroups_relay_site: ''
 
+# flag to enable keycloak integration
 infinispan_keycloak_caches: False
-jdg_keycloak_cache:
-  enabled: "{{ infinispan_keycloak_caches }}"
-  caches:
-    - sessions
-    - offlineSessions
-    - clientSessions
-    - offlineClientSessions
-    - loginFailures
-    - actionTokens
-    - work

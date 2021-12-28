@@ -1,3 +1,4 @@
+# {{ ansible_managed }}
 # This script allows you to run Infinispan Server as a systemd service.
 # Modify environment properties in this script as appropriate.
 # Copy this script to the following location: /etc/systemd/system
@@ -5,7 +6,7 @@
 #               'systemctl start|enable {{ jdg.service.name }}'
 
 [Unit]
-Description=Infinispan Server Service
+Description={{ jdg.service.name }} service
 After=network.target
 
 [Service]

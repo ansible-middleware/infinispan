@@ -1,3 +1,51 @@
 ---
 supervisor_password:
 infinispan_users: []
+
+jdg_supervisor:
+  name: 'supervisor'
+  password: "{{ supervisor_password }}"
+  roles: 'admin'
+
+jdg:
+  home: "{{ jdg_default_installation_path if jdg_rhn_id is defined else infinispan_installation_path }}"
+  version: "{{ jdg_version if jdg_rhn_id is defined else infinispan_version }}"
+  bind_addr: "{{ jdg_bind_address }}"
+  port: "{{ jdg_port }}"
+  jgroups_bind_addr: "{{ override_jdg_jgroups_bind_addr | default(ansible_all_ipv4_addresses[0]) }}"
+  jgroups_port: "{{ jdg_jgroups_port }}"
+  jgroups_relay_port: "{{ jdg_jgroups_relay_port }}"
+  config:
+    name: "{{ override_jdg_config | default('jdg.xml') }}"
+    template: "{{ override_jdg_config_template | default('templates/infinispan.xml.j2') }}"
+    jgroups_template: "{{ override_jdg_config_jgroups_template | default('templates/jgroups-jdbcping.xml.j2') }}"
+    users: "{{ override_jdg_config_users_properties | default('users.properties') }}"
+    groups: "{{ override_jdg_config_group_properties | default('groups.properties') }}"
+  user:
+    name: "{{ override_jdg_user | default('jdg') }}"
+  group:
+    name: "{{ override_jdg_group | default('jdg') }}"
+  service:
+    name: "{{ override_jdg_service_name | default('jdg' if jdg_rhn_id is defined else 'infinispan') }}"
+  users: "{{ [ jdg_supervisor ] + infinispan_users }}"
+
+jdg_jgroups_jdbc:
+  mariadb:
+    enabled: "{{ jdg_jgroups_jdbcping }}"
+    driver_class: org.mariadb.jdbc.Driver
+    driver_jar_filename: "mariadb-java-client-2.7.4.jar"
+    driver_jar_url: "https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/2.7.4/mariadb-java-client-2.7.4.jar"
+    connection_url: "{{ mariadb_jdbc_url | default('jdbc:mariadb://localhost:3306/keycloak') }}"
+    db_user: "{{ mariadb_db_user | default('keycloak-user') }}"
+    db_password: "{{ mariadb_db_pass | default('keycloak-pass') }}"
+
+jdg_keycloak_cache:
+  enabled: "{{ infinispan_keycloak_caches }}"
+  caches:
+    - sessions
+    - offlineSessions
+    - clientSessions
+    - offlineClientSessions
+    - loginFailures
+    - actionTokens
+    - work

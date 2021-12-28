@@ -8,11 +8,17 @@ Role Defaults
 -------------
 
 | Variable | Description | Default |
-|:---------|:------------|:---------|
+|:---------|:------------|:--------|
 |`infinispan_keycloak_caches`| Creates remote caches for keycloak | `False` |
-|`override_jdg_port`| Alternate port for the service | `11222` |
-|`override_jdg_jgroups_port`| Alternate port for the jgroups cluster | `7800` |
-|`override_jdg_bind_addr`| Alternate bind address for the daemon | `localhost` |
+|`jdg_port`| Alternate port for the service | `11222` |
+|`jdg_jgroups_port`| Alternate port for the jgroups cluster | `7800` |
+|`jdg_jgroups_relay_port`| Alternate port for the jgroups relaying cluster | `7801` |
+|`jdg_bind_addr`| Alternate bind address for the daemon | `localhost` |
+|`jdg_jgroups_relay`| Enable cross-DC relaying | `False` |
+|`jdg_jgroups_relay_sites`| List of site names for cross-DC relaying | `[]` |
+|`jdg_jgroups_relay_site`| Site the inventory host is in when cross-DC is enabled | `''` |
+|`jdg_jgroups_jdbcping`| Enable clustering using JDBC PING discovery | `False` |
+
 
 
 Role Variables
@@ -32,6 +38,17 @@ infinispan_users:
   - { name: 'testuser1', password: 'test', roles: 'observer' }
   - { name: 'testuser2', password: 'test', roles: 'application' }
 ```
+
+The following are required when `jdg_jgroups_jdbcping` is enabled:
+
+| Variable | Description | Default |
+|:---------|:------------|:--------|
+|`mariadb_jdbc_url`| URL for connecting to database | `jdbc:mariadb://localhost:3306/keycloak` |
+|`mariadb_db_user`| Username for connecting to database | `keycloak-user` |
+|`mariadb_db_pass`| Password for connecting to database | `keycloak-pass` |
+
+When setting up cross-DC relaying, remember to also setup mariadb in active-active mode (ie. with galera cluster), and switch the JDBC to url to the `sequential` scheme.
+
 
 Dependencies
 ------------
