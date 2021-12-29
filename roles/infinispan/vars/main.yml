@@ -22,9 +22,9 @@ jdg:
     users: "{{ override_jdg_config_users_properties | default('users.properties') }}"
     groups: "{{ override_jdg_config_group_properties | default('groups.properties') }}"
   user:
-    name: "{{ override_jdg_user | default('jdg') }}"
+    name: "{{ jdg_service_user }}"
   group:
-    name: "{{ override_jdg_group | default('jdg') }}"
+    name: "{{ jdg_service_group }}"
   service:
     name: "{{ override_jdg_service_name | default('jdg' if jdg_rhn_id is defined else 'infinispan') }}"
   users: "{{ [ jdg_supervisor ] + infinispan_users }}"
@@ -48,4 +48,3 @@ jdg_keycloak_cache:
     - offlineClientSessions
     - loginFailures
     - actionTokens
-    - work

@@ -19,6 +19,8 @@ jdg_bind_address: localhost
 jdg_port: 11222
 jdg_jgroups_port: 7800
 jdg_jgroups_relay_port: 7801
+jdg_service_user: jdg
+jdg_service_group: jdg
 
 # flag to enable protocol encryption
 jdg_default_realm_tls: False
@@ -34,3 +36,6 @@ jdg_jgroups_relay_site: ''
 
 # flag to enable keycloak integration
 infinispan_keycloak_caches: False
+
+# flag to enable datasource for keycloak integration
+jdg_keycloak_persistence: False

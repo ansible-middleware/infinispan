@@ -83,25 +83,53 @@
     <cache-container name="keycloak" statistics="true">
 {% if jdg_jgroups_relay %}
       <transport cluster="{{ jdg_jgroups_relay_site }}" stack="xsite" node-name="{{ inventory_hostname }}"  machine="{{ inventory_hostname }}" site="{{ jdg_jgroups_relay_site }}"/>
-{% else %}
-      <transport cluster="datagrid" stack="datagrid" node-name="{{ inventory_hostname }}" machine="{{ inventory_hostname }}"/>
-{% endif %}
+      <replicated-cache name="work"/>
 {% for keycloak_cache in jdg_keycloak_cache.caches %}
-      <replicated-cache name="{{ keycloak_cache }}" mode="SYNC">
+      <distributed-cache name="{{ keycloak_cache }}" mode="SYNC" owners="2" xmlns:jdbc="urn:infinispan:config:store:jdbc:12.0">
+{% if jdg_keycloak_persistence %}
+        <persistence passivation="false">
+           <jdbc:string-keyed-jdbc-store fetch-state="false" shared="true" preload="false">
+               <jdbc:data-source jndi-url="jdbc/datasource"/>
+               <jdbc:string-keyed-table drop-on-exit="false" create-on-start="true" prefix="DATAGRID">
+                   <jdbc:id-column name="id" type="VARCHAR(255)"/>
+                   <jdbc:data-column name="datum" type="VARBINARY(4000)"/>
+                   <jdbc:timestamp-column name="version" type="BIGINT"/>
+                   <jdbc:segment-column name="S" type="INT"/>
+               </jdbc:string-keyed-table>
+            </jdbc:string-keyed-jdbc-store>
+        </persistence>
+{% else %}
         <transaction mode="NONE" locking="PESSIMISTIC"/>
         <locking acquire-timeout="0" />
+{% endif %}
         <backups>
 {% for site in jdg_jgroups_relay_sites %}
-            {% if site != jdg_jgroups_relay_site %}<backup site="{{ site }}" strategy="ASYNC"/>{% endif %}
+{% if site != jdg_jgroups_relay_site %}            <backup site="{{ site }}" strategy="ASYNC"/>
+{% endif %}
 {% endfor %}
         </backups>
-      </replicated-cache>
+      </distributed-cache>
+{% endfor %}
       <security>
         <authorization>
           <role name="{{ jdg_supervisor.name }}" permissions="READ WRITE EXEC CREATE"/>
         </authorization>
       </security>
+{% else %}
+      <transport cluster="datagrid" stack="datagrid" node-name="{{ inventory_hostname }}" machine="{{ inventory_hostname }}"/>
+      <replicated-cache name="work"/>
+{% for keycloak_cache in jdg_keycloak_cache.caches %}
+      <replicated-cache name="{{ keycloak_cache }}" mode="SYNC">
+        <transaction mode="NONE" locking="PESSIMISTIC"/>
+        <locking acquire-timeout="0" />
+      </replicated-cache>
 {% endfor %}
+      <security>
+        <authorization>
+          <role name="{{ jdg_supervisor.name }}" permissions="READ WRITE EXEC CREATE"/>
+        </authorization>
+      </security>
+{% endif %}
     </cache-container>
 {% endif %}
    <server xmlns="urn:infinispan:server:12.1">
@@ -140,7 +168,19 @@
             </security-realm>
          </security-realms>
       </security>
-
+{% if jdg_keycloak_persistence %}
+      <data-sources>
+        <data-source name="KeycloakDS" jndi-name="jdbc/datasource" statistics="true">
+          <connection-factory driver="{{ jdg_jgroups_jdbc.mariadb.driver_class }}"
+                              username="{{ jdg_jgroups_jdbc.mariadb.db_user }}"
+                              password="{{ jdg_jgroups_jdbc.mariadb.db_password }}"
+                              url="{{ jdg_jgroups_jdbc.mariadb.connection_url }}?useUnicode=true&amp;characterEncoding=UTF-8"
+                              new-connection-sql="SELECT 1" transaction-isolation="READ_COMMITTED">
+          </connection-factory>
+          <connection-pool initial-size="1" max-size="10"  min-size="3" background-validation="1000" idle-removal="1" blocking-timeout="1000" leak-detection="10000"/>
+        </data-source>
+      </data-sources>
+{% endif %}
       <endpoints socket-binding="default" security-realm="default">
         <hotrod-connector name="hotrod"/>
         <rest-connector name="rest">

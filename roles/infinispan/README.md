@@ -18,7 +18,9 @@ Role Defaults
 |`jdg_jgroups_relay_sites`| List of site names for cross-DC relaying | `[]` |
 |`jdg_jgroups_relay_site`| Site the inventory host is in when cross-DC is enabled | `''` |
 |`jdg_jgroups_jdbcping`| Enable clustering using JDBC PING discovery | `False` |
-
+|`jdg_keycloak_persistence`| Enable persitence datasource for keycloak caches | `False` |
+|`jdg_service_user`| posix account for the service installation | `jdg` |
+|`jdg_service_group`| posix group for the service installation | `jdg` |
 
 
 Role Variables
