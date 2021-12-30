@@ -1,6 +1,6 @@
 namespace: middleware_automation
 name: infinispan
-version: "0.0.11"
+version: "0.0.12"
 readme: README.md
 authors:
   - Romain Pelisse <rpelisse@redhat.com>
