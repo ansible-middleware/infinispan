@@ -31,13 +31,36 @@ jdg:
 
 jdg_jgroups_jdbc:
   mariadb:
-    enabled: "{{ jdg_jgroups_jdbcping }}"
+    enabled: "{{ jdg_jgroups_jdbcping and jdg_jdbc_engine == 'mariadb' }}"
     driver_class: org.mariadb.jdbc.Driver
     driver_jar_filename: "mariadb-java-client-2.7.4.jar"
     driver_jar_url: "https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/2.7.4/mariadb-java-client-2.7.4.jar"
-    connection_url: "{{ mariadb_jdbc_url | default('jdbc:mariadb://localhost:3306/keycloak') }}"
-    db_user: "{{ mariadb_db_user | default('keycloak-user') }}"
-    db_password: "{{ mariadb_db_pass | default('keycloak-pass') }}"
+    connection_url: "{{ jdg_jdbc_url | default('jdbc:mariadb://localhost:3306/keycloak') }}"
+    db_user: "{{ jdg_jdbc_user }}"
+    db_password: "{{ jdg_jdbc_pass }}"
+    initialize_db: >
+      CREATE TABLE IF NOT EXISTS JGROUPSPING (
+        own_addr varchar(200) NOT NULL,
+        cluster_name varchar(200) NOT NULL,
+        updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        ping_data varbinary(5000) DEFAULT NULL,
+        PRIMARY KEY (own_addr, cluster_name))
+      ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+  postgres:
+    enabled: "{{ jdg_jgroups_jdbcping and jdg_jdbc_engine == 'postgres' }}"
+    driver_class: org.postgresql.Driver
+    driver_jar_filename: "postgresql-9.4.1212.jar"
+    driver_jar_url: "https://repo.maven.apache.org/maven2/org/postgresql/postgresql/9.4.1212/postgresql-9.4.1212.jar"
+    connection_url: "{{ jdg_jdbc_url | default('jdbc:postgresql://localhost:5432/keycloak') }}"
+    db_user: "{{ jdg_jdbc_user }}"
+    db_password: "{{ jdg_jdbc_pass }}"
+    initialize_db: >
+      CREATE TABLE IF NOT EXISTS JGROUPSPING (
+        own_addr varchar(200) NOT NULL,
+        cluster_name varchar(200) NOT NULL,
+        updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        ping_data BYTEA,
+        constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name))
 
 jdg_keycloak_cache:
   enabled: "{{ infinispan_keycloak_caches }}"

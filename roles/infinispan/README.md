@@ -45,11 +45,12 @@ The following are required when `jdg_jgroups_jdbcping` is enabled:
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
-|`mariadb_jdbc_url`| URL for connecting to database | `jdbc:mariadb://localhost:3306/keycloak` |
-|`mariadb_db_user`| Username for connecting to database | `keycloak-user` |
-|`mariadb_db_pass`| Password for connecting to database | `keycloak-pass` |
+|`jdg_jdbc_engine`| backend database engine (values: `['mariadb','postgres']`) | `mariadb` |
+|`jdg_jdbc_url`| URL for jdbc connection | `jdbc:mariadb://localhost:3306/keycloak` |
+|`jdg_jdbc_user`| username for jdbc connection | `keycloak-user` |
+|`jdg_jdbc_pass`|password for jdbc connection | `keycloak-pass` |
 
-When setting up cross-DC relaying, remember to also setup mariadb in active-active mode (ie. with galera cluster), and switch the JDBC to url to the `sequential` scheme.
+When setting up cross-DC relaying, also setup mariadb in active-active mode (ie. with galera cluster), and switch the JDBC to url to the `sequential` scheme; similar configuration for other database engines.
 
 
 Dependencies

@@ -39,3 +39,9 @@ infinispan_keycloak_caches: False
 
 # flag to enable datasource for keycloak integration
 jdg_keycloak_persistence: False
+
+# datasource configuration
+jdg_jdbc_engine: mariadb
+jdg_jdbc_url: jdbc:mariadb://localhost:3306/keycloak
+jdg_jdbc_user: keycloak-user
+jdg_jdbc_pass: keycloak-pass
