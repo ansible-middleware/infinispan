@@ -38,7 +38,7 @@ jdg_jgroups_jdbc:
     connection_url: "{{ jdg_jdbc_url | default('jdbc:mariadb://localhost:3306/keycloak') }}"
     db_user: "{{ jdg_jdbc_user }}"
     db_password: "{{ jdg_jdbc_pass }}"
-    initialize_db: >
+    initialize_sql: >
       CREATE TABLE IF NOT EXISTS JGROUPSPING (
         own_addr varchar(200) NOT NULL,
         cluster_name varchar(200) NOT NULL,
@@ -54,7 +54,7 @@ jdg_jgroups_jdbc:
     connection_url: "{{ jdg_jdbc_url | default('jdbc:postgresql://localhost:5432/keycloak') }}"
     db_user: "{{ jdg_jdbc_user }}"
     db_password: "{{ jdg_jdbc_pass }}"
-    initialize_db: >
+    initialize_sql: >
       CREATE TABLE IF NOT EXISTS JGROUPSPING (
         own_addr varchar(200) NOT NULL,
         cluster_name varchar(200) NOT NULL,

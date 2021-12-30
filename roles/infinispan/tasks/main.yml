@@ -55,10 +55,10 @@
   notify:
     - restart infinispan
 
-- name: Download mariadb driver jar to target
+- name: Download database driver jar to target
   get_url:
-    url: "{{ jdg_jgroups_jdbc.mariadb.driver_jar_url }}"
-    dest: "{{ jdg.home }}/lib/{{ jdg_jgroups_jdbc.mariadb.driver_jar_filename }}"
+    url: "{{ jdg_jgroups_jdbc[jdg_jdbc_engine].driver_jar_url }}"
+    dest: "{{ jdg.home }}/lib/{{ jdg_jgroups_jdbc[jdg_jdbc_engine].driver_jar_filename }}"
     owner: "{{ jdg.user.name }}"
     group: "{{ jdg.group.name }}"
     mode: 0644
