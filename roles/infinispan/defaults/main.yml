@@ -1,7 +1,7 @@
 ---
 # Red Hat JDG specific config
 jdg_version: "8.2.0"
-jdg_default_installation_path: "/opt/redhat-datagrid-{{ jdg_version }}-server/"
+jdg_default_installation_path: "/opt/infinispan/redhat-datagrid-{{ jdg_version }}-server/"
 jdg_bundle: "jdg-{{ jdg_version }}.zip"
 jdg_download_url: 'https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId='
 
@@ -9,7 +9,7 @@ jdg_download_url: 'https://access.redhat.com/jbossnetwork/restricted/softwareDow
 infinispan_version: "12.1.7.Final"
 infinispan_bundle: "infinispan-server-{{ infinispan_version }}.zip"
 infinispan_download_url: "https://downloads.jboss.org/infinispan/{{ infinispan_version }}/{{ infinispan_bundle }}"
-infinispan_installation_path: "/opt/infinispan-server-{{ infinispan_version }}/"
+infinispan_installation_path: "/opt/infinispan/infinispan-server-{{ infinispan_version }}/"
 
 # common config for datagrid/infinispan service
 jdg_app_download_dir: "/opt/apps"

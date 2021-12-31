@@ -28,6 +28,11 @@
   register: path_to_downloaded_artefact
 
 - block:
+    - name: "Check work directory: {{ work_dir }}"
+      stat:
+        path: "{{ work_dir }}"
+      register: path_to_workdir
+
     - name: "Create work directory {{ work_dir }}"
       file:
         path: "{{ work_dir }}"
@@ -35,6 +40,7 @@
         owner: "{{ jdg.user.name }}"
         group: "{{ jdg.group.name }}"
         mode: 0750
+      when: not path_to_workdir.stat.exists
 
     - name: "Check target directory: {{ target_dir }}"
       stat:

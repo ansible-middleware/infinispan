@@ -17,11 +17,25 @@
         - archive_path.stat is defined
         - not archive_path.stat.exists
 
+    - name: "Check work directory: /opt/infinispan"
+      stat:
+        path: "/opt/infinispan"
+      register: path_to_workdir
+
+    - name: "Create work directory /opt/infinispan"
+      file:
+        path: "/opt/infinispan"
+        state: directory
+        owner: "{{ jdg.user.name }}"
+        group: "{{ jdg.group.name }}"
+        mode: 0750
+      when: not path_to_workdir.stat.exists
+
     - name: Extract infinispan archive on target
       unarchive:
         remote_src: yes
         src: "{{ archive }}"
-        dest: "/opt"
+        dest: "/opt/infinispan"
         creates: "{{ infinispan_installation_path }}"
         owner: "{{ jdg.user.name }}"
         group: "{{ jdg.group.name }}"
@@ -48,7 +62,7 @@
       vars:
         rhn_id_file: "{{ jdg_rhn_id }}"
         zipfile_dest: "{{ archive }}"
-        work_dir: "/opt"
+        work_dir: "/opt/infinispan"
         target_dir: "{{ jdg_default_installation_path }}"
   become: yes
   when: jdg_enable
