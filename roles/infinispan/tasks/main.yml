@@ -1,5 +1,6 @@
 ---
-- assert:
+- name: Validate parameters
+  assert:
     that:
       - jdg is defined
       - jdg.home is defined
@@ -8,10 +9,14 @@
       - jdg.group is defined
       - jdg.group.name is defined
       - jdg.version is defined
+      - jdg.config is defined
+      - jdg.config.name is defined
+      - jdg.service.name is defined
       - supervisor_password is defined and supervisor_password|length > 0
     quiet: true
 
-- include_tasks: prereqs.yml
+- name: Include prerequisite tasks
+  include_tasks: prereqs.yml
 
 - name: "Create group {{ jdg.group.name }}"
   group:
@@ -33,12 +38,15 @@
     group: "{{ jdg.group.name }}"
     mode: 0750
 
-- include_tasks: tasks/install.yml
+- name: Include install tasks
+  include_tasks: tasks/install.yml
 
-- debug:
+- name: Installation directory
+  debug:
     msg: "{{ 'Red Hat Datagrid' if jdg_rhn_id is defined else 'Infinispan' }} installed at path {{ jdg.home }}"
 
-- include_tasks: tasks/systemd.yml
+- name: Include systemd tasks
+  include_tasks: tasks/systemd.yml
 
 - name: "Ensures {{ jdg.service.name }} configuration is deployed: {{ jdg.config.name }}"
   template:
@@ -48,10 +56,17 @@
     group: "{{ jdg.group.name }}"
     mode: 0644
     backup: yes
-  when:
-    - jdg.config is defined
-    - jdg.config.name is defined
-    - jdg.service.name is defined
+  notify:
+    - restart infinispan
+
+- name: "Ensures {{ jdg.service.name }} log4j2 configuration is deployed"
+  template:
+    src: log4j2.xml.j2
+    dest: "{{ jdg.home }}/server/conf/log4j2.xml"
+    owner: "{{ jdg.user.name }}"
+    group: "{{ jdg.group.name }}"
+    mode: 0644
+    backup: yes
   notify:
     - restart infinispan
 
@@ -63,10 +78,10 @@
     group: "{{ jdg.group.name }}"
     mode: 0644
   when:
-    - jdg.config is defined
     - jdg_jgroups_jdbcping
 
-- include_tasks: jdg_user.yml
+- name: Include users tasks
+  include_tasks: jdg_user.yml
   vars:
     users: "{{ jdg.users }}"
   when:
@@ -79,7 +94,8 @@
     state: started
     enabled: yes
 
-- meta: flush_handlers
+- name: Flush handlers
+  meta: flush_handlers
 
 - name: "Wait for all used ports to be open"
   wait_for:

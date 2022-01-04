@@ -1,5 +1,6 @@
 ---
-- assert:
+- name: Validate parameters
+  assert:
     that:
       - zipfile_dest is defined
       - rhn_id_file is defined
@@ -7,7 +8,8 @@
       - rhn_password is defined
     quiet: true
 
-- set_fact:
+- name: Set full download url
+  set_fact:
     rhn_download_url: "{{ jdg_download_url }}{{ rhn_id_file }}"
 
 - name: "Install zipfile DataGrid from RHN: {{ rhn_download_url }}"
@@ -47,7 +49,8 @@
         path: "{{ target_dir }}"
       register: target_dir_state
 
-    - assert:
+    - name: Validate install directory layout
+      assert:
         that:
           - target_dir_state is defined
           - target_dir_state.stat is defined
@@ -67,7 +70,8 @@
       notify:
         - restart infinispan
 
-    - debug:
+    - name: Inform decompression was not executed
+      debug:
         msg: "{{ target_dir }} already exists, skipping decompressing {{ zipfile_dest }}"
       when:
         - target_dir_state.stat.exists

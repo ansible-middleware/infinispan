@@ -1,5 +1,6 @@
 ---
-- set_fact:
+- name: Set required packages facts
+  set_fact:
     required_packages:
     - zip
     - unzip

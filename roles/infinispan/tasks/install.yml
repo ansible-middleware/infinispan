@@ -1,8 +1,10 @@
 - block:
-    - set_fact:
+    - name: Set download archive path
+      set_fact:
         archive: "{{ jdg_app_download_dir }}/{{ infinispan_bundle }}"
 
-    - stat:
+    - name: Check download archive path
+      stat:
         path: "{{ archive }}"
       register: archive_path
 
@@ -17,14 +19,14 @@
         - archive_path.stat is defined
         - not archive_path.stat.exists
 
-    - name: "Check work directory: /opt/infinispan"
+    - name: "Check work directory: {{ jdg_app_download_dir }}"
       stat:
-        path: "/opt/infinispan"
+        path: "{{ jdg_app_download_dir }}"
       register: path_to_workdir
 
-    - name: "Create work directory /opt/infinispan"
+    - name: "Create work directory {{ jdg_app_download_dir }}"
       file:
-        path: "/opt/infinispan"
+        path: "{{ jdg_app_download_dir }}"
         state: directory
         owner: "{{ jdg.user.name }}"
         group: "{{ jdg.group.name }}"
@@ -35,7 +37,7 @@
       unarchive:
         remote_src: yes
         src: "{{ archive }}"
-        dest: "/opt/infinispan"
+        dest: "{{ jdg_app_download_dir }}"
         creates: "{{ infinispan_installation_path }}"
         owner: "{{ jdg.user.name }}"
         group: "{{ jdg.group.name }}"
@@ -45,24 +47,28 @@
   when: not jdg_enable
 
 - block:
-    - assert:
+    - name: Validate RHN product id
+      assert:
         that:
           - jdg_rhn_id is defined
         quiet: true
         fail_msg: "Can't install Red Hat Datagrid without RHN ID."
 
-    - set_fact:
+    - name: Set download archive path
+      set_fact:
         archive: "{{ jdg_app_download_dir }}/{{ jdg_bundle }}"
 
-    - stat:
+    - name: Check download archive path
+      stat:
         path: "{{ archive }}"
       register: archive_path
 
-    - include_tasks: download_from_rhn.yml
+    - name: Perform download from RHN
+      include_tasks: download_from_rhn.yml
       vars:
         rhn_id_file: "{{ jdg_rhn_id }}"
         zipfile_dest: "{{ archive }}"
-        work_dir: "/opt/infinispan"
+        work_dir: "{{ jdg_app_download_dir }}"
         target_dir: "{{ jdg_default_installation_path }}"
   become: yes
   when: jdg_enable

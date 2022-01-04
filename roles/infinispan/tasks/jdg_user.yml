@@ -1,5 +1,6 @@
 ---
-- assert:
+- name: Validate parameters
+  assert:
     that:
       - users is defined
       - users | length > 0

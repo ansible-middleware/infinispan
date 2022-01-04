@@ -1,5 +1,6 @@
 ---
-- assert:
+- name: Validate parameters
+  assert:
     that:
       - cache is defined
       - cache.name is defined
@@ -7,10 +8,12 @@
     quiet: true
 
 - block:
-    - include_tasks: query_cache.yml
+    - name: Check cache state
+      include_tasks: query_cache.yml
       vars:
         method: GET
   rescue:
-    - include_tasks: query_cache.yml
+    - name: Create cache
+      include_tasks: query_cache.yml
       vars:
         method: POST

@@ -143,9 +143,12 @@
 {% if jdg_default_realm_tls %}
                <server-identities>
                   <ssl>
-                     <keystore path="application.keystore"
-                               keystore-password="password" alias="server" key-password="password"
-                               generate-self-signed-certificate-host="localhost"/>
+                     <keystore path="{{ jdg_keystore.path }}"
+                               alias="{{ inventory_hostname }}"
+                               keystore-password="{{ jdg_keystore.password }}"
+{% if jdg_keystore.key_password|length > 0 %}                               key-password="{{ jdg_keystore.key_password }}"
+{% endif %}
+                     />
                   </ssl>
                </server-identities>
 {% endif %}              

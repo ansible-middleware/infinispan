@@ -1,7 +1,9 @@
 ---
+# required variables
 supervisor_password:
 infinispan_users: []
 
+# internal variables
 jdg_supervisor:
   name: 'supervisor'
   password: "{{ supervisor_password }}"
@@ -33,8 +35,9 @@ jdg_jgroups_jdbc:
   mariadb:
     enabled: "{{ jdg_jgroups_jdbcping and jdg_jdbc_engine == 'mariadb' }}"
     driver_class: org.mariadb.jdbc.Driver
-    driver_jar_filename: "mariadb-java-client-2.7.4.jar"
-    driver_jar_url: "https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/2.7.4/mariadb-java-client-2.7.4.jar"
+    driver_version: "{{ jdg_jdbc_driver_version | default('2.7.4') }}"
+    driver_jar_filename: "mariadb-java-client-{{ jdg_jdbc_driver_version }}.jar"
+    driver_jar_url: "https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/{{ jdg_jdbc_driver_version }}/mariadb-java-client-{{ jdg_jdbc_driver_version }}.jar"
     connection_url: "{{ jdg_jdbc_url | default('jdbc:mariadb://localhost:3306/keycloak') }}"
     db_user: "{{ jdg_jdbc_user }}"
     db_password: "{{ jdg_jdbc_pass }}"
@@ -49,8 +52,9 @@ jdg_jgroups_jdbc:
   postgres:
     enabled: "{{ jdg_jgroups_jdbcping and jdg_jdbc_engine == 'postgres' }}"
     driver_class: org.postgresql.Driver
-    driver_jar_filename: "postgresql-9.4.1212.jar"
-    driver_jar_url: "https://repo.maven.apache.org/maven2/org/postgresql/postgresql/9.4.1212/postgresql-9.4.1212.jar"
+    driver_version: "{{ jdg_jdbc_driver_version | default('9.4.1212') }}"
+    driver_jar_filename: "postgresql-{{ jdg_jdbc_driver_version }}.jar"
+    driver_jar_url: "https://repo.maven.apache.org/maven2/org/postgresql/postgresql/{{ jdg_jdbc_driver_version }}/postgresql-{{ jdg_jdbc_driver_version }}.jar"
     connection_url: "{{ jdg_jdbc_url | default('jdbc:postgresql://localhost:5432/keycloak') }}"
     db_user: "{{ jdg_jdbc_user }}"
     db_password: "{{ jdg_jdbc_pass }}"
@@ -71,3 +75,26 @@ jdg_keycloak_cache:
     - offlineClientSessions
     - loginFailures
     - actionTokens
+
+jdg_keystore:
+  enabled: "{{ jdg_default_realm_tls }}"
+  path: "{{ jdg_keystore_path }}"
+  password: "{{ jdg_keystore_password }}"
+  key_password: "{{ jdg_keystore_key_password }}"
+
+jdg_logging:
+  file_format: "{{ jdg_logfile_format }}"
+  root_level: "{{ jdg_logfile_root_level }}"
+  audit: "{{ 'INFO' if jdg_logfile_enable_audit else 'ERROR' }}"
+  hotrod: "{{ 'TRACE' if jdg_logfile_enable_hotrod_accesslog else 'INFO' }}"
+  rest: "{{ 'TRACE' if jdg_logfile_enable_rest_accesslog else 'INFO' }}"
+  size_based_limit: "{{ jdg_logfile_maxsize }}"
+  log_pattern: '%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p (%t) [%c] %m%throwable%n'
+  log_pattern_console: "{{ '%highlight{' + '%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p (%t) [%c] %m%throwable}' + '{INFO=normal, DEBUG=normal, TRACE=normal}%n' }}"
+  accesslog_pattern: '%X{address} %X{user} [%d{dd/MMM/yyyy:HH:mm:ss Z}] &quot;%X{method} %m %X{protocol}&quot; %X{status} %X{requestSize} %X{responseSize} %X{duration}%n'
+  auditlog_pattern: '%d{yyyy-MM-dd HH:mm:ss,SSS} %m%n'
+  file_rotate_pattern: '%d{yyyy-MM-dd}-%i'
+  json_timestamp: '$${date:yyyy-MM-dd''T''HH:mm:ss.SSSZ}'
+  loggers:
+    - { name: com.arjuna , level: WARN }
+    - { name: io.netty.handler.ssl.ApplicationProtocolNegotiationHandler , level: ERROR }

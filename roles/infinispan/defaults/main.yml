@@ -12,7 +12,7 @@ infinispan_download_url: "https://downloads.jboss.org/infinispan/{{ infinispan_v
 infinispan_installation_path: "/opt/infinispan/infinispan-server-{{ infinispan_version }}/"
 
 # common config for datagrid/infinispan service
-jdg_app_download_dir: "/opt/apps"
+jdg_app_download_dir: "/opt/infinispan"
 jdg_enable: "{{ True if jdg_rhn_id is defined else False }}"
 jdg_healthcheck: True
 jdg_bind_address: localhost
@@ -24,6 +24,9 @@ jdg_service_group: jdg
 
 # flag to enable protocol encryption
 jdg_default_realm_tls: False
+jdg_keystore_path: /etc/pki/java/cacerts
+jdg_keystore_password: changeit
+jdg_keystore_key_password: ''
 
 # flag to enable clustering on jdbc discovery
 jdg_jgroups_jdbcping: "{{ True if infinispan_keycloak_caches or jdg_jgroups_relay else False }}"
@@ -42,6 +45,21 @@ jdg_keycloak_persistence: False
 
 # datasource configuration
 jdg_jdbc_engine: mariadb
+jdg_jdbc_driver_version: 2.7.4
 jdg_jdbc_url: jdbc:mariadb://localhost:3306/keycloak
 jdg_jdbc_user: keycloak-user
 jdg_jdbc_pass: keycloak-pass
+
+# logging
+# main logfile format FILE or JSON-FILE
+jdg_logfile_format: FILE
+# root logging level TRACE, DEBUG, INFO, WARN, ERROR
+jdg_logfile_root_level: INFO
+# enable additional audit.log logfile
+jdg_logfile_enable_audit: True
+# enable additional hotrod-access.log
+jdg_logfile_enable_hotrod_accesslog: False
+# enable additional rest-access.log
+jdg_logfile_enable_rest_accesslog: False
+# max file size, triggers rotation
+jdg_logfile_maxsize: '100 MB'

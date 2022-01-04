@@ -21,6 +21,16 @@ Role Defaults
 |`jdg_keycloak_persistence`| Enable persitence datasource for keycloak caches | `False` |
 |`jdg_service_user`| posix account for the service installation | `jdg` |
 |`jdg_service_group`| posix group for the service installation | `jdg` |
+|`jdg_logfile_format` | main logfile format: FILE or JSON-FILE | `FILE` |
+|`jdg_logfile_root_level`| Root logging level: TRACE, DEBUG, INFO, WARN, ERROR | `INFO` |
+|`jdg_logfile_enable_audit` | Enable additional audit.log logfile | `True` |
+|`jdg_logfile_enable_hotrod_accesslog` | Enable additional hotrod-access.log | `False` |
+|`jdg_logfile_enable_rest_accesslog` | Enable additional rest-access.log | `False` |
+|`jdg_logfile_maxsize` | Max file size, triggers rotation | `100 MB` |
+|`jdg_default_realm_tls`| Enable TLS server certificate | `False` |
+|`jdg_keystore_path`| Path to keystore containing server identity certificate | `/etc/pki/java/cacerts` |
+|`jdg_keystore_password`| Keystore password | `changeit` |
+|`jdg_keystore_key_password` | Key passphrase for TLS server identity | `''`|
 
 
 Role Variables
@@ -46,6 +56,7 @@ The following are required when `jdg_jgroups_jdbcping` is enabled:
 | Variable | Description | Default |
 |:---------|:------------|:--------|
 |`jdg_jdbc_engine`| backend database engine (values: `['mariadb','postgres']`) | `mariadb` |
+|`jdg_jdbc_driver_version`| driver version to download | `2.7.4` |
 |`jdg_jdbc_url`| URL for jdbc connection | `jdbc:mariadb://localhost:3306/keycloak` |
 |`jdg_jdbc_user`| username for jdbc connection | `keycloak-user` |
 |`jdg_jdbc_pass`|password for jdbc connection | `keycloak-pass` |

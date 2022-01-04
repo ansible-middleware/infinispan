@@ -1,5 +1,6 @@
 ---
-- assert:
+- name: Validate parameters
+  assert:
     that:
       - cache is defined
       - cache.name is defined
@@ -7,7 +8,8 @@
       - method is defined
     quiet: true
 
-- set_fact:
+- name: Set query facts
+  set_fact:
     rest_cache_api_path: /rest/v2/caches/
 
 - name: "Ensures cache {{ cache.name }} exists."
