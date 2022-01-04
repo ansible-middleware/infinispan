@@ -97,7 +97,7 @@
 - name: Flush handlers
   meta: flush_handlers
 
-- name: "Wait for all used ports to be open"
+- name: "Wait for used port to be open"
   wait_for:
     port: "{{ jdg.port }}"
     delay: 0

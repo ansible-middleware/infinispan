@@ -1,4 +1,13 @@
 ---
+- name: Validate credentials
+  assert:
+    that:
+      - (rhn_username is defined and jdg_rhn_id is defined) or jdg_rhn_id is not defined
+      - (rhn_password is defined and jdg_rhn_id is defined) or jdg_rhn_id is not defined
+    quiet: True
+    fail_msg: "Cannot install Red Hat DataGrid without RHN credentials. Check rhn_username and rhn_password are defined"
+    success_msg: "{{ 'Installing Red Hat DataGrid' if jdg_rhn_id is defined else 'Installing Infinispan' }}"
+
 - name: Set required packages facts
   set_fact:
     required_packages:
@@ -6,9 +15,9 @@
     - unzip
     - procps-ng
     - initscripts
-    - "{{ jvm_package | default('java-1.8.0-openjdk-devel') }}"
+    - "{{ jvm_package }}"
 
-- name: "Ensures required packages are installed"
+- name: Ensures required packages are installed
   ansible.builtin.include_tasks: fastpackages/install.yml
   vars:
     packages_list: "{{ required_packages }}"
