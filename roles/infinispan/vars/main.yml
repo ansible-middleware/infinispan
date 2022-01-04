@@ -96,5 +96,5 @@ jdg_logging:
   file_rotate_pattern: '%d{yyyy-MM-dd}-%i'
   json_timestamp: '$${date:yyyy-MM-dd''T''HH:mm:ss.SSSZ}'
   loggers:
-    - { name: com.arjuna , level: WARN }
-    - { name: io.netty.handler.ssl.ApplicationProtocolNegotiationHandler , level: ERROR }
+    - { name: com.arjuna, level: WARN }
+    - { name: io.netty.handler.ssl.ApplicationProtocolNegotiationHandler, level: ERROR }
