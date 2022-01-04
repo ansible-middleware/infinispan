@@ -12,6 +12,7 @@ infinispan_download_url: "https://downloads.jboss.org/infinispan/{{ infinispan_v
 infinispan_installation_path: "/opt/infinispan/infinispan-server-{{ infinispan_version }}/"
 
 # common config for datagrid/infinispan service
+jvm_package: java-1.8.0-openjdk-devel
 jdg_app_download_dir: "/opt/infinispan"
 jdg_enable: "{{ True if jdg_rhn_id is defined else False }}"
 jdg_healthcheck: True
