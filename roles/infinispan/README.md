@@ -30,6 +30,7 @@ Role Defaults
 |`jdg_default_realm_tls`| Enable TLS server certificate | `False` |
 |`jdg_keystore_path`| Path to keystore containing server identity certificate | `/etc/pki/java/cacerts` |
 |`jdg_keystore_password`| Keystore password | `changeit` |
+|`jdg_keystore_alias`| Alias for the certificate to load from keystore | `{{ inventory_hostname }}` |
 |`jdg_keystore_key_password` | Key passphrase for TLS server identity | `''`|
 |`jvm_package`| RHEL java package runtime | `java-1.8.0-openjdk-devel` |
 

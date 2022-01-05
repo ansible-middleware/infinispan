@@ -144,7 +144,7 @@
                <server-identities>
                   <ssl>
                      <keystore path="{{ jdg_keystore.path }}"
-                               alias="{{ inventory_hostname }}"
+                               alias="{{ jdg_keystore.alias }}"
                                keystore-password="{{ jdg_keystore.password }}"
 {% if jdg_keystore.key_password|length > 0 %}                               key-password="{{ jdg_keystore.key_password }}"
 {% endif %}

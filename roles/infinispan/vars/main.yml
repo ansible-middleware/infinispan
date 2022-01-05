@@ -81,6 +81,7 @@ jdg_keystore:
   path: "{{ jdg_keystore_path }}"
   password: "{{ jdg_keystore_password }}"
   key_password: "{{ jdg_keystore_key_password }}"
+  alias: "{{ jdg_keystore_alias }}"
 
 jdg_logging:
   file_format: "{{ jdg_logfile_format }}"

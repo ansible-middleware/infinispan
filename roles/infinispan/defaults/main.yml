@@ -27,6 +27,7 @@ jdg_service_group: jdg
 jdg_default_realm_tls: False
 jdg_keystore_path: /etc/pki/java/cacerts
 jdg_keystore_password: changeit
+jdg_keystore_alias: "{{ inventory_hostname }}"
 jdg_keystore_key_password: ''
 
 # flag to enable clustering on jdbc discovery
