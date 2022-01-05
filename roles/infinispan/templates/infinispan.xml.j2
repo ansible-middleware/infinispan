@@ -75,6 +75,7 @@
 {% for keycloak_cache in jdg_keycloak_cache.caches %}
       <distributed-cache name="{{ keycloak_cache }}" mode="SYNC" owners="2" xmlns:jdbc="urn:infinispan:config:store:jdbc:12.0">
         <encoding media-type="application/x-jboss-marshalling"/>
+        <state-transfer timeout="60000"/>
 {% if jdg_keycloak_persistence %}
         <persistence passivation="false">
            <jdbc:string-keyed-jdbc-store fetch-state="false" shared="true" preload="false">
@@ -90,7 +91,6 @@
 {% else %}
         <transaction mode="NONE" locking="PESSIMISTIC"/>
         <locking acquire-timeout="0" />
-        <state-transfer timeout="60000"/>
 {% endif %}
         <backups>
 {% for site in jdg_jgroups_relay_sites %}
