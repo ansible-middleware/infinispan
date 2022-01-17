@@ -9,7 +9,6 @@ Role Defaults
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
-|`infinispan_keycloak_caches`| Creates remote caches for keycloak | `False` |
 |`jdg_port`| Alternate port for the service | `11222` |
 |`jdg_jgroups_port`| Alternate port for the jgroups cluster | `7800` |
 |`jdg_jgroups_relay_port`| Alternate port for the jgroups relaying cluster | `7801` |
@@ -32,6 +31,7 @@ Role Defaults
 |`jdg_keystore_password`| Keystore password | `changeit` |
 |`jdg_keystore_alias`| Alias for the certificate to load from keystore | `{{ inventory_hostname }}` |
 |`jdg_keystore_key_password` | Key passphrase for TLS server identity | `''`|
+|`infinispan_keycloak_caches`| Creates remote caches for keycloak | `False` |
 |`jvm_package`| RHEL java package runtime | `java-1.8.0-openjdk-devel` |
 
 
@@ -91,6 +91,7 @@ The following is an example playbook that makes use of the role to install Infin
             infinispan_users: []
 ```
 
+
 Choosing what to install
 ------------------------
 
@@ -101,6 +102,7 @@ jdg_rhn_id: '98151'
 rhn_username: '<customer portal account username>'
 rhn_password: '<customer portal account password>'
 ```
+
 
 Keycloak integration
 --------------------
@@ -117,10 +119,12 @@ Enabling `infinispan_keycloak_caches` will prepare the following caches in a ded
 
 for more details, refer to the: [INSTALLATION AND CONFIGURATION GUIDE - 3.4.6. Infinispan caches](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.5/html-single/server_installation_and_configuration_guide/index#cache)
 
+
 License
 -------
 
 Apache License 2.0
+
 
 Author Information
 ------------------

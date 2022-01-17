@@ -105,7 +105,7 @@
     - jdg_healthcheck
     - jdg.port is defined
 
-- name: Create keycloak remote caches
+- name: Include tasks for keycloak remote caches
   include_tasks: keycloak.yml
   when:
     - jdg_keycloak_cache.enabled
