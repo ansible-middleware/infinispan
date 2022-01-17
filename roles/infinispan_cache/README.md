@@ -14,6 +14,7 @@ Role Defaults
 |:---------|:------------|:--------|
 |`jdg_port`| Alternate port for the service | `11222` |
 |`jdg_bind_addr`| Alternate bind address for the daemon | `localhost` |
+|`jdg_tls`| Server REST API/hotrod have TLS enable | `False` |
 |`deployer_user`| Username that performs the API call | `supervisor` |
 |`cache_xml`| XML declaration for the cache to deploy as string | `None` |
 |`cache_config`| dict object with configuration for the cache to deploy | `{}`, see below for specs |
@@ -32,7 +33,7 @@ The following are a set of required variables for the role:
 Dependencies
 ------------
 
-The role has currently no other dependency.
+The role has currently no other dependency. _python-lxml_ is needed on the host that executes this module.
 
 
 Example Playbook

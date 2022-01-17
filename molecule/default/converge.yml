@@ -20,3 +20,13 @@
         jdg_password: "itsme"
         cache:
           name: test_cache
+    - name: "infinispan cache role"
+      include_role:
+        name: infinispan_cache
+      vars:
+        deployer_user: "supervisor"
+        deployer_password: "itsme"
+        cache_xml: >
+          <local-cache name="testcachexml" statistics="true">
+            <encoding media-type="application/x-protostream"/>
+          </local-cache>

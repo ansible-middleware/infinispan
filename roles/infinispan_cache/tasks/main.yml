@@ -1,0 +1,54 @@
+---
+- name: Validate parameters - rest api url
+  assert:
+    that:
+      - jdg_url is defined
+    quiet: true
+    fail_msg: "REST API url is incorrectly configured."
+
+- name: Validate parameters - cache config
+  assert:
+    that:
+      - (cache_config is defined and cache_config.name is defined) or (cache_xml is defined and cache_xml|length > 0)
+    quiet: true
+    fail_msg: "Cache configuration must be passed either as XML string cache_xml or yaml dict cache_config"
+
+- name: Parse cache xml
+  xml:
+    xmlstring: "{{ cache_xml }}"
+    xpath: /*
+    content: attribute
+  register: cache_xml_name
+  when: cache_xml is defined and cache_xml|length > 0
+
+- name: Set cache name from xml
+  set_fact: 
+    cache_name: "{{ cache_xml_name.matches[0] | json_query('*.name|[0]') }}"
+  when: cache_xml is defined and cache_xml|length > 0
+
+- name: Set cache name from config
+  set_fact:
+    cache_name: "{{ cache_config.name }}"
+  when: cache_config is defined and cache_config.name is defined
+
+- block:
+  - name: "Check cache {{ cache_name }} state"
+    uri:
+      url: "{{ jdg_url }}{{ cache_name }}"
+      method: "GET"
+      user: "{{ deployer_user }}"
+      password: "{{ deployer_password }}"
+      force_basic_auth: yes
+      status_code: 404
+    register: cache_status
+  rescue:
+  - name: Ignore cache already existing
+    debug:
+      msg: "Cache {{cache_name}} already existing, skipping..."
+    when: cache_status.status in [200,201,204]
+  - name: Exit because rest call failed
+    fail:
+      msg: "Error while calling REST API"
+    when: cache_status.status not in [200,201,204]
+
+
