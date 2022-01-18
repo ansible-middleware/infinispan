@@ -3,8 +3,13 @@ infinispan_cache
 
 Configures [Infinispan](https://infinispan.org/) or [Red Hat DataGrid](https://www.redhat.com/en/technologies/jboss-middleware/data-grid) caches at runtime.
 
-This role allow to deploy a cache configuration from a provided xml file, or using ansible configuration, via infinispan hotrod or rest api; the configuration
-happens at runtime, and will be distributed to all nodes of the cluster, so it is executed with the `run_once` attribute.
+This role allows to deploy a cache configuration from a provided xml file, or using ansible configuration, via infinispan hotrod or rest api; the configuration
+happens at runtime, and will be distributed to all nodes of the cluster, so it is executed with the `run_once` attribute. To deploy cache configuration statically
+in the infinispan.xml server configuration, use the `infinispan` role instead.
+
+For more details, refer to:
+* [Configuring Infinispan Caches - 3.1 Declarative cache configuration](https://infinispan.org/docs/stable/titles/configuring/configuring.html#declarative-cache-configuration_cache-configuration)
+* [Configuring Infinispan Caches - 3.3 Creating remote caches](https://infinispan.org/docs/stable/titles/configuring/configuring.html#creating-remote-caches)
 
 
 Role Defaults
