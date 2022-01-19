@@ -11,7 +11,7 @@
     that:
       - (cache_config is defined and cache_config.name is defined) or (cache_xml is defined and cache_xml|length > 0)
     quiet: true
-    fail_msg: "Cache configuration must be passed either as XML string cache_xml or yaml dict cache_config"
+    fail_msg: "Cache configuration must be passed either as XML string `cache_xml` or as yaml dict `cache_config`."
 
 - name: Parse cache xml
   xml:
@@ -51,4 +51,20 @@
       msg: "Error while calling REST API"
     when: cache_status.status not in [200,201,204]
 
+- name: Assemble yaml template into xmlstring
+  set_fact:
+    cache_xml: "{{ lookup('template', 'templates/'+cache_config.template+'.j2') }}"
 
+- name: "Create cache {{ cache_name }}"
+  uri:
+    url: "{{ jdg_url }}{{ cache_name }}"
+    method: "POST"
+    body: "{{ cache_xml }}"
+    headers:
+      Content-Type: application/xml
+    user: "{{ deployer_user }}"
+    password: "{{ deployer_password }}"
+    force_basic_auth: yes
+    status_code:
+      - 200
+      - 201

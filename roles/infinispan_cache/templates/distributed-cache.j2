@@ -1,0 +1,55 @@
+<distributed-cache name="{{ cache_config.name }}"
+                   mode="{{ cache_config.mode|default('SYNC') }}"
+                   owners="{{ cache_config.owners|default('2') }}"
+                   capacity-factor="{{ cache_config.capacity_factor|default('1.0') }}"
+                   remote-timeout="{{ cache_config.remote_timeout|default('60000') }}"
+                   statistics="{{ cache_config.statistics|default('false') }}"
+                   segments="{{ cache_config.segments|default('256') }}"
+                   unreliable-return-values="{{ cache_config.unreliable_return_values|default('false') }}">
+
+{% if cache_config.encoding is defined %}
+  <encoding media-type="{{ cache_config.encoding|default('application/x-protostream') }}"/>
+{% endif %}
+  <locking isolation="{{ cache_config.isolation|default('REPEATABLE_READ') }}"
+           striping="{{ cache_config.isolation_striping|default('false') }}"
+           acquire-timeout="{{ cache_config.isolation_acquire_timeout|default('10000') }}"
+           concurrency-level="{{ cache_config.isolation_concurrency_level|default('32') }}"/>
+
+  <transaction mode="{{ cache_config.transaction_mode|default('NONE') }}" 
+               locking="{{ cache_config.transaction_locking|default('OPTIMISTIC') }}"/>
+
+  <expiration lifespan="{{ cache_config.expiration_lifespan|default('-1') }}" 
+              max-idle="{{ cache_config.expiration_max_idle|default('-1') }}"
+              interval="{{ cache_config.expiration_interval|default('60000') }}" />
+
+  <memory max-count="{{ cache_config.memory_max_count|default('-1') }}" 
+          max-size="{{ cache_config.memory_max_size|default('') }}"
+          when-full="{{ cache_config.memory_when_full|default('NONE') }}"
+          storage="{{ cache_config.memory_storage|default('HEAP') }}"/>
+
+  <indexing enabled="{{ cache_config.indexing|default('false') }}" 
+            storage="{{ cache_config.indexing_storage|default('filesystem') }}"
+            path="{{ cache_config.indexing_path|default('.') }}" />
+
+  <partition-handling when-split="{{ cache_config.partition_handling_when_split|default('ALLOW_READ_WRITES') }}" />
+
+{% if cache_config.persistence is defined and cache_config.persistence %}
+  <persistence passivation="{{ cache_config.persistence_passivation|default('false') }}">
+    <jdbc:string-keyed-jdbc-store fetch-state="false" shared="true" preload="false">
+      <jdbc:data-source jndi-url="{{ cache_config.persistence_jndi_url|default('jdbc/datasource') }}"/>
+      <jdbc:string-keyed-table drop-on-exit="false" create-on-start="true" prefix="{{ cache_config.persistence_prefix|default('DATAGRID') }}">
+        <jdbc:id-column name="id" type="VARCHAR(255)"/>
+        <jdbc:data-column name="datum" type="VARBINARY(4000)"/>
+        <jdbc:timestamp-column name="version" type="BIGINT"/>
+        <jdbc:segment-column name="S" type="INT"/>
+      </jdbc:string-keyed-table>
+    </jdbc:string-keyed-jdbc-store>    
+  </persistence>
+{% endif %}
+
+  <state-transfer enabled="{{ cache_config.state_transfer|default('false') }}"
+                  timeout="{{ cache_config.state_transfer_timeout|default('240000') }}"
+                  chunk-size="{{ cache_config.state_transfer_chunk_size|default('240000') }}"
+                  await-initial-transfer="{{ cache_config.state_transfer_await_initial_transfer|default('true') }}">
+  </state-transfer>
+</distributed-cache>
