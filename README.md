@@ -29,6 +29,22 @@ collections:
   - name: middleware_automation.infinispan
 ```
 
+The infinispan collection also depends on the following python packages to be present on the controller host:
+
+* lxml
+* jmespath
+
+A requirement file is provided to install:
+
+    pip install -r requirements.txt
+
+
+### Included roles
+
+* `infinispan`: performs an installation of Infinispan or DataGrid nodes or cluster, with configuration of static caches.
+* `infinispan_cache`: creates Infinispan or DataGrid caches at runtime.
+
+
 ### Choosing between Red Hat products and upstream project
 
 The roles supports installing Red Hat Datagrid from the Customer Portal, when the following variables are defined:
@@ -40,6 +56,7 @@ jdg_rhn_id: '<datagrid_product_id>'
 ```
 
 where `datagrid_product_id` is the ID for the specific Data Grid version, ie. _98151_ will install version _8.2.0_)
+
 
 ## License
 

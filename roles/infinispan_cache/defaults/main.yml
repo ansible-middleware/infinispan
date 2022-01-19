@@ -3,5 +3,5 @@ jdg_bind_address: localhost
 jdg_port: 11222
 jdg_tls: False
 deployer_user: supervisor
-cache_xml: None
+cache_xml: ''
 cache_config: {}

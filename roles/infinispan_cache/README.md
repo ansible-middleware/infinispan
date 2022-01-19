@@ -25,6 +25,12 @@ Role Defaults
 |`cache_config`| dict object with configuration for the cache to deploy | `{}`, see below for specs |
 
 
+where:
+
+* `cache_xml` is an xml cache declaration validating against infinispan cache [xsd](https://infinispan.org/schemas/infinispan-config-12.1.xsd).
+* `cache_config` is a yaml dict for templating the cache xml, refer to the [templates](templates/) directory for accepted variables.
+
+
 Role Variables
 --------------
 
@@ -38,26 +44,71 @@ The following are a set of required variables for the role:
 Dependencies
 ------------
 
-The role has currently no other dependency. _python-lxml_ is needed on the host that executes this module.
+The role has currently no other dependency. Python _lxml_ and _jmespath_ libraries are needed on the host that executes this module.
+To install, from the collection root directory, run:
+
+    pip install -r requirements.txt
 
 
 Example Playbook
 ----------------
 
-The following is an example playbook that makes use of the role to install Infinispan
+The following are example playbooks that make use of the role to create Infinispan caches:
 
 ```yaml
----
-- hosts: ...
+- hosts: [...]
       collections:
         - middleware_automation.infinispan
       tasks:
-        - name: Include Infinispan cache role
-          include_role:
-            name: infinispan_cache
-          vars:
-            deployer_password: changeme
-            cache_xml: "{{lookup('file', 'templates/my_cache.xml') }}"
+       - name: Include Infinispan cache role
+         include_role:
+           name: infinispan_cache
+         vars:
+           deployer_password: changeme
+           cache_xml: "{{lookup('file', 'templates/my_cache.xml') }}"
+```
+
+```yaml
+- hosts: [...]
+      collections:
+        - middleware_automation.infinispan
+      tasks:
+       - name: Include Infinispan cache role
+         include_role:
+           name: infinispan_cache
+         vars:
+           deployer_password: changeme
+           cache_xml: >
+             <local-cache name="testcachexml" statistics="true">
+               <encoding media-type="application/x-protostream"/>
+             </local-cache>
+```
+
+
+```yaml
+- hosts: [...]
+      collections:
+        - middleware_automation.infinispan
+      tasks:
+       - name: "infinispan cache role (yml)"
+         include_role:
+           name: ../../roles/infinispan_cache
+         vars:
+           deployer_user: "supervisor"
+           deployer_password: "itsme"
+           cache_config:
+             name: configuredcache
+             template: replicated
+             mode: ASYNC
+             unreliable_return_values: true
+             transaction_mode: NONE
+             transaction_locking: PESSIMISTIC
+             memory_max_size: '100MB'
+             memory_when_full: 'REMOVE'
+             expiration_lifespan: 60000
+             expiration_max_idle: 10000
+             persistence: false
+             indexing: false
 ```
 
 
