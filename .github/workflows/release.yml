@@ -47,7 +47,7 @@ jobs:
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.TRIGGERING_USER }}
+          token: ${{ secrets.TRIGGERING_PAT }}
           repository: ${{ matrix.repo }}
           event-type: "Dependency released - Infinispan"
           client-payload: "{ 'repository': '$GITHUB_REPOSITORY', 'version': '${GITHUB_REF#refs/tags/}' }"
