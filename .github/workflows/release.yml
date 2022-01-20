@@ -50,4 +50,4 @@ jobs:
           token: ${{ secrets.TRIGGERING_PAT }}
           repository: ${{ matrix.repo }}
           event-type: "Dependency released - Infinispan"
-          client-payload: "{ 'repository': '$GITHUB_REPOSITORY', 'version': '${GITHUB_REF#refs/tags/}' }"
+          client-payload: '{ "repository": "$GITHUB_REPOSITORY", "version": "${GITHUB_REF#refs/tags/}" }'
