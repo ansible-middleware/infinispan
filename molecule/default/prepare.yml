@@ -7,4 +7,5 @@
         name:
           - sudo
           - iproute
+          - python3-lxml
         state: present

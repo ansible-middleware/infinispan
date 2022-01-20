@@ -1,0 +1,8 @@
+---
+# Required variables
+deployer_password:
+
+# Internal variables
+jdg_rest_cache_api_path: /rest/v2/caches/
+jdg_scheme: "{{ 'https' if jdg_tls else 'http' }}"
+jdg_url: "{{ jdg_scheme }}://{{ jdg_bind_address }}:{{ jdg_port }}{{ jdg_rest_cache_api_path }}"

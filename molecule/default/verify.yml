@@ -26,3 +26,36 @@
         that:
           - test_cache_status.json.size == 1
         fail_msg: "Test cache error"
+    - name: "Check test cache (xml) status"
+      ansible.builtin.uri:
+        url: http://localhost:11222/rest/v2/caches/testcachexml
+        url_username: "supervisor"
+        url_password: "itsme"
+      register: test_cache_status
+    - assert:
+        that:
+          - test_cache_status.status == 200
+          - test_cache_status.json.size == 0
+        fail_msg: "Test cache via XML error"
+    - name: "Check test cache (yml) status"
+      ansible.builtin.uri:
+        url: http://localhost:11222/rest/v2/caches/configuredcache
+        url_username: "supervisor"
+        url_password: "itsme"
+      register: test_cache_status
+    - assert:
+        that:
+          - test_cache_status.status == 200
+          - test_cache_status.json.size == 0
+        fail_msg: "Test cache via YML error"
+    - name: "Check test cache (yml) status"
+      ansible.builtin.uri:
+        url: http://localhost:11222/rest/v2/caches/configuredcachexa
+        url_username: "supervisor"
+        url_password: "itsme"
+      register: test_cache_status
+    - assert:
+        that:
+          - test_cache_status.status == 200
+          - test_cache_status.json.size == 0
+        fail_msg: "Test cache via YML error"        

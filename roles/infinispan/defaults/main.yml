@@ -65,3 +65,6 @@ jdg_logfile_enable_hotrod_accesslog: False
 jdg_logfile_enable_rest_accesslog: False
 # max file size, triggers rotation
 jdg_logfile_maxsize: '100 MB'
+
+# declarative cache configuration
+jdg_caches: []

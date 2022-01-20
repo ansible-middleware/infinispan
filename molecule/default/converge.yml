@@ -20,3 +20,54 @@
         jdg_password: "itsme"
         cache:
           name: test_cache
+    - name: "infinispan cache role (xml)"
+      include_role:
+        name: ../../roles/infinispan_cache
+      vars:
+        deployer_user: "supervisor"
+        deployer_password: "itsme"
+        cache_xml: >
+          <local-cache name="testcachexml" statistics="true">
+            <encoding media-type="application/x-protostream"/>
+          </local-cache>
+    - name: "infinispan cache role (yml)"
+      include_role:
+        name: ../../roles/infinispan_cache
+      vars:
+        deployer_user: "supervisor"
+        deployer_password: "itsme"
+        cache_config:
+          name: configuredcache
+          template: replicated
+          mode: ASYNC
+          unreliable_return_values: true
+          transaction_mode: NONE
+          transaction_locking: PESSIMISTIC
+          memory_max_size: '100MB'
+          memory_when_full: 'REMOVE'
+          expiration_lifespan: 60000
+          expiration_max_idle: 10000
+          persistence: false
+          indexing: false
+    - name: "infinispan cache role (yml trasanctional)"
+      include_role:
+        name: ../../roles/infinispan_cache
+      vars:
+        deployer_user: "supervisor"
+        deployer_password: "itsme"
+        cache_config:
+          name: configuredcachexa
+          template: distributed
+          mode: SYNC
+          unreliable_return_values: true
+          transaction_mode: FULL_XA
+          transaction_locking: PESSIMISTIC
+          memory_max_count: '1000'
+          memory_when_full: 'REMOVE'
+          expiration_lifespan: 600000
+          expiration_max_idle: 30000
+          persistence: false
+          indexing: true
+          indexing_entities:
+            - org.infinispan.sample.Car
+            - book_sample.Book

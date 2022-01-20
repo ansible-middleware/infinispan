@@ -16,3 +16,13 @@
       vars:
         supervisor_password: "itsme"
         infinispan_users: []
+    - name: "infinispan cache"
+      include_role:
+        name: infinispan_cache
+      vars:
+        deployer_user: "supervisor"
+        deployer_password: "itsme"
+        cache_xml: >
+          <local-cache name="testcache" statistics="true">
+            <encoding media-type="application/x-protostream"/>
+          </local-cache>"  

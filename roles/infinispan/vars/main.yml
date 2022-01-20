@@ -4,6 +4,8 @@ supervisor_password:
 infinispan_users: []
 
 # internal variables
+rest_cache_api_path: /rest/v2/caches/
+
 jdg_supervisor:
   name: 'supervisor'
   password: "{{ supervisor_password }}"
