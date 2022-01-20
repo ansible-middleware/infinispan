@@ -71,11 +71,16 @@
     <cache-container name="keycloak" statistics="true">
 {% if jdg_jgroups_relay %}
       <transport cluster="{{ jdg_jgroups_relay_site }}" stack="xsite" node-name="{{ inventory_hostname }}"  machine="{{ inventory_hostname }}" site="{{ jdg_jgroups_relay_site }}"/>
-      <replicated-cache name="work"/>
+      <replicated-cache name="work">
+        <encoding media-type="application/x-jboss-marshalling"/>
+        <transaction mode="NON_XA"/>
+      </replicated-cache>
 {% for keycloak_cache in jdg_keycloak_cache.caches %}
       <distributed-cache name="{{ keycloak_cache }}" mode="SYNC" owners="2" xmlns:jdbc="urn:infinispan:config:store:jdbc:12.0">
         <encoding media-type="application/x-jboss-marshalling"/>
         <state-transfer timeout="60000"/>
+        <transaction mode="NON_XA"/>
+        <locking acquire-timeout="0" />
 {% if jdg_keycloak_persistence %}
         <persistence passivation="false">
            <jdbc:string-keyed-jdbc-store fetch-state="false" shared="true" preload="false">
@@ -88,9 +93,6 @@
                </jdbc:string-keyed-table>
             </jdbc:string-keyed-jdbc-store>
         </persistence>
-{% else %}
-        <transaction mode="NONE" locking="PESSIMISTIC"/>
-        <locking acquire-timeout="0" />
 {% endif %}
         <backups>
 {% for site in jdg_jgroups_relay_sites %}
@@ -107,7 +109,10 @@
       </security>
 {% else %}
       <transport cluster="datagrid" stack="datagrid" node-name="{{ inventory_hostname }}" machine="{{ inventory_hostname }}"/>
-      <replicated-cache name="work"/>
+      <replicated-cache name="work">
+        <encoding media-type="application/x-jboss-marshalling"/>
+        <transaction mode="NON_XA"/>
+      </replicated-cache>
 {% for keycloak_cache in jdg_keycloak_cache.caches %}
       <replicated-cache name="{{ keycloak_cache }}" mode="SYNC">
         <transaction mode="NONE" locking="PESSIMISTIC"/>
