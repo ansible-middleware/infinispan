@@ -48,6 +48,12 @@
 - name: Include systemd tasks
   include_tasks: tasks/systemd.yml
 
+- name: Link default logs directory
+  file:
+    state: link
+    src: "{{ jdg.home }}/server/log"
+    dest: /var/log/infinispan
+
 - name: "Ensures {{ jdg.service.name }} configuration is deployed: {{ jdg.config.name }}"
   template:
     src: "{{ jdg.config.template }}"

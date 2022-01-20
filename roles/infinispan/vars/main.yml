@@ -77,6 +77,7 @@ jdg_keycloak_cache:
     - offlineClientSessions
     - loginFailures
     - actionTokens
+    - authenticationSessions
 
 jdg_keystore:
   enabled: "{{ jdg_default_realm_tls }}"
