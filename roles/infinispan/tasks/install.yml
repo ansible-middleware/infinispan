@@ -1,77 +1,102 @@
-- block:
-    - name: Set download archive path
-      set_fact:
-        archive: "{{ jdg_app_download_dir }}/{{ infinispan_bundle }}"
+---
+## check remote archive
+- name: Set download archive path
+  set_fact:
+    archive: "{{ jdg_app_download_dir }}/{{ jdg.bundle }}"
 
-    - name: Check download archive path
-      stat:
-        path: "{{ archive }}"
-      register: archive_path
+- name: Check download archive path
+  stat:
+    path: "{{ archive }}"
+  register: archive_path
 
-    - name: Download infinispan archive to target
-      get_url:
-        url: "{{ infinispan_download_url }}"
-        dest: "{{ archive }}"
-        owner: "{{ jdg.user.name }}"
-        group: "{{ jdg.group.name }}"
-      when:
-        - archive_path is defined
-        - archive_path.stat is defined
-        - not archive_path.stat.exists
+## download
+- name: Download infinispan archive to target
+  get_url:
+    url: "{{ infinispan_download_url }}"
+    dest: "{{ jdg.bundle }}"
+  delegate_to: localhost
+  when:
+    - archive_path is defined
+    - archive_path.stat is defined
+    - not archive_path.stat.exists
+    - not jdg_enable
+    - not jdg_offline_install
 
-    - name: "Check work directory: {{ jdg_app_download_dir }}"
-      stat:
-        path: "{{ jdg_app_download_dir }}"
-      register: path_to_workdir
+- name: Performing download from RHN
+  redhat_csp_download:
+    url: "{{ jdg_download_url }}"
+    dest: "{{ jdg.bundle }}"
+    username: "{{ rhn_username }}"
+    password: "{{ rhn_password }}"
+  no_log: "{{ omit_rhn_output | default(true) }}"
+  delegate_to: localhost
+  when:
+    - archive_path is defined
+    - archive_path.stat is defined
+    - not archive_path.stat.exists
+    - jdg_enable
+    - not jdg_offline_install
+    - jdg_download_url is match(jdg_rhn_url+".*")
 
-    - name: "Create work directory {{ jdg_app_download_dir }}"
-      file:
-        path: "{{ jdg_app_download_dir }}"
-        state: directory
-        owner: "{{ jdg.user.name }}"
-        group: "{{ jdg.group.name }}"
-        mode: 0750
-      when: not path_to_workdir.stat.exists
+- name: Download DataGrid archive from alternate location
+  get_url:
+    url: "{{ jdg_download_url }}"
+    dest: "{{ jdg.bundle }}"
+  delegate_to: localhost
+  when:
+    - archive_path is defined
+    - archive_path.stat is defined
+    - not archive_path.stat.exists
+    - jdg_enable
+    - not jdg_offline_install
+    - not jdg_download_url is match(jdg_rhn_url+".*")
 
-    - name: Extract infinispan archive on target
-      unarchive:
-        remote_src: yes
-        src: "{{ archive }}"
-        dest: "{{ jdg_app_download_dir }}"
-        creates: "{{ infinispan_installation_path }}"
-        owner: "{{ jdg.user.name }}"
-        group: "{{ jdg.group.name }}"
-      notify:
-        - restart infinispan
+## copy and unpack
+- name: "Copy archive to target nodes"
+  copy:
+    src: "{{ jdg.bundle }}"
+    dest: "{{ archive }}"
+    owner: "{{ jdg.user.name }}"
+    group: "{{ jdg.group.name }}"
+    mode: 0750
+  register: new_version_downloaded
   become: yes
-  when: not jdg_enable
 
-- block:
-    - name: Validate RHN product id
-      assert:
-        that:
-          - jdg_rhn_id is defined
-        quiet: true
-        fail_msg: "Can't install Red Hat Datagrid without RHN ID."
-
-    - name: Set download archive path
-      set_fact:
-        archive: "{{ jdg_app_download_dir }}/{{ jdg_bundle }}"
-
-    - name: Check download archive path
-      stat:
-        path: "{{ archive }}"
-      register: archive_path
-
-    - name: Perform download from RHN
-      include_tasks: download_from_rhn.yml
-      vars:
-        rhn_id_file: "{{ jdg_rhn_id }}"
-        zipfile_dest: "{{ archive }}"
-        work_dir: "{{ jdg_app_download_dir }}"
-        target_dir: "{{ jdg_default_installation_path }}"
+- name: "Check work directory: {{ jdg_app_download_dir }}"
+  stat:
+    path: "{{ jdg_app_download_dir }}"
+  register: path_to_workdir
   become: yes
-  when: jdg_enable
+
+- name: "Create work directory {{ jdg_app_download_dir }}"
+  file:
+    path: "{{ jdg_app_download_dir }}"
+    state: directory
+    owner: "{{ jdg.user.name }}"
+    group: "{{ jdg.group.name }}"
+    mode: 0750
+  become: yes
+  when: not path_to_workdir.stat.exists
+
+- name: "Extract {{ 'Red Hat Datagrid' if jdg_enable is defined else 'Infinispan' }} archive on target"
+  unarchive:
+    remote_src: yes
+    src: "{{ archive }}"
+    dest: "{{ jdg_app_download_dir }}"
+    creates: "{{ infinispan_installation_path }}"
+    owner: "{{ jdg.user.name }}"
+    group: "{{ jdg.group.name }}"
+  become: yes
+  when:
+    - new_version_downloaded.changed or not path_to_workdir.stat.exists
+  notify:
+    - restart infinispan
+
+- name: Inform decompression was not executed
+  debug:
+    msg: "{{ target_dir }} already exists and version unchanged, skipping decompression {{ zipfile_dest }}"
+  when:
+    - not new_version_downloaded.changed and path_to_workdir.stat.exists
 
 - name: "Reown installation directory to {{ jdg.user.name }}"
   file:
@@ -79,4 +104,5 @@
     owner: "{{ jdg.user.name }}"
     group: "{{ jdg.group.name }}"
     recurse: true
+  become: yes
   changed_when: false
