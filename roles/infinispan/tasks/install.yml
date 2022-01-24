@@ -9,11 +9,17 @@
     path: "{{ archive }}"
   register: archive_path
 
+- name: Check download archive path
+  stat:
+    path: "{{ lookup('env', 'PWD') }}"
+  register: local_path
+  delegate_to: localhost
+
 ## download
-- name: Download infinispan archive to target
+- name: Download infinispan archive
   get_url:
     url: "{{ infinispan_download_url }}"
-    dest: "{{ jdg.bundle }}"
+    dest: "{{ local_path.stat.path }}/{{ jdg.bundle }}"
   delegate_to: localhost
   when:
     - archive_path is defined
@@ -25,7 +31,7 @@
 - name: Performing download from RHN
   redhat_csp_download:
     url: "{{ jdg_download_url }}"
-    dest: "{{ jdg.bundle }}"
+    dest: "{{ local_path.stat.path }}/{{ jdg.bundle }}"
     username: "{{ rhn_username }}"
     password: "{{ rhn_password }}"
   no_log: "{{ omit_rhn_output | default(true) }}"
@@ -41,7 +47,7 @@
 - name: Download DataGrid archive from alternate location
   get_url:
     url: "{{ jdg_download_url }}"
-    dest: "{{ jdg.bundle }}"
+    dest: "{{ local_path.stat.path }}/{{ jdg.bundle }}"
   delegate_to: localhost
   when:
     - archive_path is defined
@@ -52,9 +58,9 @@
     - not jdg_download_url is match(jdg_rhn_url+".*")
 
 ## copy and unpack
-- name: "Copy archive to target nodes"
+- name: Copy archive to target nodes
   copy:
-    src: "{{ jdg.bundle }}"
+    src: "{{ local_path.stat.path }}/{{ jdg.bundle }}"
     dest: "{{ archive }}"
     owner: "{{ jdg.user.name }}"
     group: "{{ jdg.group.name }}"
@@ -83,7 +89,7 @@
     remote_src: yes
     src: "{{ archive }}"
     dest: "{{ jdg_app_download_dir }}"
-    creates: "{{ infinispan_installation_path }}"
+    creates: "{{ jdg.installation_path }}"
     owner: "{{ jdg.user.name }}"
     group: "{{ jdg.group.name }}"
   become: yes
@@ -94,7 +100,7 @@
 
 - name: Inform decompression was not executed
   debug:
-    msg: "{{ target_dir }} already exists and version unchanged, skipping decompression {{ zipfile_dest }}"
+    msg: "{{ jdg.installation_path }} already exists and version unchanged, skipping decompression"
   when:
     - not new_version_downloaded.changed and path_to_workdir.stat.exists
 

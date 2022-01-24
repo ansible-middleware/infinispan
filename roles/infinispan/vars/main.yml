@@ -20,6 +20,7 @@ jdg:
   home: "{{ jdg_default_installation_path if jdg_enable else infinispan_installation_path }}"
   version: "{{ jdg_version if jdg_enable else infinispan_version }}"
   bundle: "{{ jdg_bundle if jdg_enable else infinispan_bundle }}"
+  installation_path: "{{ jdg_default_installation_path if jdg_enable else infinispan_installation_path }}"
   bind_addr: "{{ jdg_bind_address }}"
   port: "{{ jdg_port }}"
   jgroups_bind_addr: "{{ override_jdg_jgroups_bind_addr | default(ansible_all_ipv4_addresses[0] if ansible_all_ipv4_addresses is defined else '127.0.0.1') }}"
