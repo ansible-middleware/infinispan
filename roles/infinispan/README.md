@@ -33,6 +33,8 @@ Role Defaults
 |`jdg_keystore_key_password` | Key passphrase for TLS server identity | `''`|
 |`infinispan_keycloak_caches`| Creates remote caches for keycloak | `False` |
 |`jvm_package`| RHEL java package runtime | `java-1.8.0-openjdk-devel` |
+|`jdg_enable`|Install Red Hat DataGrid when true| `True` when credentials available, `False` otherwise|
+|`jdg_offline_install` | perform an offline install | |`False`|
 
 
 Role Variables
@@ -104,10 +106,23 @@ Choosing what to install
 The role will install Red Hat DataGrid when the following variables are defined in the playbook execution:
 
 ```
-jdg_rhn_id: '98151'
 rhn_username: '<customer portal account username>'
 rhn_password: '<customer portal account password>'
 ```
+
+and `jdg_enable` is left to its default, or set to `True`.
+
+The default installed version will be the baseline 8.2 release; it is possible to install updates setting `jdg_version` to `8.2.x`;
+check what versions are available in the `jdg_rhn_ids` dictionary keys, declared at [variables](vars/main.yml#L9)
+
+
+Offline installation
+--------------------
+
+Performing an offline installation is possible by:
+
+* setting `jdg_offline_install` to `True`
+* making the file available to ansible controller, using as filename `jdg_bundle` if `jdg_enable` is True, `infinispan_bundle` otherwise.
 
 
 Keycloak integration

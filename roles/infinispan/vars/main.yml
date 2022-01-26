@@ -6,14 +6,21 @@ infinispan_users: []
 # internal variables
 rest_cache_api_path: /rest/v2/caches/
 
+jdg_rhn_ids:
+  '8.2.0': '98151'
+  '8.2.2': '103685'
+  '8.2.3': '103907'
+
 jdg_supervisor:
   name: 'supervisor'
   password: "{{ supervisor_password }}"
   roles: 'admin'
 
 jdg:
-  home: "{{ jdg_default_installation_path if jdg_rhn_id is defined else infinispan_installation_path }}"
-  version: "{{ jdg_version if jdg_rhn_id is defined else infinispan_version }}"
+  home: "{{ jdg_default_installation_path if jdg_enable else infinispan_installation_path }}"
+  version: "{{ jdg_version if jdg_enable else infinispan_version }}"
+  bundle: "{{ jdg_bundle if jdg_enable else infinispan_bundle }}"
+  installation_path: "{{ jdg_default_installation_path if jdg_enable else infinispan_installation_path }}"
   bind_addr: "{{ jdg_bind_address }}"
   port: "{{ jdg_port }}"
   jgroups_bind_addr: "{{ override_jdg_jgroups_bind_addr | default(ansible_all_ipv4_addresses[0] if ansible_all_ipv4_addresses is defined else '127.0.0.1') }}"
@@ -30,7 +37,7 @@ jdg:
   group:
     name: "{{ jdg_service_group }}"
   service:
-    name: "{{ override_jdg_service_name | default('jdg' if jdg_rhn_id is defined else 'infinispan') }}"
+    name: "{{ override_jdg_service_name | default('jdg' if jdg_enable else 'infinispan') }}"
   users: "{{ [ jdg_supervisor ] + infinispan_users }}"
 
 jdg_jgroups_jdbc:

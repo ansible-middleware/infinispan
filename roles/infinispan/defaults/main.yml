@@ -2,8 +2,10 @@
 # Red Hat JDG specific config
 jdg_version: "8.2.0"
 jdg_default_installation_path: "/opt/infinispan/redhat-datagrid-{{ jdg_version }}-server/"
-jdg_bundle: "jdg-{{ jdg_version }}.zip"
-jdg_download_url: 'https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId='
+jdg_bundle: "redhat-datagrid-{{ jdg_version }}-server.zip"
+jdg_rhn_id: "{{ jdg_rhn_ids[jdg_version] }}"
+jdg_rhn_url: 'https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId='
+jdg_download_url: "{{ jdg_rhn_url }}{{ jdg_rhn_id }}"
 
 # Infinispan specific config
 infinispan_version: "12.1.7.Final"
@@ -11,10 +13,14 @@ infinispan_bundle: "infinispan-server-{{ infinispan_version }}.zip"
 infinispan_download_url: "https://downloads.jboss.org/infinispan/{{ infinispan_version }}/{{ infinispan_bundle }}"
 infinispan_installation_path: "/opt/infinispan/infinispan-server-{{ infinispan_version }}/"
 
+# datagrid/infinispan choice: by default install datagrid if rhn credentials are defined
+jdg_enable: "{{ True if jdg_rhn_id is defined and rhn_username is defined and rhn_password is defined else False }}"
+# whether to install from local archive; filename must be jdg_bundle or infinispan_bundle depending on jdg_enable
+jdg_offline_install: False
+
 # common config for datagrid/infinispan service
 jvm_package: java-1.8.0-openjdk-devel
 jdg_app_download_dir: "/opt/infinispan"
-jdg_enable: "{{ True if jdg_rhn_id is defined else False }}"
 jdg_healthcheck: True
 jdg_bind_address: localhost
 jdg_port: 11222

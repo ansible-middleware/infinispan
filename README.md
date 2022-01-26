@@ -13,6 +13,7 @@ This collection has been tested against following Ansible versions: **>=2.9.10**
 Plugins and modules within a collection may be tested with only specific Ansible versions. A collection may contain metadata that identifies these versions.
 <!--end requires_ansible-->
 
+
 ## Installation and Usage
 
 ### Installing the Collection from Ansible Galaxy
@@ -47,20 +48,22 @@ A requirement file is provided to install:
 
 ### Choosing between Red Hat products and upstream project
 
-The roles supports installing Red Hat Datagrid from the Customer Portal, when the following variables are defined:
+The `infinispan` role supports installing Red Hat Datagrid from the Customer Portal, when the following variables are defined:
 
 ```
 rhn_username: '<customer_portal_username>'
 rhn_password: '<customer_portal_password>'
-jdg_rhn_id: '<datagrid_product_id>'
+jdg_enable: 'True'
 ```
 
-where `datagrid_product_id` is the ID for the specific Data Grid version, ie. _98151_ will install version _8.2.0_)
+It is also possible to select which update to install by setting the `jdg_version` to one of `['8.2.0','8.2.2','8.2.3']`
+
+Check the role [README](https://github.com/ansible-middleware/infinispan/roles/infinispan/README.md) for further details.
 
 
 ## License
 
 Apache License v2.0 or later
 
-See [LICENCE](LICENSE) to view the full text.
+See [LICENSE](LICENSE) to view the full text.
 
