@@ -39,6 +39,7 @@ jdg:
   service:
     name: "{{ override_jdg_service_name | default('jdg' if jdg_enable else 'infinispan') }}"
   users: "{{ [ jdg_supervisor ] + infinispan_users }}"
+  static_caches: "{{ jdg_caches }}"
 
 jdg_jgroups_jdbc:
   mariadb:

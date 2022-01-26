@@ -48,6 +48,16 @@
 - name: Include systemd tasks
   include_tasks: tasks/systemd.yml
 
+- name: Parse declarative cache config to cache xml
+  set_fact:
+    #templated_xml_cache: "{{  }}"
+    jdg: "{{ jdg | combine ( { 'static_caches': jdg.static_caches + [item | combine( { 'cache_xml': lookup('template', 'templates/'+item.cache_config.template+'-cache.j2', template_vars=item)|replace('\n', '') }, recursive=True )] } ) }}"
+  loop: "{{ jdg.static_caches|flatten(levels=1) }}"
+  when: item.cache_xml is not defined
+
+- debug:
+    msg: "{{jdg.static_caches}}"
+
 - name: "Ensures {{ jdg.service.name }} configuration is deployed: {{ jdg.config.name }}"
   template:
     src: "{{ jdg.config.template }}"
@@ -111,7 +121,7 @@
     - jdg_healthcheck
     - jdg.port is defined
 
-- name: Include tasks for keycloak remote caches
+- name: Include tasks to validate keycloak remote caches
   include_tasks: keycloak.yml
   when:
     - jdg_keycloak_cache.enabled

@@ -10,16 +10,15 @@
         supervisor_password: "itsme"
         infinispan_users:
           - { name: 'testuser', password: 'test', roles: 'observer' }
-    - name: Create test cache
-      include_role:
-        name: ../../roles/infinispan
-        tasks_from: cache.yml
-      vars:
-        jdg_url: "http://{{ jdg.bind_addr }}:{{ jdg.port }}"
-        jdg_username: "supervisor"
-        jdg_password: "itsme"
-        cache:
-          name: test_cache
+        jdg_caches:
+          - cache_xml: >
+              <local-cache name="teststaticcachexml" statistics="true">
+                <encoding media-type="application/x-protostream"/>
+              </local-cache>
+          - cache_config:
+              name: configuredstaticcache
+              template: replicated
+              mode: ASYNC
     - name: "infinispan cache role (xml)"
       include_role:
         name: ../../roles/infinispan_cache
