@@ -64,9 +64,9 @@
           <role name="{{ jdg_supervisor.name }}" permissions="READ WRITE EXEC CREATE"/>
         </authorization>
       </security>
-{% for cache in jdg.static_caches %}
+{% for cache in jdg.static_caches %}{% if cache.cache_xml is defined %}
 {{ cache.cache_xml|default('') }}
-{% endfor %}
+{% endif %}{% endfor %}
     </cache-container>
 
 {% if jdg_keycloak_cache.enabled %}
