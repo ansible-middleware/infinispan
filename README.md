@@ -53,7 +53,7 @@ The `infinispan` role supports installing Red Hat Datagrid from the Customer Por
 ```
 rhn_username: '<customer_portal_username>'
 rhn_password: '<customer_portal_password>'
-jdg_enable: 'True'
+jdg_enable: True
 ```
 
 It is also possible to select which update to install by setting the `jdg_version` to one of `['8.2.0','8.2.2','8.2.3']`

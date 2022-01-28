@@ -43,7 +43,7 @@
 
 - name: Installation directory
   debug:
-    msg: "{{ 'Red Hat Datagrid' if jdg_enable is defined else 'Infinispan' }} installed at path {{ jdg.home }}"
+    msg: "{{ 'Red Hat Datagrid' if jdg_enable else 'Infinispan' }} installed at path {{ jdg.home }}"
 
 - name: Include systemd tasks
   include_tasks: tasks/systemd.yml

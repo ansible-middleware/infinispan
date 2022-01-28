@@ -20,7 +20,7 @@ Role Defaults
 |`jdg_keycloak_persistence`| Enable persitence datasource for keycloak caches | `False` |
 |`jdg_service_user`| posix account for the service installation | `jdg` |
 |`jdg_service_group`| posix group for the service installation | `jdg` |
-|`jdg_logfile_format` | main logfile format: FILE or JSON-FILE | `FILE` |
+|`jdg_logfile_format` | Main logfile format: FILE or JSON-FILE | `FILE` |
 |`jdg_logfile_root_level`| Root logging level: TRACE, DEBUG, INFO, WARN, ERROR | `INFO` |
 |`jdg_logfile_enable_audit` | Enable additional audit.log logfile | `True` |
 |`jdg_logfile_enable_hotrod_accesslog` | Enable additional hotrod-access.log | `False` |
@@ -34,7 +34,7 @@ Role Defaults
 |`infinispan_keycloak_caches`| Creates remote caches for keycloak | `False` |
 |`jvm_package`| RHEL java package runtime | `java-1.8.0-openjdk-devel` |
 |`jdg_enable`|Install Red Hat DataGrid when true| `True` when credentials available, `False` otherwise|
-|`jdg_offline_install` | perform an offline install | |`False`|
+|`jdg_offline_install` | Perform an offline install |`False`|
 
 
 Role Variables

@@ -42,7 +42,7 @@
     - not archive_path.stat.exists
     - jdg_enable
     - not jdg_offline_install
-    - jdg_download_url is match(jdg_rhn_url+".*")
+    - jdg_rhn_url in jdg_download_url
 
 - name: Download DataGrid archive from alternate location
   get_url:
@@ -55,7 +55,7 @@
     - not archive_path.stat.exists
     - jdg_enable
     - not jdg_offline_install
-    - not jdg_download_url is match(jdg_rhn_url+".*")
+    - not jdg_rhn_url in jdg_download_url
 
 ## copy and unpack
 - name: Copy archive to target nodes
@@ -84,7 +84,7 @@
   become: yes
   when: not path_to_workdir.stat.exists
 
-- name: "Extract {{ 'Red Hat Datagrid' if jdg_enable is defined else 'Infinispan' }} archive on target"
+- name: "Extract {{ 'Red Hat Datagrid' if jdg_enable else 'Infinispan' }} archive on target"
   unarchive:
     remote_src: yes
     src: "{{ archive }}"
