@@ -68,21 +68,11 @@
   register: new_version_downloaded
   become: yes
 
-- name: "Check work directory: {{ jdg_app_download_dir }}"
+- name: "Check target directory: {{ jdg.installation_path }}"
   stat:
-    path: "{{ jdg_app_download_dir }}"
+    path: "{{ jdg.installation_path }}"
   register: path_to_workdir
   become: yes
-
-- name: "Create work directory {{ jdg_app_download_dir }}"
-  file:
-    path: "{{ jdg_app_download_dir }}"
-    state: directory
-    owner: "{{ jdg.user.name }}"
-    group: "{{ jdg.group.name }}"
-    mode: 0750
-  become: yes
-  when: not path_to_workdir.stat.exists
 
 - name: "Extract {{ 'Red Hat Datagrid' if jdg_enable else 'Infinispan' }} archive on target"
   unarchive:
