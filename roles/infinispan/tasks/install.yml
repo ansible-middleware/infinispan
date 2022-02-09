@@ -9,13 +9,13 @@
     path: "{{ archive }}"
   register: archive_path
 
-- name: Check download archive path
+- name: Check local download archive path
   stat:
     path: "{{ lookup('env', 'PWD') }}"
   register: local_path
   delegate_to: localhost
 
-## download
+## download to controller
 - name: Download infinispan archive
   get_url:
     url: "{{ infinispan_download_url }}"
@@ -57,6 +57,12 @@
     - not jdg_offline_install
     - not jdg_rhn_url in jdg_download_url
 
+- name: Check downloaded archive
+  stat:
+    path: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+  register: local_archive_path
+  delegate_to: localhost
+
 ## copy and unpack
 - name: Copy archive to target nodes
   copy:
@@ -66,6 +72,10 @@
     group: "{{ jdg.group.name }}"
     mode: 0750
   register: new_version_downloaded
+  when:
+    - not archive_path.stat.exists
+    - local_archive_path.stat is defined
+    - local_archive_path.stat.exists
   become: yes
 
 - name: "Check target directory: {{ jdg.installation_path }}"

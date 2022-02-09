@@ -4,7 +4,7 @@ supervisor_password:
 infinispan_users: []
 
 # internal variables
-rest_cache_api_path: /rest/v2/caches/
+rest_cache_api_path: /rest/v2/caches/ # noqa no_unspecified_argument
 
 jdg_rhn_ids:
   '8.2.0': '98151'
