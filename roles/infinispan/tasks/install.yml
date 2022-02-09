@@ -59,7 +59,7 @@
 
 - name: Check downloaded archive
   stat:
-    path: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+    path: "{{ local_path.stat.path }}/{{ jdg.bundle }}"
   register: local_archive_path
   delegate_to: localhost
 
