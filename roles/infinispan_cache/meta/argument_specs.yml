@@ -1,0 +1,48 @@
+argument_specs:
+    main:
+        options:
+            jdg_bind_address:
+                # line 2 of infinispan_cache/defaults/main.yml
+                default: "localhost"
+                description: "TODO document argument"
+                type: "str"
+            jdg_port:
+                # line 3 of infinispan_cache/defaults/main.yml
+                default: 11222
+                description: "TODO document argument"
+                type: "int"
+            jdg_tls:
+                # line 4 of infinispan_cache/defaults/main.yml
+                default: false
+                description: "TODO document argument"
+                type: "bool"
+            deployer_user:
+                # line 5 of infinispan_cache/defaults/main.yml
+                default: "supervisor"
+                description: "TODO document argument"
+                type: "str"
+            cache_xml:
+                # line 6 of infinispan_cache/defaults/main.yml
+                default: ""
+                description: "TODO document argument"
+                type: "str"
+            deployer_password:
+                # line 3 of infinispan_cache/vars/main.yml
+                required: true
+                description: "TODO document argument"
+                type: "str"
+            jdg_rest_cache_api_path:
+                # line 6 of infinispan_cache/vars/main.yml
+                default: "/rest/v2/caches/"
+                description: "TODO document argument"
+                type: "str"
+            jdg_scheme:
+                # line 7 of infinispan_cache/vars/main.yml
+                default: "{{ 'https' if jdg_tls else 'http' }}"
+                description: "TODO document argument"
+                type: "str"
+            jdg_url:
+                # line 8 of infinispan_cache/vars/main.yml
+                default: "{{ jdg_scheme }}://{{ jdg_bind_address }}:{{ jdg_port }}{{ jdg_rest_cache_api_path }}"
+                description: "TODO document argument"
+                type: "str"
