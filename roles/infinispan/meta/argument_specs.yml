@@ -1,0 +1,238 @@
+argument_specs:
+    main:
+        options:
+            jdg_version:
+                # line 3 of infinispan/defaults/main.yml
+                default: "8.2.0"
+                description: "TODO document argument"
+                type: "str"
+            jdg_default_installation_path:
+                # line 4 of infinispan/defaults/main.yml
+                default: "/opt/infinispan/redhat-datagrid-{{ jdg_version }}-server/"
+                description: "TODO document argument"
+                type: "str"
+            jdg_bundle:
+                # line 5 of infinispan/defaults/main.yml
+                default: "redhat-datagrid-{{ jdg_version }}-server.zip"
+                description: "TODO document argument"
+                type: "str"
+            jdg_rhn_id:
+                # line 6 of infinispan/defaults/main.yml
+                default: "{{ jdg_rhn_ids[jdg_version] }}"
+                description: "TODO document argument"
+                type: "str"
+            jdg_rhn_url:
+                # line 7 of infinispan/defaults/main.yml
+                default: "https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId="
+                description: "TODO document argument"
+                type: "str"
+            jdg_download_url:
+                # line 8 of infinispan/defaults/main.yml
+                default: "{{ jdg_rhn_url }}{{ jdg_rhn_id }}"
+                description: "TODO document argument"
+                type: "str"
+            infinispan_version:
+                # line 11 of infinispan/defaults/main.yml
+                default: "12.1.7.Final"
+                description: "TODO document argument"
+                type: "str"
+            infinispan_bundle:
+                # line 12 of infinispan/defaults/main.yml
+                default: "infinispan-server-{{ infinispan_version }}.zip"
+                description: "TODO document argument"
+                type: "str"
+            infinispan_download_url:
+                # line 13 of infinispan/defaults/main.yml
+                default: "https://downloads.jboss.org/infinispan/{{ infinispan_version }}/{{ infinispan_bundle }}"
+                description: "TODO document argument"
+                type: "str"
+            infinispan_installation_path:
+                # line 14 of infinispan/defaults/main.yml
+                default: "/opt/infinispan/infinispan-server-{{ infinispan_version }}/"
+                description: "TODO document argument"
+                type: "str"
+            jdg_enable:
+                # line 17 of infinispan/defaults/main.yml
+                default: "{{ True if jdg_rhn_id is defined and rhn_username is defined and rhn_password is defined else False }}"
+                description: "TODO document argument"
+                type: "str"
+            jdg_offline_install:
+                # line 19 of infinispan/defaults/main.yml
+                default: false
+                description: "TODO document argument"
+                type: "bool"
+            jvm_package:
+                # line 22 of infinispan/defaults/main.yml
+                default: "java-1.8.0-openjdk-devel"
+                description: "TODO document argument"
+                type: "str"
+            jdg_app_download_dir:
+                # line 23 of infinispan/defaults/main.yml
+                default: "/opt/infinispan"
+                description: "TODO document argument"
+                type: "str"
+            jdg_healthcheck:
+                # line 24 of infinispan/defaults/main.yml
+                default: true
+                description: "TODO document argument"
+                type: "bool"
+            jdg_bind_address:
+                # line 25 of infinispan/defaults/main.yml
+                default: "localhost"
+                description: "TODO document argument"
+                type: "str"
+            jdg_port:
+                # line 26 of infinispan/defaults/main.yml
+                default: 11222
+                description: "TODO document argument"
+                type: "int"
+            jdg_jgroups_port:
+                # line 27 of infinispan/defaults/main.yml
+                default: 7800
+                description: "TODO document argument"
+                type: "int"
+            jdg_jgroups_relay_port:
+                # line 28 of infinispan/defaults/main.yml
+                default: 7801
+                description: "TODO document argument"
+                type: "int"
+            jdg_service_user:
+                # line 29 of infinispan/defaults/main.yml
+                default: "jdg"
+                description: "TODO document argument"
+                type: "str"
+            jdg_service_group:
+                # line 30 of infinispan/defaults/main.yml
+                default: "jdg"
+                description: "TODO document argument"
+                type: "str"
+            jdg_default_realm_tls:
+                # line 33 of infinispan/defaults/main.yml
+                default: false
+                description: "TODO document argument"
+                type: "bool"
+            jdg_keystore_path:
+                # line 34 of infinispan/defaults/main.yml
+                default: "/etc/pki/java/cacerts"
+                description: "TODO document argument"
+                type: "str"
+            jdg_keystore_password:
+                # line 35 of infinispan/defaults/main.yml
+                default: "changeit"
+                description: "TODO document argument"
+                type: "str"
+            jdg_keystore_alias:
+                # line 36 of infinispan/defaults/main.yml
+                default: "{{ inventory_hostname }}"
+                description: "TODO document argument"
+                type: "str"
+            jdg_keystore_key_password:
+                # line 37 of infinispan/defaults/main.yml
+                default: ""
+                description: "TODO document argument"
+                type: "str"
+            jdg_jgroups_jdbcping:
+                # line 40 of infinispan/defaults/main.yml
+                default: "{{ True if infinispan_keycloak_caches or jdg_jgroups_relay else False }}"
+                description: "TODO document argument"
+                type: "str"
+            jdg_jgroups_relay:
+                # line 42 of infinispan/defaults/main.yml
+                default: false
+                description: "TODO document argument"
+                type: "bool"
+            jdg_jgroups_relay_sites:
+                # line 44 of infinispan/defaults/main.yml
+                default: "[]"
+                description: "TODO document argument"
+                type: "list"
+            jdg_jgroups_relay_site:
+                # line 46 of infinispan/defaults/main.yml
+                default: ""
+                description: "TODO document argument"
+                type: "str"
+            infinispan_keycloak_caches:
+                # line 49 of infinispan/defaults/main.yml
+                default: false
+                description: "TODO document argument"
+                type: "bool"
+            jdg_keycloak_persistence:
+                # line 52 of infinispan/defaults/main.yml
+                default: false
+                description: "TODO document argument"
+                type: "bool"
+            jdg_jdbc_engine:
+                # line 55 of infinispan/defaults/main.yml
+                default: "mariadb"
+                description: "TODO document argument"
+                type: "str"
+            jdg_jdbc_driver_version:
+                # line 56 of infinispan/defaults/main.yml
+                default: "2.7.4"
+                description: "TODO document argument"
+                type: "str"
+            jdg_jdbc_url:
+                # line 57 of infinispan/defaults/main.yml
+                default: "jdbc:mariadb://localhost:3306/keycloak"
+                description: "TODO document argument"
+                type: "str"
+            jdg_jdbc_user:
+                # line 58 of infinispan/defaults/main.yml
+                default: "keycloak-user"
+                description: "TODO document argument"
+                type: "str"
+            jdg_jdbc_pass:
+                # line 59 of infinispan/defaults/main.yml
+                default: "keycloak-pass"
+                description: "TODO document argument"
+                type: "str"
+            jdg_logfile_format:
+                # line 63 of infinispan/defaults/main.yml
+                default: "FILE"
+                description: "TODO document argument"
+                type: "str"
+            jdg_logfile_root_level:
+                # line 65 of infinispan/defaults/main.yml
+                default: "INFO"
+                description: "TODO document argument"
+                type: "str"
+            jdg_logfile_enable_audit:
+                # line 67 of infinispan/defaults/main.yml
+                default: true
+                description: "TODO document argument"
+                type: "bool"
+            jdg_logfile_enable_hotrod_accesslog:
+                # line 69 of infinispan/defaults/main.yml
+                default: false
+                description: "TODO document argument"
+                type: "bool"
+            jdg_logfile_enable_rest_accesslog:
+                # line 71 of infinispan/defaults/main.yml
+                default: false
+                description: "TODO document argument"
+                type: "bool"
+            jdg_logfile_maxsize:
+                # line 73 of infinispan/defaults/main.yml
+                default: "100 MB"
+                description: "TODO document argument"
+                type: "str"
+            jdg_caches:
+                # line 76 of infinispan/defaults/main.yml
+                default: "[]"
+                description: "TODO document argument"
+                type: "list"
+            supervisor_password:
+                # line 3 of infinispan/vars/main.yml
+                required: true
+                description: "TODO document argument"
+                type: "str"
+            infinispan_users:
+                # line 4 of infinispan/vars/main.yml
+                default: "[]"
+                description: "TODO document argument"
+                type: "list"
+            rest_cache_api_path:
+                # line 7 of infinispan/vars/main.yml
+                default: "/rest/v2/caches/"
+                description: "TODO document argument"
+                type: "str"
