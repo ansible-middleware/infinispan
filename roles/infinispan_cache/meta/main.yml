@@ -1,12 +1,8 @@
----
-collections:
-  - middleware_automation.redhat_csp_download
-
 galaxy_info:
-  role_name: infinispan
+  role_name: infinispan_cache
   namespace: middleware_automation
-  author: Romain Pelisse, Guido Grazioli
-  description: Install and configure an Infinispan or DataGrid service.
+  author: Guido Grazioli
+  description: Configure Infinispan or DataGrid cache at runtime.
   company: Red Hat, Inc.
 
   license: Apache License 2.0

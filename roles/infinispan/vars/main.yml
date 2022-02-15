@@ -23,21 +23,21 @@ jdg:
   installation_path: "{{ jdg_default_installation_path if jdg_enable else infinispan_installation_path }}"
   bind_addr: "{{ jdg_bind_address }}"
   port: "{{ jdg_port }}"
-  jgroups_bind_addr: "{{ override_jdg_jgroups_bind_addr | default(ansible_all_ipv4_addresses[0] if ansible_all_ipv4_addresses is defined else '127.0.0.1') }}"
+  jgroups_bind_addr: "{{ jdg_jgroups_override_bind_addr | default(ansible_all_ipv4_addresses[0] if ansible_all_ipv4_addresses is defined else '127.0.0.1') }}"
   jgroups_port: "{{ jdg_jgroups_port }}"
   jgroups_relay_port: "{{ jdg_jgroups_relay_port }}"
   config:
-    name: "{{ override_jdg_config | default('jdg.xml') }}"
-    template: "{{ override_jdg_config_template | default('templates/infinispan.xml.j2') }}"
-    jgroups_template: "{{ override_jdg_config_jgroups_template | default('templates/jgroups-jdbcping.xml.j2') }}"
-    users: "{{ override_jdg_config_users_properties | default('users.properties') }}"
-    groups: "{{ override_jdg_config_group_properties | default('groups.properties') }}"
+    name: "jdg.xml"
+    template: "{{ jdg_config_override_template | default('templates/infinispan.xml.j2') }}"
+    jgroups_template: "{{ jdg_config_jgroups_override_template | default('templates/jgroups-jdbcping.xml.j2') }}"
+    users: "users.properties"
+    groups: "groups.properties"
   user:
     name: "{{ jdg_service_user }}"
   group:
     name: "{{ jdg_service_group }}"
   service:
-    name: "{{ override_jdg_service_name | default('jdg' if jdg_enable else 'infinispan') }}"
+    name: "{{ 'jdg' if jdg_enable else 'infinispan' }}"
   users: "{{ [ jdg_supervisor ] + infinispan_users }}"
   static_caches: "{{ jdg_caches }}"
 

@@ -62,7 +62,7 @@
   rescue:
   - name: Ignore cache already existing
     debug:
-      msg: "Cache {{cache_name}} already existing, skipping..."
+      msg: "Cache {{ cache_name }} already existing, skipping..."
     when: cache_status.status in [200,204]
   - name: Exit because rest call failed
     fail:

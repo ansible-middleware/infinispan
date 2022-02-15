@@ -6,7 +6,7 @@ authors:
   - Romain Pelisse <rpelisse@redhat.com>
   - Matthew Fernandez <matferna@redhat.com>
   - Guido Grazioli <ggraziol@redhat.com>
-description: Install and configure an Infinispan service.
+description: Install and configure an Infinispan or DataGrid service.
 license_file: "LICENSE"
 tags:
   - infinispan

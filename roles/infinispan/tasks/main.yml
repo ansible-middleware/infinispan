@@ -55,7 +55,7 @@
   loop: "{{ jdg.static_caches|flatten(levels=1) }}"
   when: item.cache_xml is not defined
 
-- name: "Ensures {{ jdg.service.name }} configuration is deployed: {{ jdg.config.name }}"
+- name: "Ensure {{ jdg.service.name }} configuration is deployed: {{ jdg.config.name }}"
   template:
     src: "{{ jdg.config.template }}"
     dest: "{{ jdg.home }}/server/conf/{{ jdg.config.name }}"
@@ -66,7 +66,7 @@
   notify:
     - restart infinispan
 
-- name: "Ensures {{ jdg.service.name }} log4j2 configuration is deployed"
+- name: "Ensure {{ jdg.service.name }} log4j2 configuration is deployed"
   template:
     src: log4j2.xml.j2
     dest: "{{ jdg.home }}/server/conf/log4j2.xml"
@@ -95,7 +95,7 @@
     - jdg.users is defined
     - jdg.users | length > 0
 
-- name: "Ensures {{ jdg.service.name }} service is running and enabled"
+- name: "Ensure {{ jdg.service.name }} service is running and enabled"
   systemd:
     name: "{{ jdg.service.name }}"
     state: started

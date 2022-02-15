@@ -28,7 +28,7 @@
     - not jdg_enable
     - not jdg_offline_install
 
-- name: Performing download from RHN
+- name: Perform download from RHN
   redhat_csp_download:
     url: "{{ jdg_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ jdg.bundle }}"
