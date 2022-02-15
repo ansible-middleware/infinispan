@@ -6,7 +6,7 @@
       - users | length > 0
     quiet: true
 
-- name: "Ensures {{ jdg.config.users }} exists."
+- name: "Ensure {{ jdg.config.users }} exists."
   template:
     src: templates/users.properties.j2
     dest: "{{ jdg.home }}/server/conf/{{ jdg.config.users }}"
@@ -16,7 +16,7 @@
   notify:
     - restart infinispan
 
-- name: "Ensures {{ jdg.config.groups }} exists"  
+- name: "Ensure {{ jdg.config.groups }} exists"
   template:
     src: templates/groups.properties.j2
     dest: "{{ jdg.home }}/server/conf/{{ jdg.config.groups }}"
