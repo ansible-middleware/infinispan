@@ -17,13 +17,16 @@ Role Defaults
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
+|`jdg_bind_address`| Alternate bind address for the daemon | `localhost` |
+|`jdg_rest_cache_api_path`| Path of infinispan rest api | `/rest/v2/caches/` |
+|`jdg_scheme`| Choose rest api protocol | `{{ 'https' if jdg_tls else 'http' }}` |
+|`jdg_url`| Complete URL for connecting to infinispan rest api | `{{ jdg_scheme }}://{{ jdg_bind_address }}:{{ jdg_port }}{{ jdg_rest_cache_api_path }}` |
 |`jdg_port`| Alternate port for the service | `11222` |
 |`jdg_bind_addr`| Alternate bind address for the daemon | `localhost` |
 |`jdg_tls`| Server REST API/hotrod have TLS enabled | `False` |
 |`deployer_user`| Username that performs the API call | `supervisor` |
 |`cache_xml`| XML declaration for the cache to deploy as string | `None` |
 |`cache_config`| dict object with configuration for the cache to deploy | `{}`, see below for specs |
-
 
 where:
 
