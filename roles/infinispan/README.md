@@ -7,6 +7,8 @@ Install [Infinispan](https://infinispan.org/) or [Red Hat DataGrid](https://www.
 Role Defaults
 -------------
 
+* Service configuration defaults
+
 | Variable | Description | Default |
 |:---------|:------------|:--------|
 |`jdg_port`| Alternate port for the service | `11222` |
@@ -34,7 +36,27 @@ Role Defaults
 |`infinispan_keycloak_caches`| Creates remote caches for keycloak | `False` |
 |`jvm_package`| RHEL java package runtime | `java-1.8.0-openjdk-devel` |
 |`jdg_enable`|Install Red Hat DataGrid when true| `True` when credentials available, `False` otherwise|
+
+
+* Download and install defaults
+
 |`jdg_offline_install`| Perform an offline install |`False`|
+|`jdg_version`| DataGrid version to install | `8.2.0` |
+|`jdg_default_installation_path`| Target extracted installation | `/opt/infinispan/redhat-datagrid-{{ jdg_version }}-server/` |
+|`jdg_bundle`| Archive name for Red Hat DataGrid | `redhat-datagrid-{{ jdg_version }}-server.zip` |
+|`jdg_rhn_id`| Customer portal product ID for Red Hat DataGrid | `{{ jdg_rhn_ids[jdg_version] }}` |
+|`jdg_rhn_url`| Customer portal base download URL | `https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=` |
+|`jdg_download_url`| Complete customer portal default URL for DataGrid, or alternate download location | `{{ jdg_rhn_url }}{{ jdg_rhn_id }}` |
+|`infinispan_version`| Infinispan version to install | `12.1.7.Final` |
+|`infinispan_bundle`| Archive name for Infinispan download | `infinispan-server-{{ infinispan_version }}.zip` |
+|`infinispan_download_url`| Download URL for infinispan | `https://downloads.jboss.org/infinispan/{{ infinispan_version }}/{{ infinispan_bundle }}` |
+|`infinispan_installation_path`| Specific unxtracted installation path for infinispan | `/opt/infinispan/infinispan-server-{{ infinispan_version }}/` |
+|`jdg_app_download_dir`| Relocatable install directory parent | `/opt/infinispan` |
+|`jdg_healthcheck`| Check health of service at end of installation | `True` |
+|`jdg_bind_address`| Alternate bind address for the daemon | `localhost` |
+|`jdg_caches`| List of cache definitions to configure statically | `[]` |
+|`infinispan_users`| List of users to create | `[]` |
+|`rest_cache_api_path`| Path of infinispan rest api | `/rest/v2/caches/` |
 
 
 Role Variables
