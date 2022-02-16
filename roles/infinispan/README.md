@@ -40,6 +40,8 @@ Role Defaults
 
 * Download and install defaults
 
+| Variable | Description | Default |
+|:---------|:------------|:--------|
 |`jdg_offline_install`| Perform an offline install |`False`|
 |`jdg_version`| DataGrid version to install | `8.2.0` |
 |`jdg_default_installation_path`| Target extracted installation | `/opt/infinispan/redhat-datagrid-{{ jdg_version }}-server/` |
