@@ -3,9 +3,7 @@
   hosts: infinispan
   become: yes
   collections:
-    - middleware_automation.redhat_csp_download
-  roles:
-    - redhat_csp_download
+    - middleware_automation.infinispan
   tasks:
     - name: Set facts
       set_fact:
@@ -26,4 +24,4 @@
         cache_xml: >
           <local-cache name="testcache" statistics="true">
             <encoding media-type="application/x-protostream"/>
-          </local-cache>"  
+          </local-cache>  

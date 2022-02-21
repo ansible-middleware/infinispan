@@ -3,6 +3,9 @@
   hosts: all
   gather_facts: yes
   tasks:
+    - wait_for:
+        timeout: 300
+
     - name: Include infinispan role
       include_role:
         name: ../../roles/infinispan

@@ -104,7 +104,7 @@
   when:
     - not new_version_downloaded.changed and path_to_workdir.stat.exists
 
-- name: "Reown installation directory to {{ jdg.user.name }}"
+- name: "Ensures installation directory belongs {{ jdg.user.name }}:{{ jdg.group.name }}"
   file:
     path: "{{ jdg.home }}"
     owner: "{{ jdg.user.name }}"

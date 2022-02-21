@@ -2,6 +2,10 @@
 - name: Prepare
   hosts: all
   tasks:
+    - name: Display Ansible version
+      debug:
+        msg: "Ansible version is  {{ ansible_version.full }}"
+
     - name: Install requirements for tests
       yum:
         name:
