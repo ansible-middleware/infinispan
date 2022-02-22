@@ -1,6 +1,6 @@
 ---
 # Red Hat JDG specific config
-jdg_version: "8.2.0"
+jdg_version: "8.3.0"
 jdg_default_installation_path: "/opt/infinispan/redhat-datagrid-{{ jdg_version }}-server/"
 jdg_bundle: "redhat-datagrid-{{ jdg_version }}-server.zip"
 jdg_rhn_id: "{{ jdg_rhn_ids[jdg_version] }}"

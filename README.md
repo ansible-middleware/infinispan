@@ -42,8 +42,8 @@ A requirement file is provided to install:
 
 ### Included roles
 
-* `infinispan`: performs an installation of Infinispan or DataGrid nodes or cluster, with configuration of static caches.
-* `infinispan_cache`: creates Infinispan or DataGrid caches at runtime.
+* [`infinispan`](https://github.com/ansible-middleware/infinispan/tree/main/roles/infinispan): performs an installation of Infinispan or DataGrid nodes or cluster, with configuration of static caches.
+* [`infinispan_cache`](https://github.com/ansible-middleware/infinispan/tree/main/roles/infinispan_cache): creates Infinispan or DataGrid caches at runtime.
 
 
 ### Choosing between Red Hat products and upstream project
@@ -58,7 +58,7 @@ jdg_enable: True
 
 It is also possible to select which update to install by setting the `jdg_version` to one of `['8.2.0','8.2.2','8.2.3']`
 
-Check the role [README](https://github.com/ansible-middleware/infinispan/roles/infinispan/README.md) for further details.
+Check the role [README](https://github.com/ansible-middleware/infinispan/blob/main/roles/infinispan/README.md) for further details.
 
 
 ## License

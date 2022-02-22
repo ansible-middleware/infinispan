@@ -136,7 +136,7 @@ rhn_password: '<customer portal account password>'
 
 and `jdg_enable` is left to its default, or set to `True`.
 
-The default installed version will be the baseline 8.2 release; it is possible to install updates setting `jdg_version` to `8.2.x`;
+The default installed version will be the baseline 8.3 release; it is possible to install updates setting `jdg_version` to `8.x.y`;
 check what versions are available in the `jdg_rhn_ids` dictionary keys, declared at [variables](vars/main.yml#L9)
 
 
