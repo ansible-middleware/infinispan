@@ -1,6 +1,6 @@
 ---
 - name: Validate parameters
-  assert:
+  ansible.builtin.assert:
     that:
       - cache is defined
       - cache.name is defined
@@ -9,11 +9,11 @@
 
 - block:
     - name: Check cache state
-      include_tasks: query_cache.yml
+      ansible.builtin.include_tasks: query_cache.yml
       vars:
         method: GET
   rescue:
     - name: Create cache
-      include_tasks: query_cache.yml
+      ansible.builtin.include_tasks: query_cache.yml
       vars:
         method: POST

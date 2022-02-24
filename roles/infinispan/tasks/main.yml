@@ -1,6 +1,6 @@
 ---
 - name: Validate parameters
-  assert:
+  ansible.builtin.assert:
     that:
       - jdg is defined
       - jdg.home is defined
@@ -16,22 +16,22 @@
     quiet: true
 
 - name: Include prerequisite tasks
-  include_tasks: prereqs.yml
+  ansible.builtin.include_tasks: prereqs.yml
 
 - name: "Create group {{ jdg.group.name }}"
-  group:
+  ansible.builtin.group:
     name: "{{ jdg.group.name }}"
     state: present
     gid: "{{ jdg.group.id | default(omit) }}"
 
 - name: "Create user {{ jdg.user.name }}"
-  user:
+  ansible.builtin.user:
     name: "{{ jdg.user.name }}"
     state: present
     uid: "{{ jdg.user.id | default(omit) }}"
 
 - name: "Create download directory"
-  file:
+  ansible.builtin.file:
     path: "{{ jdg_app_download_dir }}"
     state: directory
     owner: "{{ jdg.user.name }}"
@@ -39,24 +39,24 @@
     mode: 0750
 
 - name: Include install tasks
-  include_tasks: tasks/install.yml
+  ansible.builtin.include_tasks: tasks/install.yml
 
 - name: Installation directory
-  debug:
+  ansible.builtin.debug:
     msg: "{{ 'Red Hat Datagrid' if jdg_enable else 'Infinispan' }} installed at path {{ jdg.home }}"
 
 - name: Include systemd tasks
-  include_tasks: tasks/systemd.yml
+  ansible.builtin.include_tasks: tasks/systemd.yml
 
 - name: Parse declarative cache config to cache xml
-  set_fact:
+  ansible.builtin.set_fact:
     #templated_xml_cache: "{{  }}"
     jdg: "{{ jdg | combine ( { 'static_caches': jdg.static_caches + [item | combine( { 'cache_xml': lookup('template', 'templates/'+item.cache_config.template+'-cache.j2', template_vars=item)|replace('\n', '') }, recursive=True )] } ) }}"
   loop: "{{ jdg.static_caches|flatten(levels=1) }}"
   when: item.cache_xml is not defined
 
 - name: "Ensure {{ jdg.service.name }} configuration is deployed: {{ jdg.config.name }}"
-  template:
+  ansible.builtin.template:
     src: "{{ jdg.config.template }}"
     dest: "{{ jdg.home }}/server/conf/{{ jdg.config.name }}"
     owner: "{{ jdg.user.name }}"
@@ -67,7 +67,7 @@
     - restart infinispan
 
 - name: "Ensure {{ jdg.service.name }} log4j2 configuration is deployed"
-  template:
+  ansible.builtin.template:
     src: log4j2.xml.j2
     dest: "{{ jdg.home }}/server/conf/log4j2.xml"
     owner: "{{ jdg.user.name }}"
@@ -78,7 +78,7 @@
     - restart infinispan
 
 - name: Download database driver jar to target
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ jdg_jgroups_jdbc[jdg_jdbc_engine].driver_jar_url }}"
     dest: "{{ jdg.home }}/lib/{{ jdg_jgroups_jdbc[jdg_jdbc_engine].driver_jar_filename }}"
     owner: "{{ jdg.user.name }}"
@@ -88,7 +88,7 @@
     - jdg_jgroups_jdbcping
 
 - name: Include users tasks
-  include_tasks: jdg_user.yml
+  ansible.builtin.include_tasks: jdg_user.yml
   vars:
     users: "{{ jdg.users }}"
   when:
@@ -96,22 +96,22 @@
     - jdg.users | length > 0
 
 - name: "Ensure {{ jdg.service.name }} service is running and enabled"
-  systemd:
+  ansible.builtin.systemd:
     name: "{{ jdg.service.name }}"
     state: started
     enabled: yes
 
 - name: Link default logs directory
-  file:
+  ansible.builtin.file:
     state: link
     src: "{{ jdg.home }}/server/log"
     dest: /var/log/infinispan
 
 - name: Flush handlers
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
 - name: "Wait for used port to be open"
-  wait_for:
+  ansible.builtin.wait_for:
     port: "{{ jdg.port }}"
     delay: 0
   when:
@@ -119,6 +119,6 @@
     - jdg.port is defined
 
 - name: Include tasks to validate keycloak remote caches
-  include_tasks: keycloak.yml
+  ansible.builtin.include_tasks: keycloak.yml
   when:
     - jdg_keycloak_cache.enabled

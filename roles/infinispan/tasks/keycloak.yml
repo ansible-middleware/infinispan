@@ -1,6 +1,6 @@
 ---
 - name: "Verify keycloak remote caches"
-  include_tasks: query_cache.yml
+  ansible.builtin.include_tasks: query_cache.yml
   vars:
     method: GET
     jdg_url: "{{ 'https' if jdg_default_realm_tls else 'http' }}://{{ jdg.bind_addr }}:{{ jdg.port }}"

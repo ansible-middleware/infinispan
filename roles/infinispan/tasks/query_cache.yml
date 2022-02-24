@@ -1,6 +1,6 @@
 ---
 - name: Validate parameters
-  assert:
+  ansible.builtin.assert:
     that:
       - cache is defined
       - cache.name is defined
@@ -9,7 +9,7 @@
     quiet: true
 
 - name: "Ensure cache {{ cache.name }} exists."
-  uri:
+  ansible.builtin.uri:
     url: "{{ jdg_url }}{{ rest_cache_api_path }}{{ cache.name }}"
     method: "{{ method }}"
     user: "{{ jdg_username | default(omit) }}"
