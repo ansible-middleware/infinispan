@@ -1,6 +1,6 @@
 ---
 name: Documentation
-"on":
+on:
   push:
     branches:
       - main
@@ -12,12 +12,17 @@ env:
   TERM: 'xterm-256color'
   PYTEST_ADDOPTS: '--color=yes'
 
-permissions:
-  pages: write
-
 jobs:
   docs:
     runs-on: ubuntu-latest
+    if: github.repository == 'ansible-middleware/infinispan'
+    permissions:
+      actions: write
+      checks: write
+      contents: write
+      deployments: write
+      packages: write
+      pages: write
     steps:
       - name: Check out code
         uses: actions/checkout@v2
