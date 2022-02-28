@@ -1,7 +1,7 @@
 .. Red Hat middleware_automation Infinispan Ansible Collection documentation main file
 
 Welcome to Infinispan Collection documentation
-======================================================
+==============================================
 
 .. toctree::
    :maxdepth: 2
