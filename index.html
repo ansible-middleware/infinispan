@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-  <title>Red Hat Satellite Ansible Collection documentation index</title>
+  <title>Infinispan Ansible Collection documentation index</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="https://theforeman.org/static/css/bootstrap.min.css"/>
   <link rel="stylesheet" media="all" href="https://theforeman.org/static/css/bootstrap-responsive.min.css"/>
