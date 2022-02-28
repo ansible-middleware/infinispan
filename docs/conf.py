@@ -21,7 +21,7 @@ sys.path.insert(0, os.path.abspath('../plugins/module_utils/'))
 # -- Project information -----------------------------------------------------
 
 project = 'Red Hat Infinispan Ansible Collection'
-copyright = '{}, Red Hat, Inc.'.format(datetime.date.today().year)
+copyright = '{y}, Red Hat, Inc.'.format(y=datetime.date.today().year)
 author = 'Red Hat, Inc.'
 
 # The short X.Y version

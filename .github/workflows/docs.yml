@@ -1,0 +1,49 @@
+---
+name: Documentation
+"on":
+  push:
+    branches:
+      - main
+  pull_request:
+
+env:
+  COLORTERM: 'yes'
+  TERM: 'xterm-256color'
+  PYTEST_ADDOPTS: '--color=yes'
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          path: ansible_collections/middleware_automation/infinispan
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install doc dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ansible_collections/middleware_automation/infinispan/docs/requirements.txt
+          pip install -r ansible_collections/middleware_automation/infinispan/requirements.txt
+
+      - name: Create default collection path
+        run: |
+          mkdir -p /home/runner/.ansible/collections/ansible_collections
+
+      - name: Create doc directories and resources
+        run: |
+          mkdir -p ./docs/plugins ./docs/roles
+          cat ./docs/roles.rst.template > ./docs/roles/index.rst
+          antsibull-docs collection --use-current --squash-hierarchy --dest-dir docs/plugins  middleware_automation.infinispan
+          for role_readme in roles/*/README.md; do ln -f -s ../../$role_readme ./docs/roles/$(basename $(dirname $role_readme)).md; echo " * :doc:\`$(basename $(dirname $role_readme))\`" >> ./docs/roles/index.rst; done
+        working-directory: ansible_collections/middleware_automation/infinispan
+
+      - name: Run sphinx
+        run: |
+          sphinx-build -M html . _build -v
+        working-directory: ansible_collections/middleware_automation/infinispan/docs/
