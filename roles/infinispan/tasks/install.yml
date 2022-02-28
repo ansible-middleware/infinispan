@@ -1,23 +1,23 @@
 ---
 ## check remote archive
 - name: Set download archive path
-  set_fact:
+  ansible.builtin.set_fact:
     archive: "{{ jdg_app_download_dir }}/{{ jdg.bundle }}"
 
 - name: Check download archive path
-  stat:
+  ansible.builtin.stat:
     path: "{{ archive }}"
   register: archive_path
 
 - name: Check local download archive path
-  stat:
+  ansible.builtin.stat:
     path: "{{ lookup('env', 'PWD') }}"
   register: local_path
   delegate_to: localhost
 
 ## download to controller
 - name: Download infinispan archive
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ infinispan_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ jdg.bundle }}"
   delegate_to: localhost
@@ -45,7 +45,7 @@
     - jdg_rhn_url in jdg_download_url
 
 - name: Download DataGrid archive from alternate location
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ jdg_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ jdg.bundle }}"
   delegate_to: localhost
@@ -58,14 +58,14 @@
     - not jdg_rhn_url in jdg_download_url
 
 - name: Check downloaded archive
-  stat:
+  ansible.builtin.stat:
     path: "{{ local_path.stat.path }}/{{ jdg.bundle }}"
   register: local_archive_path
   delegate_to: localhost
 
 ## copy and unpack
 - name: Copy archive to target nodes
-  copy:
+  ansible.builtin.copy:
     src: "{{ local_path.stat.path }}/{{ jdg.bundle }}"
     dest: "{{ archive }}"
     owner: "{{ jdg.user.name }}"
@@ -79,13 +79,13 @@
   become: yes
 
 - name: "Check target directory: {{ jdg.installation_path }}"
-  stat:
+  ansible.builtin.stat:
     path: "{{ jdg.installation_path }}"
   register: path_to_workdir
   become: yes
 
 - name: "Extract {{ 'Red Hat Datagrid' if jdg_enable else 'Infinispan' }} archive on target"
-  unarchive:
+  ansible.builtin.unarchive:
     remote_src: yes
     src: "{{ archive }}"
     dest: "{{ jdg_app_download_dir }}"
@@ -99,13 +99,13 @@
     - restart infinispan
 
 - name: Inform decompression was not executed
-  debug:
+  ansible.builtin.debug:
     msg: "{{ jdg.installation_path }} already exists and version unchanged, skipping decompression"
   when:
     - not new_version_downloaded.changed and path_to_workdir.stat.exists
 
 - name: "Reown installation directory to {{ jdg.user.name }}"
-  file:
+  ansible.builtin.file:
     path: "{{ jdg.home }}"
     owner: "{{ jdg.user.name }}"
     group: "{{ jdg.group.name }}"

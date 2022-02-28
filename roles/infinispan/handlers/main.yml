@@ -1,6 +1,6 @@
 ---
 - name: restart infinispan
   throttle: 1
-  systemd:
+  ansible.builtin.systemd:
     name: "{{ jdg.service.name }}" 
     state: restarted  

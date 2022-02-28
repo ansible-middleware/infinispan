@@ -1,13 +1,13 @@
 ---
 - name: Validate parameters
-  assert:
+  ansible.builtin.assert:
     that:
       - users is defined
       - users | length > 0
     quiet: true
 
 - name: "Ensure {{ jdg.config.users }} exists."
-  template:
+  ansible.builtin.template:
     src: templates/users.properties.j2
     dest: "{{ jdg.home }}/server/conf/{{ jdg.config.users }}"
     owner: "{{ jdg.user.name }}"
@@ -17,7 +17,7 @@
     - restart infinispan
 
 - name: "Ensure {{ jdg.config.groups }} exists"
-  template:
+  ansible.builtin.template:
     src: templates/groups.properties.j2
     dest: "{{ jdg.home }}/server/conf/{{ jdg.config.groups }}"
     owner: "{{ jdg.user.name }}"

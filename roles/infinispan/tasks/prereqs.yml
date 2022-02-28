@@ -1,6 +1,6 @@
 ---
 - name: Validate credentials
-  assert:
+  ansible.builtin.assert:
     that:
       - (rhn_username is defined and jdg_enable) or not jdg_enable or jdg_offline_install
       - (rhn_password is defined and jdg_enable) or not jdg_enable or jdg_offline_install
@@ -9,7 +9,7 @@
     success_msg: "{{ 'Installing Red Hat DataGrid' if jdg_enable else 'Installing Infinispan' }}"
 
 - name: Set required packages facts
-  set_fact:
+  ansible.builtin.set_fact:
     required_packages:
     - unzip
     - procps-ng
