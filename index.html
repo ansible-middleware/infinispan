@@ -10,7 +10,7 @@
   </head>
 
   <body style="margin:0px 15px">
-    <h1>Red Hat Satellite Ansible Collection</h1>
+    <h1>Red Hat Infinspan Ansible Collection</h1>
 
     <hr />
 
