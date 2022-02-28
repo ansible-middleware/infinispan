@@ -70,11 +70,12 @@ jobs:
           #git show origin/:docs/_gh_include/footer.inc >> index.html
           git add $(basename ${GITHUB_REF}) latest index.html
           git commit -m "Update docs for $(basename ${GITHUB_REF})" || true
+          git push
         working-directory: ansible_collections/middleware_automation/infinispan/
 
-      - name: Push to destination branch
-        uses: ad-m/github-push-action@v0.5.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages
-          directory: ./ansible_collections/middleware_automation/infinispan/
+          #      - name: Push to destination branch
+          #        uses: ad-m/github-push-action@v0.5.0
+          #        with:
+          #          github_token: ${{ secrets.GITHUB_TOKEN }}
+          #          branch: gh-pages
+          #          directory: ./ansible_collections/middleware_automation/infinispan/
