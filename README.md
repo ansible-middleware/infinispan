@@ -60,6 +60,9 @@ It is also possible to select which update to install by setting the `jdg_versio
 
 Check the role [README](https://github.com/ansible-middleware/infinispan/blob/main/roles/infinispan/README.md) for further details.
 
+## Support
+
+Infinispan collection v1.0.0 is a Beta release and for Technical Preview. If you have any issues or questions related to collection, please don't hesitate to contact us on Ansible-middleware-core@redhat.com or open an issue on https://github.com/ansible-middleware/infinispan/issues
 
 ## License
 
