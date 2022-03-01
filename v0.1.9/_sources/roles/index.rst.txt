@@ -1,5 +1,0 @@
-Role Index
-==========
-
- * :doc:`infinispan`
- * :doc:`infinispan_cache`
