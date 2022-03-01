@@ -20,6 +20,6 @@ tags:
 dependencies:
   "middleware_automation.redhat_csp_download": ">=1.2.1"
 repository: https://github.com/ansible-middleware/infinispan
-documentation: https://github.com/ansible-middleware/infinispan
+documentation: https://ansible-middleware.github.io/infinispan
 homepage: https://github.com/ansible-middleware/infinispan
 issues: https://github.com/ansible-middleware/infinispan/issues

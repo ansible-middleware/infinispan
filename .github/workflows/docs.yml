@@ -68,7 +68,7 @@ jobs:
           #ln --force --no-dereference --symbolic  $(dirname *.*.*/index.html | sort --version-sort --reverse | head -n1) latest
           ln --force --no-dereference --symbolic   main latest
           git show origin/main:docs/_gh_include/header.inc > index.html
-          (echo main; echo latest; dirname *.*.*/index.html | sort --version-sort --reverse) | xargs -I@@ -n1 echo '<div class="col-md-4 center"><a href="@@/" class="btn-doc btn"><i class="fa fa-newspaper-o"></i><p>@@</p></a></div>' >> index.html
+          (echo main; echo latest; dirname *.*.*/index.html | sort --version-sort --reverse) | xargs -I@@ -n1 echo '<li class="toctree-l1"><a class="reference internal" href="@@/">@@</a></ul>' >> index.html
           git show origin/main:docs/_gh_include/footer.inc >> index.html
           git add $(basename ${GITHUB_REF}) latest index.html
           git commit -m "Update docs for $(basename ${GITHUB_REF})" || true
