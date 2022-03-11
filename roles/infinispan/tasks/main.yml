@@ -18,26 +18,6 @@
 - name: Include prerequisite tasks
   ansible.builtin.include_tasks: prereqs.yml
 
-- name: "Create group {{ jdg.group.name }}"
-  ansible.builtin.group:
-    name: "{{ jdg.group.name }}"
-    state: present
-    gid: "{{ jdg.group.id | default(omit) }}"
-
-- name: "Create user {{ jdg.user.name }}"
-  ansible.builtin.user:
-    name: "{{ jdg.user.name }}"
-    state: present
-    uid: "{{ jdg.user.id | default(omit) }}"
-
-- name: "Create download directory"
-  ansible.builtin.file:
-    path: "{{ jdg_app_download_dir }}"
-    state: directory
-    owner: "{{ jdg.user.name }}"
-    group: "{{ jdg.group.name }}"
-    mode: 0750
-
 - name: Include install tasks
   ansible.builtin.include_tasks: tasks/install.yml
 
