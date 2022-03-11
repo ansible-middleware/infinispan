@@ -43,12 +43,12 @@ Examples of breaking changes within a collection may include but are not limited
 
 ## Content removed from a collection
 
-Deleting a module or API is a breaking change. Please see the ‘Breaking change (any) section for how to version this.
+Deleting a module or API is a breaking change. Please see the 'Breaking change' section for how to version this.
 
 
 ## A typographical error was fixed in the documentation for a collection
 
-A correction to the README would be considered a bug fix and the PATCH incremented. See ‘Bug fix’ above.
+A correction to the README would be considered a bug fix and the PATCH incremented. See 'Bug fix' above.
 
 
 ## Documentation added/removed/modified within a collection
