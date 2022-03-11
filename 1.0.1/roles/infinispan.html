@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>infinispan &mdash; Infinispan Ansible Collection  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/ansible-basic-sphinx-ext.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Infinispan Ansible Collection
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Ansible Collection - infinispan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Role Index</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Contributor’s Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releasing.html">Collection Versioning Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releasing.html#release-automation">Release automation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Infinispan Ansible Collection</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>infinispan</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/roles/infinispan.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="infinispan">
+<h1>infinispan<a class="headerlink" href="#infinispan" title="Permalink to this headline"></a></h1>
+<p>Install <a class="reference external" href="https://infinispan.org/">Infinispan</a> or <a class="reference external" href="https://www.redhat.com/en/technologies/jboss-middleware/data-grid">Red Hat DataGrid</a> server configurations.</p>
+<section id="role-defaults">
+<h2>Role Defaults<a class="headerlink" href="#role-defaults" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Service configuration defaults</p></li>
+</ul>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>Variable</p></th>
+<th class="text-left head"><p>Description</p></th>
+<th class="text-left head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_port</span></code></p></td>
+<td class="text-left"><p>Alternate port for the service</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">11222</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_jgroups_port</span></code></p></td>
+<td class="text-left"><p>Alternate port for the jgroups cluster</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">7800</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_jgroups_relay_port</span></code></p></td>
+<td class="text-left"><p>Alternate port for the jgroups relaying cluster</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">7801</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_bind_addr</span></code></p></td>
+<td class="text-left"><p>Alternate bind address for the daemon</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">localhost</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_jgroups_relay</span></code></p></td>
+<td class="text-left"><p>Enable cross-DC relaying</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_jgroups_relay_sites</span></code></p></td>
+<td class="text-left"><p>List of site names for cross-DC relaying</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_jgroups_relay_site</span></code></p></td>
+<td class="text-left"><p>Site the inventory host is in when cross-DC is enabled</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">''</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_jgroups_jdbcping</span></code></p></td>
+<td class="text-left"><p>Enable clustering using JDBC PING discovery</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_keycloak_persistence</span></code></p></td>
+<td class="text-left"><p>Enable persitence datasource for keycloak caches</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_service_user</span></code></p></td>
+<td class="text-left"><p>posix account for the service installation</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_service_group</span></code></p></td>
+<td class="text-left"><p>posix group for the service installation</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_logfile_format</span></code></p></td>
+<td class="text-left"><p>Main logfile format: FILE or JSON-FILE</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">FILE</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_logfile_root_level</span></code></p></td>
+<td class="text-left"><p>Root logging level: TRACE, DEBUG, INFO, WARN, ERROR</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">INFO</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_logfile_enable_audit</span></code></p></td>
+<td class="text-left"><p>Enable additional audit.log logfile</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_logfile_enable_hotrod_accesslog</span></code></p></td>
+<td class="text-left"><p>Enable additional hotrod-access.log</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_logfile_enable_rest_accesslog</span></code></p></td>
+<td class="text-left"><p>Enable additional rest-access.log</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_logfile_maxsize</span></code></p></td>
+<td class="text-left"><p>Max file size, triggers rotation</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">100</span> <span class="pre">MB</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_default_realm_tls</span></code></p></td>
+<td class="text-left"><p>Enable TLS server certificate</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_keystore_path</span></code></p></td>
+<td class="text-left"><p>Path to keystore containing server identity certificate</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/etc/pki/java/cacerts</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_keystore_password</span></code></p></td>
+<td class="text-left"><p>Keystore password</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">changeit</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_keystore_alias</span></code></p></td>
+<td class="text-left"><p>Alias for the certificate to load from keystore</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">inventory_hostname</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_keystore_key_password</span></code></p></td>
+<td class="text-left"><p>Key passphrase for TLS server identity</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">''</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_keycloak_caches</span></code></p></td>
+<td class="text-left"><p>Creates remote caches for keycloak</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jvm_package</span></code></p></td>
+<td class="text-left"><p>RHEL java package runtime</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">java-1.8.0-openjdk-devel</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_enable</span></code></p></td>
+<td class="text-left"><p>Install Red Hat DataGrid when true</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> when credentials available, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Download and install defaults</p></li>
+</ul>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>Variable</p></th>
+<th class="text-left head"><p>Description</p></th>
+<th class="text-left head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_offline_install</span></code></p></td>
+<td class="text-left"><p>Perform an offline install</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_version</span></code></p></td>
+<td class="text-left"><p>DataGrid version to install</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">8.2.0</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_default_installation_path</span></code></p></td>
+<td class="text-left"><p>Target extracted installation</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/opt/infinispan/redhat-datagrid-{{</span> <span class="pre">jdg_version</span> <span class="pre">}}-server/</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_bundle</span></code></p></td>
+<td class="text-left"><p>Archive name for Red Hat DataGrid</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">redhat-datagrid-{{</span> <span class="pre">jdg_version</span> <span class="pre">}}-server.zip</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_rhn_id</span></code></p></td>
+<td class="text-left"><p>Customer portal product ID for Red Hat DataGrid</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">jdg_rhn_ids[jdg_version]</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_rhn_url</span></code></p></td>
+<td class="text-left"><p>Customer portal base download URL</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_download_url</span></code></p></td>
+<td class="text-left"><p>Complete customer portal default URL for DataGrid, or alternate download location</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">jdg_rhn_url</span> <span class="pre">}}{{</span> <span class="pre">jdg_rhn_id</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_version</span></code></p></td>
+<td class="text-left"><p>Infinispan version to install</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">12.1.7.Final</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_bundle</span></code></p></td>
+<td class="text-left"><p>Archive name for Infinispan download</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan-server-{{</span> <span class="pre">infinispan_version</span> <span class="pre">}}.zip</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_download_url</span></code></p></td>
+<td class="text-left"><p>Download URL for infinispan</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">https://downloads.jboss.org/infinispan/{{</span> <span class="pre">infinispan_version</span> <span class="pre">}}/{{</span> <span class="pre">infinispan_bundle</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_installation_path</span></code></p></td>
+<td class="text-left"><p>Specific unxtracted installation path for infinispan</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/opt/infinispan/infinispan-server-{{</span> <span class="pre">infinispan_version</span> <span class="pre">}}/</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_app_download_dir</span></code></p></td>
+<td class="text-left"><p>Relocatable install directory parent</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/opt/infinispan</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_healthcheck</span></code></p></td>
+<td class="text-left"><p>Check health of service at end of installation</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_bind_address</span></code></p></td>
+<td class="text-left"><p>Alternate bind address for the daemon</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">localhost</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_caches</span></code></p></td>
+<td class="text-left"><p>List of cache definitions to configure statically</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_users</span></code></p></td>
+<td class="text-left"><p>List of users to create</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">rest_cache_api_path</span></code></p></td>
+<td class="text-left"><p>Path of infinispan rest api</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/rest/v2/caches/</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="role-variables">
+<h2>Role Variables<a class="headerlink" href="#role-variables" title="Permalink to this headline"></a></h2>
+<p>The following are a set of required variables for the role:</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>Variable</p></th>
+<th class="text-left head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">supervisor_password</span></code></p></td>
+<td class="text-left"><p>Password for the administration console user account</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_users</span></code></p></td>
+<td class="text-left"><p>List of <em>user definitions</em> to create</p></td>
+</tr>
+</tbody>
+</table>
+<p>Sample <em>user definition</em> format:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">infinispan_users</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;testuser1&#39;</span><span class="p p-Indicator">,</span><span class="nt"> password</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;test&#39;</span><span class="p p-Indicator">,</span><span class="nt"> roles</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;observer&#39;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;testuser2&#39;</span><span class="p p-Indicator">,</span><span class="nt"> password</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;test&#39;</span><span class="p p-Indicator">,</span><span class="nt"> roles</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;application&#39;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The following are required when <code class="docutils literal notranslate"><span class="pre">jdg_jgroups_jdbcping</span></code> is enabled:</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>Variable</p></th>
+<th class="text-left head"><p>Description</p></th>
+<th class="text-left head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_jdbc_engine</span></code></p></td>
+<td class="text-left"><p>backend database engine (values: <code class="docutils literal notranslate"><span class="pre">['mariadb','postgres']</span></code>)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">mariadb</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_jdbc_driver_version</span></code></p></td>
+<td class="text-left"><p>driver version to download</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">2.7.4</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_jdbc_url</span></code></p></td>
+<td class="text-left"><p>URL for jdbc connection</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdbc:mariadb://localhost:3306/keycloak</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_jdbc_user</span></code></p></td>
+<td class="text-left"><p>username for jdbc connection</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak-user</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_jdbc_pass</span></code></p></td>
+<td class="text-left"><p>password for jdbc connection</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak-pass</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>When setting up cross-DC relaying, also setup mariadb in active-active mode (ie. with galera cluster), and switch the JDBC to url to the <code class="docutils literal notranslate"><span class="pre">sequential</span></code> scheme; similar configuration for other database engines.</p>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h2>
+<p>The roles depends on the <code class="docutils literal notranslate"><span class="pre">redhat_csp_download</span></code> role of <a class="reference external" href="https://github.com/ansible-middleware/redhat-csp-download">middleware_automation.redhat_csp_download</a> collection. To install, from the collection root directory, run:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ansible-galaxy collections install -r requirements.yml
+</pre></div>
+</div>
+<p>Python <em>lxml</em> and <em>jmespath</em> libraries are needed on the host that executes this module. To install, from the collection root directory, run:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pip install -r requirements.txt
+</pre></div>
+</div>
+</section>
+<section id="example-playbook">
+<h2>Example Playbook<a class="headerlink" href="#example-playbook" title="Permalink to this headline"></a></h2>
+<p>The following is an example playbook that makes use of the role to install Infinispan</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">collections</span><span class="p p-Indicator">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">middleware_automation.infinispan</span><span class="w"></span>
+<span class="w">  </span><span class="w w-Error">    </span><span class="nt">tasks</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Include Infinispan role</span><span class="w"></span>
+<span class="w">          </span><span class="nt">include_role</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infinispan</span><span class="w"></span>
+<span class="w">          </span><span class="nt">vars</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nt">supervisor_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;changeme&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="nt">infinispan_users</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="choosing-what-to-install">
+<h2>Choosing what to install<a class="headerlink" href="#choosing-what-to-install" title="Permalink to this headline"></a></h2>
+<p>The role will install Red Hat DataGrid when the following variables are defined in the playbook execution:</p>
+<div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nt">rhn_username</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;&lt;customer</span><span class="nv"> </span><span class="s">portal</span><span class="nv"> </span><span class="s">account</span><span class="nv"> </span><span class="s">username&gt;&#39;</span><span class="w"></span>
+<span class="nt">rhn_password</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;&lt;customer</span><span class="nv"> </span><span class="s">portal</span><span class="nv"> </span><span class="s">account</span><span class="nv"> </span><span class="s">password&gt;&#39;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>and <code class="docutils literal notranslate"><span class="pre">jdg_enable</span></code> is left to its default, or set to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<p>The default installed version will be the baseline 8.3 release; it is possible to install updates setting <code class="docutils literal notranslate"><span class="pre">jdg_version</span></code> to <code class="docutils literal notranslate"><span class="pre">8.x.y</span></code>;
+check what versions are available in the <code class="docutils literal notranslate"><span class="pre">jdg_rhn_ids</span></code> dictionary keys, declared at <span class="xref myst">variables</span></p>
+</section>
+<section id="offline-installation">
+<h2>Offline installation<a class="headerlink" href="#offline-installation" title="Permalink to this headline"></a></h2>
+<p>Performing an offline installation is possible by:</p>
+<ul class="simple">
+<li><p>setting <code class="docutils literal notranslate"><span class="pre">jdg_offline_install</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
+<li><p>making the file available to ansible controller, using as filename <code class="docutils literal notranslate"><span class="pre">jdg_bundle</span></code> if <code class="docutils literal notranslate"><span class="pre">jdg_enable</span></code> is True, <code class="docutils literal notranslate"><span class="pre">infinispan_bundle</span></code> otherwise.</p></li>
+</ul>
+</section>
+<section id="keycloak-integration">
+<h2>Keycloak integration<a class="headerlink" href="#keycloak-integration" title="Permalink to this headline"></a></h2>
+<p>Enabling <code class="docutils literal notranslate"><span class="pre">infinispan_keycloak_caches</span></code> will prepare the following caches in a dedicated cache container for remote keycloak access:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- sessions
+- offlineSessions
+- clientSessions
+- offlineClientSessions
+- loginFailures
+- actionTokens
+- work
+</pre></div>
+</div>
+<p>for more details, refer to the: <a class="reference external" href="https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.5/html-single/server_installation_and_configuration_guide/index#cache">INSTALLATION AND CONFIGURATION GUIDE - 3.4.6. Infinispan caches</a></p>
+</section>
+<section id="deploying-custom-cache-configurations">
+<h2>Deploying custom cache configurations<a class="headerlink" href="#deploying-custom-cache-configurations" title="Permalink to this headline"></a></h2>
+<p>It is possible to deploy caches statically in the infinispan.xml server configuration, by populating the <code class="docutils literal notranslate"><span class="pre">jdg_caches</span></code> list of dicts.
+In case of clustered deployments, this configuration must be executed against all nodes in the cluster, as they are not propagated by the service.
+To deploy cache configurations at runtime, refer to the <code class="docutils literal notranslate"><span class="pre">infinispan_cache</span></code> role instead.</p>
+<p>For more details, refer to:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://infinispan.org/docs/stable/titles/configuring/configuring.html#declarative-cache-configuration_cache-configuration">Configuring Infinispan Caches - 3.1 Declarative cache configuration</a></p></li>
+<li><p><a class="reference external" href="https://infinispan.org/docs/stable/titles/configuring/configuring.html#creating-remote-caches">Configuring Infinispan Caches - 3.3 Creating remote caches</a></p></li>
+</ul>
+</section>
+<section id="how-to-configure-caches">
+<h2>How to configure caches<a class="headerlink" href="#how-to-configure-caches" title="Permalink to this headline"></a></h2>
+<p>A cache configuration can be passed-in as an XML file or string, as it is generated by the infinispan server console; otherwise,
+it is possible to define configuration dicts, used to populate the available templates.</p>
+<p>To pass XML directly, as string or with a file:</p>
+<div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nt">jdg_caches</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">cache_xml</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span><span class="w"></span>
+<span class="w">          </span><span class="no">&lt;local-cache name=&quot;testcachexml&quot; statistics=&quot;true&quot;&gt;</span><span class="w"></span>
+<span class="w">            </span><span class="no">&lt;encoding media-type=&quot;application/x-protostream&quot;/&gt;</span><span class="w"></span>
+<span class="w">          </span><span class="no">&lt;/local-cache&gt;</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">cache_xml</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">lookup</span><span class="o">(</span><span class="s1">&#39;file&#39;</span><span class="o">,</span> <span class="nv">user_data_file</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>To configure caches:</p>
+<div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nt">jdg_caches</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">cache_config</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;my-distributed-cache&#39;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;distribute-cache&#39;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">encoding</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;application/x-jboss-marshalling&#39;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">persistence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span><span class="w"></span>
+</pre></div>
+</div>
+<p>It is possible to mix and match the two configurations in the <code class="docutils literal notranslate"><span class="pre">jdg_caches</span></code> list.</p>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline"></a></h2>
+<p>Apache License 2.0</p>
+</section>
+<section id="author-information">
+<h2>Author Information<a class="headerlink" href="#author-information" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/guidograzioli">Guido Grazioli</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rpelisse">Romain Pelisse</a></p></li>
+<li><p><a class="reference external" href="https://github.com/l3acon">Matthew Fernandez</a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Red Hat, Inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
