@@ -1,0 +1,25 @@
+==============================================
+middleware_automation.infinispan Release Notes
+==============================================
+
+.. contents:: Topics
+
+This changelog describes changes after version 0.1.9.
+
+
+v1.0.1
+======
+
+Release Summary
+---------------
+
+Patch release containing only cleanup and documentation changes.
+
+
+v1.0.0
+======
+
+Release Summary
+---------------
+
+This is the first stable release of the ``middleware_automation.infinispan`` collection.
