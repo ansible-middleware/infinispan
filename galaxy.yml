@@ -1,7 +1,7 @@
 ---
 namespace: middleware_automation
 name: infinispan
-version: "1.0.1"
+version: "1.0.2"
 readme: README.md
 authors:
   - Romain Pelisse <rpelisse@redhat.com>
@@ -26,5 +26,6 @@ homepage: https://github.com/ansible-middleware/infinispan
 issues: https://github.com/ansible-middleware/infinispan/issues
 build_ignore:
   - molecule
-  - docs
   - .github
+  - '*.tar.gz'
+  - '*.zip'

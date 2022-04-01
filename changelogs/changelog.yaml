@@ -1,0 +1,15 @@
+ancestor: 0.1.9
+releases:
+  1.0.0:
+    changes:
+      release_summary: 'This is the first stable release of the ``middleware_automation.infinispan``
+        collection.
+
+        '
+    release_date: '2022-03-01'
+  1.0.1:
+    changes:
+      release_summary: 'Patch release containing only cleanup and documentation changes.
+
+        '
+    release_date: '2022-03-11'

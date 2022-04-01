@@ -40,6 +40,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r ansible_collections/middleware_automation/infinispan/docs/requirements.txt
           pip install -r ansible_collections/middleware_automation/infinispan/requirements.txt
+          sudo apt install -y sed hub
 
       - name: Create default collection path
         run: |
@@ -50,8 +51,41 @@ jobs:
           mkdir -p ./docs/plugins ./docs/roles
           cat ./docs/roles.rst.template > ./docs/roles/index.rst
           antsibull-docs collection --use-current --squash-hierarchy --dest-dir docs/plugins  middleware_automation.infinispan
-          for role_readme in roles/*/README.md; do ln -f -s ../../$role_readme ./docs/roles/$(basename $(dirname $role_readme)).md; echo " * :doc:\`$(basename $(dirname $role_readme))\`" >> ./docs/roles/index.rst; done
+          for role_readme in roles/*/README.md; do
+            ln -f -s ../../$role_readme ./docs/roles/$(basename $(dirname $role_readme)).md
+            echo "    $(basename $(dirname $role_readme))" >> ./docs/roles/index.rst
+          done
         working-directory: ansible_collections/middleware_automation/infinispan
+
+      - name: Scan PR merges from latest tag
+        run: |
+          TYPES=("minor_changes" "major_changes" "bugfixes" "deprecated_features" "removed_features" "breaking_changes")
+          TAG=$(git describe --abbrev=0 --tags)
+          if [[ "${{github.ref}}" == "refs/heads/main" ]]; then
+            PRS=($(comm -12 <(git log --oneline ${TAG}.. --format="tformat:%H" | sort ) <(hub pr list -s all -f '%sm%n' --color=never | sort )))
+          else
+            PREV_TAG=$(git tag | grep -P "^[0-9]+[.][0-9]+[.][0-9]+$" | sort --version-sort -r | head -n2 | grep -v "${TAG}")
+            PRS=($(comm -12 <(git log --oneline ${PREV_TAG}..${TAG} --format="tformat:%H" | sort ) <(hub pr list -s all -f '%sm%n' --color=never | sort )))
+          fi
+          if [[ ${#PRS[@]} > 0 ]]; then
+            IFS=$'\n' FRAGMENTS=($(hub pr list -s all -f '%sm~%I~%L~%t~%n' --color=never | grep -P "$(echo "^(${PRS[@]})" | tr ' ' '|')"))
+            for frag in "${FRAGMENTS[@]}"; do
+              PR=$(echo $frag|cut -d~ -f2)
+              type="$(echo $frag|cut -d~ -f3)"
+              msg="$(echo $frag|cut -d~ -f4|sed 's/`/``/g')"
+              if [[ "${TYPES[*]}" =~ "${type}" ]]; then
+                echo -e "$type:\n  - >\n    $msg \`#${PR} <https://github.com/ansible-middleware/infinispan/pull/${PR}>\`_" \
+                  > changelogs/fragments/${PR}.yaml
+              fi
+            done
+            antsibull-changelog lint -vvv
+            if [[ "${{github.ref}}" == "refs/heads/main" ]]; then
+              antsibull-changelog release --version "$(grep version galaxy.yml | awk -F'"' '{ print $2 }')-devel" -v
+            fi
+          fi
+        working-directory: ansible_collections/middleware_automation/infinispan
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run sphinx
         run: |
@@ -62,6 +96,7 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+          git stash
           git checkout gh-pages
           rm -rf $(basename ${GITHUB_REF})
           mv docs/_build/html $(basename ${GITHUB_REF})
