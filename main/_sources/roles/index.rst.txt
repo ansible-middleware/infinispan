@@ -1,5 +1,6 @@
 Role Index
 ==========
 
- * :doc:`infinispan`
- * :doc:`infinispan_cache`
+.. toctree::
+    infinispan
+    infinispan_cache
