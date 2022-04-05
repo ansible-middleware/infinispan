@@ -1,6 +1,6 @@
 ---
 - name: Playbook for infinispan Hosts
-  hosts: infinispan
+  hosts: all
   become: yes
   collections:
     - middleware_automation.redhat_csp_download
@@ -26,4 +26,4 @@
         cache_xml: >
           <local-cache name="testcache" statistics="true">
             <encoding media-type="application/x-protostream"/>
-          </local-cache>"  
+          </local-cache>"
