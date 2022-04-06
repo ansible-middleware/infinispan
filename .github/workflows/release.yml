@@ -50,7 +50,6 @@ jobs:
         run: |
           ansible-galaxy collection build .
 
-
       - name: Create changelog and documentation
         uses: ansible-middleware/collection-docs-action@main
         with:
