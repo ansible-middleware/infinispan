@@ -6,7 +6,6 @@ middleware_automation.infinispan Release Notes
 
 This changelog describes changes after version 0.1.9.
 
-
 v1.0.1
 ======
 
@@ -23,3 +22,4 @@ Release Summary
 ---------------
 
 This is the first stable release of the ``middleware_automation.infinispan`` collection.
+
