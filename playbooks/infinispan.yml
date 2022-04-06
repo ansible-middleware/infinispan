@@ -5,25 +5,14 @@
   collections:
     - middleware_automation.redhat_csp_download
   roles:
-    - middleware_automation.redhat_csp_download.redhat_csp_download
-  tasks:
-    - name: Set facts
-      ansible.builtin.set_fact:
-        jdg_enable: False
-        override_jdg_bind_address: "{{ ansible_nodename }}"
-    - name: "infinispan"
-      ansible.builtin.include_role:
-        name: infinispan
-      vars:
-        supervisor_password: "itsme"
-        infinispan_users: []
-    - name: "infinispan cache"
-      ansible.builtin.include_role:
-        name: infinispan_cache
-      vars:
-        deployer_user: "supervisor"
-        deployer_password: "itsme"
-        cache_xml: >
-          <local-cache name="testcache" statistics="true">
-            <encoding media-type="application/x-protostream"/>
-          </local-cache>"  
+    - role: redhat_csp_download
+    - role: infinispan
+      supervisor_password: "itsme"
+      infinispan_users: []
+    - role: infinispan_cache
+      deployer_user: "supervisor"
+      deployer_password: "itsme"
+      cache_xml: >
+        <local-cache name="testcache" statistics="true">
+          <encoding media-type="application/x-protostream"/>
+        </local-cache>"

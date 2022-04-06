@@ -15,6 +15,14 @@
       - supervisor_password is defined and supervisor_password|length > 0
     quiet: true
 
+- name: Install parameters
+  ansible.builtin.debug:
+    var: infinispan_installation_path
+
+- name: Install parameters
+  ansible.builtin.debug:
+    var: jdg
+
 - name: Include prerequisite tasks
   ansible.builtin.include_tasks: prereqs.yml
 
@@ -27,12 +35,6 @@
 
 - name: Include systemd tasks
   ansible.builtin.include_tasks: tasks/systemd.yml
-
-- name: Parse declarative cache config to cache xml
-  ansible.builtin.set_fact:
-    jdg: "{{ jdg | combine ( { 'static_caches': jdg.static_caches + [item | combine( { 'cache_xml': lookup('template', 'templates/'+item.cache_config.template+'-cache.j2', template_vars=item)|replace('\n', '') }, recursive=True )] } ) }}"
-  loop: "{{ jdg.static_caches|flatten(levels=1) }}"
-  when: item.cache_xml is not defined
 
 - name: "Ensure {{ jdg.service.name }} configuration is deployed: {{ jdg.config.name }}"
   ansible.builtin.template:
@@ -76,7 +78,7 @@
 
 - name: "Ensure {{ jdg.service.name }} service is running and enabled"
   ansible.builtin.systemd:
-    name: "{{ jdg.service.name }}"
+    name: "{{ jdg.service.unit_file }}"
     state: started
     enabled: yes
 
@@ -84,20 +86,4 @@
   ansible.builtin.file:
     state: link
     src: "{{ jdg.home }}/server/log"
-    dest: /var/log/infinispan
-
-- name: Flush handlers
-  ansible.builtin.meta: flush_handlers
-
-- name: "Wait for used port to be open"
-  ansible.builtin.wait_for:
-    port: "{{ jdg.port }}"
-    delay: 0
-  when:
-    - jdg_healthcheck
-    - jdg.port is defined
-
-- name: Include tasks to validate keycloak remote caches
-  ansible.builtin.include_tasks: keycloak.yml
-  when:
-    - jdg_keycloak_cache.enabled
+    dest: "/var/log/infinispan{{ '-' + jdg_nodename if jdg_nodename != inventory_hostname else '' }}"

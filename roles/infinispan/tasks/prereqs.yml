@@ -14,7 +14,7 @@
     - unzip
     - procps-ng
     - initscripts
-    - "{{ jvm_package }}"
+    - "{{ jdg_jvm_package }}"
 
 - name: Ensure required packages are installed
   ansible.builtin.include_tasks: fastpackages/install.yml

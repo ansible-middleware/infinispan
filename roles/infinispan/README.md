@@ -15,14 +15,15 @@ Role Defaults
 |`jdg_jgroups_port`| Alternate port for the jgroups cluster | `7800` |
 |`jdg_jgroups_relay_port`| Alternate port for the jgroups relaying cluster | `7801` |
 |`jdg_port_offset`| Optional port offset for colocated installations | `0` |
+|`jdg_nodename`| Instance name for service (ie. cluster node identifier) | `{{ inventory_hostname }}` |
 |`jdg_bind_addr`| Alternate bind address for the daemon | `localhost` |
 |`jdg_jgroups_relay`| Enable cross-DC relaying | `False` |
 |`jdg_jgroups_relay_sites`| List of site names for cross-DC relaying | `[]` |
 |`jdg_jgroups_relay_site`| Site the inventory host is in when cross-DC is enabled | `''` |
 |`jdg_jgroups_jdbcping`| Enable clustering using JDBC PING discovery | `False` |
 |`jdg_keycloak_persistence`| Enable persitence datasource for keycloak caches | `False` |
-|`jdg_service_user`| posix account for the service installation | `jdg` |
-|`jdg_service_group`| posix group for the service installation | `jdg` |
+|`jdg_service_user`| Posix account for the service installation | `jdg` |
+|`jdg_service_group`| Posix group for the service installation | `jdg` |
 |`jdg_logfile_format`| Main logfile format: FILE or JSON-FILE | `FILE` |
 |`jdg_logfile_root_level`| Root logging level: TRACE, DEBUG, INFO, WARN, ERROR | `INFO` |
 |`jdg_logfile_enable_audit`| Enable additional audit.log logfile | `True` |
@@ -35,7 +36,7 @@ Role Defaults
 |`jdg_keystore_alias`| Alias for the certificate to load from keystore | `{{ inventory_hostname }}` |
 |`jdg_keystore_key_password`| Key passphrase for TLS server identity | `''`|
 |`infinispan_keycloak_caches`| Creates remote caches for keycloak | `False` |
-|`jvm_package`| RHEL java package runtime | `java-1.8.0-openjdk-devel` |
+|`jdg_jvm_package`| RHEL java package runtime | `java-11-openjdk-headless` |
 |`jdg_enable`|Install Red Hat DataGrid when true| `True` when credentials available, `False` otherwise|
 
 
@@ -54,7 +55,7 @@ Role Defaults
 |`infinispan_bundle`| Archive name for Infinispan download | `infinispan-server-{{ infinispan_version }}.zip` |
 |`infinispan_download_url`| Download URL for infinispan | `https://downloads.jboss.org/infinispan/{{ infinispan_version }}/{{ infinispan_bundle }}` |
 |`infinispan_installation_path`| Specific unxtracted installation path for infinispan | `/opt/infinispan/infinispan-server-{{ infinispan_version }}/` |
-|`jdg_app_download_dir`| Relocatable install directory parent | `/opt/infinispan` |
+|`jdg_app_download_dir`| Directory where to download archives | `/opt/infinispan` |
 |`jdg_healthcheck`| Check health of service at end of installation | `True` |
 |`jdg_bind_address`| Alternate bind address for the daemon | `localhost` |
 |`jdg_caches`| List of cache definitions to configure statically | `[]` |

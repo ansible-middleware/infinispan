@@ -1,7 +1,7 @@
-- name: "Configure systemd unit file for {{ jdg.name }} service"
+- name: "Configure systemd unit file for {{ jdg.name }} {{ jdg_nodename }} service"
   ansible.builtin.template:
     src: templates/infinispan.service.j2
-    dest: "{{ jdg.service.unit_dir }}/{{ jdg.service.unit_file }}"
+    dest: "{{ jdg.service.unit_dir }}/{{ jdg.service.unit_file }}.service"
     owner: root
     group: root
     mode: 0644
