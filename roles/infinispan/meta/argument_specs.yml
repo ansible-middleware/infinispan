@@ -96,6 +96,11 @@ argument_specs:
                 default: 7801
                 description: "Alternate port for the jgroups relaying cluster"
                 type: "int"
+            jdg_port_offset:
+                # line 31 of infinispan/defaults/main.yml
+                default: 0
+                description: "Optional port offset for colocated installations"
+                type: "int"
             jdg_service_user:
                 # line 29 of infinispan/defaults/main.yml
                 default: "jdg"

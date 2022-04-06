@@ -28,6 +28,7 @@ jdg_jgroups_port: 7800
 jdg_jgroups_relay_port: 7801
 jdg_service_user: jdg
 jdg_service_group: jdg
+jdg_port_offset: 0
 
 # flag to enable protocol encryption
 jdg_default_realm_tls: False

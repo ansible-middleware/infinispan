@@ -30,7 +30,6 @@
 
 - name: Parse declarative cache config to cache xml
   ansible.builtin.set_fact:
-    #templated_xml_cache: "{{  }}"
     jdg: "{{ jdg | combine ( { 'static_caches': jdg.static_caches + [item | combine( { 'cache_xml': lookup('template', 'templates/'+item.cache_config.template+'-cache.j2', template_vars=item)|replace('\n', '') }, recursive=True )] } ) }}"
   loop: "{{ jdg.static_caches|flatten(levels=1) }}"
   when: item.cache_xml is not defined

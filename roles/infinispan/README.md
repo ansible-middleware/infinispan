@@ -14,6 +14,7 @@ Role Defaults
 |`jdg_port`| Alternate port for the service | `11222` |
 |`jdg_jgroups_port`| Alternate port for the jgroups cluster | `7800` |
 |`jdg_jgroups_relay_port`| Alternate port for the jgroups relaying cluster | `7801` |
+|`jdg_port_offset`| Optional port offset for colocated installations | `0` |
 |`jdg_bind_addr`| Alternate bind address for the daemon | `localhost` |
 |`jdg_jgroups_relay`| Enable cross-DC relaying | `False` |
 |`jdg_jgroups_relay_sites`| List of site names for cross-DC relaying | `[]` |
