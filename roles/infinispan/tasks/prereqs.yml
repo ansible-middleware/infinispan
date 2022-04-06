@@ -5,7 +5,7 @@
       - (rhn_username is defined and jdg_enable) or not jdg_enable or jdg_offline_install
       - (rhn_password is defined and jdg_enable) or not jdg_enable or jdg_offline_install
     quiet: True
-    fail_msg: "Cannot install Red Hat DataGrid without RHN credentials. Check rhn_username and rhn_password are defined"
+    fail_msg: "Cannot install {{ jdg.name }} without RHN credentials. Check rhn_username and rhn_password are defined"
     success_msg: "{{ 'Installing Red Hat DataGrid' if jdg_enable else 'Installing Infinispan' }}"
 
 - name: Set required packages facts
@@ -16,7 +16,7 @@
     - initscripts
     - "{{ jvm_package }}"
 
-- name: Ensures required packages are installed
+- name: Ensure required packages are installed
   ansible.builtin.include_tasks: fastpackages/install.yml
   vars:
     packages_list: "{{ required_packages }}"

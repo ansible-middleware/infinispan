@@ -6,15 +6,15 @@
 #               'systemctl start|enable {{ jdg.service.name }}'
 
 [Unit]
-Description={{ jdg.service.name }} service
+Description={{ jdg.name }} service {{ '' if jdg_port_offset == 0 else ' with offset port ' + jdg_port_offset }}
 After=network.target
 
 [Service]
-Environment="ISPN_PIDFILE=/run/{{ jdg.service.name }}.pid"
+Environment="ISPN_PIDFILE=/run/{{ jdg.service.name }}-{{ jdg_port_offset }}.pid"
 ExecStart=/bin/sh -c '{{ jdg.home }}/bin/server.sh -c {{ jdg.config.name }} -b {{ jdg.bind_addr }} &'
 Type=forking
 TimeoutSec=30
-PIDFile=/run/{{ jdg.service.name }}.pid
+PIDFile=/run/{{ jdg.service.name }}-{{ jdg_port_offset }}.pid
 
 [Install]
 WantedBy=multi-user.target

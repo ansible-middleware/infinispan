@@ -104,7 +104,7 @@
   register: path_to_workdir
   become: yes
 
-- name: "Extract {{ 'Red Hat Datagrid' if jdg_enable else 'Infinispan' }} archive on target {{ jdg.installation_path }}"
+- name: "Extract {{ jdg.name }} archive on target {{ jdg.installation_path }}"
   ansible.builtin.unarchive:
     remote_src: yes
     src: "{{ archive }}"

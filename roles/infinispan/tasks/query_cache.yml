@@ -8,7 +8,7 @@
       - method is defined
     quiet: true
 
-- name: "Ensure cache {{ cache.name }} exists."
+- name: "Ensure cache {{ cache.name }} exists"
   ansible.builtin.uri:
     url: "{{ jdg_url }}{{ rest_cache_api_path }}{{ cache.name }}"
     method: "{{ method }}"

@@ -21,7 +21,7 @@
 - name: Include install tasks
   ansible.builtin.include_tasks: tasks/install.yml
 
-- name: Installation directory
+- name: Install directory
   ansible.builtin.debug:
     msg: "{{ 'Red Hat Datagrid' if jdg_enable else 'Infinispan' }} installed at path {{ jdg.home }}"
 

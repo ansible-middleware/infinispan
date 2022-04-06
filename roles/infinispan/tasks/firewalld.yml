@@ -1,5 +1,5 @@
 ---
-- name: Ensures required package firewalld are installed
+- name: Ensure required package firewalld is installed
   ansible.builtin.include_tasks: fastpackages/install.yml
   vars:
     packages_list:
@@ -12,7 +12,7 @@
     enabled: yes
     state: started
 
-- name: Configure firewall for jdg ports
+- name: "Configure firewall for {{ jdg.name }} ports"
   become: yes
   ansible.posix.firewalld:
     port: "{{ item }}"

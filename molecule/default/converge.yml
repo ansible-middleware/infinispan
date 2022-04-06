@@ -19,6 +19,23 @@
               name: configuredstaticcache
               template: replicated
               mode: ASYNC
+    - name: Include colocated infinispan role
+      include_role:
+        name: ../../roles/infinispan
+      vars:
+        supervisor_password: "itsme"
+        jdg_port_offset: 100
+        infinispan_users:
+          - { name: 'testuser', password: 'test', roles: 'observer' }
+        jdg_caches:
+          - cache_xml: >
+              <local-cache name="teststaticcachexml" statistics="true">
+                <encoding media-type="application/x-protostream"/>
+              </local-cache>
+          - cache_config:
+              name: configuredstaticcache
+              template: replicated
+              mode: ASYNC
     - name: "infinispan cache role (xml)"
       include_role:
         name: ../../roles/infinispan_cache
