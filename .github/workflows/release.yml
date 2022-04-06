@@ -60,8 +60,7 @@ jobs:
           commit_ghpages: false
           changelog_release: true
           generate_docs: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish collection
         env:

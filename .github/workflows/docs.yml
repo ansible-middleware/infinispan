@@ -57,5 +57,4 @@ jobs:
           changelog_release: false
           generate_docs: true
           path: ansible_collections/middleware_automation/infinispan
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
