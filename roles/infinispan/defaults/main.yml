@@ -19,7 +19,7 @@ jdg_enable: "{{ True if jdg_rhn_id is defined and rhn_username is defined and rh
 jdg_offline_install: False
 
 # common config for datagrid/infinispan service
-jvm_package: java-1.8.0-openjdk-devel
+jdg_nodename: "{{ inventory_hostname }}"
 jdg_app_download_dir: "/opt/infinispan"
 jdg_healthcheck: True
 jdg_bind_address: localhost
@@ -28,6 +28,8 @@ jdg_jgroups_port: 7800
 jdg_jgroups_relay_port: 7801
 jdg_service_user: jdg
 jdg_service_group: jdg
+jdg_port_offset: 0
+jdg_jvm_package: java-11-openjdk-headless
 
 # flag to enable protocol encryption
 jdg_default_realm_tls: False

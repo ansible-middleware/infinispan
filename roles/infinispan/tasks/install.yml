@@ -100,16 +100,25 @@
 
 - name: "Check target directory: {{ jdg.installation_path }}"
   ansible.builtin.stat:
-    path: "{{ jdg.installation_path }}"
+    path: "{{ jdg.installation_path }}/bin"
   register: path_to_workdir
   become: yes
 
-- name: "Extract {{ 'Red Hat Datagrid' if jdg_enable else 'Infinispan' }} archive on target"
+- name: "Create target directory {{ jdg.installation_path | dirname | dirname }}"
+  ansible.builtin.file:
+    state: directory
+    path: "{{ jdg.installation_path | dirname | dirname }}"
+    owner: "{{ jdg.user.name }}"
+    group: "{{ jdg.group.name }}"
+    mode: 0750
+  become: yes
+
+- name: "Extract {{ jdg.name }} archive on target {{ jdg.installation_path }}"
   ansible.builtin.unarchive:
     remote_src: yes
     src: "{{ archive }}"
-    dest: "{{ jdg_app_download_dir }}"
-    creates: "{{ jdg.installation_path }}"
+    dest: "{{ jdg.installation_path | dirname | dirname }}"
+    creates: "{{ jdg.installation_path }}/bin"
     owner: "{{ jdg.user.name }}"
     group: "{{ jdg.group.name }}"
   become: yes

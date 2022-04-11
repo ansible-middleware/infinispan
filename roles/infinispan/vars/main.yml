@@ -23,10 +23,10 @@ jdg:
   bundle: "{{ jdg_bundle if jdg_enable else infinispan_bundle }}"
   installation_path: "{{ jdg_default_installation_path if jdg_enable else infinispan_installation_path }}"
   bind_addr: "{{ jdg_bind_address }}"
-  port: "{{ jdg_port }}"
+  port: "{{ jdg_port + jdg_port_offset }}"
   jgroups_bind_addr: "{{ jdg_jgroups_override_bind_addr | default(ansible_all_ipv4_addresses[0] if ansible_all_ipv4_addresses is defined else '127.0.0.1') }}"
-  jgroups_port: "{{ jdg_jgroups_port }}"
-  jgroups_relay_port: "{{ jdg_jgroups_relay_port }}"
+  jgroups_port: "{{ jdg_jgroups_port + jdg_port_offset }}"
+  jgroups_relay_port: "{{ jdg_jgroups_relay_port + jdg_port_offset }}"
   config:
     name: "jdg.xml"
     template: "{{ jdg_config_override_template | default('templates/infinispan.xml.j2') }}"
@@ -39,8 +39,11 @@ jdg:
     name: "{{ jdg_service_group }}"
   service:
     name: "{{ 'jdg' if jdg_enable else 'infinispan' }}"
+    unit_dir: /etc/systemd/system
+    unit_file: "{{ ('jdg' if jdg_port_offset == 0 else ('jdg-' + jdg_nodename)) if jdg_enable else ('infinispan' if jdg_port_offset == 0 else ('infinispan-' + jdg_nodename)) }}"
   users: "{{ [ jdg_supervisor ] + infinispan_users }}"
   static_caches: "{{ jdg_caches }}"
+  name: "{{ 'Red Hat DataGrid' if jdg_enable else 'Infinispan' }}"
 
 jdg_jgroups_jdbc:
   mariadb:

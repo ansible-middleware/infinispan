@@ -53,11 +53,11 @@
 
     <cache-container name="default" statistics="true">
 {% if jdg_jgroups_relay and jdg_jgroups_jdbcping %}
-      <transport cluster="{{ jdg_jgroups_relay_site }}" stack="xsite" node-name="{{ inventory_hostname }}"  machine="{{ inventory_hostname }}" site="{{ jdg_jgroups_relay_site }}"/>
+      <transport cluster="{{ jdg_jgroups_relay_site }}" stack="xsite" node-name="{{ jdg_nodename }}"  machine="{{ inventory_hostname }}" site="{{ jdg_jgroups_relay_site }}"/>
 {% elif jdg_keycloak_cache.enabled or jdg_jgroups_jdbcping %}
-      <transport cluster="datagrid" stack="datagrid" node-name="{{ inventory_hostname }}" machine="{{ inventory_hostname }}"/>
+      <transport cluster="datagrid" stack="datagrid" node-name="{{ jdg_nodename }}" machine="{{ inventory_hostname }}"/>
 {% else %}
-      <transport cluster="datagrid" stack="tcp" node-name="{{ inventory_hostname }}"/>
+      <transport cluster="datagrid" stack="tcp" node-name="{{ jdg_nodename }}"/>
 {% endif %}
       <security>
         <authorization>
@@ -66,6 +66,8 @@
       </security>
 {% for cache in jdg.static_caches %}{% if cache.cache_xml is defined %}
 {{ cache.cache_xml|default('') }}
+{% else %}
+{{ lookup('template', 'templates/'+cache.cache_config.template+'-cache.j2', template_vars=cache)|replace('\n', '') }}
 {% endif %}{% endfor %}
     </cache-container>
 
@@ -73,7 +75,7 @@
     <!-- keycloak caches -->
     <cache-container name="keycloak" statistics="true">
 {% if jdg_jgroups_relay %}
-      <transport cluster="{{ jdg_jgroups_relay_site }}" stack="xsite" node-name="{{ inventory_hostname }}"  machine="{{ inventory_hostname }}" site="{{ jdg_jgroups_relay_site }}"/>
+      <transport cluster="{{ jdg_jgroups_relay_site }}" stack="xsite" node-name="{{ jdg_nodename }}"  machine="{{ inventory_hostname }}" site="{{ jdg_jgroups_relay_site }}"/>
       <replicated-cache name="work">
         <encoding media-type="application/x-jboss-marshalling"/>
         <transaction mode="NON_XA"/>
@@ -111,7 +113,7 @@
         </authorization>
       </security>
 {% else %}
-      <transport cluster="datagrid" stack="datagrid" node-name="{{ inventory_hostname }}" machine="{{ inventory_hostname }}"/>
+      <transport cluster="datagrid" stack="datagrid" node-name="{{ jdg_nodename }}" machine="{{ inventory_hostname }}"/>
       <replicated-cache name="work">
         <encoding media-type="application/x-jboss-marshalling"/>
         <transaction mode="NON_XA"/>

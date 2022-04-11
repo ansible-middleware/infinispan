@@ -26,6 +26,11 @@ argument_specs:
                 default: ""
                 description: "XML declaration for the cache to deploy as string"
                 type: "str"
+            cache_config:
+                # line 6 of infinispan_cache/defaults/main.yml
+                default: "{}"
+                description: "dict object with configuration for the cache to deploy"
+                type: "dict"
             deployer_password:
                 # line 3 of infinispan_cache/vars/main.yml
                 required: true

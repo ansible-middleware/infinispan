@@ -1,6 +1,11 @@
 argument_specs:
     main:
         options:
+            jdg_nodename:
+                # line 3 of infinispan/defaults/main.yml
+                default: "{{ inventory_hostname }}"
+                description: "Instance name for service"
+                type: "str"
             jdg_version:
                 # line 3 of infinispan/defaults/main.yml
                 default: "8.2.0"
@@ -61,15 +66,15 @@ argument_specs:
                 default: false
                 description: "Perform an offline install"
                 type: "bool"
-            jvm_package:
+            jdg_jvm_package:
                 # line 22 of infinispan/defaults/main.yml
-                default: "java-1.8.0-openjdk-devel"
+                default: "java-11-openjdk-headless"
                 description: "RHEL java package runtime"
                 type: "str"
             jdg_app_download_dir:
                 # line 23 of infinispan/defaults/main.yml
                 default: "/opt/infinispan"
-                description: "Relocatable install directory parent"
+                description: "Directory where to download archives"
                 type: "str"
             jdg_healthcheck:
                 # line 24 of infinispan/defaults/main.yml
@@ -96,15 +101,20 @@ argument_specs:
                 default: 7801
                 description: "Alternate port for the jgroups relaying cluster"
                 type: "int"
+            jdg_port_offset:
+                # line 31 of infinispan/defaults/main.yml
+                default: 0
+                description: "Optional port offset for colocated installations"
+                type: "int"
             jdg_service_user:
                 # line 29 of infinispan/defaults/main.yml
                 default: "jdg"
-                description: "posix account for the service installation"
+                description: "Posix account for the service installation"
                 type: "str"
             jdg_service_group:
                 # line 30 of infinispan/defaults/main.yml
                 default: "jdg"
-                description: "posix group for the service installation"
+                description: "Posix group for the service installation"
                 type: "str"
             jdg_default_realm_tls:
                 # line 33 of infinispan/defaults/main.yml
