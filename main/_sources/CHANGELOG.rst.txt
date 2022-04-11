@@ -15,6 +15,11 @@ Release Summary
 Patch release containing only cleanup and documentation changes.
 
 
+Major Changes
+-------------
+
+- Make playbook compatible with multiple installations on same host `#12 <https://github.com/ansible-middleware/infinispan/pull/12>`_
+
 v1.0.0
 ======
 

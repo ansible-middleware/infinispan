@@ -125,6 +125,14 @@
 <td class="text-left"><p>Alternate port for the jgroups relaying cluster</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">7801</span></code></p></td>
 </tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_port_offset</span></code></p></td>
+<td class="text-left"><p>Optional port offset for colocated installations</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_nodename</span></code></p></td>
+<td class="text-left"><p>Instance name for service (ie. cluster node identifier)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">inventory_hostname</span> <span class="pre">}}</span></code></p></td>
+</tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_bind_addr</span></code></p></td>
 <td class="text-left"><p>Alternate bind address for the daemon</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">localhost</span></code></p></td>
@@ -150,11 +158,11 @@
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_service_user</span></code></p></td>
-<td class="text-left"><p>posix account for the service installation</p></td>
+<td class="text-left"><p>Posix account for the service installation</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg</span></code></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_service_group</span></code></p></td>
-<td class="text-left"><p>posix group for the service installation</p></td>
+<td class="text-left"><p>Posix group for the service installation</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg</span></code></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_logfile_format</span></code></p></td>
@@ -205,9 +213,9 @@
 <td class="text-left"><p>Creates remote caches for keycloak</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jvm_package</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_jvm_package</span></code></p></td>
 <td class="text-left"><p>RHEL java package runtime</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">java-1.8.0-openjdk-devel</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">java-11-openjdk-headless</span></code></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_enable</span></code></p></td>
 <td class="text-left"><p>Install Red Hat DataGrid when true</p></td>
@@ -271,7 +279,7 @@
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/opt/infinispan/infinispan-server-{{</span> <span class="pre">infinispan_version</span> <span class="pre">}}/</span></code></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_app_download_dir</span></code></p></td>
-<td class="text-left"><p>Relocatable install directory parent</p></td>
+<td class="text-left"><p>Directory where to download archives</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/opt/infinispan</span></code></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdg_healthcheck</span></code></p></td>
