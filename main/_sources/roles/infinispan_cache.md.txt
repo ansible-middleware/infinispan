@@ -98,7 +98,7 @@ The following are example playbooks that make use of the role to create Infinisp
            name: ../../roles/infinispan_cache
          vars:
            deployer_user: "supervisor"
-           deployer_password: "itsme"
+           deployer_password: "remembertochangeme"
            cache_config:
              name: configuredcache
              template: replicated
