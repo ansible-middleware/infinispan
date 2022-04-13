@@ -25,9 +25,19 @@
 
 - name: Include prerequisite tasks
   ansible.builtin.include_tasks: prereqs.yml
+  tags:
+    - prereqs
+
+- name: Include firewall config tasks
+  ansible.builtin.include_tasks: firewalld.yml
+  when: jdg_configure_firewalld
+  tags:
+    - firewall
 
 - name: Include install tasks
   ansible.builtin.include_tasks: tasks/install.yml
+  tags:
+    - install
 
 - name: Install directory
   ansible.builtin.debug:
@@ -35,6 +45,8 @@
 
 - name: Include systemd tasks
   ansible.builtin.include_tasks: tasks/systemd.yml
+  tags:
+    - systemd
 
 - name: "Ensure {{ jdg.service.name }} configuration is deployed: {{ jdg.config.name }}"
   ansible.builtin.template:

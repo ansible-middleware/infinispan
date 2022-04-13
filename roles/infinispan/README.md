@@ -37,7 +37,7 @@ Role Defaults
 |`jdg_keystore_key_password`| Key passphrase for TLS server identity | `''`|
 |`infinispan_keycloak_caches`| Creates remote caches for keycloak | `False` |
 |`jdg_jvm_package`| RHEL java package runtime | `java-11-openjdk-headless` |
-|`jdg_enable`|Install Red Hat DataGrid when true| `True` when credentials available, `False` otherwise|
+|`jdg_enable`|Install Red Hat DataGrid when true| `True` when credentials available, `False` otherwise |
 
 
 * Download and install defaults
@@ -61,6 +61,7 @@ Role Defaults
 |`jdg_caches`| List of cache definitions to configure statically | `[]` |
 |`infinispan_users`| List of users to create | `[]` |
 |`rest_cache_api_path`| Path of infinispan rest api | `/rest/v2/caches/` |
+|`jdg_configure_firewalld`| Ensure firewalld is running and configure infinispan/jdg ports | `False` |
 
 
 Role Variables
