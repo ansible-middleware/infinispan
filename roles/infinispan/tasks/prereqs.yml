@@ -8,6 +8,14 @@
     fail_msg: "Cannot install {{ jdg.name }} without RHN credentials. Check rhn_username and rhn_password are defined"
     success_msg: "{{ 'Installing Red Hat DataGrid' if jdg_enable else 'Installing Infinispan' }}"
 
+- name: Validate admin console password
+  ansible.builtin.assert:
+    that:
+      - supervisor_password | length > 12
+    quiet: True
+    fail_msg: "The console administrator password is empty or invalid. Please set the supervisor_password variable to a 16+ char long string"
+    success_msg: "{{ 'Console administrator password OK' }}"
+
 - name: Set required packages facts
   ansible.builtin.set_fact:
     required_packages:

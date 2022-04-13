@@ -8,12 +8,13 @@
       assert:
         that:
           - ansible_facts.services["infinispan.service"]["state"] == "running"
+          - ansible_facts.services["infinispan.service"]["status"] == "enabled"
     - name: "Check service operational: create test cache via rest"
       ansible.builtin.uri:
         url: http://localhost:11222/rest/v2/caches/test_cache
         method: POST
         url_username: "supervisor"
-        url_password: "itsme"
+        url_password: "remembertochangeme"
         status_code:
           - 200
     - name: "Check service operational: add entry to test cache via rest"
@@ -21,14 +22,14 @@
         url: http://localhost:11222/rest/v2/caches/test_cache/test_entry
         method: POST
         url_username: "supervisor"
-        url_password: "itsme"
+        url_password: "remembertochangeme"
         status_code: 
           - 204
     - name: "Check service operational: test cache status via rest"
       ansible.builtin.uri:
         url: http://localhost:11222/rest/v2/caches/test_cache
         url_username: "supervisor"
-        url_password: "itsme"
+        url_password: "remembertochangeme"
       register: test_cache_status
     - assert:
         that:
@@ -38,7 +39,7 @@
       ansible.builtin.uri:
         url: http://localhost:11222/rest/v2/caches/teststaticcachexml
         url_username: "supervisor"
-        url_password: "itsme"
+        url_password: "remembertochangeme"
       register: test_cache_status
     - assert:
         that:
@@ -49,7 +50,7 @@
       ansible.builtin.uri:
         url: http://localhost:11222/rest/v2/caches/configuredstaticcache
         url_username: "supervisor"
-        url_password: "itsme"
+        url_password: "remembertochangeme"
       register: test_cache_status
     - assert:
         that:
@@ -60,7 +61,7 @@
       ansible.builtin.uri:
         url: http://localhost:11222/rest/v2/caches/testcachexml
         url_username: "supervisor"
-        url_password: "itsme"
+        url_password: "remembertochangeme"
       register: test_cache_status
     - assert:
         that:
@@ -71,7 +72,7 @@
       ansible.builtin.uri:
         url: http://localhost:11222/rest/v2/caches/configuredcache
         url_username: "supervisor"
-        url_password: "itsme"
+        url_password: "remembertochangeme"
       register: test_cache_status
     - assert:
         that:
@@ -82,7 +83,7 @@
       ansible.builtin.uri:
         url: http://localhost:11222/rest/v2/caches/configuredcachexa
         url_username: "supervisor"
-        url_password: "itsme"
+        url_password: "remembertochangeme"
       register: test_cache_status
     - assert:
         that:
