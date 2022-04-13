@@ -18,6 +18,7 @@ Minor Changes
 -------------
 
 - Make ``supervisor_password`` a default with assert (was: role variable) `#14 <https://github.com/ansible-middleware/infinispan/pull/14>`_
+- New ``jdg_configure_firewalld`` bool parameter controls firewall config `#13 <https://github.com/ansible-middleware/infinispan/pull/13>`_
 
 v1.0.1
 ======
