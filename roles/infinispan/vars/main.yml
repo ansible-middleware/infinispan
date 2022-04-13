@@ -1,6 +1,6 @@
 ---
 # required variables
-supervisor_password:
+supervisor_password: ''
 infinispan_users: []
 
 # internal variables

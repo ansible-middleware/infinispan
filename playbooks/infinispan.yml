@@ -7,11 +7,11 @@
   roles:
     - role: redhat_csp_download
     - role: infinispan
-      supervisor_password: "itsme"
+      supervisor_password: "remembertochangeme"
       infinispan_users: []
     - role: infinispan_cache
       deployer_user: "supervisor"
-      deployer_password: "itsme"
+      deployer_password: "remembertochangeme"
       cache_xml: >
         <local-cache name="testcache" statistics="true">
           <encoding media-type="application/x-protostream"/>

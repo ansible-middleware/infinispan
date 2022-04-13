@@ -4,7 +4,7 @@
   gather_facts: yes
   roles:
     - role: infinispan
-      supervisor_password: "itsme"
+      supervisor_password: "remembertochangeme"
       infinispan_users:
         - { name: 'testuser', password: 'test', roles: 'observer' }
       jdg_caches:
@@ -18,7 +18,7 @@
             mode: ASYNC
     - role: infinispan
       jdg_nodename: instance2
-      supervisor_password: "itsme2"
+      supervisor_password: "remembertochangeme2"
       jdg_port_offset: 100
       infinispan_installation_path: "/opt/infinispan-2/infinispan-server-{{ infinispan_version }}/"
       infinispan_users:
@@ -34,14 +34,14 @@
             mode: ASYNC
     - role: infinispan_cache
       deployer_user: "supervisor"
-      deployer_password: "itsme"
+      deployer_password: "remembertochangeme"
       cache_xml: >
         <local-cache name="testcachexml" statistics="true">
           <encoding media-type="application/x-protostream"/>
         </local-cache>
     - role: infinispan_cache
       deployer_user: "supervisor"
-      deployer_password: "itsme"
+      deployer_password: "remembertochangeme"
       cache_config:
         name: configuredcache
         template: replicated
@@ -57,7 +57,7 @@
         indexing: false
     - role: infinispan_cache
       deployer_user: "supervisor"
-      deployer_password: "itsme"
+      deployer_password: "remembertochangeme"
       cache_config:
         name: configuredcachexa
         template: distributed
