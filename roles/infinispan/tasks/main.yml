@@ -48,7 +48,29 @@
   tags:
     - systemd
 
-- name: "Ensure {{ jdg.service.name }} configuration is deployed: {{ jdg.config.name }}"
+- name: Determine JAVA_HOME for selected JVM RPM  # noqa blocked_modules
+  ansible.builtin.shell: |
+    set -o pipefail
+    rpm -ql {{ jdg_jvm_package }} | grep -Po '/usr/lib/jvm/.*(?=/bin/java$)'
+  args:
+    executable: /bin/bash
+  changed_when: False
+  register: rpm_java_home
+
+- name: "Ensure {{ jdg.service.name }} service configuration is deployed: {{ jdg.config.name }}"
+  ansible.builtin.template:
+    src: server.conf.j2
+    dest: "{{ jdg.home }}/bin/server.conf"
+    owner: "{{ jdg.user.name }}"
+    group: "{{ jdg.group.name }}"
+    mode: 0644
+    backup: yes
+  vars:
+    jdg_rpm_java_home: "{{ rpm_java_home.stdout }}"
+  notify:
+    - restart infinispan
+
+- name: "Ensure {{ jdg.service.name }} server configuration is deployed: {{ jdg.config.name }}"
   ansible.builtin.template:
     src: "{{ jdg.config.template }}"
     dest: "{{ jdg.home }}/server/conf/{{ jdg.config.name }}"

@@ -37,6 +37,7 @@ Role Defaults
 |`jdg_keystore_key_password`| Key passphrase for TLS server identity | `''`|
 |`infinispan_keycloak_caches`| Creates remote caches for keycloak | `False` |
 |`jdg_jvm_package`| RHEL java package runtime | `java-11-openjdk-headless` |
+|`jdg_java_home`| JAVA_HOME of installed JRE, leave empty for using specified `jdg_jvm_package` RPM path | `None` |
 |`jdg_enable`|Install Red Hat DataGrid when true| `True` when credentials available, `False` otherwise |
 
 
