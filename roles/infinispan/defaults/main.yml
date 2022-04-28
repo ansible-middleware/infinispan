@@ -30,6 +30,7 @@ jdg_service_user: jdg
 jdg_service_group: jdg
 jdg_port_offset: 0
 jdg_jvm_package: java-11-openjdk-headless
+jdg_java_home:
 jdg_configure_firewalld: False
 
 # flag to enable protocol encryption
