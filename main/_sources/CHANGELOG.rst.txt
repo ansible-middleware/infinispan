@@ -6,8 +6,8 @@ middleware_automation.infinispan Release Notes
 
 This changelog describes changes after version 0.1.9.
 
-v1.0.2-devel
-============
+v1.0.2
+======
 
 Major Changes
 -------------
