@@ -37,9 +37,10 @@
 
 ## download to controller
 - name: Download infinispan archive
-  ansible.builtin.get_url:
+  ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ infinispan_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ jdg.bundle }}"
+    mode: 0644
   delegate_to: localhost
   when:
     - archive_path is defined
@@ -65,9 +66,10 @@
     - jdg_rhn_url in jdg_download_url
 
 - name: Download DataGrid archive from alternate location
-  ansible.builtin.get_url:
+  ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ jdg_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ jdg.bundle }}"
+    mode: 0644
   delegate_to: localhost
   when:
     - archive_path is defined
@@ -90,7 +92,7 @@
     dest: "{{ archive }}"
     owner: "{{ jdg.user.name }}"
     group: "{{ jdg.group.name }}"
-    mode: 0750
+    mode: 0640
   register: new_version_downloaded
   when:
     - not archive_path.stat.exists
