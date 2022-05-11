@@ -45,7 +45,7 @@
       password: "{{ deployer_password }}"
       force_basic_auth: yes
       status_code: 404
-    retry: 5
+    retries: 5
     delay: 5
     register: cache_status
   - name: "Create cache {{ cache_name }}"
