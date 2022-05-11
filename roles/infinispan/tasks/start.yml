@@ -1,5 +1,4 @@
 ---
----
 - name: "Start service and wait for port"
   block:
   - name: "Restart service"
