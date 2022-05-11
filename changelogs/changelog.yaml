@@ -40,4 +40,8 @@ releases:
     - 15.yaml
     release_date: '2022-05-09'
   1.0.3:
+    changes:
+      release_summary: 'Patch release containing an important bugfix for downloaded archives filemodes.
+
+        '
     release_date: '2022-05-11'

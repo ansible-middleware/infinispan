@@ -9,6 +9,11 @@ This changelog describes changes after version 0.1.9.
 v1.0.3
 ======
 
+Release Summary
+---------------
+
+Patch release containing an important bugfix for downloaded archives filemodes.
+
 v1.0.2
 ======
 
