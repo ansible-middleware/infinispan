@@ -7,10 +7,10 @@ infinispan_users: []
 rest_cache_api_path: /rest/v2/caches/ # noqa no_unspecified_argument
 
 jdg_rhn_ids:
-  '8.2.0': '98151'
-  '8.2.2': '103685'
-  '8.2.3': '103907'
-  '8.3.0': '104135'
+  '8.2.0': '98151'  # noqa vars_in_vars_files_have_valid_names
+  '8.2.2': '103685' # noqa vars_in_vars_files_have_valid_names
+  '8.2.3': '103907' # noqa vars_in_vars_files_have_valid_names
+  '8.3.0': '104135' # noqa vars_in_vars_files_have_valid_names
 
 jdg_supervisor:
   name: 'supervisor'
