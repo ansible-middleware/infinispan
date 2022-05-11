@@ -6,6 +6,9 @@ middleware_automation.infinispan Release Notes
 
 This changelog describes changes after version 0.1.9.
 
+v1.0.3
+======
+
 v1.0.2
 ======
 
