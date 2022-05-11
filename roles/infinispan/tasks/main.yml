@@ -110,11 +110,13 @@
     - jdg.users is defined
     - jdg.users | length > 0
 
-- name: "Ensure {{ jdg.service.name }} service is running and enabled"
-  ansible.builtin.systemd:
-    name: "{{ jdg.service.unit_file }}"
-    state: started
-    enabled: yes
+- name: "Ensure {{ jdg.service.name }} service is running and enabled (first node)"
+  ansible.builtin.include_tasks: start.yml
+  run_once: yes
+  when: jdg_jgroups_jdbcping or jdg_keycloak_persistence
+
+- name: "Ensure {{ jdg.service.name }} service is running and enabled (all nodes)"
+  ansible.builtin.include_tasks: start.yml
 
 - name: Link default logs directory
   ansible.builtin.file:

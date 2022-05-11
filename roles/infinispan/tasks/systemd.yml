@@ -1,4 +1,4 @@
-- name: "Configure systemd unit file for {{ jdg.name }} {{ jdg_nodename }} service"
+- name: "Configure systemd unit file for {{ jdg.name }} service"
   ansible.builtin.template:
     src: templates/infinispan.service.j2
     dest: "{{ jdg.service.unit_dir }}/{{ jdg.service.unit_file }}.service"

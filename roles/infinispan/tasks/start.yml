@@ -1,11 +1,12 @@
 ---
-- throttle: 1
-  name: "Restart service and wait for port"
+---
+- name: "Start service and wait for port"
   block:
   - name: "Restart service"
     ansible.builtin.systemd:
       name: "{{ jdg.service.unit_file }}"
-      state: restarted  
+      state: started
+      enabled: yes
   - name: "Wait for used port to be open"
     ansible.builtin.wait_for:
       port: "{{ jdg.port }}"
