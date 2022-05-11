@@ -36,7 +36,8 @@
     cache_xml: "{{ lookup('template', 'templates/'+cache_config.template+'-cache.j2') | replace('\n', '') }}"
   when: cache_config is defined and cache_config.name is defined
 
-- block:
+- name: Check cache state and create if not existing
+  block:
   - name: "Check cache {{ cache_name }} state"
     ansible.builtin.uri:
       url: "{{ jdg_url }}{{ cache_name }}"

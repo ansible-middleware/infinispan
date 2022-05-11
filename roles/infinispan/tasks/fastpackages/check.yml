@@ -1,5 +1,6 @@
 ---
-- block:
+- name: Check package list and install missing
+  block:
     - name: "Check if package {{ package_name }} is already installed"
       ansible.builtin.command: rpm -q {{ package_name }}
       args:
