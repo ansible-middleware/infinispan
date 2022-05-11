@@ -45,9 +45,10 @@
       password: "{{ deployer_password }}"
       force_basic_auth: yes
       status_code: 404
+    register: cache_status
     retries: 5
     delay: 5
-    register: cache_status
+    until: cache_status.status != -1
   - name: "Create cache {{ cache_name }}"
     ansible.builtin.uri:
       url: "{{ jdg_url }}{{ cache_name }}"
