@@ -57,7 +57,7 @@
   changed_when: False
   register: rpm_java_home
 
-- name: "Ensure {{ jdg.service.name }} service configuration is deployed: {{ jdg.config.name }}"
+- name: "Ensure {{ jdg.service.name }} service configuration is deployed: server.conf"
   ansible.builtin.template:
     src: server.conf.j2
     dest: "{{ jdg.home }}/bin/server.conf"
