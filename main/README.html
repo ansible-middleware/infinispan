@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ansible Collection - infinispan &mdash; Infinispan Ansible Collection  documentation</title>
+  <title>Ansible Collection - middleware_automation.infinispan &mdash; Infinispan Ansible Collection  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/ansible-basic-sphinx-ext.css" type="text/css" />
@@ -15,6 +15,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -40,7 +41,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">User documentation</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Ansible Collection - infinispan</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Ansible Collection - middleware_automation.infinispan</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#ansible-version-compatibility">Ansible version compatibility</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installation-and-usage">Installation and Usage</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#installing-the-collection-from-ansible-galaxy">Installing the Collection from Ansible Galaxy</a></li>
@@ -80,7 +81,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Ansible Collection - infinispan</li>
+      <li>Ansible Collection - middleware_automation.infinispan</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/README.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -90,21 +91,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="ansible-collection-infinispan">
-<h1>Ansible Collection - infinispan<a class="headerlink" href="#ansible-collection-infinispan" title="Permalink to this headline"></a></h1>
+  <section id="ansible-collection-middleware-automation-infinispan">
+<h1>Ansible Collection - middleware_automation.infinispan<a class="headerlink" href="#ansible-collection-middleware-automation-infinispan" title="Permalink to this heading"></a></h1>
 <p><a class="reference external" href="https://github.com/ansible-middleware/infinispan/actions/workflows/ci.yml"><img alt="Build Status" src="https://github.com/ansible-middleware/infinispan/workflows/CI/badge.svg?branch=main" /></a></p>
 <p>Collection to install <a class="reference external" href="https://infinispan.org/">Infinispan</a> or <a class="reference external" href="https://www.redhat.com/en/technologies/jboss-middleware/data-grid">Red Hat DataGrid</a> server configurations, with optional remote caches for <a class="reference external" href="https://www.keycloak.org/">Keycloak</a> or <a class="reference external" href="https://access.redhat.com/products/red-hat-single-sign-on">Red Hat Single Sign-On</a>.</p>
 <!--start requires_ansible-->
 <section id="ansible-version-compatibility">
-<h2>Ansible version compatibility<a class="headerlink" href="#ansible-version-compatibility" title="Permalink to this headline"></a></h2>
+<h2>Ansible version compatibility<a class="headerlink" href="#ansible-version-compatibility" title="Permalink to this heading"></a></h2>
 <p>This collection has been tested against following Ansible versions: <strong>&gt;=2.9.10</strong>.</p>
 <p>Plugins and modules within a collection may be tested with only specific Ansible versions. A collection may contain metadata that identifies these versions.</p>
 <!--end requires_ansible-->
 </section>
 <section id="installation-and-usage">
-<h2>Installation and Usage<a class="headerlink" href="#installation-and-usage" title="Permalink to this headline"></a></h2>
+<h2>Installation and Usage<a class="headerlink" href="#installation-and-usage" title="Permalink to this heading"></a></h2>
 <section id="installing-the-collection-from-ansible-galaxy">
-<h3>Installing the Collection from Ansible Galaxy<a class="headerlink" href="#installing-the-collection-from-ansible-galaxy" title="Permalink to this headline"></a></h3>
+<h3>Installing the Collection from Ansible Galaxy<a class="headerlink" href="#installing-the-collection-from-ansible-galaxy" title="Permalink to this heading"></a></h3>
 <p>Before using the collection, you need to install it with the Ansible Galaxy CLI:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ansible-galaxy collection install middleware_automation.infinispan
 </pre></div>
@@ -126,14 +127,14 @@
 </div>
 </section>
 <section id="included-roles">
-<h3>Included roles<a class="headerlink" href="#included-roles" title="Permalink to this headline"></a></h3>
+<h3>Included roles<a class="headerlink" href="#included-roles" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/ansible-middleware/infinispan/tree/main/roles/infinispan"><code class="docutils literal notranslate"><span class="pre">infinispan</span></code></a>: performs an installation of Infinispan or DataGrid nodes or cluster, with configuration of static caches.</p></li>
 <li><p><a class="reference external" href="https://github.com/ansible-middleware/infinispan/tree/main/roles/infinispan_cache"><code class="docutils literal notranslate"><span class="pre">infinispan_cache</span></code></a>: creates Infinispan or DataGrid caches at runtime.</p></li>
 </ul>
 </section>
 <section id="choosing-between-red-hat-products-and-upstream-project">
-<h3>Choosing between Red Hat products and upstream project<a class="headerlink" href="#choosing-between-red-hat-products-and-upstream-project" title="Permalink to this headline"></a></h3>
+<h3>Choosing between Red Hat products and upstream project<a class="headerlink" href="#choosing-between-red-hat-products-and-upstream-project" title="Permalink to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">infinispan</span></code> role supports installing Red Hat Datagrid from the Customer Portal, when the following variables are defined:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nt">rhn_username</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;&lt;customer_portal_username&gt;&#39;</span><span class="w"></span>
 <span class="nt">rhn_password</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;&lt;customer_portal_password&gt;&#39;</span><span class="w"></span>
@@ -145,11 +146,11 @@
 </section>
 </section>
 <section id="support">
-<h2>Support<a class="headerlink" href="#support" title="Permalink to this headline"></a></h2>
+<h2>Support<a class="headerlink" href="#support" title="Permalink to this heading"></a></h2>
 <p>Infinispan collection v1.0.0 is a Beta release and for Technical Preview. If you have any issues or questions related to collection, please don’t hesitate to contact us on Ansible-middleware-core&#64;redhat.com or open an issue on https://github.com/ansible-middleware/infinispan/issues</p>
 </section>
 <section id="license">
-<h2>License<a class="headerlink" href="#license" title="Permalink to this headline"></a></h2>
+<h2>License<a class="headerlink" href="#license" title="Permalink to this heading"></a></h2>
 <p>Apache License v2.0 or later</p>
 <p>See <span class="xref myst">LICENSE</span> to view the full text.</p>
 </section>
