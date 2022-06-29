@@ -1,6 +1,6 @@
 ---
-- throttle: 1
-  name: "Restart service and wait for port"
+- name: "Restart service and wait for port"
+  throttle: 1
   block:
   - name: "Restart service"
     ansible.builtin.systemd:
