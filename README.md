@@ -1,4 +1,4 @@
-# Ansible Collection - infinispan
+# Ansible Collection - middleware_automation.infinispan
 
 [![Build Status](https://github.com/ansible-middleware/infinispan/workflows/CI/badge.svg?branch=main)](https://github.com/ansible-middleware/infinispan/actions/workflows/ci.yml)
 
