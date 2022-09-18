@@ -2,48 +2,48 @@
 - name: Validate parameters - rest api url
   ansible.builtin.assert:
     that:
-      - jdg_url is defined
+      - infinispan_url is defined
     quiet: true
     fail_msg: "REST API url is incorrectly configured."
 
 - name: Validate parameters - cache config
   ansible.builtin.assert:
     that:
-      - (cache_config is defined and cache_config.name is defined) or (cache_xml is defined and cache_xml | length > 0)
+      - (infinispan_cache_config is defined and infinispan_cache_config.name is defined) or (infinispan_cache_xml is defined and infinispan_cache_xml | length > 0)
     quiet: true
-    fail_msg: "Cache configuration must be passed either as XML string `cache_xml` or as yaml dict `cache_config`."
+    fail_msg: "Cache configuration must be passed either as XML string `infinispan_cache_xml` or as yaml dict `infinispan_cache_config`."
 
 - name: Parse cache xml
   community.general.xml:
-    xmlstring: "{{ cache_xml | trim }}"
+    xmlstring: "{{ infinispan_cache_xml | trim }}"
     xpath: /*
     content: attribute
   register: cache_xml_name
-  when: cache_xml is defined and cache_xml | trim | length > 0
+  when: infinispan_cache_xml is defined and infinispan_cache_xml | trim | length > 0
 
 - name: Set cache name from xml
   ansible.builtin.set_fact:
     cache_name: "{{ cache_xml_name.matches[0] | json_query('*.name | [0]') }}"
-  when: cache_xml is defined and cache_xml | length > 0
+  when: infinispan_cache_xml is defined and infinispan_cache_xml | length > 0
 
 - name: Set cache name from config
   ansible.builtin.set_fact:
-    cache_name: "{{ cache_config.name }}"
-  when: cache_config is defined and cache_config.name is defined
+    cache_name: "{{ infinispan_cache_config.name }}"
+  when: infinispan_cache_config is defined and infinispan_cache_config.name is defined
 
 - name: Assemble yaml template into xmlstring
   ansible.builtin.set_fact:
-    cache_xml: "{{ lookup('template', 'templates/'+cache_config.template+'-cache.j2') | replace('\n', '') }}"
-  when: cache_config is defined and cache_config.name is defined
+    infinispan_cache_xml: "{{ lookup('template', 'templates/'+infinispan_cache_config.template+'-cache.j2') | replace('\n', '') }}"
+  when: infinispan_cache_config is defined and infinispan_cache_config.name is defined
 
 - name: Check cache state and create if not existing
   block:
   - name: "Check cache {{ cache_name }} state"
     ansible.builtin.uri:
-      url: "{{ jdg_url }}{{ cache_name }}"
+      url: "{{ infinispan_url }}{{ cache_name }}"
       method: "GET"
-      user: "{{ deployer_user }}"
-      password: "{{ deployer_password }}"
+      user: "{{ infinispan_deployer_user }}"
+      password: "{{ infinispan_deployer_password }}"
       force_basic_auth: yes
       status_code: 404
     register: cache_status
@@ -52,13 +52,13 @@
     until: cache_status.status != -1
   - name: "Create cache {{ cache_name }}"
     ansible.builtin.uri:
-      url: "{{ jdg_url }}{{ cache_name }}"
+      url: "{{ infinispan_url }}{{ cache_name }}"
       method: "POST"
-      body: "{{ cache_xml | trim }}"
+      body: "{{ infinispan_cache_xml | trim }}"
       headers:
         Content-Type: application/xml
-      user: "{{ deployer_user }}"
-      password: "{{ deployer_password }}"
+      user: "{{ infinispan_deployer_user }}"
+      password: "{{ infinispan_deployer_password }}"
       force_basic_auth: yes
       status_code:
         - 200

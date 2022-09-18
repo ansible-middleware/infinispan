@@ -17,21 +17,20 @@ Role Defaults
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
-|`jdg_bind_address`| Alternate bind address for the daemon | `localhost` |
-|`jdg_rest_cache_api_path`| Path of infinispan rest api | `/rest/v2/caches/` |
-|`jdg_scheme`| Choose rest api protocol | `{{ 'https' if jdg_tls else 'http' }}` |
-|`jdg_url`| Complete URL for connecting to infinispan rest api | `{{ jdg_scheme }}://{{ jdg_bind_address }}:{{ jdg_port }}{{ jdg_rest_cache_api_path }}` |
-|`jdg_port`| Alternate port for the service | `11222` |
-|`jdg_bind_addr`| Alternate bind address for the daemon | `localhost` |
-|`jdg_tls`| Server REST API/hotrod have TLS enabled | `False` |
-|`deployer_user`| Username that performs the API call | `supervisor` |
-|`cache_xml`| XML declaration for the cache to deploy as string | `None` |
-|`cache_config`| dict object with configuration for the cache to deploy | `{}`, see below for specs |
+|`infinispan_bind_address`| Alternate bind address for the daemon | `localhost` |
+|`infinispan_rest_cache_api_path`| Path of infinispan rest api | `/rest/v2/caches/` |
+|`infinispan_scheme`| Choose rest api protocol | `{{ 'https' if infinispan_tls else 'http' }}` |
+|`infinispan_url`| Complete URL for connecting to infinispan rest api | `{{ infinispan_scheme }}://{{ infinispan_bind_address }}:{{ infinispan_port }}{{ infinispan_rest_cache_api_path }}` |
+|`infinispan_port`| Alternate port for the service | `11222` |
+|`infinispan_tls`| Server REST API/hotrod have TLS enabled | `False` |
+|`infinispan_deployer_user`| Username that performs the API call | `supervisor` |
+|`infinispan_cache_xml`| XML declaration for the cache to deploy as string | `None` |
+|`infinispan_cache_config`| dict object with configuration for the cache to deploy | `{}`, see below for specs |
 
 where:
 
-* `cache_xml` is an xml cache declaration validating against infinispan cache [xsd](https://infinispan.org/schemas/infinispan-config-12.1.xsd).
-* `cache_config` is a yaml dict for templating the cache xml, refer to the [templates](templates/) directory for accepted variables.
+* `infinispan_cache_xml` is an xml cache declaration validating against infinispan cache [xsd](https://infinispan.org/schemas/infinispan-config-12.1.xsd).
+* `infinispan_cache_config` is a yaml dict for templating the cache xml, refer to the [templates](templates/) directory for accepted variables.
 
 
 Role Variables
@@ -39,9 +38,9 @@ Role Variables
 
 The following are a set of required variables for the role:
 
-| Variable | Description |
-|:---------|:------------|
-|`deployer_password`| Password for the user performing the API call |
+| Variable | Description | Required |
+|:---------|:------------|:---------|
+|`infinispan_deployer_password`| Password for the user performing the API call | `yes` |
 
 
 Dependencies
@@ -67,8 +66,8 @@ The following are example playbooks that make use of the role to create Infinisp
          include_role:
            name: infinispan_cache
          vars:
-           deployer_password: changeme
-           cache_xml: "{{lookup('file', 'templates/my_cache.xml') }}"
+           infinispan_deployer_password: changeme
+           infinispan_cache_xml: "{{lookup('file', 'templates/my_cache.xml') }}"
 ```
 
 ```yaml
@@ -80,8 +79,8 @@ The following are example playbooks that make use of the role to create Infinisp
          include_role:
            name: infinispan_cache
          vars:
-           deployer_password: changeme
-           cache_xml: >
+           infinispan_deployer_password: changeme
+           infinispan_cache_xml: >
              <local-cache name="testcachexml" statistics="true">
                <encoding media-type="application/x-protostream"/>
              </local-cache>
@@ -97,9 +96,9 @@ The following are example playbooks that make use of the role to create Infinisp
          include_role:
            name: ../../roles/infinispan_cache
          vars:
-           deployer_user: "supervisor"
-           deployer_password: "remembertochangeme"
-           cache_config:
+           infinispan_deployer_user: "supervisor"
+           infinispan_deployer_password: "remembertochangeme"
+           infinispan_cache_config:
              name: configuredcache
              template: replicated
              mode: ASYNC

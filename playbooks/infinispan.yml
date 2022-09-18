@@ -10,9 +10,9 @@
       supervisor_password: "remembertochangeme"
       infinispan_users: []
     - role: infinispan_cache
-      deployer_user: "supervisor"
-      deployer_password: "remembertochangeme"
-      cache_xml: >
+      infinispan_deployer_user: "supervisor"
+      infinispan_deployer_password: "remembertochangeme"
+      infinispan_cache_xml: >
         <local-cache name="testcache" statistics="true">
           <encoding media-type="application/x-protostream"/>
         </local-cache>
