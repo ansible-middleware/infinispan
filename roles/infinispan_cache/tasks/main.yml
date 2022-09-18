@@ -24,7 +24,7 @@
 - name: Set cache name from xml
   ansible.builtin.set_fact:
     cache_name: "{{ cache_xml_name.matches[0] | json_query('*.name | [0]') }}"
-  when: infinispan_cache_xml is defined and infinispan_cache_xml | length > 0
+  when: infinispan_cache_xml is defined and infinispan_cache_xml | trim | length > 0
 
 - name: Set cache name from config
   ansible.builtin.set_fact:

@@ -51,3 +51,30 @@ argument_specs:
                 default: "{{ infinispan_scheme }}://{{ infinispan_bind_address }}:{{ infinispan_port }}{{ infinispan_rest_cache_api_path }}"
                 description: "Complete URL for connecting to infinispan rest api"
                 type: "str"
+    downstream:
+        options:
+            jdg_version:
+                # line 3 of infinispan/defaults/main.yml
+                default: "8.2.0"
+                description: "DataGrid version to install"
+                type: "str"
+            jdg_installation_path:
+                # line 4 of infinispan/defaults/main.yml
+                default: "/opt/infinispan/redhat-datagrid-{{ jdg_version }}-server/"
+                description: "Target extracted installation"
+                type: "str"
+            jdg_download_url:
+                # line 8 of infinispan/defaults/main.yml
+                default: "{{ jdg_rhn_url }}{{ jdg_rhn_id }}"
+                description: "Complete customer portal default URL for DataGrid, or alternate download location"
+                type: "str"
+            jdg_enable:
+                # line 17 of infinispan/defaults/main.yml
+                default: True
+                description: "Install Red Hat DataGrid when true, Infinispan otherwise"
+                type: "bool"
+            jdg_offline_install:
+                # line 19 of infinispan/defaults/main.yml
+                default: True
+                description: "Perform an offline install"
+                type: "bool"

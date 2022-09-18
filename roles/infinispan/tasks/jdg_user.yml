@@ -6,22 +6,22 @@
       - users | length > 0
     quiet: true
 
-- name: "Ensure {{ jdg.config.users }} exists."
+- name: "Ensure {{ infinispan.config.users }} exists."
   ansible.builtin.template:
     src: templates/users.properties.j2
-    dest: "{{ jdg.home }}/server/conf/{{ jdg.config.users }}"
-    owner: "{{ jdg.user.name }}"
-    group: "{{ jdg.group.name }}"
+    dest: "{{ infinispan.home }}/server/conf/{{ infinispan.config.users }}"
+    owner: "{{ infinispan.user.name }}"
+    group: "{{ infinispan.group.name }}"
     mode: 0644
   notify:
     - restart infinispan
 
-- name: "Ensure {{ jdg.config.groups }} exists"
+- name: "Ensure {{ infinispan.config.groups }} exists"
   ansible.builtin.template:
     src: templates/groups.properties.j2
-    dest: "{{ jdg.home }}/server/conf/{{ jdg.config.groups }}"
-    owner: "{{ jdg.user.name }}"
-    group: "{{ jdg.group.name }}"
+    dest: "{{ infinispan.home }}/server/conf/{{ infinispan.config.groups }}"
+    owner: "{{ infinispan.user.name }}"
+    group: "{{ infinispan.group.name }}"
     mode: 0644
   notify:
     - restart infinispan

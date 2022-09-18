@@ -4,7 +4,7 @@
     that:
       - cache is defined
       - cache.name is defined
-      - jdg_url is defined
+      - infinispan_url is defined
     quiet: true
 
 - name: Check cache state and create if not existing

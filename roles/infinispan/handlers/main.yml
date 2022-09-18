@@ -1,4 +1,4 @@
 ---
-- name: "Restart {{ jdg.name }}"
+- name: "Restart {{ infinispan.name }}"
   ansible.builtin.include_tasks: restart.yml
   listen: "restart infinispan"

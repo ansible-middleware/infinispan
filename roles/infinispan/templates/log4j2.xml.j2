@@ -3,10 +3,10 @@
 <Configuration name="InfinispanServerConfig" monitorInterval="60" shutdownHook="disable">
   <Properties>
     <Property name="path">${sys:infinispan.server.log.path}</Property>
-    <Property name="accessLogPattern">{{ jdg_logging.accesslog_pattern }}</Property>
-    <Property name="auditLogPattern">{{ jdg_logging.auditlog_pattern }}</Property>
-    <Property name="logPattern">{{ jdg_logging.log_pattern }}</Property>
-    <Property name="consolePattern">{{ jdg_logging.log_pattern_console }}</Property>
+    <Property name="accessLogPattern">{{ infinispan_logging.accesslog_pattern }}</Property>
+    <Property name="auditLogPattern">{{ infinispan_logging.auditlog_pattern }}</Property>
+    <Property name="logPattern">{{ infinispan_logging.log_pattern }}</Property>
+    <Property name="consolePattern">{{ infinispan_logging.log_pattern_console }}</Property>
   </Properties>
   <Appenders>
     <!-- Colored output on the console -->
@@ -17,10 +17,10 @@
     <!-- Rolling file -->
     <RollingFile name="FILE" createOnDemand="true"
                  fileName="${path}/server.log"
-                 filePattern="${path}/server.log.{{ jdg_logging.file_rotate_pattern }}">
+                 filePattern="${path}/server.log.{{ infinispan_logging.file_rotate_pattern }}">
       <Policies>
         <OnStartupTriggeringPolicy />
-        <SizeBasedTriggeringPolicy size="{{ jdg_logging.size_based_limit }}" />
+        <SizeBasedTriggeringPolicy size="{{ infinispan_logging.size_based_limit }}" />
         <TimeBasedTriggeringPolicy />
       </Policies>
       <PatternLayout pattern="${logPattern}"/>
@@ -29,10 +29,10 @@
     <!-- Rolling file -->
     <RollingFile name="AUDIT-FILE" createOnDemand="true"
                  fileName="${path}/audit.log"
-                 filePattern="${path}/audit.log.{{ jdg_logging.file_rotate_pattern }}">
+                 filePattern="${path}/audit.log.{{ infinispan_logging.file_rotate_pattern }}">
       <Policies>
         <OnStartupTriggeringPolicy />
-        <SizeBasedTriggeringPolicy size="{{ jdg_logging.size_based_limit }}" />
+        <SizeBasedTriggeringPolicy size="{{ infinispan_logging.size_based_limit }}" />
         <TimeBasedTriggeringPolicy />
       </Policies>
       <PatternLayout pattern="${auditLogPattern}"/>
@@ -41,23 +41,23 @@
     <!-- Rolling JSON file, disabled by default -->
     <RollingFile name="JSON-FILE" createOnDemand="true"
                  fileName="${path}/server.log.json"
-                 filePattern="${path}/server.log.json.{{ jdg_logging.file_rotate_pattern }}">
+                 filePattern="${path}/server.log.json.{{ infinispan_logging.file_rotate_pattern }}">
       <Policies>
         <OnStartupTriggeringPolicy />
-        <SizeBasedTriggeringPolicy size="{{ jdg_logging.size_based_limit }}" />
+        <SizeBasedTriggeringPolicy size="{{ infinispan_logging.size_based_limit }}" />
         <TimeBasedTriggeringPolicy />
       </Policies>
       <JsonLayout compact="true" eventEol="true" stacktraceAsString="true">
-        <KeyValuePair key="time" value="{{ jdg_logging.json_timestamp }}" />
+        <KeyValuePair key="time" value="{{ infinispan_logging.json_timestamp }}" />
       </JsonLayout>
     </RollingFile>
 
     <!-- Rolling HotRod access log, disabled by default -->
     <RollingFile name="HR-ACCESS-FILE" createOnDemand="true"
                  fileName="${path}/hotrod-access.log"
-                 filePattern="${path}/hotrod-access.log.{{ jdg_logging.file_rotate_pattern }}">
+                 filePattern="${path}/hotrod-access.log.{{ infinispan_logging.file_rotate_pattern }}">
       <Policies>
-        <SizeBasedTriggeringPolicy size="{{ jdg_logging.size_based_limit }}" />
+        <SizeBasedTriggeringPolicy size="{{ infinispan_logging.size_based_limit }}" />
         <TimeBasedTriggeringPolicy />
       </Policies>
       <PatternLayout pattern="${accessLogPattern}"/>
@@ -65,9 +65,9 @@
     <!-- Rolling REST access log, disabled by default -->
     <RollingFile name="REST-ACCESS-FILE" createOnDemand="true"
                  fileName="${path}/rest-access.log"
-                 filePattern="${path}/rest-access.log.{{ jdg_logging.file_rotate_pattern }}">
+                 filePattern="${path}/rest-access.log.{{ infinispan_logging.file_rotate_pattern }}">
       <Policies>
-        <SizeBasedTriggeringPolicy size="{{ jdg_logging.size_based_limit }}" />
+        <SizeBasedTriggeringPolicy size="{{ infinispan_logging.size_based_limit }}" />
 		<TimeBasedTriggeringPolicy />
       </Policies>
       <PatternLayout pattern="${accessLogPattern}"/>
@@ -75,27 +75,27 @@
   </Appenders>
 
   <Loggers>
-    <Root level="{{ jdg_logging.root_level }}">
+    <Root level="{{ infinispan_logging.root_level }}">
       <AppenderRef ref="STDOUT" level="INFO"/>
-      <AppenderRef ref="{{ jdg_logging.file_format }}"/>
+      <AppenderRef ref="{{ infinispan_logging.file_format }}"/>
     </Root>
 
-{% for logger in jdg_logging.loggers %}
+{% for logger in infinispan_logging.loggers %}
     <Logger name="{{ logger.name }}" level="{{ logger.level }}"/>
 {% endfor %}
 
     <!-- Set to INFO to enable audit logging -->
-    <Logger name="org.infinispan.AUDIT" additivity="false" level="{{ jdg_logging.audit }}">
+    <Logger name="org.infinispan.AUDIT" additivity="false" level="{{ infinispan_logging.audit }}">
       <AppenderRef ref="AUDIT-FILE"/>
     </Logger>
 
     <!-- Set to TRACE to enable access logging for Hot Rod requests -->
-    <Logger name="org.infinispan.HOTROD_ACCESS_LOG" additivity="false" level="{{ jdg_logging.hotrod }}">
+    <Logger name="org.infinispan.HOTROD_ACCESS_LOG" additivity="false" level="{{ infinispan_logging.hotrod }}">
       <AppenderRef ref="HR-ACCESS-FILE"/>
     </Logger>
 
     <!-- Set to TRACE to enable access logging for REST requests -->
-    <Logger name="org.infinispan.REST_ACCESS_LOG" additivity="false" level="{{ jdg_logging.rest }}">
+    <Logger name="org.infinispan.REST_ACCESS_LOG" additivity="false" level="{{ infinispan_logging.rest }}">
       <AppenderRef ref="REST-ACCESS-FILE"/>
     </Logger>
   </Loggers>

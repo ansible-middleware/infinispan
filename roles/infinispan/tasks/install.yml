@@ -1,28 +1,28 @@
 ---
-- name: "Create group {{ jdg.group.name }}"
+- name: "Create group {{ infinispan.group.name }}"
   ansible.builtin.group:
-    name: "{{ jdg.group.name }}"
+    name: "{{ infinispan.group.name }}"
     state: present
-    gid: "{{ jdg.group.id | default(omit) }}"
+    gid: "{{ infinispan.group.id | default(omit) }}"
 
-- name: "Create user {{ jdg.user.name }}"
+- name: "Create user {{ infinispan.user.name }}"
   ansible.builtin.user:
-    name: "{{ jdg.user.name }}"
+    name: "{{ infinispan.user.name }}"
     state: present
-    uid: "{{ jdg.user.id | default(omit) }}"
+    uid: "{{ infinispan.user.id | default(omit) }}"
 
 - name: "Create download directory"
   ansible.builtin.file:
-    path: "{{ jdg_app_download_dir }}"
+    path: "{{ infinispan_app_download_dir }}"
     state: directory
-    owner: "{{ jdg.user.name }}"
-    group: "{{ jdg.group.name }}"
+    owner: "{{ infinispan.user.name }}"
+    group: "{{ infinispan.group.name }}"
     mode: 0750
 
 ## check remote archive
 - name: Set download archive path
   ansible.builtin.set_fact:
-    archive: "{{ jdg_app_download_dir }}/{{ jdg.bundle }}"
+    archive: "{{ infinispan_app_download_dir }}/{{ infinispan.bundle }}"
 
 - name: Check download archive path
   ansible.builtin.stat:
@@ -39,20 +39,20 @@
 - name: Download infinispan archive
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ infinispan_download_url }}"
-    dest: "{{ local_path.stat.path }}/{{ jdg.bundle }}"
+    dest: "{{ local_path.stat.path }}/{{ infinispan.bundle }}"
     mode: 0644
   delegate_to: localhost
   when:
     - archive_path is defined
     - archive_path.stat is defined
     - not archive_path.stat.exists
-    - not jdg_enable
-    - not jdg_offline_install
+    - jdg_enable is not defined or not jdg_enable
+    - not infinispan_offline_install
 
 - name: Perform download from RHN
   redhat_csp_download:
     url: "{{ jdg_download_url }}"
-    dest: "{{ local_path.stat.path }}/{{ jdg.bundle }}"
+    dest: "{{ local_path.stat.path }}/{{ infinispan.bundle }}"
     username: "{{ rhn_username }}"
     password: "{{ rhn_password }}"
   no_log: "{{ omit_rhn_output | default(true) }}"
@@ -61,37 +61,37 @@
     - archive_path is defined
     - archive_path.stat is defined
     - not archive_path.stat.exists
-    - jdg_enable
-    - not jdg_offline_install
+    - jdg_enable is defined and jdg_enable
+    - not infinispan_offline_install
     - jdg_rhn_url in jdg_download_url
 
 - name: Download DataGrid archive from alternate location
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ jdg_download_url }}"
-    dest: "{{ local_path.stat.path }}/{{ jdg.bundle }}"
+    dest: "{{ local_path.stat.path }}/{{ infinispan.bundle }}"
     mode: 0644
   delegate_to: localhost
   when:
     - archive_path is defined
     - archive_path.stat is defined
     - not archive_path.stat.exists
-    - jdg_enable
-    - not jdg_offline_install
+    - jdg_enable is defined and jdg_enable
+    - not infinispan_offline_install
     - not jdg_rhn_url in jdg_download_url
 
 - name: Check downloaded archive
   ansible.builtin.stat:
-    path: "{{ local_path.stat.path }}/{{ jdg.bundle }}"
+    path: "{{ local_path.stat.path }}/{{ infinispan.bundle }}"
   register: local_archive_path
   delegate_to: localhost
 
 ## copy and unpack
 - name: Copy archive to target nodes
   ansible.builtin.copy:
-    src: "{{ local_path.stat.path }}/{{ jdg.bundle }}"
+    src: "{{ local_path.stat.path }}/{{ infinispan.bundle }}"
     dest: "{{ archive }}"
-    owner: "{{ jdg.user.name }}"
-    group: "{{ jdg.group.name }}"
+    owner: "{{ infinispan.user.name }}"
+    group: "{{ infinispan.group.name }}"
     mode: 0640
   register: new_version_downloaded
   when:
@@ -100,29 +100,29 @@
     - local_archive_path.stat.exists
   become: yes
 
-- name: "Check target directory: {{ jdg.installation_path }}"
+- name: "Check target directory: {{ infinispan.installation_path }}"
   ansible.builtin.stat:
-    path: "{{ jdg.installation_path }}/bin"
+    path: "{{ infinispan.installation_path }}/bin"
   register: path_to_workdir
   become: yes
 
-- name: "Create target directory {{ jdg.installation_path | dirname | dirname }}"
+- name: "Create target directory {{ infinispan.installation_path | dirname | dirname }}"
   ansible.builtin.file:
     state: directory
-    path: "{{ jdg.installation_path | dirname | dirname }}"
-    owner: "{{ jdg.user.name }}"
-    group: "{{ jdg.group.name }}"
+    path: "{{ infinispan.installation_path | dirname | dirname }}"
+    owner: "{{ infinispan.user.name }}"
+    group: "{{ infinispan.group.name }}"
     mode: 0750
   become: yes
 
-- name: "Extract {{ jdg.name }} archive on target {{ jdg.installation_path }}"
+- name: "Extract {{ infinispan.name }} archive on target {{ infinispan.installation_path }}"
   ansible.builtin.unarchive:
     remote_src: yes
     src: "{{ archive }}"
-    dest: "{{ jdg.installation_path | dirname | dirname }}"
-    creates: "{{ jdg.installation_path }}/bin"
-    owner: "{{ jdg.user.name }}"
-    group: "{{ jdg.group.name }}"
+    dest: "{{ infinispan.installation_path | dirname | dirname }}"
+    creates: "{{ infinispan.installation_path }}/bin"
+    owner: "{{ infinispan.user.name }}"
+    group: "{{ infinispan.group.name }}"
   become: yes
   when:
     - new_version_downloaded.changed or not path_to_workdir.stat.exists
@@ -131,15 +131,15 @@
 
 - name: Inform decompression was not executed
   ansible.builtin.debug:
-    msg: "{{ jdg.installation_path }} already exists and version unchanged, skipping decompression"
+    msg: "{{ infinispan.installation_path }} already exists and version unchanged, skipping decompression"
   when:
     - not new_version_downloaded.changed and path_to_workdir.stat.exists
 
-- name: "Reown installation directory to {{ jdg.user.name }}"
+- name: "Reown installation directory to {{ infinispan.user.name }}"
   ansible.builtin.file:
-    path: "{{ jdg.home }}"
-    owner: "{{ jdg.user.name }}"
-    group: "{{ jdg.group.name }}"
+    path: "{{ infinispan.home }}"
+    owner: "{{ infinispan.user.name }}"
+    group: "{{ infinispan.group.name }}"
     recurse: true
   become: yes
   changed_when: false

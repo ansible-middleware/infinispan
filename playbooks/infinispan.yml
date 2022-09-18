@@ -7,7 +7,7 @@
   roles:
     - role: redhat_csp_download
     - role: infinispan
-      supervisor_password: "remembertochangeme"
+      infinispan_supervisor_password: "remembertochangeme"
       infinispan_users: []
     - role: infinispan_cache
       infinispan_deployer_user: "supervisor"

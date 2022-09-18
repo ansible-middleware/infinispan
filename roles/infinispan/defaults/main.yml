@@ -1,80 +1,72 @@
 ---
-# Red Hat JDG specific config
-jdg_version: "8.3.0"
-jdg_default_installation_path: "/opt/infinispan/redhat-datagrid-{{ jdg_version }}-server/"
-jdg_bundle: "redhat-datagrid-{{ jdg_version }}-server.zip"
-jdg_rhn_id: "{{ jdg_rhn_ids[jdg_version] }}"
-jdg_rhn_url: 'https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId='
-jdg_download_url: "{{ jdg_rhn_url }}{{ jdg_rhn_id }}"
-
-# Infinispan specific config
 infinispan_version: "12.1.7.Final"
 infinispan_bundle: "infinispan-server-{{ infinispan_version }}.zip"
 infinispan_download_url: "https://downloads.jboss.org/infinispan/{{ infinispan_version }}/{{ infinispan_bundle }}"
 infinispan_installation_path: "/opt/infinispan/infinispan-server-{{ infinispan_version }}/"
 
-# datagrid/infinispan choice: by default install datagrid if rhn credentials are defined
-jdg_enable: "{{ True if jdg_rhn_id is defined and rhn_username is defined and rhn_password is defined else False }}"
-# whether to install from local archive; filename must be jdg_bundle or infinispan_bundle depending on jdg_enable
-jdg_offline_install: False
+infinispan_offline_install: False
 
 # common config for datagrid/infinispan service
-jdg_nodename: "{{ inventory_hostname }}"
-jdg_app_download_dir: "/opt/infinispan"
-jdg_healthcheck: True
-jdg_bind_address: localhost
-jdg_port: 11222
-jdg_jgroups_port: 7800
-jdg_jgroups_relay_port: 7801
-jdg_service_user: jdg
-jdg_service_group: jdg
-jdg_port_offset: 0
-jdg_jvm_package: java-11-openjdk-headless
-jdg_java_home:
-jdg_configure_firewalld: False
+infinispan_nodename: "{{ inventory_hostname }}"
+infinispan_app_download_dir: "/opt/infinispan"
+infinispan_healthcheck: True
+infinispan_bind_address: localhost
+infinispan_port: 11222
+infinispan_jgroups_port: 7800
+infinispan_jgroups_relay_port: 7801
+infinispan_service_user: jdg
+infinispan_service_group: jdg
+infinispan_port_offset: 0
+infinispan_jvm_package: java-11-openjdk-headless
+infinispan_java_home:
+infinispan_configure_firewalld: False
+
+# systemd
+infinispan_service_name: infinispan
+infinispan_service_desc: Infinispan
 
 # flag to enable protocol encryption
-jdg_default_realm_tls: False
-jdg_keystore_path: /etc/pki/java/cacerts
-jdg_keystore_password: changeit
-jdg_keystore_alias: "{{ inventory_hostname }}"
-jdg_keystore_key_password: ''
+infinispan_default_realm_tls: False
+infinispan_keystore_path: /etc/pki/java/cacerts
+infinispan_keystore_password: changeit
+infinispan_keystore_alias: "{{ inventory_hostname }}"
+infinispan_keystore_key_password: ''
 
 # flag to enable clustering on jdbc discovery
-jdg_jgroups_jdbcping: "{{ True if infinispan_keycloak_caches or jdg_jgroups_relay else False }}"
+infinispan_jgroups_jdbcping: "{{ True if infinispan_keycloak_caches or infinispan_jgroups_relay else False }}"
 # flag to enable cross-DC relay
-jdg_jgroups_relay: False
+infinispan_jgroups_relay: False
 # list of sites (clusters) in the cross-DC global view
-jdg_jgroups_relay_sites: []
+infinispan_jgroups_relay_sites: []
 # site (cluster) this node belongs to
-jdg_jgroups_relay_site: ''
+infinispan_jgroups_relay_site: ''
 
 # flag to enable keycloak integration
 infinispan_keycloak_caches: False
 
 # flag to enable datasource for keycloak integration
-jdg_keycloak_persistence: False
+infinispan_keycloak_persistence: False
 
 # datasource configuration
-jdg_jdbc_engine: mariadb
-jdg_jdbc_driver_version: 2.7.4
-jdg_jdbc_url: jdbc:mariadb://localhost:3306/keycloak
-jdg_jdbc_user: keycloak-user
-jdg_jdbc_pass: keycloak-pass
+infinispan_jdbc_engine: mariadb
+infinispan_jdbc_driver_version: 2.7.4
+infinispan_jdbc_url: jdbc:mariadb://localhost:3306/keycloak
+infinispan_jdbc_user: keycloak-user
+infinispan_jdbc_pass: keycloak-pass
 
 # logging
 # main logfile format FILE or JSON-FILE
-jdg_logfile_format: FILE
+infinispan_logfile_format: FILE
 # root logging level TRACE, DEBUG, INFO, WARN, ERROR
-jdg_logfile_root_level: INFO
+infinispan_logfile_root_level: INFO
 # enable additional audit.log logfile
-jdg_logfile_enable_audit: True
+infinispan_logfile_enable_audit: True
 # enable additional hotrod-access.log
-jdg_logfile_enable_hotrod_accesslog: False
+infinispan_logfile_enable_hotrod_accesslog: False
 # enable additional rest-access.log
-jdg_logfile_enable_rest_accesslog: False
+infinispan_logfile_enable_rest_accesslog: False
 # max file size, triggers rotation
-jdg_logfile_maxsize: '100 MB'
+infinispan_logfile_maxsize: '100 MB'
 
 # declarative cache configuration
-jdg_caches: []
+infinispan_caches: []
