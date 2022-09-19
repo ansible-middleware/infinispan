@@ -16,6 +16,7 @@ Plugins and modules within a collection may be tested with only specific Ansible
 
 ## Installation and Usage
 
+
 ### Installing the Collection from Ansible Galaxy
 
 Before using the collection, you need to install it with the Ansible Galaxy CLI:
@@ -45,20 +46,6 @@ A requirement file is provided to install:
 * [`infinispan`](https://github.com/ansible-middleware/infinispan/tree/main/roles/infinispan): performs an installation of Infinispan or DataGrid nodes or cluster, with configuration of static caches.
 * [`infinispan_cache`](https://github.com/ansible-middleware/infinispan/tree/main/roles/infinispan_cache): creates Infinispan or DataGrid caches at runtime.
 
-
-### Choosing between Red Hat products and upstream project
-
-The `infinispan` role supports installing Red Hat Datagrid from the Customer Portal, when the following variables are defined:
-
-```
-rhn_username: '<customer_portal_username>'
-rhn_password: '<customer_portal_password>'
-jdg_enable: True
-```
-
-It is also possible to select which update to install by setting the `jdg_version` to one of `['8.2.0','8.2.2','8.2.3']`
-
-Check the role [README](https://github.com/ansible-middleware/infinispan/blob/main/roles/infinispan/README.md) for further details.
 
 ## Support
 

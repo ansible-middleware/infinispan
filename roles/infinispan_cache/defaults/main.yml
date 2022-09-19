@@ -1,7 +1,7 @@
 ---
-jdg_bind_address: localhost
-jdg_port: 11222
-jdg_tls: False
-deployer_user: supervisor
-cache_xml: ''
-cache_config: {}
+infinispan_bind_address: localhost
+infinispan_port: 11222
+infinispan_tls: False
+infinispan_deployer_user: supervisor
+infinispan_cache_xml: ''
+infinispan_cache_config: {}

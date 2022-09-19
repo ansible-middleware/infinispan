@@ -1,10 +1,10 @@
 ---
 # required variables
-supervisor_password: ''
+infinispan_supervisor_password: ''
 infinispan_users: []
 
 # internal variables
-rest_cache_api_path: /rest/v2/caches/ # noqa no_unspecified_argument
+infinispan_rest_cache_api_path: /rest/v2/caches/ # noqa no_unspecified_argument
 
 jdg_rhn_ids:
   '8.2.0': '98151'  # noqa vars_in_vars_files_have_valid_names
@@ -12,49 +12,49 @@ jdg_rhn_ids:
   '8.2.3': '103907' # noqa vars_in_vars_files_have_valid_names
   '8.3.0': '104135' # noqa vars_in_vars_files_have_valid_names
 
-jdg_supervisor:
+infinispan_supervisor:
   name: 'supervisor'
-  password: "{{ supervisor_password }}"
+  password: "{{ infinispan_supervisor_password }}"
   roles: 'admin'
 
-jdg:
-  home: "{{ jdg_default_installation_path if jdg_enable else infinispan_installation_path }}"
-  version: "{{ jdg_version if jdg_enable else infinispan_version }}"
-  bundle: "{{ jdg_bundle if jdg_enable else infinispan_bundle }}"
-  installation_path: "{{ jdg_default_installation_path if jdg_enable else infinispan_installation_path }}"
-  bind_addr: "{{ jdg_bind_address }}"
-  port: "{{ jdg_port + jdg_port_offset }}"
-  jgroups_bind_addr: "{{ jdg_jgroups_override_bind_addr | default(ansible_all_ipv4_addresses[0] if ansible_all_ipv4_addresses is defined else '127.0.0.1') }}"
-  jgroups_port: "{{ jdg_jgroups_port + jdg_port_offset }}"
-  jgroups_relay_port: "{{ jdg_jgroups_relay_port + jdg_port_offset }}"
+infinispan:
+  home: "{{ infinispan_installation_path }}"
+  version: "{{ infinispan_version }}"
+  bundle: "{{ infinispan_bundle }}"
+  installation_path: "{{ infinispan_installation_path }}"
+  bind_addr: "{{ infinispan_bind_address }}"
+  port: "{{ infinispan_port + infinispan_port_offset }}"
+  jgroups_bind_addr: "{{ infinispan_jgroups_override_bind_addr | default(ansible_all_ipv4_addresses[0] if ansible_all_ipv4_addresses is defined else '127.0.0.1') }}"
+  jgroups_port: "{{ infinispan_jgroups_port + infinispan_port_offset }}"
+  jgroups_relay_port: "{{ infinispan_jgroups_relay_port + infinispan_port_offset }}"
   config:
-    name: "jdg.xml"
+    name: "infinispan.xml"
     template: "{{ jdg_config_override_template | default('templates/infinispan.xml.j2') }}"
     jgroups_template: "{{ jdg_config_jgroups_override_template | default('templates/jgroups-jdbcping.xml.j2') }}"
     users: "users.properties"
     groups: "groups.properties"
   user:
-    name: "{{ jdg_service_user }}"
+    name: "{{ infinispan_service_user }}"
   group:
-    name: "{{ jdg_service_group }}"
+    name: "{{ infinispan_service_group }}"
   service:
-    name: "{{ 'jdg' if jdg_enable else 'infinispan' }}"
+    name: "{{ infinispan_service_name }}"
     unit_dir: /etc/systemd/system
-    unit_file: "{{ ('jdg' if jdg_port_offset == 0 else ('jdg-' + jdg_nodename)) if jdg_enable else ('infinispan' if jdg_port_offset == 0 else ('infinispan-' + jdg_nodename)) }}"
-  users: "{{ [ jdg_supervisor ] + infinispan_users }}"
-  static_caches: "{{ jdg_caches }}"
-  name: "{{ 'Red Hat DataGrid' if jdg_enable else 'Infinispan' }}"
+    unit_file: "{{ infinispan_service_name if infinispan_port_offset == 0 else (infinispan_service_name + '-' + infinispan_nodename) }}"
+  users: "{{ [ infinispan_supervisor ] + infinispan_users }}"
+  static_caches: "{{ infinispan_caches }}"
+  name: "{{ infinispan_service_desc }}"
 
-jdg_jgroups_jdbc:
+infinispan_jgroups_jdbc:
   mariadb:
-    enabled: "{{ jdg_jgroups_jdbcping and jdg_jdbc_engine == 'mariadb' }}"
+    enabled: "{{ infinispan_jgroups_jdbcping and infinispan_jdbc_engine == 'mariadb' }}"
     driver_class: org.mariadb.jdbc.Driver
-    driver_version: "{{ jdg_jdbc_driver_version | default('2.7.4') }}"
-    driver_jar_filename: "mariadb-java-client-{{ jdg_jdbc_driver_version }}.jar"
-    driver_jar_url: "https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/{{ jdg_jdbc_driver_version }}/mariadb-java-client-{{ jdg_jdbc_driver_version }}.jar"
-    connection_url: "{{ jdg_jdbc_url | default('jdbc:mariadb://localhost:3306/keycloak') }}"
-    db_user: "{{ jdg_jdbc_user }}"
-    db_password: "{{ jdg_jdbc_pass }}"
+    driver_version: "{{ infinispan_jdbc_driver_version | default('2.7.4') }}"
+    driver_jar_filename: "mariadb-java-client-{{ infinispan_jdbc_driver_version }}.jar"
+    driver_jar_url: "https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/{{ infinispan_jdbc_driver_version }}/mariadb-java-client-{{ infinispan_jdbc_driver_version }}.jar"
+    connection_url: "{{ infinispan_jdbc_url | default('jdbc:mariadb://localhost:3306/keycloak') }}"
+    db_user: "{{ infinispan_jdbc_user }}"
+    db_password: "{{ infinispan_jdbc_pass }}"
     initialize_sql: >
       CREATE TABLE IF NOT EXISTS JGROUPSPING (
         own_addr varchar(200) NOT NULL,
@@ -64,14 +64,14 @@ jdg_jgroups_jdbc:
         PRIMARY KEY (own_addr, cluster_name))
       ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
   postgres:
-    enabled: "{{ jdg_jgroups_jdbcping and jdg_jdbc_engine == 'postgres' }}"
+    enabled: "{{ infinispan_jgroups_jdbcping and infinispan_jdbc_engine == 'postgres' }}"
     driver_class: org.postgresql.Driver
-    driver_version: "{{ jdg_jdbc_driver_version | default('9.4.1212') }}"
-    driver_jar_filename: "postgresql-{{ jdg_jdbc_driver_version }}.jar"
-    driver_jar_url: "https://repo.maven.apache.org/maven2/org/postgresql/postgresql/{{ jdg_jdbc_driver_version }}/postgresql-{{ jdg_jdbc_driver_version }}.jar"
-    connection_url: "{{ jdg_jdbc_url | default('jdbc:postgresql://localhost:5432/keycloak') }}"
-    db_user: "{{ jdg_jdbc_user }}"
-    db_password: "{{ jdg_jdbc_pass }}"
+    driver_version: "{{ infinispan_jdbc_driver_version | default('9.4.1212') }}"
+    driver_jar_filename: "postgresql-{{ infinispan_jdbc_driver_version }}.jar"
+    driver_jar_url: "https://repo.maven.apache.org/maven2/org/postgresql/postgresql/{{ infinispan_jdbc_driver_version }}/postgresql-{{ infinispan_jdbc_driver_version }}.jar"
+    connection_url: "{{ infinispan_jdbc_url | default('jdbc:postgresql://localhost:5432/keycloak') }}"
+    db_user: "{{ infinispan_jdbc_user }}"
+    db_password: "{{ infinispan_jdbc_pass }}"
     initialize_sql: >
       CREATE TABLE IF NOT EXISTS JGROUPSPING (
         own_addr varchar(200) NOT NULL,
@@ -80,7 +80,7 @@ jdg_jgroups_jdbc:
         ping_data BYTEA,
         constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name))
 
-jdg_keycloak_cache:
+infinispan_keycloak_cache:
   enabled: "{{ infinispan_keycloak_caches }}"
   caches:
     - sessions
@@ -91,20 +91,20 @@ jdg_keycloak_cache:
     - actionTokens
     - authenticationSessions
 
-jdg_keystore:
-  enabled: "{{ jdg_default_realm_tls }}"
-  path: "{{ jdg_keystore_path }}"
-  password: "{{ jdg_keystore_password }}"
-  key_password: "{{ jdg_keystore_key_password }}"
-  alias: "{{ jdg_keystore_alias }}"
+infinispan_keystore:
+  enabled: "{{ infinispan_default_realm_tls }}"
+  path: "{{ infinispan_keystore_path }}"
+  password: "{{ infinispan_keystore_password }}"
+  key_password: "{{ infinispan_keystore_key_password }}"
+  alias: "{{ infinispan_keystore_alias }}"
 
-jdg_logging:
-  file_format: "{{ jdg_logfile_format }}"
-  root_level: "{{ jdg_logfile_root_level }}"
-  audit: "{{ 'INFO' if jdg_logfile_enable_audit else 'ERROR' }}"
-  hotrod: "{{ 'TRACE' if jdg_logfile_enable_hotrod_accesslog else 'INFO' }}"
-  rest: "{{ 'TRACE' if jdg_logfile_enable_rest_accesslog else 'INFO' }}"
-  size_based_limit: "{{ jdg_logfile_maxsize }}"
+infinispan_logging:
+  file_format: "{{ infinispan_logfile_format }}"
+  root_level: "{{ infinispan_logfile_root_level }}"
+  audit: "{{ 'INFO' if infinispan_logfile_enable_audit else 'ERROR' }}"
+  hotrod: "{{ 'TRACE' if infinispan_logfile_enable_hotrod_accesslog else 'INFO' }}"
+  rest: "{{ 'TRACE' if infinispan_logfile_enable_rest_accesslog else 'INFO' }}"
+  size_based_limit: "{{ infinispan_logfile_maxsize }}"
   log_pattern: '%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p (%t) [%c] %m%throwable%n'
   log_pattern_console: "{{ '%highlight{' + '%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p (%t) [%c] %m%throwable}' + '{INFO=normal, DEBUG=normal, TRACE=normal}%n' }}"
   accesslog_pattern: '%X{address} %X{user} [%d{dd/MMM/yyyy:HH:mm:ss Z}] &quot;%X{method} %m %X{protocol}&quot; %X{status} %X{requestSize} %X{responseSize} %X{duration}%n'

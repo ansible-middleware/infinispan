@@ -7,15 +7,15 @@
         xmlns:server="urn:infinispan:server:12.1">
 
     <jgroups>
-{% if jdg_keycloak_cache.enabled or jdg_jgroups_jdbcping %}
+{% if infinispan_keycloak_cache.enabled or infinispan_jgroups_jdbcping %}
         <!-- TCP local cluster with JDBCPING discovery -->
         <stack name="datagrid" extends="tcp">
             <JDBC_PING  stack.combine="REPLACE" stack.position="MPING"
-                connection_url="{{ jdg_jgroups_jdbc[jdg_jdbc_engine].connection_url }}"
-                connection_username="{{ jdg_jgroups_jdbc[jdg_jdbc_engine].db_user }}"
-                connection_password="{{ jdg_jgroups_jdbc[jdg_jdbc_engine].db_password }}"
-                connection_driver="{{ jdg_jgroups_jdbc[jdg_jdbc_engine].driver_class }}"
-                initialize_sql="{{ jdg_jgroups_jdbc[jdg_jdbc_engine].initialize_sql }}"
+                connection_url="{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].connection_url }}"
+                connection_username="{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].db_user }}"
+                connection_password="{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].db_password }}"
+                connection_driver="{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].driver_class }}"
+                initialize_sql="{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].initialize_sql }}"
                 insert_single_sql="INSERT INTO JGROUPSPING (own_addr, cluster_name, ping_data) values (?, ?, ?)"
                 delete_single_sql="DELETE FROM JGROUPSPING WHERE own_addr=? AND cluster_name=?"
                 select_all_pingdata_sql="SELECT ping_data FROM JGROUPSPING WHERE cluster_name=?" />
@@ -24,26 +24,26 @@
             <RSVP timeout="60000" resend_interval="500" ack_on_delivery="true" />
         </stack>
 {% endif %}
-{% if jdg_jgroups_relay and jdg_jgroups_jdbcping  %}
+{% if infinispan_jgroups_relay and infinispan_jgroups_jdbcping  %}
         <!-- TCP RELAY with JDBCPING discovery -->
         <stack name="datagridrelay" extends="tcp">
             <JDBC_PING  stack.combine="REPLACE" stack.position="MPING"
-                connection_url="{{ jdg_jgroups_jdbc[jdg_jdbc_engine].connection_url }}"
-                connection_username="{{ jdg_jgroups_jdbc[jdg_jdbc_engine].db_user }}"
-                connection_password="{{ jdg_jgroups_jdbc[jdg_jdbc_engine].db_password }}"
-                connection_driver="{{ jdg_jgroups_jdbc[jdg_jdbc_engine].driver_class }}"
-                initialize_sql="{{ jdg_jgroups_jdbc[jdg_jdbc_engine].initialize_sql }}"
+                connection_url="{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].connection_url }}"
+                connection_username="{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].db_user }}"
+                connection_password="{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].db_password }}"
+                connection_driver="{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].driver_class }}"
+                initialize_sql="{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].initialize_sql }}"
                 insert_single_sql="INSERT INTO JGROUPSPING (own_addr, cluster_name, ping_data) values (?, ?, ?)"
                 delete_single_sql="DELETE FROM JGROUPSPING WHERE own_addr=? AND cluster_name=?"
                 select_all_pingdata_sql="SELECT ping_data FROM JGROUPSPING WHERE cluster_name=?" />
         </stack>
         <!-- x-site declaration -->
         <stack name="xsite" extends="datagrid">
-            <relay.RELAY2 site="{{ jdg_jgroups_relay_site }}" xmlns="urn:org:jgroups" max_site_masters="1000" can_become_site_master="true"
+            <relay.RELAY2 site="{{ infinispan_jgroups_relay_site }}" xmlns="urn:org:jgroups" max_site_masters="1000" can_become_site_master="true"
                 can_forward_local_cluster="true" relay_multicasts="false" />
             <FORWARD_TO_COORD />
             <remote-sites default-stack="datagridrelay">
-{% for site in jdg_jgroups_relay_sites %}
+{% for site in infinispan_jgroups_relay_sites %}
                 <remote-site name="{{ site }}"/>
 {% endfor %}
             </remote-sites>
@@ -52,41 +52,41 @@
     </jgroups>
 
     <cache-container name="default" statistics="true">
-{% if jdg_jgroups_relay and jdg_jgroups_jdbcping %}
-      <transport cluster="{{ jdg_jgroups_relay_site }}" stack="xsite" node-name="{{ jdg_nodename }}"  machine="{{ inventory_hostname }}" site="{{ jdg_jgroups_relay_site }}"/>
-{% elif jdg_keycloak_cache.enabled or jdg_jgroups_jdbcping %}
-      <transport cluster="datagrid" stack="datagrid" node-name="{{ jdg_nodename }}" machine="{{ inventory_hostname }}"/>
+{% if infinispan_jgroups_relay and infinispan_jgroups_jdbcping %}
+      <transport cluster="{{ infinispan_jgroups_relay_site }}" stack="xsite" node-name="{{ infinispan_nodename }}"  machine="{{ inventory_hostname }}" site="{{ infinispan_jgroups_relay_site }}"/>
+{% elif infinispan_keycloak_cache.enabled or infinispan_jgroups_jdbcping %}
+      <transport cluster="datagrid" stack="datagrid" node-name="{{ infinispan_nodename }}" machine="{{ inventory_hostname }}"/>
 {% else %}
-      <transport cluster="datagrid" stack="tcp" node-name="{{ jdg_nodename }}"/>
+      <transport cluster="datagrid" stack="tcp" node-name="{{ infinispan_nodename }}"/>
 {% endif %}
       <security>
         <authorization>
-          <role name="{{ jdg_supervisor.name }}" permissions="READ WRITE EXEC CREATE"/>
+          <role name="{{ infinispan_supervisor.name }}" permissions="READ WRITE EXEC CREATE"/>
         </authorization>
       </security>
-{% for cache in jdg.static_caches %}{% if cache.cache_xml is defined %}
+{% for cache in infinispan.static_caches %}{% if cache.cache_xml is defined %}
 {{ cache.cache_xml|default('') }}
 {% else %}
 {{ lookup('template', 'templates/'+cache.cache_config.template+'-cache.j2', template_vars=cache)|replace('\n', '') }}
 {% endif %}{% endfor %}
     </cache-container>
 
-{% if jdg_keycloak_cache.enabled %}
+{% if infinispan_keycloak_cache.enabled %}
     <!-- keycloak caches -->
     <cache-container name="keycloak" statistics="true">
-{% if jdg_jgroups_relay %}
-      <transport cluster="{{ jdg_jgroups_relay_site }}" stack="xsite" node-name="{{ jdg_nodename }}"  machine="{{ inventory_hostname }}" site="{{ jdg_jgroups_relay_site }}"/>
+{% if infinispan_jgroups_relay %}
+      <transport cluster="{{ infinispan_jgroups_relay_site }}" stack="xsite" node-name="{{ infinispan_nodename }}"  machine="{{ inventory_hostname }}" site="{{ infinispan_jgroups_relay_site }}"/>
       <replicated-cache name="work">
         <encoding media-type="application/x-jboss-marshalling"/>
         <transaction mode="NON_XA"/>
       </replicated-cache>
-{% for keycloak_cache in jdg_keycloak_cache.caches %}
+{% for keycloak_cache in infinispan_keycloak_cache.caches %}
       <distributed-cache name="{{ keycloak_cache }}" mode="SYNC" owners="2" xmlns:jdbc="urn:infinispan:config:store:jdbc:12.0">
         <encoding media-type="application/x-jboss-marshalling"/>
         <state-transfer timeout="60000"/>
         <transaction mode="NON_XA"/>
         <locking acquire-timeout="0" />
-{% if jdg_keycloak_persistence %}
+{% if infinispan_keycloak_persistence %}
         <persistence passivation="false">
            <jdbc:string-keyed-jdbc-store fetch-state="false" shared="true" preload="false">
                <jdbc:data-source jndi-url="jdbc/datasource"/>
@@ -100,8 +100,8 @@
         </persistence>
 {% endif %}
         <backups>
-{% for site in jdg_jgroups_relay_sites %}
-{% if site != jdg_jgroups_relay_site %}            <backup site="{{ site }}" strategy="ASYNC"/>
+{% for site in infinispan_jgroups_relay_sites %}
+{% if site != infinispan_jgroups_relay_site %}            <backup site="{{ site }}" strategy="ASYNC"/>
 {% endif %}
 {% endfor %}
         </backups>
@@ -109,16 +109,16 @@
 {% endfor %}
       <security>
         <authorization>
-          <role name="{{ jdg_supervisor.name }}" permissions="READ WRITE EXEC CREATE"/>
+          <role name="{{ infinispan_supervisor.name }}" permissions="READ WRITE EXEC CREATE"/>
         </authorization>
       </security>
 {% else %}
-      <transport cluster="datagrid" stack="datagrid" node-name="{{ jdg_nodename }}" machine="{{ inventory_hostname }}"/>
+      <transport cluster="datagrid" stack="datagrid" node-name="{{ infinispan_nodename }}" machine="{{ inventory_hostname }}"/>
       <replicated-cache name="work">
         <encoding media-type="application/x-jboss-marshalling"/>
         <transaction mode="NON_XA"/>
       </replicated-cache>
-{% for keycloak_cache in jdg_keycloak_cache.caches %}
+{% for keycloak_cache in infinispan_keycloak_cache.caches %}
       <replicated-cache name="{{ keycloak_cache }}" mode="SYNC">
         <transaction mode="NONE" locking="PESSIMISTIC"/>
         <locking acquire-timeout="0" />
@@ -126,7 +126,7 @@
 {% endfor %}
       <security>
         <authorization>
-          <role name="{{ jdg_supervisor.name }}" permissions="READ WRITE EXEC CREATE"/>
+          <role name="{{ infinispan_supervisor.name }}" permissions="READ WRITE EXEC CREATE"/>
         </authorization>
       </security>
 {% endif %}
@@ -140,7 +140,7 @@
       </interfaces>
 
       <socket-bindings default-interface="public" port-offset="${infinispan.socket.binding.port-offset:0}">
-         <socket-binding name="default" port="{{ jdg.port }}"/>
+         <socket-binding name="default" port="{{ infinispan.port }}"/>
          <socket-binding name="memcached" port="11221"/>
       </socket-bindings>
 
@@ -152,13 +152,13 @@
          </credential-stores>
          <security-realms>
             <security-realm name="default">
-{% if jdg_default_realm_tls %}
+{% if infinispan_default_realm_tls %}
                <server-identities>
                   <ssl>
-                     <keystore path="{{ jdg_keystore.path }}"
-                               alias="{{ jdg_keystore.alias }}"
-                               keystore-password="{{ jdg_keystore.password }}"
-{% if jdg_keystore.key_password|length > 0 %}                               key-password="{{ jdg_keystore.key_password }}"
+                     <keystore path="{{ infinispan_keystore.path }}"
+                               alias="{{ infinispan_keystore.alias }}"
+                               keystore-password="{{ infinispan_keystore.password }}"
+{% if infinispan_keystore.key_password|length > 0 %}                               key-password="{{ infinispan_keystore.key_password }}"
 {% endif %}
                      />
                   </ssl>
@@ -171,13 +171,13 @@
             </security-realm>
          </security-realms>
       </security>
-{% if jdg_keycloak_persistence %}
+{% if infinispan_keycloak_persistence %}
       <data-sources>
         <data-source name="KeycloakDS" jndi-name="jdbc/datasource" statistics="true">
-          <connection-factory driver="{{ jdg_jgroups_jdbc[jdg_jdbc_engine].driver_class }}"
-                              username="{{ jdg_jgroups_jdbc[jdg_jdbc_engine].db_user }}"
-                              password="{{ jdg_jgroups_jdbc[jdg_jdbc_engine].db_password }}"
-                              url="{{ jdg_jgroups_jdbc[jdg_jdbc_engine].connection_url }}"
+          <connection-factory driver="{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].driver_class }}"
+                              username="{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].db_user }}"
+                              password="{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].db_password }}"
+                              url="{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].connection_url }}"
                               new-connection-sql="SELECT 1" transaction-isolation="READ_COMMITTED">
           </connection-factory>
           <connection-pool initial-size="1" max-size="10"  min-size="3" background-validation="1000" idle-removal="1" blocking-timeout="1000" leak-detection="10000"/>

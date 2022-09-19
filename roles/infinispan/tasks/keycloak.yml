@@ -3,9 +3,9 @@
   ansible.builtin.include_tasks: query_cache.yml
   vars:
     method: GET
-    jdg_url: "{{ 'https' if jdg_default_realm_tls else 'http' }}://{{ jdg.bind_addr }}:{{ jdg.port }}"
-    jdg_username: "{{ jdg_supervisor.name }}"
-    jdg_password: "{{ jdg_supervisor.password }}"
+    infinispan_url: "{{ 'https' if infinispan_default_realm_tls else 'http' }}://{{ infinispan.bind_addr }}:{{ infinispan.port }}"
+    jdg_username: "{{ infinispan_supervisor.name }}"
+    jdg_password: "{{ infinispan_supervisor.password }}"
     cache:
       name: "{{ item }}"
-  loop: "{{ jdg_keycloak_cache.caches | flatten }}"
+  loop: "{{ infinispan_keycloak_cache.caches | flatten }}"

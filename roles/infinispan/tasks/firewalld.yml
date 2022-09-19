@@ -12,7 +12,7 @@
     enabled: yes
     state: started
 
-- name: "Configure firewall for {{ jdg.name }} ports"
+- name: "Configure firewall for {{ infinispan.name }} ports"
   become: yes
   ansible.posix.firewalld:
     port: "{{ item }}"
@@ -20,6 +20,6 @@
     state: enabled
     immediate: yes
   loop:
-    - "{{ jdg.port }}/tcp"
-    - "{{ jdg.jgroups_port }}/tcp"
-    - "{{ jdg.jgroups_relay_port }}/tcp"
+    - "{{ infinispan.port }}/tcp"
+    - "{{ infinispan.jgroups_port }}/tcp"
+    - "{{ infinispan.jgroups_relay_port }}/tcp"

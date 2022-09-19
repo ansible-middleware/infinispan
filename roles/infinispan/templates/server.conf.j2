@@ -20,7 +20,7 @@
 # Specify the location of the Java home directory.  If set then $JAVA will
 # be defined to $JAVA_HOME/bin/java, else $JAVA will be "java".
 #
-JAVA_HOME="{{ jdg_java_home | default(jdg_rpm_java_home, true) }}"
+JAVA_HOME="{{ infinispan_java_home | default(jdg_rpm_java_home, true) }}"
 
 # tell linux glibc how many memory pools can be created that are used by malloc
 # MALLOC_ARENA_MAX="5"

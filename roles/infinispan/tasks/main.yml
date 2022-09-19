@@ -2,17 +2,15 @@
 - name: Validate parameters
   ansible.builtin.assert:
     that:
-      - jdg is defined
-      - jdg.home is defined
-      - jdg.user is defined
-      - jdg.user.name is defined
-      - jdg.group is defined
-      - jdg.group.name is defined
-      - jdg.version is defined
-      - jdg.config is defined
-      - jdg.config.name is defined
-      - jdg.service.name is defined
-      - supervisor_password is defined and supervisor_password|length > 0
+      - infinispan.home is defined
+      - infinispan.user is defined
+      - infinispan.user.name is defined
+      - infinispan.group is defined
+      - infinispan.group.name is defined
+      - infinispan.version is defined
+      - infinispan.config is defined
+      - infinispan.config.name is defined
+      - infinispan.service.name is defined
     quiet: true
 
 - name: Install parameters
@@ -21,7 +19,7 @@
 
 - name: Install parameters
   ansible.builtin.debug:
-    var: jdg
+    var: infinispan
 
 - name: Include prerequisite tasks
   ansible.builtin.include_tasks: prereqs.yml
@@ -30,7 +28,7 @@
 
 - name: Include firewall config tasks
   ansible.builtin.include_tasks: firewalld.yml
-  when: jdg_configure_firewalld
+  when: infinispan_configure_firewalld
   tags:
     - firewall
 
@@ -41,7 +39,7 @@
 
 - name: Install directory
   ansible.builtin.debug:
-    msg: "{{ 'Red Hat Datagrid' if jdg_enable else 'Infinispan' }} installed at path {{ jdg.home }}"
+    msg: "{{ infinispan_service_desc }} installed at path {{ infinispan.home }}"
 
 - name: Include systemd tasks
   ansible.builtin.include_tasks: tasks/systemd.yml
@@ -51,18 +49,18 @@
 - name: Determine JAVA_HOME for selected JVM RPM  # noqa blocked_modules
   ansible.builtin.shell: |
     set -o pipefail
-    rpm -ql {{ jdg_jvm_package }} | grep -Po '/usr/lib/jvm/.*(?=/bin/java$)'
+    rpm -ql {{ infinispan_jvm_package }} | grep -Po '/usr/lib/jvm/.*(?=/bin/java$)'
   args:
     executable: /bin/bash
   changed_when: False
   register: rpm_java_home
 
-- name: "Ensure {{ jdg.service.name }} service configuration is deployed: server.conf"
+- name: "Ensure {{ infinispan.service.name }} service configuration is deployed: server.conf"
   ansible.builtin.template:
     src: server.conf.j2
-    dest: "{{ jdg.home }}/bin/server.conf"
-    owner: "{{ jdg.user.name }}"
-    group: "{{ jdg.group.name }}"
+    dest: "{{ infinispan.home }}/bin/server.conf"
+    owner: "{{ infinispan.user.name }}"
+    group: "{{ infinispan.group.name }}"
     mode: 0644
     backup: yes
   vars:
@@ -70,23 +68,23 @@
   notify:
     - restart infinispan
 
-- name: "Ensure {{ jdg.service.name }} server configuration is deployed: {{ jdg.config.name }}"
+- name: "Ensure {{ infinispan.service.name }} server configuration is deployed: {{ infinispan.config.name }}"
   ansible.builtin.template:
-    src: "{{ jdg.config.template }}"
-    dest: "{{ jdg.home }}/server/conf/{{ jdg.config.name }}"
-    owner: "{{ jdg.user.name }}"
-    group: "{{ jdg.group.name }}"
+    src: "{{ infinispan.config.template }}"
+    dest: "{{ infinispan.home }}/server/conf/{{ infinispan.config.name }}"
+    owner: "{{ infinispan.user.name }}"
+    group: "{{ infinispan.group.name }}"
     mode: 0644
     backup: yes
   notify:
     - restart infinispan
 
-- name: "Ensure {{ jdg.service.name }} log4j2 configuration is deployed"
+- name: "Ensure {{ infinispan.service.name }} log4j2 configuration is deployed"
   ansible.builtin.template:
     src: log4j2.xml.j2
-    dest: "{{ jdg.home }}/server/conf/log4j2.xml"
-    owner: "{{ jdg.user.name }}"
-    group: "{{ jdg.group.name }}"
+    dest: "{{ infinispan.home }}/server/conf/log4j2.xml"
+    owner: "{{ infinispan.user.name }}"
+    group: "{{ infinispan.group.name }}"
     mode: 0644
     backup: yes
   notify:
@@ -94,32 +92,32 @@
 
 - name: Download database driver jar to target
   ansible.builtin.get_url:
-    url: "{{ jdg_jgroups_jdbc[jdg_jdbc_engine].driver_jar_url }}"
-    dest: "{{ jdg.home }}/lib/{{ jdg_jgroups_jdbc[jdg_jdbc_engine].driver_jar_filename }}"
-    owner: "{{ jdg.user.name }}"
-    group: "{{ jdg.group.name }}"
+    url: "{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].driver_jar_url }}"
+    dest: "{{ infinispan.home }}/lib/{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].driver_jar_filename }}"
+    owner: "{{ infinispan.user.name }}"
+    group: "{{ infinispan.group.name }}"
     mode: 0644
   when:
-    - jdg_jgroups_jdbcping
+    - infinispan_jgroups_jdbcping
 
 - name: Include users tasks
   ansible.builtin.include_tasks: jdg_user.yml
   vars:
-    users: "{{ jdg.users }}"
+    users: "{{ infinispan.users }}"
   when:
-    - jdg.users is defined
-    - jdg.users | length > 0
+    - infinispan.users is defined
+    - infinispan.users | length > 0
 
-- name: "Ensure {{ jdg.service.name }} service is running and enabled (first node)"
+- name: "Ensure {{ infinispan.service.name }} service is running and enabled (first node)"
   ansible.builtin.include_tasks: start.yml
   run_once: yes
-  when: jdg_jgroups_jdbcping or jdg_keycloak_persistence
+  when: infinispan_jgroups_jdbcping or infinispan_keycloak_persistence
 
-- name: "Ensure {{ jdg.service.name }} service is running and enabled (all nodes)"
+- name: "Ensure {{ infinispan.service.name }} service is running and enabled (all nodes)"
   ansible.builtin.include_tasks: start.yml
 
 - name: Link default logs directory
   ansible.builtin.file:
     state: link
-    src: "{{ jdg.home }}/server/log"
-    dest: "/var/log/infinispan{{ '-' + jdg_nodename if jdg_nodename != inventory_hostname else '' }}"
+    src: "{{ infinispan.home }}/server/log"
+    dest: "/var/log/infinispan{{ '-' + infinispan_nodename if infinispan_nodename != inventory_hostname else '' }}"

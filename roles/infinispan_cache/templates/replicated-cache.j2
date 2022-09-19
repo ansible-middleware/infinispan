@@ -1,45 +1,45 @@
-<replicated-cache name="{{ cache_config.name }}"
-                  mode="{{ cache_config.mode|default('SYNC') }}"
-                  statistics="{{ cache_config.statistics|default('false')|lower }}"
-                  segments="{{ cache_config.segments|default('256') }}"
-                  unreliable-return-values="{{ cache_config.unreliable_return_values|default('false')|lower }}">
+<replicated-cache name="{{ infinispan_cache_config.name }}"
+                  mode="{{ infinispan_cache_config.mode|default('SYNC') }}"
+                  statistics="{{ infinispan_cache_config.statistics|default('false')|lower }}"
+                  segments="{{ infinispan_cache_config.segments|default('256') }}"
+                  unreliable-return-values="{{ infinispan_cache_config.unreliable_return_values|default('false')|lower }}">
 
 
-  <encoding media-type="{{ cache_config.encoding|default('application/x-protostream') }}"/>
+  <encoding media-type="{{ infinispan_cache_config.encoding|default('application/x-protostream') }}"/>
 
-  <locking isolation="{{ cache_config.isolation|default('REPEATABLE_READ') }}"
-           striping="{{ cache_config.isolation_striping|default('false')|lower }}"
-           acquire-timeout="{{ cache_config.isolation_acquire_timeout|default('10000') }}"
-           concurrency-level="{{ cache_config.isolation_concurrency_level|default('32') }}"/>
+  <locking isolation="{{ infinispan_cache_config.isolation|default('REPEATABLE_READ') }}"
+           striping="{{ infinispan_cache_config.isolation_striping|default('false')|lower }}"
+           acquire-timeout="{{ infinispan_cache_config.isolation_acquire_timeout|default('10000') }}"
+           concurrency-level="{{ infinispan_cache_config.isolation_concurrency_level|default('32') }}"/>
 
-  <transaction mode="{{ cache_config.transaction_mode|default('NONE') }}" 
-               locking="{{ cache_config.transaction_locking|default('OPTIMISTIC') }}"/>
+  <transaction mode="{{ infinispan_cache_config.transaction_mode|default('NONE') }}" 
+               locking="{{ infinispan_cache_config.transaction_locking|default('OPTIMISTIC') }}"/>
 
-  <expiration lifespan="{{ cache_config.expiration_lifespan|default('-1') }}" 
-              max-idle="{{ cache_config.expiration_max_idle|default('-1') }}"
-              interval="{{ cache_config.expiration_interval|default('60000') }}" />
+  <expiration lifespan="{{ infinispan_cache_config.expiration_lifespan|default('-1') }}" 
+              max-idle="{{ infinispan_cache_config.expiration_max_idle|default('-1') }}"
+              interval="{{ infinispan_cache_config.expiration_interval|default('60000') }}" />
 
-  <memory {% if cache_config.memory_max_count is defined %}max-count="{{ cache_config.memory_max_count|default('-1') }}" {% endif %} 
-          {% if cache_config.memory_max_size is defined and not cache_config.memory_max_count is defined %}max-size="{{ cache_config.memory_max_size|default('') }}" {% endif %} 
-          when-full="{{ cache_config.memory_when_full|default('NONE') }}"
-          storage="{{ cache_config.memory_storage|default('HEAP') }}"/>
-{% if cache_config.indexing is defined and cache_config.indexing %}
+  <memory {% if infinispan_cache_config.memory_max_count is defined %}max-count="{{ infinispan_cache_config.memory_max_count|default('-1') }}" {% endif %} 
+          {% if infinispan_cache_config.memory_max_size is defined and not infinispan_cache_config.memory_max_count is defined %}max-size="{{ infinispan_cache_config.memory_max_size|default('') }}" {% endif %} 
+          when-full="{{ infinispan_cache_config.memory_when_full|default('NONE') }}"
+          storage="{{ infinispan_cache_config.memory_storage|default('HEAP') }}"/>
+{% if infinispan_cache_config.indexing is defined and infinispan_cache_config.indexing %}
   <indexing enabled="true" 
-            storage="{{ cache_config.indexing_storage|default('filesystem') }}"
-            path="{{ cache_config.indexing_path|default('.') }}" >
+            storage="{{ infinispan_cache_config.indexing_storage|default('filesystem') }}"
+            path="{{ infinispan_cache_config.indexing_path|default('.') }}" >
     <indexed-entities>
-{% for entity in cache_config.indexing_entities %}    
+{% for entity in infinispan_cache_config.indexing_entities %}    
       <indexed-entity>{{ entity }}</indexed-entity>
 {% endfor %}      
     </indexed-entities>
   </indexing>            
 {% endif %}
-  <partition-handling when-split="{{ cache_config.partition_handling_when_split|default('ALLOW_READ_WRITES') }}" />
-{% if cache_config.persistence is defined and cache_config.persistence %}
-  <persistence passivation="{{ cache_config.persistence_passivation|default('false')|lower }}">
+  <partition-handling when-split="{{ infinispan_cache_config.partition_handling_when_split|default('ALLOW_READ_WRITES') }}" />
+{% if infinispan_cache_config.persistence is defined and infinispan_cache_config.persistence %}
+  <persistence passivation="{{ infinispan_cache_config.persistence_passivation|default('false')|lower }}">
     <jdbc:string-keyed-jdbc-store fetch-state="false" shared="true" preload="false">
-      <jdbc:data-source jndi-url="{{ cache_config.persistence_jndi_url|default('jdbc/datasource') }}"/>
-      <jdbc:string-keyed-table drop-on-exit="false" create-on-start="true" prefix="{{ cache_config.persistence_prefix|default('DATAGRID') }}">
+      <jdbc:data-source jndi-url="{{ infinispan_cache_config.persistence_jndi_url|default('jdbc/datasource') }}"/>
+      <jdbc:string-keyed-table drop-on-exit="false" create-on-start="true" prefix="{{ infinispan_cache_config.persistence_prefix|default('DATAGRID') }}">
         <jdbc:id-column name="id" type="VARCHAR(255)"/>
         <jdbc:data-column name="datum" type="VARBINARY(4000)"/>
         <jdbc:timestamp-column name="version" type="BIGINT"/>
@@ -48,10 +48,10 @@
     </jdbc:string-keyed-jdbc-store>    
   </persistence>
 {% endif %}
-{% if cache_config.state_transfer is defined and cache_config.state_transfer %}
+{% if infinispan_cache_config.state_transfer is defined and infinispan_cache_config.state_transfer %}
   <state-transfer enabled="true"
-                  timeout="{{ cache_config.state_transfer_timeout|default('240000') }}"
-                  chunk-size="{{ cache_config.state_transfer_chunk_size|default('240000') }}"
-                  await-initial-transfer="{{ cache_config.state_transfer_await_initial_transfer|default('true')|lower }}"/>
+                  timeout="{{ infinispan_cache_config.state_transfer_timeout|default('240000') }}"
+                  chunk-size="{{ infinispan_cache_config.state_transfer_chunk_size|default('240000') }}"
+                  await-initial-transfer="{{ infinispan_cache_config.state_transfer_await_initial_transfer|default('true')|lower }}"/>
 {% endif %}
 </replicated-cache>

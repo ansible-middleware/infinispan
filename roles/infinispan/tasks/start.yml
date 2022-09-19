@@ -3,12 +3,12 @@
   block:
   - name: "Restart service"
     ansible.builtin.systemd:
-      name: "{{ jdg.service.unit_file }}"
+      name: "{{ infinispan.service.unit_file }}"
       state: started
       enabled: yes
   - name: "Wait for used port to be open"
     ansible.builtin.wait_for:
-      port: "{{ jdg.port }}"
+      port: "{{ infinispan.port }}"
       delay: 0
     when:
-      - jdg_healthcheck
+      - infinispan_healthcheck

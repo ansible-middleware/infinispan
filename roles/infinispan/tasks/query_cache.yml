@@ -4,13 +4,13 @@
     that:
       - cache is defined
       - cache.name is defined
-      - jdg_url is defined
+      - infinispan_url is defined
       - method is defined
     quiet: true
 
 - name: "Ensure cache {{ cache.name }} exists"
   ansible.builtin.uri:
-    url: "{{ jdg_url }}{{ rest_cache_api_path }}{{ cache.name }}"
+    url: "{{ infinispan_url }}{{ infinispan_rest_cache_api_path }}{{ cache.name }}"
     method: "{{ method }}"
     user: "{{ jdg_username | default(omit) }}"
     password: "{{ jdg_password | default(omit) }}"
