@@ -68,7 +68,7 @@
   notify:
     - restart infinispan
 
-- name: "Fetch xsd schema versions"
+- name: "Get xsd schema versions"
   ansible.builtin.find:
     paths: "{{ infinispan.home }}/docs/schema/"
     use_regex: yes
