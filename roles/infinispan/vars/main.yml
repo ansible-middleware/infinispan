@@ -6,7 +6,7 @@ infinispan_users: []
 # internal variables
 infinispan_rest_cache_api_path: /rest/v2/caches/ # noqa no_unspecified_argument
 
-jdg_rhn_ids:
+infinispan_rhn_ids:
   '8.2.0': '98151'  # noqa vars_in_vars_files_have_valid_names
   '8.2.2': '103685' # noqa vars_in_vars_files_have_valid_names
   '8.2.3': '103907' # noqa vars_in_vars_files_have_valid_names
@@ -29,8 +29,8 @@ infinispan:
   jgroups_relay_port: "{{ infinispan_jgroups_relay_port + infinispan_port_offset }}"
   config:
     name: "infinispan.xml"
-    template: "{{ jdg_config_override_template | default('templates/infinispan.xml.j2') }}"
-    jgroups_template: "{{ jdg_config_jgroups_override_template | default('templates/jgroups-jdbcping.xml.j2') }}"
+    template: "{{ infinispan_config_override_template | default('templates/infinispan.xml.j2') }}"
+    jgroups_template: "{{ infinispan_config_jgroups_override_template | default('templates/jgroups-jdbcping.xml.j2') }}"
     users: "users.properties"
     groups: "groups.properties"
   user:
