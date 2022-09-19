@@ -4,6 +4,8 @@
   gather_facts: yes
   roles:
     - role: infinispan
+      infinispan_nodename: instance1
+      infinispan_service_name: instance1
       infinispan_supervisor_password: "remembertochangeme"
       infinispan_users:
         - { name: 'testuser', password: 'test', roles: 'observer' }
@@ -18,6 +20,7 @@
             mode: ASYNC
     - role: infinispan
       infinispan_nodename: instance2
+      infinispan_service_name: instance2
       infinispan_supervisor_password: "remembertochangeme2"
       infinispan_port_offset: 100
       infinispan_dest: /opt/infinispan-2/

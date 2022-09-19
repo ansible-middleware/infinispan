@@ -40,7 +40,7 @@ infinispan:
   service:
     name: "{{ infinispan_service_name }}"
     unit_dir: /etc/systemd/system
-    unit_file: "{{ infinispan_service_name if infinispan_port_offset == 0 else (infinispan_service_name + '-' + infinispan_nodename) }}"
+    unit_file: "{{ infinispan_service_name if infinispan_port_offset == 0 else (infinispan_service_name + '-' + infinispan_port_offset | string) }}"
   users: "{{ [ infinispan_supervisor ] + infinispan_users }}"
   static_caches: "{{ infinispan_caches }}"
   name: "{{ infinispan_service_desc }}"
