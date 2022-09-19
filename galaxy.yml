@@ -25,8 +25,15 @@ documentation: https://ansible-middleware.github.io/infinispan
 homepage: https://github.com/ansible-middleware/infinispan
 issues: https://github.com/ansible-middleware/infinispan/issues
 build_ignore:
-  - molecule
+  - .gitignore
   - .github
+  - .ansible-lint
+  - .yamllint
   - '*.tar.gz'
   - '*.zip'
-  - changelogs/fragments/.gitignore
+  - molecule
+  - changelogs
+  - docs/_gh_include
+  - docs/conf.py
+  - docs/roles.rst.template
+  - docs/requirements.yml
