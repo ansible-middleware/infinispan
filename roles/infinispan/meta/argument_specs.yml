@@ -229,51 +229,51 @@ argument_specs:
                 type: "str"
     downstream:
         options:
-            jdg_version:
+            data_grid_version:
                 # line 3 of infinispan/defaults/main.yml
                 default: "8.3.0"
-                description: "DataGrid version to install"
+                description: "Red Hat Data Grid version to install"
                 type: "str"
-            jdg_installation_path:
+            data_grid_installation_path:
                 # line 4 of infinispan/defaults/main.yml
-                default: "/opt/infinispan/redhat-datagrid-{{ jdg_version }}-server/"
+                default: "/opt/infinispan/redhat-datagrid-{{ data_grid_version }}-server/"
                 description: "Target extracted installation"
                 type: "str"
-            jdg_bundle:
+            data_grid_bundle:
                 # line 5 of infinispan/defaults/main.yml
-                default: "redhat-datagrid-{{ jdg_version }}-server.zip"
-                description: "Archive name for Red Hat DataGrid"
+                default: "redhat-datagrid-{{ data_grid_version }}-server.zip"
+                description: "Archive name for Red Hat Data Grid"
                 type: "str"
-            jdg_rhn_id:
+            data_grid_rhn_id:
                 # line 6 of infinispan/defaults/main.yml
-                default: "{{ jdg_rhn_ids[jdg_version] }}"
+                default: "{{ data_grid_rhn_ids[data_grid_version] }}"
                 description: "Customer portal product ID for Red Hat DataGrid"
                 type: "str"
-            jdg_rhn_url:
+            data_grid_rhn_url:
                 # line 7 of infinispan/defaults/main.yml
                 default: "https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId="
                 description: "Customer portal base download URL"
                 type: "str"
-            jdg_download_url:
+            data_grid_download_url:
                 # line 8 of infinispan/defaults/main.yml
-                default: "{{ jdg_rhn_url }}{{ jdg_rhn_id }}"
+                default: "{{ data_grid_rhn_url }}{{ data_grid_rhn_id }}"
                 description: "Complete customer portal default URL for DataGrid, or alternate download location"
                 type: "str"
-            jdg_enable:
+            data_grid_enable:
                 # line 17 of infinispan/defaults/main.yml
                 default: True
-                description: "Install Red Hat DataGrid when true, Infinispan otherwise"
+                description: "Install Red Hat Data Grid when true, Infinispan otherwise"
                 type: "bool"
-            jdg_offline_install:
+            data_grid_offline_install:
                 # line 19 of infinispan/defaults/main.yml
                 default: True
                 description: "Perform an offline install"
                 type: "bool"
-            jdg_service_name:
+            data_grid_service_name:
                 default: "jdg"
                 description: "Name of the systemd service unit"
                 type: "str"
-            jdg_service_desc:
+            data_grid_service_desc:
                 default: "Red Hat Data Grid"
                 description: "Description of the systemd service unit"
                 type: "str"

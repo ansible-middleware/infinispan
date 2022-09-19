@@ -2,8 +2,8 @@
 - name: Validate credentials
   ansible.builtin.assert:
     that:
-      - (rhn_username is defined and jdg_enable is defined and jdg_enable) or not jdg_enable is defined or not jdg_enable or infinispan_offline_install
-      - (rhn_password is defined and jdg_enable is defined and jdg_enable) or not jdg_enable is defined or not jdg_enable or infinispan_offline_install
+      - (rhn_username is defined and data_grid_enable is defined and data_grid_enable) or not data_grid_enable is defined or not data_grid_enable or infinispan_offline_install
+      - (rhn_password is defined and data_grid_enable is defined and data_grid_enable) or not data_grid_enable is defined or not data_grid_enable or infinispan_offline_install
     quiet: True
     fail_msg: "Cannot install {{ infinispan.name }} without RHN credentials. Check rhn_username and rhn_password are defined"
     success_msg: "Installing {{ infinispan_service_desc }}"

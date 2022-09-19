@@ -46,12 +46,12 @@
     - archive_path is defined
     - archive_path.stat is defined
     - not archive_path.stat.exists
-    - jdg_enable is not defined or not jdg_enable
+    - data_grid_enable is not defined or not data_grid_enable
     - not infinispan_offline_install
 
 - name: Perform download from RHN
   redhat_csp_download:
-    url: "{{ jdg_download_url }}"
+    url: "{{ infinispan_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ infinispan.bundle }}"
     username: "{{ rhn_username }}"
     password: "{{ rhn_password }}"
@@ -61,11 +61,11 @@
     - archive_path is defined
     - archive_path.stat is defined
     - not archive_path.stat.exists
-    - jdg_enable is defined and jdg_enable
+    - data_grid_enable is defined and data_grid_enable
     - not infinispan_offline_install
-    - jdg_rhn_url in jdg_download_url
+    - data_grid_rhn_url is defined and data_grid_rhn_url in infinispan_download_url
 
-- name: Download DataGrid archive from alternate location
+- name: Download Data Grid archive from alternate location
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ jdg_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ infinispan.bundle }}"
@@ -75,9 +75,9 @@
     - archive_path is defined
     - archive_path.stat is defined
     - not archive_path.stat.exists
-    - jdg_enable is defined and jdg_enable
+    - data_grid_enable is defined and data_grid_enable
     - not infinispan_offline_install
-    - not jdg_rhn_url in jdg_download_url
+    - not data_grid_rhn_url is defined or not data_grid_rhn_url in infinispan_download_url
 
 - name: Check downloaded archive
   ansible.builtin.stat:

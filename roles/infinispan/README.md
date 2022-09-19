@@ -128,7 +128,7 @@ Offline installation
 Performing an offline installation is possible by:
 
 * setting `infinispan_offline_install` to `True`
-* making the file available to ansible controller, using as filename `jdg_bundle` if `jdg_enable` is True, `infinispan_bundle` otherwise.
+* making the file available to ansible controller, using as filename `infinispan_bundle`.
 
 
 Keycloak integration
