@@ -1,10 +1,10 @@
 <!-- {{ ansible_managed }} -->
 <infinispan
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="urn:infinispan:config:12.1 https://infinispan.org/schemas/infinispan-config-12.1.xsd
-                            urn:infinispan:server:12.1 https://infinispan.org/schemas/infinispan-server-12.1.xsd"
-        xmlns="urn:infinispan:config:12.1"
-        xmlns:server="urn:infinispan:server:12.1">
+        xsi:schemaLocation="urn:infinispan:config:{{ schema_version }} https://infinispan.org/schemas/infinispan-config-{{ schema_version }}.xsd
+                            urn:infinispan:server:{{ schema_version }} https://infinispan.org/schemas/infinispan-server-{{ schema_version }}.xsd"
+        xmlns="urn:infinispan:config:{{ schema_version }}"
+        xmlns:server="urn:infinispan:server:{{ schema_version }}">
 
     <jgroups>
 {% if infinispan_keycloak_cache.enabled or infinispan_jgroups_jdbcping %}
@@ -132,7 +132,7 @@
 {% endif %}
     </cache-container>
 {% endif %}
-   <server xmlns="urn:infinispan:server:12.1">
+   <server xmlns="urn:infinispan:server:{{ schema_version }}">
       <interfaces>
          <interface name="public">
              <any-address/>
@@ -185,7 +185,7 @@
       </data-sources>
 {% endif %}
 
-{% if (not sso_enable is defined and infinispan_version is version_compare('13.0.0', '<')) or (sso_enable is defined and sso_enable and (infinispan_version is version_compare('8.3.0', '<')) ) %}
+{% if (not data_grid_enable is defined and infinispan_version is version_compare('13.0.0', '<')) or (data_grid_enable is defined and data_grid_enable and (infinispan_version is version_compare('8.3.0', '<')) ) %}
       <endpoints socket-binding="default" security-realm="default">
 {% else %}
       <endpoints>
@@ -195,7 +195,7 @@
         <rest-connector name="rest">
           <authentication mechanisms="DIGEST BASIC"/>
         </rest-connector>
-{% if (not sso_enable is defined and infinispan_version is version_compare('13.0.0', '<')) or (sso_enable is defined and sso_enable and (infinispan_version is version_compare('8.3.0', '<')) ) %}
+{% if (not data_grid_enable is defined and infinispan_version is version_compare('13.0.0', '<')) or (data_grid_enable is defined and data_grid_enable and (infinispan_version is version_compare('8.3.0', '<')) ) %}
       </endpoints>
 {% else %}
         </endpoint>

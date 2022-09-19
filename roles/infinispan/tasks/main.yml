@@ -68,6 +68,17 @@
   notify:
     - restart infinispan
 
+- name: "Fetch xsd schema versions"
+  ansible.builtin.find:
+    paths: "{{ infinispan.home }}/docs/schema/"
+    use_regex: yes
+    patterns: ['^.*-server-[0-9.]*[.]xsd$']
+  register: server_schema
+
+- name: "Set fetched schema version for template"
+  ansible.builtin.set_fact:
+    schema_version: "{{ server_schema.files | first | regex_search('[0-9.]*(?=.xsd)') }}"
+
 - name: "Ensure {{ infinispan.service.name }} server configuration is deployed: {{ infinispan.config.name }}"
   ansible.builtin.template:
     src: "{{ infinispan.config.template }}"
