@@ -185,7 +185,7 @@
       </data-sources>
 {% endif %}
 
-{% if (not sso_enable is defined and infinispan_version | version_compare('13.0.0', '<')) or (sso_enable is defined and sso_enable and (infinispan_version | version_compare('8.3.0', '<')) ) %}
+{% if (not sso_enable is defined and infinispan_version is version_compare('13.0.0', '<')) or (sso_enable is defined and sso_enable and (infinispan_version is version_compare('8.3.0', '<')) ) %}
       <endpoints socket-binding="default" security-realm="default">
 {% else %}
       <endpoints>
@@ -195,7 +195,7 @@
         <rest-connector name="rest">
           <authentication mechanisms="DIGEST BASIC"/>
         </rest-connector>
-{% if (not sso_enable is defined and infinispan_version | version_compare('13.0.0', '<')) or (sso_enable is defined and sso_enable and (infinispan_version | version_compare('8.3.0', '<')) ) %}
+{% if (not sso_enable is defined and infinispan_version is version_compare('13.0.0', '<')) or (sso_enable is defined and sso_enable and (infinispan_version is version_compare('8.3.0', '<')) ) %}
       </endpoints>
 {% else %}
         </endpoint>
