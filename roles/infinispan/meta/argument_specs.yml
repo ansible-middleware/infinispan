@@ -239,7 +239,7 @@ argument_specs:
                 type: "str"
             data_grid_installation_path:
                 # line 4 of infinispan/defaults/main.yml
-                default: "{{ datagrid_dest }}/redhat-datagrid-{{ data_grid_version }}-server/"
+                default: "{{ data_grid_dest }}/redhat-datagrid-{{ data_grid_version }}-server/"
                 description: "Target extracted installation"
                 type: "str"
             data_grid_bundle:
