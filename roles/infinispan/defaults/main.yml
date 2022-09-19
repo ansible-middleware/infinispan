@@ -2,13 +2,14 @@
 infinispan_version: "12.1.7.Final"
 infinispan_bundle: "infinispan-server-{{ infinispan_version }}.zip"
 infinispan_download_url: "https://downloads.jboss.org/infinispan/{{ infinispan_version }}/{{ infinispan_bundle }}"
-infinispan_installation_path: "/opt/infinispan/infinispan-server-{{ infinispan_version }}/"
+infinispan_dest: /opt/infinispan
+infinispan_installation_path: "{{ infinispan_dest }}/infinispan-server-{{ infinispan_version }}/"
 
 infinispan_offline_install: False
 
 # common config for datagrid/infinispan service
 infinispan_nodename: "{{ inventory_hostname }}"
-infinispan_app_download_dir: "/opt/infinispan"
+infinispan_app_download_dir: "{{ infinispan_dest }}"
 infinispan_healthcheck: True
 infinispan_bind_address: localhost
 infinispan_port: 11222

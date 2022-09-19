@@ -28,7 +28,7 @@ argument_specs:
                 type: "str"
             infinispan_installation_path:
                 # line 14 of infinispan/defaults/main.yml
-                default: "/opt/infinispan/infinispan-server-{{ infinispan_version }}/"
+                default: "{{ infinispan_dest }}/infinispan-server-{{ infinispan_version }}/"
                 description: "Specific unxtracted installation path for infinispan"
                 type: "str"
             infinispan_offline_install:
@@ -44,9 +44,12 @@ argument_specs:
             infinispan_java_home:
                 description: "JAVA_HOME of installed JRE, leave empty for using specified infinispan_jvm_package RPM path"
                 type: "str"
-            infinispan_app_download_dir:
-                # line 23 of infinispan/defaults/main.yml
+            infinispan_dest:
                 default: "/opt/infinispan"
+                description: "Directory where to extract installation archives"
+                type: "str"
+            infinispan_app_download_dir:
+                default: "{{ infinispan_dest }}"
                 description: "Directory where to download archives"
                 type: "str"
             infinispan_healthcheck:
@@ -236,7 +239,7 @@ argument_specs:
                 type: "str"
             data_grid_installation_path:
                 # line 4 of infinispan/defaults/main.yml
-                default: "/opt/data_grid/redhat-datagrid-{{ data_grid_version }}-server/"
+                default: "{{ infinispan_dest }}/redhat-datagrid-{{ data_grid_version }}-server/"
                 description: "Target extracted installation"
                 type: "str"
             data_grid_bundle:
