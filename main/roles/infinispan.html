@@ -261,35 +261,39 @@
 <td class="text-left"><p>Download URL for infinispan</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">https://downloads.jboss.org/infinispan/{{</span> <span class="pre">infinispan_version</span> <span class="pre">}}/{{</span> <span class="pre">infinispan_bundle</span> <span class="pre">}}</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_installation_path</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_dest</span></code></p></td>
+<td class="text-left"><p>Directory where to extract installation archives</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/opt/infinispan</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_installation_path</span></code></p></td>
 <td class="text-left"><p>Specific unxtracted installation path for infinispan</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/opt/infinispan/infinispan-server-{{</span> <span class="pre">infinispan_version</span> <span class="pre">}}/</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_app_download_dir</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_app_download_dir</span></code></p></td>
 <td class="text-left"><p>Directory where to download archives</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/opt/infinispan</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_healthcheck</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_healthcheck</span></code></p></td>
 <td class="text-left"><p>Check health of service at end of installation</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_bind_address</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_bind_address</span></code></p></td>
 <td class="text-left"><p>Alternate bind address for the daemon</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">localhost</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_caches</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_caches</span></code></p></td>
 <td class="text-left"><p>List of cache definitions to configure statically</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_users</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_users</span></code></p></td>
 <td class="text-left"><p>List of users to create</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_rest_cache_api_path</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_rest_cache_api_path</span></code></p></td>
 <td class="text-left"><p>Path of infinispan rest api</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/rest/v2/caches/</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_configure_firewalld</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_configure_firewalld</span></code></p></td>
 <td class="text-left"><p>Ensure firewalld is running and configure infinispan ports</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
