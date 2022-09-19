@@ -55,7 +55,7 @@ Role Defaults
 |`infinispan_caches`| List of cache definitions to configure statically | `[]` |
 |`infinispan_users`| List of users to create | `[]` |
 |`infinispan_rest_cache_api_path`| Path of infinispan rest api | `/rest/v2/caches/` |
-|`infinispan_configure_firewalld`| Ensure firewalld is running and configure infinispan/jdg ports | `False` |
+|`infinispan_configure_firewalld`| Ensure firewalld is running and configure infinispan ports | `False` |
 
 
 Role Variables
