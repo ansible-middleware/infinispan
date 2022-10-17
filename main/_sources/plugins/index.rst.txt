@@ -23,6 +23,10 @@ Install and configure an Infinispan or DataGrid service.
 * Matthew Fernandez <matferna@redhat.com>
 * Guido Grazioli <ggraziol@redhat.com>
 
+**Supported ansible-core versions:**
+
+* 2.9.10 or newer
+
 .. raw:: html
 
   <p class="ansible-links">

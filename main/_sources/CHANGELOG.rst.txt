@@ -6,12 +6,13 @@ middleware_automation.infinispan Release Notes
 
 This changelog describes changes after version 0.1.9.
 
-v1.1.0-devel
-============
+v1.1.0
+======
 
 Breaking Changes / Porting Guide
 --------------------------------
 
+- Rename roles and variables to have ``infinispan_`` prefix `#17 <https://github.com/ansible-middleware/infinispan/pull/17>`_
 - Rename roles and variables to have ``infinispan_`` prefix `#17 <https://github.com/ansible-middleware/infinispan/pull/17>`_
 
 v1.0.3
