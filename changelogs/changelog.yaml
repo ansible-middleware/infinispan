@@ -41,7 +41,17 @@ releases:
     release_date: '2022-05-09'
   1.0.3:
     changes:
-      release_summary: 'Patch release containing an important bugfix for downloaded archives filemodes.
+      release_summary: 'Patch release containing an important bugfix for downloaded
+        archives filemodes.
 
         '
     release_date: '2022-05-11'
+  1.1.0:
+    changes:
+      breaking_changes:
+      - 'Rename roles and variables to have ``infinispan_`` prefix `#17 <https://github.com/ansible-middleware/infinispan/pull/17>`_
+
+        '
+    fragments:
+    - 17.yaml
+    release_date: '2022-10-17'

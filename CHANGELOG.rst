@@ -6,6 +6,14 @@ middleware_automation.infinispan Release Notes
 
 This changelog describes changes after version 0.1.9.
 
+v1.1.0
+======
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- Rename roles and variables to have ``infinispan_`` prefix `#17 <https://github.com/ansible-middleware/infinispan/pull/17>`_
+
 v1.0.3
 ======
 
@@ -13,6 +21,7 @@ Release Summary
 ---------------
 
 Patch release containing an important bugfix for downloaded archives filemodes.
+
 
 v1.0.2
 ======
@@ -25,13 +34,13 @@ Major Changes
 Minor Changes
 -------------
 
-- Make ``infinispan_supervisor_password`` a default with assert (was: role variable) `#14 <https://github.com/ansible-middleware/infinispan/pull/14>`_
-- New ``infinispan_configure_firewalld`` bool parameter controls firewall config `#13 <https://github.com/ansible-middleware/infinispan/pull/13>`_
+- Make ``supervisor_password`` a default with assert (was: role variable) `#14 <https://github.com/ansible-middleware/infinispan/pull/14>`_
+- New ``jdg_configure_firewalld`` bool parameter controls firewall config `#13 <https://github.com/ansible-middleware/infinispan/pull/13>`_
 
 Bugfixes
 --------
 
-- JAVA_HOME should be set according to requested JVM package, or overridden via ``infinispan_java_home`` `#15 <https://github.com/ansible-middleware/infinispan/pull/15>`_
+- JAVA_HOME should be set according to requested JVM package, or overridden via ``jdg_java_home`` `#15 <https://github.com/ansible-middleware/infinispan/pull/15>`_
 
 v1.0.1
 ======
