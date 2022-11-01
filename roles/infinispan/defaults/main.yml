@@ -15,8 +15,8 @@ infinispan_bind_address: localhost
 infinispan_port: 11222
 infinispan_jgroups_port: 7800
 infinispan_jgroups_relay_port: 7801
-infinispan_service_user: jdg
-infinispan_service_group: jdg
+infinispan_service_user: ispn
+infinispan_service_group: ispn
 infinispan_port_offset: 0
 infinispan_jvm_package: java-11-openjdk-headless
 infinispan_java_home:
