@@ -13,7 +13,6 @@ Breaking Changes / Porting Guide
 --------------------------------
 
 - Rename roles and variables to have ``infinispan_`` prefix `#17 <https://github.com/ansible-middleware/infinispan/pull/17>`_
-- Rename roles and variables to have ``infinispan_`` prefix `#17 <https://github.com/ansible-middleware/infinispan/pull/17>`_
 
 v1.0.3
 ======
