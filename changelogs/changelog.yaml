@@ -55,3 +55,12 @@ releases:
     fragments:
     - 17.yaml
     release_date: '2022-10-17'
+  1.1.1:
+    changes:
+      bugfixes:
+      - 'Add requirements.yml dependencies to galaxy.yml `#21 <https://github.com/ansible-middleware/infinispan/pull/21>`_
+
+        '
+    fragments:
+    - 21.yaml
+    release_date: '2022-11-28'
