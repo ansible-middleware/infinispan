@@ -9,7 +9,7 @@ argument_specs:
             infinispan_configure_firewalld:
                 # line 33 of infinispan/defaults/main.yml
                 default: false
-                description: "Ensure firewalld is running and configure infinispan/jdg ports"
+                description: "Ensure firewalld is running and configure infinispan/datagrid ports"
                 type: "bool"
             infinispan_version:
                 # line 11 of infinispan/defaults/main.yml
@@ -84,12 +84,12 @@ argument_specs:
                 type: "int"
             infinispan_service_user:
                 # line 29 of infinispan/defaults/main.yml
-                default: "jdg"
+                default: "ispn"
                 description: "Posix account for the service installation"
                 type: "str"
             infinispan_service_group:
                 # line 30 of infinispan/defaults/main.yml
-                default: "jdg"
+                default: "ispn"
                 description: "Posix group for the service installation"
                 type: "str"
             infinispan_default_realm_tls:
@@ -279,4 +279,14 @@ argument_specs:
             data_grid_service_desc:
                 default: "Red Hat Data Grid"
                 description: "Description of the systemd service unit"
+                type: "str"
+            data_grid_service_user:
+                # line 29 of infinispan/defaults/main.yml
+                default: "jdg"
+                description: "Posix account for the service installation"
+                type: "str"
+            data_grid_service_group:
+                # line 30 of infinispan/defaults/main.yml
+                default: "jdg"
+                description: "Posix group for the service installation"
                 type: "str"

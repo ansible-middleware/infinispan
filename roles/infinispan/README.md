@@ -21,8 +21,8 @@ Role Defaults
 |`infinispan_jgroups_relay_site`| Site the inventory host is in when cross-DC is enabled | `''` |
 |`infinispan_jgroups_jdbcping`| Enable clustering using JDBC PING discovery | `False` |
 |`infinispan_keycloak_persistence`| Enable persitence datasource for keycloak caches | `False` |
-|`infinispan_service_user`| Posix account for the service installation | `jdg` |
-|`infinispan_service_group`| Posix group for the service installation | `jdg` |
+|`infinispan_service_user`| Posix account for the service installation | `ispn` |
+|`infinispan_service_group`| Posix group for the service installation | `ispn` |
 |`infinispan_logfile_format`| Main logfile format: FILE or JSON-FILE | `FILE` |
 |`infinispan_logfile_root_level`| Root logging level: TRACE, DEBUG, INFO, WARN, ERROR | `INFO` |
 |`infinispan_logfile_enable_audit`| Enable additional audit.log logfile | `True` |
