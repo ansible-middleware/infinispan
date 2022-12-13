@@ -21,7 +21,7 @@
         validate_certs: no
       delegate_to: localhost
       loop:
-         - "{{ assets_server }}/datagrid/8.3.0/redhat-datagrid-8.3.0-server.zip"
+         - "{{ assets_server }}/datagrid/8.4.0/redhat-datagrid-8.4.0-server.zip"
       loop_control:
         loop_var: asset
       when:
