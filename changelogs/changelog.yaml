@@ -64,3 +64,12 @@ releases:
     fragments:
     - 21.yaml
     release_date: '2022-11-28'
+  1.1.2:
+    changes:
+      minor_changes:
+      - 'Update defaults to infinispan 14.0.3 - data grid 8.4.0 `#23 <https://github.com/ansible-middleware/infinispan/pull/23>`_
+
+        '
+    fragments:
+    - 23.yaml
+    release_date: '2022-12-13'
