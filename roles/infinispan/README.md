@@ -45,7 +45,7 @@ Role Defaults
 | Variable | Description | Default |
 |:---------|:------------|:--------|
 |`infinispan_offline_install`| Perform an offline install |`False`|
-|`infinispan_version`| Infinispan version to install | `12.1.7.Final` |
+|`infinispan_version`| Infinispan version to install | `14.0.3.Final` |
 |`infinispan_bundle`| Archive name for Infinispan download | `infinispan-server-{{ infinispan_version }}.zip` |
 |`infinispan_download_url`| Download URL for infinispan | `https://downloads.jboss.org/infinispan/{{ infinispan_version }}/{{ infinispan_bundle }}` |
 |`infinispan_dest`| Directory where to extract installation archives | `/opt/infinispan` |
