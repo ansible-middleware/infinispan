@@ -22,24 +22,6 @@
         url_password: "remembertochangeme"
         status_code:
           - 200
-    - name: "Check service operational: add entry to test cache via rest"
-      ansible.builtin.uri:
-        url: http://localhost:11222/rest/v2/caches/test_cache/test_entry
-        method: POST
-        url_username: "supervisor"
-        url_password: "remembertochangeme"
-        status_code: 
-          - 204
-    - name: "Check service operational: test cache status via rest"
-      ansible.builtin.uri:
-        url: http://localhost:11222/rest/v2/caches/test_cache
-        url_username: "supervisor"
-        url_password: "remembertochangeme"
-      register: test_cache_status
-    - assert:
-        that:
-          - test_cache_status.json.size == 1
-        fail_msg: "infinispan operational error: test cache error"
     - name: "Check configuration: static test cache (xml) status"
       ansible.builtin.uri:
         url: http://localhost:11222/rest/v2/caches/teststaticcachexml
@@ -49,8 +31,25 @@
     - assert:
         that:
           - test_cache_status.status == 200
-          - test_cache_status.json.size == 0
         fail_msg: "infinispan config error: static test cache via XML error"
+    - name: "Check service operational: add entry to test cache via rest"
+      ansible.builtin.uri:
+        url: http://localhost:11222/rest/v2/caches/teststaticcachexml/test_entry
+        method: POST
+        url_username: "supervisor"
+        url_password: "remembertochangeme"
+        status_code: 
+          - 204
+    - name: "Check service operational: test cache status via rest"
+      ansible.builtin.uri:
+        url: http://localhost:11222/rest/v2/caches/teststaticcachexml
+        url_username: "supervisor"
+        url_password: "remembertochangeme"
+      register: test_cache_status
+    - assert:
+        that:
+          - test_cache_status.json.stats.total_number_of_entries == 1
+        fail_msg: "infinispan operational error: test cache error"
     - name: "Check configuration: static test cache (yml) status"
       ansible.builtin.uri:
         url: http://localhost:11222/rest/v2/caches/configuredstaticcache
@@ -60,7 +59,7 @@
     - assert:
         that:
           - test_cache_status.status == 200
-          - test_cache_status.json.size == 0
+          - test_cache_status.json.stats.total_number_of_entries == 0
         fail_msg: "infinispan config error: static test cache via YML error"
     - name: "Check _cache role: test cache (xml) status"
       ansible.builtin.uri:
@@ -71,7 +70,7 @@
     - assert:
         that:
           - test_cache_status.status == 200
-          - test_cache_status.json.size == 0
+          - test_cache_status.json.stats.total_number_of_entries == 0
         fail_msg: "infinispan_cache error: test cache via XML error"
     - name: "Check _cache role: test cache (yml) status"
       ansible.builtin.uri:
@@ -82,7 +81,7 @@
     - assert:
         that:
           - test_cache_status.status == 200
-          - test_cache_status.json.size == 0
+          - test_cache_status.json.stats.total_number_of_entries == 0
         fail_msg: "infinispan_cache error: test cache via YML error"
     - name: "Check _cache role: test cache (yml) status"
       ansible.builtin.uri:
@@ -93,5 +92,5 @@
     - assert:
         that:
           - test_cache_status.status == 200
-          - test_cache_status.json.size == 0
+          - test_cache_status.json.stats.total_number_of_entries == 0
         fail_msg: "infinispan_cache error: test cache via YML error"
