@@ -59,6 +59,7 @@
     - assert:
         that:
           - test_cache_status.status == 200
+          - test_cache_status.json.statistics
           - test_cache_status.json.stats.total_number_of_entries == 0
         fail_msg: "infinispan config error: static test cache via YML error"
     - name: "Check _cache role: test cache (xml) status"
@@ -81,6 +82,7 @@
     - assert:
         that:
           - test_cache_status.status == 200
+          - test_cache_status.json.statistics
           - test_cache_status.json.stats.total_number_of_entries == 0
         fail_msg: "infinispan_cache error: test cache via YML error"
     - name: "Check _cache role: test cache (yml) status"
@@ -92,5 +94,6 @@
     - assert:
         that:
           - test_cache_status.status == 200
-          - test_cache_status.json.stats.total_number_of_entries == 0
+          - not test_cache_status.json.statistics
+          - test_cache_status.json.stats.total_number_of_entries == -1
         fail_msg: "infinispan_cache error: test cache via YML error"

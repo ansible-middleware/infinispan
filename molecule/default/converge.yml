@@ -18,6 +18,7 @@
             name: configuredstaticcache
             template: replicated
             mode: ASYNC
+            statistics: True
     - role: infinispan
       infinispan_nodename: instance2
       infinispan_service_name: instance2
@@ -35,6 +36,7 @@
             name: configuredstaticcache
             template: replicated
             mode: ASYNC
+            statistics: True
     - role: infinispan_cache
       infinispan_deployer_user: "supervisor"
       infinispan_deployer_password: "remembertochangeme"
@@ -58,6 +60,7 @@
         expiration_max_idle: 10000
         persistence: false
         indexing: false
+        statistics: True
     - role: infinispan_cache
       infinispan_deployer_user: "supervisor"
       infinispan_deployer_password: "remembertochangeme"
@@ -73,6 +76,7 @@
         expiration_lifespan: 600000
         expiration_max_idle: 30000
         persistence: false
+        statistics: false
         indexing: true
         indexing_entities:
           - org.infinispan.sample.Car
