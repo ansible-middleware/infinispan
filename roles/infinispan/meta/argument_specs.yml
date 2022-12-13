@@ -234,7 +234,7 @@ argument_specs:
         options:
             data_grid_version:
                 # line 3 of infinispan/defaults/main.yml
-                default: "8.3.0"
+                default: "8.4.0"
                 description: "Red Hat Data Grid version to install"
                 type: "str"
             data_grid_installation_path:

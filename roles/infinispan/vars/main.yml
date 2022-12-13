@@ -11,6 +11,8 @@ infinispan_rhn_ids:
   '8.2.2': '103685' # noqa vars_in_vars_files_have_valid_names
   '8.2.3': '103907' # noqa vars_in_vars_files_have_valid_names
   '8.3.0': '104135' # noqa vars_in_vars_files_have_valid_names
+  '8.3.1': '104475' # noqa vars_in_vars_files_have_valid_names
+  '8.4.0': '104901' # noqa vars_in_vars_files_have_valid_names
 
 infinispan_supervisor:
   name: 'supervisor'
