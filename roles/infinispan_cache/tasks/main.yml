@@ -14,7 +14,7 @@
     fail_msg: "Cache configuration must be passed either as XML string `infinispan_cache_xml` or as yaml dict `infinispan_cache_config`."
 
 - name: Parse cache xml
-  community.general.xml:
+  middleware_automation.common.xml:
     xmlstring: "{{ infinispan_cache_xml | trim }}"
     xpath: /*
     content: attribute
