@@ -6,6 +6,14 @@ middleware_automation.infinispan Release Notes
 
 This changelog describes changes after version 0.1.9.
 
+v1.1.3
+======
+
+Minor Changes
+-------------
+
+- Switch redhat_csp_download with runtimes_common `#24 <https://github.com/ansible-middleware/infinispan/pull/24>`_
+
 v1.1.2
 ======
 

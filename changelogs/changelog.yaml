@@ -73,3 +73,12 @@ releases:
     fragments:
     - 23.yaml
     release_date: '2022-12-13'
+  1.1.3:
+    changes:
+      minor_changes:
+      - 'Switch redhat_csp_download with runtimes_common `#24 <https://github.com/ansible-middleware/infinispan/pull/24>`_
+
+        '
+    fragments:
+    - 24.yaml
+    release_date: '2023-05-02'
