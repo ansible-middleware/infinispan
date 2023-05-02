@@ -234,7 +234,7 @@ argument_specs:
         options:
             data_grid_version:
                 # line 3 of infinispan/defaults/main.yml
-                default: "8.4.0"
+                default: "8.4.1"
                 description: "Red Hat Data Grid version to install"
                 type: "str"
             data_grid_installation_path:
@@ -247,21 +247,6 @@ argument_specs:
                 default: "redhat-datagrid-{{ data_grid_version }}-server.zip"
                 description: "Archive name for Red Hat Data Grid"
                 type: "str"
-            data_grid_rhn_id:
-                # line 6 of infinispan/defaults/main.yml
-                default: "{{ data_grid_rhn_ids[data_grid_version] }}"
-                description: "Customer portal product ID for Red Hat DataGrid"
-                type: "str"
-            data_grid_rhn_url:
-                # line 7 of infinispan/defaults/main.yml
-                default: "https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId="
-                description: "Customer portal base download URL"
-                type: "str"
-            data_grid_download_url:
-                # line 8 of infinispan/defaults/main.yml
-                default: "{{ data_grid_rhn_url }}{{ data_grid_rhn_id }}"
-                description: "Complete customer portal default URL for DataGrid, or alternate download location"
-                type: "str"
             data_grid_enable:
                 # line 17 of infinispan/defaults/main.yml
                 default: True
@@ -269,7 +254,7 @@ argument_specs:
                 type: "bool"
             data_grid_offline_install:
                 # line 19 of infinispan/defaults/main.yml
-                default: True
+                default: False
                 description: "Perform an offline install"
                 type: "bool"
             data_grid_service_name:
@@ -289,4 +274,8 @@ argument_specs:
                 # line 30 of infinispan/defaults/main.yml
                 default: "jdg"
                 description: "Posix group for the service installation"
+                type: "str"
+            data_grid_product_category:
+                default: "data.grid"
+                description: "JBossNetwork API category for data_grid"
                 type: "str"
