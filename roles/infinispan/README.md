@@ -94,7 +94,12 @@ When setting up cross-DC relaying, also setup mariadb in active-active mode (ie.
 Dependencies
 ------------
 
-The roles depends on the `redhat_csp_download` role of [middleware_automation.redhat_csp_download](https://github.com/ansible-middleware/redhat-csp-download) collection. To install, from the collection root directory, run:
+The role depends on the following collections:
+
+* [middleware_automation.common](https://github.com/ansible-middleware/common)
+* [ansible.posix](https://github.com/ansible-collections/ansible.posix)
+
+To install, from the collection root directory, run:
 
     ansible-galaxy collections install -r requirements.yml
 
