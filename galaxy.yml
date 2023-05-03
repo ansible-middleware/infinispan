@@ -19,7 +19,7 @@ tags:
   - infrastructure
   - runtimes
   - middleware
-  - a4mq
+  - a4mw
 dependencies:
   "middleware_automation.common": ">=1.0.0"
   "ansible.posix": ">=1.4.0"
