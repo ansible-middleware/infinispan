@@ -19,7 +19,6 @@
                 insert_single_sql="INSERT INTO JGROUPSPING (own_addr, cluster_name, ping_data) values (?, ?, ?)"
                 delete_single_sql="DELETE FROM JGROUPSPING WHERE own_addr=? AND cluster_name=?"
                 select_all_pingdata_sql="SELECT ping_data FROM JGROUPSPING WHERE cluster_name=?" />
-            <FD_SOCK stack.combine="REMOVE"/>
             <pbcast.GMS join_timeout="30000" />
             <RSVP timeout="60000" resend_interval="500" ack_on_delivery="true" />
         </stack>
@@ -163,7 +162,7 @@
                      />
                   </ssl>
                </server-identities>
-{% endif %}              
+{% endif %}
                <properties-realm groups-attribute="Roles">
                   <user-properties path="users.properties"/>
                   <group-properties path="groups.properties"/>
