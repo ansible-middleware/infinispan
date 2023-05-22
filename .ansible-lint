@@ -26,15 +26,17 @@ warn_list:
   - jinja[spacing]
   - jinja[invalid]
   - meta-no-tags
-  - name[template]
   - name[casing]
   - fqcn[action]
   - schema[meta]
+  - var-naming[no-role-prefix]
+  - key-order[task]
 
 skip_list:
   - vars_should_not_be_used
   - file_is_small_enough
   - jinja[spacing]
+  - name[template]
 
 use_default_rules: true
 parseable: true

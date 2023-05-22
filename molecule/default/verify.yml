@@ -5,12 +5,12 @@
     - name: Populate service facts
       ansible.builtin.service_facts:
     - name: Check if infinispan service started
-      assert:
+      ansible.builtin.assert:
         that:
           - ansible_facts.services["instance1.service"]["state"] == "running"
           - ansible_facts.services["instance1.service"]["status"] == "enabled"
-    - name: Check if infinispan secondary service started
-      assert:
+    - name: 'Check if infinispan secondary service started (assert)'
+      ansible.builtin.assert:
         that:
           - ansible_facts.services["instance2-100.service"]["state"] == "running"
           - ansible_facts.services["instance2-100.service"]["status"] == "enabled"
@@ -28,7 +28,8 @@
         url_username: "supervisor"
         url_password: "remembertochangeme"
       register: test_cache_status
-    - assert:
+    - name: "Check service operational: create test cache via rest (assert)"
+      ansible.builtin.assert:
         that:
           - test_cache_status.status == 200
         fail_msg: "infinispan config error: static test cache via XML error"
@@ -46,7 +47,8 @@
         url_username: "supervisor"
         url_password: "remembertochangeme"
       register: test_cache_status
-    - assert:
+    - name: "Check service operational: test cache status via rest (assert)"
+      ansible.builtin.assert:
         that:
           - test_cache_status.json.stats.total_number_of_entries == 1
         fail_msg: "infinispan operational error: test cache error"
@@ -56,7 +58,8 @@
         url_username: "supervisor"
         url_password: "remembertochangeme"
       register: test_cache_status
-    - assert:
+    - name: "Check configuration: static test cache (yml) status (assert)"
+      ansible.builtin.assert:
         that:
           - test_cache_status.status == 200
           - test_cache_status.json.statistics
@@ -68,7 +71,8 @@
         url_username: "supervisor"
         url_password: "remembertochangeme"
       register: test_cache_status
-    - assert:
+    - name: "Check _cache role: test cache (xml) status (assert)"
+      ansible.builtin.assert:
         that:
           - test_cache_status.status == 200
           - test_cache_status.json.stats.total_number_of_entries == 0
@@ -79,7 +83,8 @@
         url_username: "supervisor"
         url_password: "remembertochangeme"
       register: test_cache_status
-    - assert:
+    - name: "Check _cache role: test cache (yml) status (assert)"
+      ansible.builtin.assert:
         that:
           - test_cache_status.status == 200
           - test_cache_status.json.statistics
@@ -91,7 +96,8 @@
         url_username: "supervisor"
         url_password: "remembertochangeme"
       register: test_cache_status
-    - assert:
+    - name: "Check _cache role: test cache (yml) status (assert)"
+      ansible.builtin.assert:
         that:
           - test_cache_status.status == 200
           - not test_cache_status.json.statistics
