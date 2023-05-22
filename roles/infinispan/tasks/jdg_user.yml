@@ -15,6 +15,7 @@
     mode: 0644
   notify:
     - restart infinispan
+  become: yes
 
 - name: "Ensure {{ infinispan.config.groups }} exists"
   ansible.builtin.template:
@@ -25,3 +26,4 @@
     mode: 0644
   notify:
     - restart infinispan
+  become: yes

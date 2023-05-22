@@ -67,6 +67,7 @@
     jdg_rpm_java_home: "{{ rpm_java_home.stdout }}"
   notify:
     - restart infinispan
+  become: yes
 
 - name: "Get xsd schema versions"
   ansible.builtin.find:
@@ -74,6 +75,7 @@
     use_regex: yes
     patterns: ['^.*-server-[0-9.]*[.]xsd$']
   register: server_schema
+  become: yes
 
 - name: "Set fetched schema version for template"
   ansible.builtin.set_fact:
@@ -89,6 +91,7 @@
     backup: yes
   notify:
     - restart infinispan
+  become: yes
 
 - name: "Ensure {{ infinispan.service.name }} log4j2 configuration is deployed"
   ansible.builtin.template:
@@ -100,6 +103,7 @@
     backup: yes
   notify:
     - restart infinispan
+  become: yes
 
 - name: Download database driver jar to target
   ansible.builtin.get_url:
@@ -110,6 +114,7 @@
     mode: 0644
   when:
     - infinispan_jgroups_jdbcping
+  become: yes
 
 - name: Include users tasks
   ansible.builtin.include_tasks: jdg_user.yml
@@ -132,3 +137,4 @@
     state: link
     src: "{{ infinispan.home }}/server/log"
     dest: "/var/log/infinispan{{ '-' + infinispan_nodename if infinispan_nodename != inventory_hostname else '' }}"
+  become: yes
