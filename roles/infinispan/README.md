@@ -38,6 +38,10 @@ Role Defaults
 |`infinispan_jvm_package`| RHEL java package runtime | `java-11-openjdk-headless` |
 |`infinispan_service_name`| Name of the systemd service unit, appended with `-{{infinispan_port_offset}}` when not 0 | `infinispan` |
 |`infinispan_service_desc` | Description of the systemd service unit | `Infinispan` |
+|`infinispan_service_restart_on_failure`| systemd restart-on-failure behavior activation |True
+|`infinispan_service_startlimitintervalsec`| systemd StartLimitIntervalSec | `300` if `infinispan_service_restart_on_failure` else ``
+|`infinispan_service_startlimitburst`| systemd StartLimitBurst | `5` if `infinispan_service_restart_on_failure` else ``
+|`infinispan_service_restartsec`| systemd RestartSec | `10s` if `infinispan_service_restart_on_failure` else ``
 
 
 * Download and install defaults
