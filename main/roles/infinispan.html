@@ -234,6 +234,22 @@
 <td class="text-left"><p>Description of the systemd service unit</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">Infinispan</span></code></p></td>
 </tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_service_restart_on_failure</span></code></p></td>
+<td class="text-left"><p>systemd restart-on-failure behavior activation</p></td>
+<td class="text-left"><p>True</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_service_startlimitintervalsec</span></code></p></td>
+<td class="text-left"><p>systemd StartLimitIntervalSec</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">300</span></code> if <code class="docutils literal notranslate"><span class="pre">infinispan_service_restart_on_failure</span></code> else ``</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_service_startlimitburst</span></code></p></td>
+<td class="text-left"><p>systemd StartLimitBurst</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">5</span></code> if <code class="docutils literal notranslate"><span class="pre">infinispan_service_restart_on_failure</span></code> else ``</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_service_restartsec</span></code></p></td>
+<td class="text-left"><p>systemd RestartSec</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">10s</span></code> if <code class="docutils literal notranslate"><span class="pre">infinispan_service_restart_on_failure</span></code> else ``</p></td>
+</tr>
 </tbody>
 </table>
 <ul class="simple">
