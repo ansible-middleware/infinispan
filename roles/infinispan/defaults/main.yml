@@ -25,6 +25,10 @@ infinispan_configure_firewalld: False
 # systemd
 infinispan_service_name: infinispan
 infinispan_service_desc: Infinispan
+infinispan_service_restart_on_failure: True
+infinispan_service_startlimitintervalsec: "{{ 300 if infinispan_service_restart_on_failure else '' }}"
+infinispan_service_startlimitburst: "{{ 5 if infinispan_service_restart_on_failure else '' }}"
+infinispan_service_restartsec: "{{ '10s' if infinispan_service_restart_on_failure else '' }}"
 
 # flag to enable protocol encryption
 infinispan_default_realm_tls: False

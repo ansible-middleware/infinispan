@@ -8,6 +8,10 @@
 [Unit]
 Description={{ infinispan.name }} {{ infinispan_nodename }} service {{ '' if infinispan_port_offset == 0 else ' with offset port ' + infinispan_port_offset|string }}
 After=network.target
+{% if infinispan.service.restart_on_failure %}
+StartLimitIntervalSec={{ infinispan.service.startlimitintervalsec }}
+StartLimitBurst={{ infinispan.service.startlimitburst }}
+{% endif %}
 
 [Service]
 Environment="ISPN_PIDFILE=/run/{{ infinispan.service.name }}-{{ infinispan_nodename }}.pid"
@@ -15,6 +19,10 @@ ExecStart=/bin/sh -c '{{ infinispan.home }}/bin/server.sh -c {{ infinispan.confi
 Type=forking
 TimeoutSec=30
 PIDFile=/run/{{ infinispan.service.name }}-{{ infinispan_nodename }}.pid
+{% if infinispan.service.restart_on_failure %}
+Restart=on-failure
+RestartSec={{ infinispan.service.restartsec }}
+{% endif %}
 
 [Install]
 WantedBy=multi-user.target
