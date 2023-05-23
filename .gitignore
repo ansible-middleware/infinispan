@@ -2,6 +2,7 @@
 *.zip
 .tmp
 .cache
+.vscode
 docs/plugins/
 docs/roles/
 docs/_build/
