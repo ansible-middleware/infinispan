@@ -12,6 +12,8 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
@@ -113,7 +115,11 @@
 <!--start build_status -->
 <p><a class="reference external" href="https://github.com/ansible-middleware/infinispan/actions/workflows/ci.yml"><img alt="Build Status" src="https://github.com/ansible-middleware/infinispan/workflows/CI/badge.svg?branch=main" /></a></p>
 <!--end build_status -->
-<p>Collection to install <a class="reference external" href="https://infinispan.org/">Infinispan</a> or <a class="reference external" href="https://www.redhat.com/en/technologies/jboss-middleware/data-grid">Red Hat DataGrid</a> server configurations, with optional remote caches for <a class="reference external" href="https://www.keycloak.org/">Keycloak</a> or <a class="reference external" href="https://access.redhat.com/products/red-hat-single-sign-on">Red Hat Single Sign-On</a>.</p>
+<p>This an Ansible collection dedicated to <a class="reference external" href="https://infinispan.org/">Infinispan</a>.</p>
+<p>Note that Infinispan can be used as remote caches for other software, such as <a class="reference external" href="https://www.keycloak.org/">Keycloak</a> or <a class="reference external" href="https://https://www.wildfly.org/">Wildfly</a>.</p>
+<blockquote>
+<div><p><strong><em>NOTE:</em></strong> For Red Hat customers, this collection is also available on <a class="reference external" href="https://www.ansible.com/products/automation-hub">Red Hat Ansible Automation Hub</a> (<code class="docutils literal notranslate"><span class="pre">redhat.datagrid</span></code>). This collection can be used to managed the Red Hat product <a class="reference external" href="https://www.redhat.com/en/technologies/jboss-middleware/data-grid">Red Hat DataGrid</a>, which can also be used as remote caches for <a class="reference external" href="https://access.redhat.com/products/red-hat-single-sign-on">Red Hat Single Sign-On</a> or <a class="reference external" href="https://www.redhat.com/en/technologies/jboss-middleware/application-platform">Red Hat JBoss EAP</a>.</p>
+</div></blockquote>
 <!--start requires_ansible-->
 <section id="ansible-version-compatibility">
 <h2>Ansible version compatibility<a class="headerlink" href="#ansible-version-compatibility" title="Permalink to this heading"></a></h2>
