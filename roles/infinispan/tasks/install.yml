@@ -87,11 +87,6 @@
       delegate_to: localhost
       run_once: yes
 
-    - name: Check download archive path
-      ansible.builtin.stat:
-        path: "{{ archive }}"
-      register: archive_path
-
 - name: Download Data Grid archive from alternate location
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ infinispan_download_url }}"
@@ -123,7 +118,6 @@
     mode: 0640
   register: new_version_downloaded
   when:
-    - not archive_path.stat.exists
     - local_archive_path.stat is defined
     - local_archive_path.stat.exists
   become: yes
