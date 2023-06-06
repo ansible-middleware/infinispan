@@ -87,9 +87,14 @@
       delegate_to: localhost
       run_once: yes
 
+    - name: Check download archive path
+      ansible.builtin.stat:
+        path: "{{ archive }}"
+      register: archive_path
+
 - name: Download Data Grid archive from alternate location
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
-    url: "{{ jdg_download_url }}"
+    url: "{{ infinispan_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ infinispan.bundle }}"
     mode: 0644
   delegate_to: localhost
@@ -100,6 +105,7 @@
     - data_grid_enable is defined and data_grid_enable
     - not infinispan_offline_install
     - not data_grid_rhn_url is defined or not data_grid_rhn_url in infinispan_download_url
+    - rhn_username is not defined
 
 - name: Check downloaded archive
   ansible.builtin.stat:
