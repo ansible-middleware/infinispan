@@ -13,7 +13,6 @@ Minor Changes
 -------------
 
 - Switch redhat_csp_download with runtimes_common `#24 <https://github.com/ansible-middleware/infinispan/pull/24>`_
-- Switch redhat_csp_download with runtimes_common `#24 <https://github.com/ansible-middleware/infinispan/pull/24>`_
 
 v1.1.2
 ======
