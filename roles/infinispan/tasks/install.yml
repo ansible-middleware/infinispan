@@ -127,7 +127,7 @@
     - local_archive_path.stat.exists
   become: yes
 
-- name: "Check target directory: {{ infinispan.installation_path }}"
+- name: "Check target directory: {{ infinispan.installation_path }}/bin"
   ansible.builtin.stat:
     path: "{{ infinispan.installation_path }}/bin"
   register: path_to_workdir
@@ -146,7 +146,7 @@
   ansible.builtin.unarchive:
     remote_src: yes
     src: "{{ archive }}"
-    dest: "{{ infinispan.installation_path | dirname }}"
+    dest: "{{ infinispan.installation_path | dirname | dirname }}"
     creates: "{{ infinispan.installation_path }}/bin"
     owner: "{{ infinispan.user.name }}"
     group: "{{ infinispan.group.name }}"
