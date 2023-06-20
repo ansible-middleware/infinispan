@@ -6,6 +6,15 @@ middleware_automation.infinispan Release Notes
 
 This changelog describes changes after version 0.1.9.
 
+v1.1.4
+======
+
+Minor Changes
+-------------
+
+- Add sqlserver to infinispan jdbc configurations `#25 <https://github.com/ansible-middleware/infinispan/pull/25>`_
+- Provide systemd unit restart behavior configuration `#26 <https://github.com/ansible-middleware/infinispan/pull/26>`_
+
 v1.1.3
 ======
 

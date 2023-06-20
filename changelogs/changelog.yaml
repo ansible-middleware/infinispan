@@ -82,3 +82,16 @@ releases:
     fragments:
     - 24.yaml
     release_date: '2023-05-02'
+  1.1.4:
+    changes:
+      minor_changes:
+      - 'Add sqlserver to infinispan jdbc configurations `#25 <https://github.com/ansible-middleware/infinispan/pull/25>`_
+
+        '
+      - 'Provide systemd unit restart behavior configuration `#26 <https://github.com/ansible-middleware/infinispan/pull/26>`_
+
+        '
+    fragments:
+    - 25.yaml
+    - 26.yaml
+    release_date: '2023-06-20'
