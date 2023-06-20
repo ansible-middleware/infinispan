@@ -12,6 +12,7 @@ v1.1.4-devel
 Minor Changes
 -------------
 
+- Feature/mssql `#25 <https://github.com/ansible-middleware/infinispan/pull/25>`_
 - Provide systemd unit restart behavior configuration `#26 <https://github.com/ansible-middleware/infinispan/pull/26>`_
 
 v1.1.3
