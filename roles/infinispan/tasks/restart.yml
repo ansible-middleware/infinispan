@@ -5,10 +5,12 @@
   - name: "Restart service"
     ansible.builtin.systemd:
       name: "{{ infinispan.service.unit_file }}"
-      state: restarted  
+      state: restarted
+    become: yes
   - name: "Wait for used port to be open"
     ansible.builtin.wait_for:
       port: "{{ infinispan.port }}"
       delay: 0
     when:
       - infinispan_healthcheck
+    become: yes

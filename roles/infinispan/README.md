@@ -86,7 +86,7 @@ The following are _required_ when `infinispan_jgroups_jdbcping` is enabled:
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
-|`infinispan_jdbc_engine`| backend database engine (values: `['mariadb','postgres']`) | `mariadb` |
+| `infinispan_jdbc_engine`         | backend database engine (values: `['mariadb','postgres','sqlserver']`) | `mariadb`                                |
 |`infinispan_jdbc_driver_version`| driver version to download | `2.7.4` |
 |`infinispan_jdbc_url`| URL for jdbc connection | `jdbc:mariadb://localhost:3306/keycloak` |
 |`infinispan_jdbc_user`| username for jdbc connection | `keycloak-user` |

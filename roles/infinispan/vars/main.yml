@@ -85,6 +85,25 @@ infinispan_jgroups_jdbc:
         updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         ping_data BYTEA,
         constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name))
+  sqlserver:
+    enabled: "{{ infinispan_jgroups_jdbcping and infinispan_jdbc_engine == 'sqlserver' }}"
+    driver_class: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    driver_version: "{{ infinispan_jdbc_driver_version | default('9.2.0') }}"
+    driver_jar_filename: "mssql-java-client-{{ infinispan_jdbc_driver_version }}.jar"
+    driver_jar_url: "https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/{{ infinispan_jdbc_driver_version }}.jre11/mssql-jdbc-{{ infinispan_jdbc_driver_version }}.jre11.jar" # e.g., https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/12.2.0.jre11/mssql-jdbc-12.2.0.jre11.jar
+    connection_url: "{{ infinispan_jdbc_url | default('jdbc:postgresql://localhost:5432/keycloak') }}"
+    db_user: "{{ infinispan_jdbc_user }}"
+    db_password: "{{ infinispan_jdbc_pass }}"
+    initialize_sql: >
+      IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[JGROUPSPING]') AND type in (N'U'))
+      BEGIN
+        CREATE TABLE JGROUPSPING (
+          own_addr varchar(200) NOT NULL,
+          cluster_name varchar(200) NOT NULL,
+          updated DATETIME2 DEFAULT SYSUTCDATETIME(),
+          ping_data varbinary(5000) DEFAULT NULL,
+          PRIMARY KEY (own_addr, cluster_name))
+      END
 
 infinispan_keycloak_cache:
   enabled: "{{ infinispan_keycloak_caches }}"
