@@ -23,4 +23,5 @@
       - unzip
       - procps-ng
       - initscripts
+      - tzdata-java
       - "{{ infinispan_jvm_package }}"
