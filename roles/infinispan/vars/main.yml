@@ -53,7 +53,7 @@ infinispan:
 
 infinispan_jgroups_jdbc:
   mariadb:
-    enabled: "{{ infinispan_jgroups_jdbcping and infinispan_jdbc_engine == 'mariadb' }}"
+    enabled: "{{ infinispan_jgroups_discovery == 'JDBC_PING' and infinispan_jdbc_engine == 'mariadb' }}"
     driver_class: org.mariadb.jdbc.Driver
     driver_version: "{{ infinispan_jdbc_driver_version | default('2.7.4') }}"
     driver_jar_filename: "mariadb-java-client-{{ infinispan_jdbc_driver_version }}.jar"
@@ -70,7 +70,7 @@ infinispan_jgroups_jdbc:
         PRIMARY KEY (own_addr, cluster_name))
       ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
   postgres:
-    enabled: "{{ infinispan_jgroups_jdbcping and infinispan_jdbc_engine == 'postgres' }}"
+    enabled: "{{ infinispan_jgroups_discovery == 'JDBC_PING' and infinispan_jdbc_engine == 'postgres' }}"
     driver_class: org.postgresql.Driver
     driver_version: "{{ infinispan_jdbc_driver_version | default('9.4.1212') }}"
     driver_jar_filename: "postgresql-{{ infinispan_jdbc_driver_version }}.jar"
@@ -86,7 +86,7 @@ infinispan_jgroups_jdbc:
         ping_data BYTEA,
         constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name))
   sqlserver:
-    enabled: "{{ infinispan_jgroups_jdbcping and infinispan_jdbc_engine == 'sqlserver' }}"
+    enabled: "{{ infinispan_jgroups_discovery == 'JDBC_PING' and infinispan_jdbc_engine == 'sqlserver' }}"
     driver_class: com.microsoft.sqlserver.jdbc.SQLServerDriver
     driver_version: "{{ infinispan_jdbc_driver_version | default('9.2.0') }}"
     driver_jar_filename: "mssql-java-client-{{ infinispan_jdbc_driver_version }}.jar"

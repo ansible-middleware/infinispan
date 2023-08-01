@@ -38,7 +38,7 @@ infinispan_keystore_alias: "{{ inventory_hostname }}"
 infinispan_keystore_key_password: ''
 
 # flag to enable clustering on jdbc discovery
-infinispan_jgroups_jdbcping: "{{ True if infinispan_keycloak_caches or infinispan_jgroups_relay else False }}"
+infinispan_jgroups_discovery: "{{ 'JDBC_PING' if infinispan_keycloak_caches else `TCPPING` }}"
 # flag to enable cross-DC relay
 infinispan_jgroups_relay: False
 # list of sites (clusters) in the cross-DC global view
