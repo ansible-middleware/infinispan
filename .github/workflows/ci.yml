@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python_version: ["3.9","3.11"]
+        python_version: ["3.9", "3.11"]
     steps:
       - name: Check out code
         uses: actions/checkout@v2
@@ -68,6 +68,7 @@ jobs:
     strategy:
       matrix:
         python_version: ["3.11"]
+        ansible_version: ["2.14", "2.15"]
         molecule_test:
           - default
     steps:
@@ -90,7 +91,7 @@ jobs:
       - name: Install ansible and molecule
         run: |
           python -m pip install --upgrade pip
-          pip install 'molecule>=4.0.4' 'molecule-plugins[docker]>=23.0.0' ansible-core
+          pip install 'molecule>=4.0.4' 'molecule-plugins[docker]>=23.0.0' ansible-core==${{ matrix.ansible_version }}
           if [ -f ansible_collections/middleware_automation/infinispan/requirements.txt ]; then
             pip install -r ansible_collections/middleware_automation/infinispan/requirements.txt
           fi

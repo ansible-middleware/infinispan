@@ -7,7 +7,6 @@
         xmlns:server="urn:infinispan:server:{{ schema_version }}">
 
     <jgroups>
-{% if infinispan_keycloak_cache.enabled %}
         <stack name="datagrid" extends="tcp">
 {% if infinispan_jgroups_discovery == 'JDBC_PING' %}
             <!-- TCP local cluster with JDBCPING discovery -->
@@ -26,13 +25,11 @@
 {% if infinispan_jgroups_discovery == 'TCPPING' %}
             <!-- TCP local cluster with TCPPING discovery -->
             <TCPPING  stack.combine="REPLACE" stack.position="MPING" 
-                  timeout="3000"
                   initial_hosts="{{ infinispan_cluster_nodes | map(attribute='inventory_host') | join (',') }}"
-                  port_range="0"
-                  num_initial_members="3"/>
+                  port_range="0" />
+            <pbcast.GMS join_timeout="3000" />
 {% endif %}
         </stack>
-{% endif %}
 {% if infinispan_jgroups_relay %}
         <!-- TCP RELAY with JDBCPING discovery -->
         <stack name="datagridrelay" extends="tcp">
@@ -50,10 +47,9 @@
 {% if infinispan_jgroups_discovery == 'TCPPING' %}
             <!-- TCP local cluster with TCPPING discovery -->
             <TCPPING  stack.combine="REPLACE" stack.position="MPING" 
-                  timeout="3000"
                   initial_hosts="{{ infinispan_cluster_nodes | map(attribute='inventory_host') | join (',') }}"
-                  port_range="1"
-                  num_initial_members="3"/>
+                  port_range="1" />
+            <pbcast.GMS join_timeout="3000" />
 {% endif %}
         </stack>
         <!-- x-site declaration -->
