@@ -14,43 +14,42 @@ env:
   PYTEST_ADDOPTS: '--color=yes'
 
 jobs:
-  ci:
+  prereq:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python_version: ["3.11"]
-        molecule_test:
-          - default
     steps:
       - name: Check out code
         uses: actions/checkout@v2
         with:
           path: ansible_collections/middleware_automation/infinispan
 
+      - name: Create default collection path
+        run: |
+          mkdir -p /home/runner/.ansible/
+          ln -s /home/runner/work/infinispan/infinispan /home/runner/.ansible/collections
+
+  sanity:
+    runs-on: ubuntu-latest
+    needs: prereq
+    strategy:
+      matrix:
+        python_version: ["3.9","3.11"]
+    steps:
       - name: Set up Python ${{ matrix.python_version }}
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python_version }}
           cache: 'pip'
 
-      - name: Install yamllint, ansible and molecule
+      - name: Install yamllint, ansible
         run: |
           python -m pip install --upgrade pip
-          pip install yamllint 'molecule>=4.0.4' 'molecule-plugins[docker]>=23.0.0' ansible-core flake8 ansible-lint voluptuous
+          pip install yamllint ansible-core flake8 ansible-lint voluptuous
           if [ -f ansible_collections/middleware_automation/infinispan/requirements.txt ]; then
             pip install -r ansible_collections/middleware_automation/infinispan/requirements.txt
           fi
           if [ -f ansible_collections/middleware_automation/infinispan/requirements.yml ]; then
             ansible-galaxy collection install -r ansible_collections/middleware_automation/infinispan/requirements.yml -p /home/runner/.ansible/collections --force-with-deps
           fi
-          if [ -f ansible_collections/middleware_automation/infinispan/molecule/default/requirements.yml ]; then
-            ansible-galaxy collection install -r ansible_collections/middleware_automation/infinispan/molecule/default/requirements.yml -p /home/runner/.ansible/collections
-          fi
-
-      - name: Create default collection path
-        run: |
-          mkdir -p /home/runner/.ansible/
-          ln -s /home/runner/work/infinispan/infinispan /home/runner/.ansible/collections
 
       - name: Install ansible-lint custom rules
         uses: actions/checkout@v2
@@ -67,6 +66,29 @@ jobs:
       - name: Run sanity tests
         run: ansible-test sanity -v --color --python ${{ matrix.python_version }} --exclude changelogs/fragments/.gitignore --skip-test symlinks
         working-directory: ./ansible_collections/middleware_automation/infinispan
+
+  molecule:
+    runs-on: ubuntu-latest
+    needs: prereq
+    strategy:
+      matrix:
+        python_version: ["3.11"]
+        molecule_test:
+          - default
+    steps:
+      - name: Install ansible and molecule
+        run: |
+          python -m pip install --upgrade pip
+          pip install 'molecule>=4.0.4' 'molecule-plugins[docker]>=23.0.0' ansible-core
+          if [ -f ansible_collections/middleware_automation/infinispan/requirements.txt ]; then
+            pip install -r ansible_collections/middleware_automation/infinispan/requirements.txt
+          fi
+          if [ -f ansible_collections/middleware_automation/infinispan/requirements.yml ]; then
+            ansible-galaxy collection install -r ansible_collections/middleware_automation/infinispan/requirements.yml -p /home/runner/.ansible/collections --force-with-deps
+          fi
+          if [ -f ansible_collections/middleware_automation/infinispan/molecule/default/requirements.yml ]; then
+            ansible-galaxy collection install -r ansible_collections/middleware_automation/infinispan/molecule/default/requirements.yml -p /home/runner/.ansible/collections
+          fi
 
       - name: Run molecule test
         run: molecule test -s ${{ matrix.molecule_test }}
