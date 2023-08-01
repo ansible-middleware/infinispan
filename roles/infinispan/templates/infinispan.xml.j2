@@ -27,7 +27,7 @@
             <!-- TCP local cluster with TCPPING discovery -->
             <TCPPING  stack.combine="REPLACE" stack.position="MPING" 
                   timeout="3000"
-                  initial_hosts="{{ infinispan_cluster_nodes }}"
+                  initial_hosts="{{ infinispan_cluster_nodes | map(attribute='inventory_host') | join (',') }}"
                   port_range="0"
                   num_initial_members="3"/>
 {% endif %}
@@ -51,8 +51,8 @@
             <!-- TCP local cluster with TCPPING discovery -->
             <TCPPING  stack.combine="REPLACE" stack.position="MPING" 
                   timeout="3000"
-                  initial_hosts="{{ infinispan_cluster_nodes }}"
-                  port_range="0"
+                  initial_hosts="{{ infinispan_cluster_nodes | map(attribute='inventory_host') | join (',') }}"
+                  port_range="1"
                   num_initial_members="3"/>
 {% endif %}
         </stack>

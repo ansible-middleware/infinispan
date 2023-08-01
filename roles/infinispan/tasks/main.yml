@@ -53,7 +53,7 @@
            {
              "name": item,
              "address": host_address,
-             "inventory_host": item,
+             "inventory_host": host_address + '[' + host_port + ']',
              "port": host_port,
              "value": "tcp://" + host_address + ":" + host_port
            }
@@ -62,7 +62,7 @@
   vars:
     host_iface: "{{ 'ansible_' + infinispan_cluster_iface }}"
     host_address: "{{ hostvars[item][host_iface]['address'] | default(hostvars[item][host_iface]['ipv4']['address'] | default(hostvars[item]['ansible_host'])) }}"
-    host_port: "{{ (((activemq_port | int + activemq_ports_offset | int) | abs) | string) }}"
+    host_port: "{{ (((infinispan_jgroups_port | int + activemq_ports_offset | int) | abs) | string) }}"
   when:
     - infinispan_jgroups_discovery == 'TCPPING'
 
