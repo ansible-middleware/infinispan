@@ -2,42 +2,34 @@ argument_specs:
     main:
         options:
             infinispan_nodename:
-                # line 3 of infinispan/defaults/main.yml
                 default: "{{ inventory_hostname }}"
                 description: "Instance name for service"
                 type: "str"
             infinispan_configure_firewalld:
-                # line 33 of infinispan/defaults/main.yml
                 default: false
                 description: "Ensure firewalld is running and configure infinispan/datagrid ports"
                 type: "bool"
             infinispan_version:
-                # line 11 of infinispan/defaults/main.yml
                 default: "14.0.3.Final"
                 description: "Infinispan version to install"
                 type: "str"
             infinispan_bundle:
-                # line 12 of infinispan/defaults/main.yml
                 default: "infinispan-server-{{ infinispan_version }}.zip"
                 description: "Archive name for Infinispan download"
                 type: "str"
             infinispan_download_url:
-                # line 13 of infinispan/defaults/main.yml
                 default: "https://downloads.jboss.org/infinispan/{{ infinispan_version }}/{{ infinispan_bundle }}"
                 description: "Download URL for infinispan"
                 type: "str"
             infinispan_installation_path:
-                # line 14 of infinispan/defaults/main.yml
                 default: "{{ infinispan_dest }}/infinispan-server-{{ infinispan_version }}/"
                 description: "Specific unxtracted installation path for infinispan"
                 type: "str"
             infinispan_offline_install:
-                # line 19 of infinispan/defaults/main.yml
                 default: false
                 description: "Perform an offline install"
                 type: "bool"
             infinispan_jvm_package:
-                # line 22 of infinispan/defaults/main.yml
                 default: "java-11-openjdk-headless"
                 description: "RHEL java package runtime"
                 type: "str"
@@ -53,172 +45,142 @@ argument_specs:
                 description: "Directory where to download archives"
                 type: "str"
             infinispan_healthcheck:
-                # line 24 of infinispan/defaults/main.yml
                 default: true
                 description: "Check health of service at end of installation"
                 type: "bool"
             infinispan_bind_address:
-                # line 25 of infinispan/defaults/main.yml
                 default: "localhost"
                 description: "Alternate bind address for the daemon"
                 type: "str"
             infinispan_port:
-                # line 26 of infinispan/defaults/main.yml
                 default: 11222
                 description: "Alternate port for the service"
                 type: "int"
             infinispan_jgroups_port:
-                # line 27 of infinispan/defaults/main.yml
                 default: 7800
                 description: "Alternate port for the jgroups cluster"
                 type: "int"
             infinispan_jgroups_relay_port:
-                # line 28 of infinispan/defaults/main.yml
                 default: 7801
                 description: "Alternate port for the jgroups relaying cluster"
                 type: "int"
+            infinispan_jgroups_iface:
+                default: "default_ipv4"
+                description: "The NIC name to be used for cluster IPv4 addresses (ie. 'eth0')."
+                type: "str"
             infinispan_port_offset:
-                # line 31 of infinispan/defaults/main.yml
                 default: 0
                 description: "Optional port offset for colocated installations"
                 type: "int"
             infinispan_service_user:
-                # line 29 of infinispan/defaults/main.yml
                 default: "ispn"
                 description: "Posix account for the service installation"
                 type: "str"
             infinispan_service_group:
-                # line 30 of infinispan/defaults/main.yml
                 default: "ispn"
                 description: "Posix group for the service installation"
                 type: "str"
             infinispan_default_realm_tls:
-                # line 33 of infinispan/defaults/main.yml
                 default: false
                 description: "Enable TLS server certificate on single port service, rest and hotrod"
                 type: "bool"
             infinispan_keystore_path:
-                # line 34 of infinispan/defaults/main.yml
                 default: "/etc/pki/java/cacerts"
                 description: "Path to keystore containing server identity certificate"
                 type: "str"
             infinispan_keystore_password:
-                # line 35 of infinispan/defaults/main.yml
                 default: "changeit"
                 description: "Keystore password"
                 type: "str"
             infinispan_keystore_alias:
-                # line 36 of infinispan/defaults/main.yml
                 default: "{{ inventory_hostname }}"
                 description: "Alias for the certificate to load from keystore"
                 type: "str"
             infinispan_keystore_key_password:
-                # line 37 of infinispan/defaults/main.yml
                 default: ""
                 description: "Key passphrase for TLS server identity"
                 type: "str"
-            infinispan_jgroups_jdbcping:
-                # line 40 of infinispan/defaults/main.yml
-                default: "{{ True if infinispan_keycloak_caches or infinispan_jgroups_relay else False }}"
-                description: "Enable clustering using JDBC PING discovery"
+            infinispan_jgroups_discovery:
+                default: "{{ 'JDBC_PING' if infinispan_keycloak_caches else 'TCPPING' }}"
+                description: "jGroups clustering discovery protocol, choice from [`PING`,`TCPPING`,`JDBC_PING`]"
                 type: "str"
             infinispan_jgroups_relay:
-                # line 42 of infinispan/defaults/main.yml
                 default: false
                 description: "Enable cross-DC relaying"
                 type: "bool"
             infinispan_jgroups_relay_sites:
-                # line 44 of infinispan/defaults/main.yml
                 default: "[]"
                 description: "List of site names for cross-DC relaying"
                 type: "list"
             infinispan_jgroups_relay_site:
-                # line 46 of infinispan/defaults/main.yml
                 default: ""
                 description: "Site the inventory host is in when cross-DC is enabled"
                 type: "str"
             infinispan_keycloak_caches:
-                # line 49 of infinispan/defaults/main.yml
                 default: false
                 description: "Creates remote caches for keycloak"
                 type: "bool"
             infinispan_keycloak_persistence:
-                # line 52 of infinispan/defaults/main.yml
                 default: false
                 description: "Enable persitence datasource for keycloak caches"
                 type: "bool"
             infinispan_jdbc_engine:
-                # line 55 of infinispan/defaults/main.yml
                 default: "mariadb"
                 description: "Backend database engine, values: mariadb or postgres"
                 type: "str"
             infinispan_jdbc_driver_version:
-                # line 56 of infinispan/defaults/main.yml
                 default: "2.7.4"
                 description: "JDBC driver version to download"
                 type: "str"
             infinispan_jdbc_url:
-                # line 57 of infinispan/defaults/main.yml
                 default: "jdbc:mariadb://localhost:3306/keycloak"
                 description: "URL for jdbc connection"
                 type: "str"
             infinispan_jdbc_user:
-                # line 58 of infinispan/defaults/main.yml
                 default: "keycloak-user"
                 description: "username for jdbc connection"
                 type: "str"
             infinispan_jdbc_pass:
-                # line 59 of infinispan/defaults/main.yml
                 default: "keycloak-pass"
                 description: "password for jdbc connection"
                 type: "str"
             infinispan_logfile_format:
-                # line 63 of infinispan/defaults/main.yml
                 default: "FILE"
                 description: "Main logfile format: FILE or JSON-FILE"
                 type: "str"
             infinispan_logfile_root_level:
-                # line 65 of infinispan/defaults/main.yml
                 default: "INFO"
                 description: "Root logging level: TRACE, DEBUG, INFO, WARN, ERROR"
                 type: "str"
             infinispan_logfile_enable_audit:
-                # line 67 of infinispan/defaults/main.yml
                 default: true
                 description: "Enable additional audit.log logfile"
                 type: "bool"
             infinispan_logfile_enable_hotrod_accesslog:
-                # line 69 of infinispan/defaults/main.yml
                 default: false
                 description: "Enable additional hotrod-access.log"
                 type: "bool"
             infinispan_logfile_enable_rest_accesslog:
-                # line 71 of infinispan/defaults/main.yml
                 default: false
                 description: "Enable additional rest-access.log"
                 type: "bool"
             infinispan_logfile_maxsize:
-                # line 73 of infinispan/defaults/main.yml
                 default: "100 MB"
                 description: "Max file size, triggers rotation"
                 type: "str"
             infinispan_caches:
-                # line 76 of infinispan/defaults/main.yml
                 default: "[]"
                 description: "List of cache definitions to configure statically"
                 type: "list"
             infinispan_supervisor_password:
-                # line 3 of infinispan/vars/main.yml
                 required: true
                 description: "Password for the administration console user account"
                 type: "str"
             infinispan_users:
-                # line 4 of infinispan/vars/main.yml
                 default: "[]"
                 description: "List of users to create"
                 type: "list"
             infinispan_rest_cache_api_path:
-                # line 7 of infinispan/vars/main.yml
                 default: "/rest/v2/caches/"
                 description: "Path of infinispan rest api"
                 type: "str"
@@ -233,27 +195,22 @@ argument_specs:
     downstream:
         options:
             data_grid_version:
-                # line 3 of infinispan/defaults/main.yml
                 default: "8.4.1"
                 description: "Red Hat Data Grid version to install"
                 type: "str"
             data_grid_installation_path:
-                # line 4 of infinispan/defaults/main.yml
                 default: "{{ data_grid_dest }}/redhat-datagrid-{{ data_grid_version }}-server/"
                 description: "Target extracted installation"
                 type: "str"
             data_grid_bundle:
-                # line 5 of infinispan/defaults/main.yml
                 default: "redhat-datagrid-{{ data_grid_version }}-server.zip"
                 description: "Archive name for Red Hat Data Grid"
                 type: "str"
             data_grid_enable:
-                # line 17 of infinispan/defaults/main.yml
                 default: True
                 description: "Install Red Hat Data Grid when true, Infinispan otherwise"
                 type: "bool"
             data_grid_offline_install:
-                # line 19 of infinispan/defaults/main.yml
                 default: False
                 description: "Perform an offline install"
                 type: "bool"
@@ -266,12 +223,10 @@ argument_specs:
                 description: "Description of the systemd service unit"
                 type: "str"
             data_grid_service_user:
-                # line 29 of infinispan/defaults/main.yml
                 default: "jdg"
                 description: "Posix account for the service installation"
                 type: "str"
             data_grid_service_group:
-                # line 30 of infinispan/defaults/main.yml
                 default: "jdg"
                 description: "Posix group for the service installation"
                 type: "str"

@@ -19,7 +19,8 @@ Role Defaults
 |`infinispan_jgroups_relay`| Enable cross-DC relaying | `False` |
 |`infinispan_jgroups_relay_sites`| List of site names for cross-DC relaying | `[]` |
 |`infinispan_jgroups_relay_site`| Site the inventory host is in when cross-DC is enabled | `''` |
-|`infinispan_jgroups_jdbcping`| Enable clustering using JDBC PING discovery | `False` |
+|`infinispan_jgroups_discovery`| Clustering discovery protocol, value from [`PING`,`TCPPING`,`JDBC_PING`] | `` |
+|`infinispan_jgroups_iface` | The NIC name to be used for cluster IPv4 addresses (ie. 'eth0') | `default_ipv4` |
 |`infinispan_keycloak_persistence`| Enable persitence datasource for keycloak caches | `False` |
 |`infinispan_service_user`| Posix account for the service installation | `ispn` |
 |`infinispan_service_group`| Posix group for the service installation | `ispn` |
@@ -82,11 +83,11 @@ infinispan_users:
   - { name: 'testuser2', password: 'test', roles: 'application' }
 ```
 
-The following are _required_ when `infinispan_jgroups_jdbcping` is enabled:
+The following are _required_ when `infinispan_jgroups_discovery` is `JDBC_PING`:
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
-| `infinispan_jdbc_engine`         | backend database engine (values: `['mariadb','postgres','sqlserver']`) | `mariadb`                                |
+| `infinispan_jdbc_engine` | backend database engine (values: `['mariadb','postgres','sqlserver']`) | `mariadb` |
 |`infinispan_jdbc_driver_version`| driver version to download | `2.7.4` |
 |`infinispan_jdbc_url`| URL for jdbc connection | `jdbc:mariadb://localhost:3306/keycloak` |
 |`infinispan_jdbc_user`| username for jdbc connection | `keycloak-user` |

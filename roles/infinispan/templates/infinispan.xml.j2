@@ -7,9 +7,9 @@
         xmlns:server="urn:infinispan:server:{{ schema_version }}">
 
     <jgroups>
-{% if infinispan_keycloak_cache.enabled or infinispan_jgroups_jdbcping %}
-        <!-- TCP local cluster with JDBCPING discovery -->
         <stack name="datagrid" extends="tcp">
+{% if infinispan_jgroups_discovery == 'JDBC_PING' %}
+            <!-- TCP local cluster with JDBCPING discovery -->
             <JDBC_PING  stack.combine="REPLACE" stack.position="MPING"
                 connection_url="{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].connection_url }}"
                 connection_username="{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].db_user }}"
@@ -21,11 +21,19 @@
                 select_all_pingdata_sql="SELECT ping_data FROM JGROUPSPING WHERE cluster_name=?" />
             <pbcast.GMS join_timeout="30000" />
             <RSVP timeout="60000" resend_interval="500" ack_on_delivery="true" />
-        </stack>
 {% endif %}
-{% if infinispan_jgroups_relay and infinispan_jgroups_jdbcping  %}
+{% if infinispan_jgroups_discovery == 'TCPPING' %}
+            <!-- TCP local cluster with TCPPING discovery -->
+            <TCPPING  stack.combine="REPLACE" stack.position="MPING" 
+                  initial_hosts="{{ infinispan_cluster_nodes | map(attribute='inventory_host') | join (',') }}"
+                  port_range="0" />
+            <pbcast.GMS join_timeout="3000" />
+{% endif %}
+        </stack>
+{% if infinispan_jgroups_relay %}
         <!-- TCP RELAY with JDBCPING discovery -->
         <stack name="datagridrelay" extends="tcp">
+{% if infinispan_jgroups_discovery == 'JDBC_PING' %}
             <JDBC_PING  stack.combine="REPLACE" stack.position="MPING"
                 connection_url="{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].connection_url }}"
                 connection_username="{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].db_user }}"
@@ -35,11 +43,19 @@
                 insert_single_sql="INSERT INTO JGROUPSPING (own_addr, cluster_name, ping_data) values (?, ?, ?)"
                 delete_single_sql="DELETE FROM JGROUPSPING WHERE own_addr=? AND cluster_name=?"
                 select_all_pingdata_sql="SELECT ping_data FROM JGROUPSPING WHERE cluster_name=?" />
+{% endif %}
+{% if infinispan_jgroups_discovery == 'TCPPING' %}
+            <!-- TCP local cluster with TCPPING discovery -->
+            <TCPPING  stack.combine="REPLACE" stack.position="MPING" 
+                  initial_hosts="{{ infinispan_cluster_nodes | map(attribute='inventory_host') | join (',') }}"
+                  port_range="1" />
+            <pbcast.GMS join_timeout="3000" />
+{% endif %}
         </stack>
         <!-- x-site declaration -->
         <stack name="xsite" extends="datagrid">
             <relay.RELAY2 site="{{ infinispan_jgroups_relay_site }}" xmlns="urn:org:jgroups" max_site_masters="1000" can_become_site_master="true"
-                can_forward_local_cluster="true" relay_multicasts="false" />
+                can_forward_local_cluster="true" relay_multicasts="false" async_relay_creation="true" />
             <remote-sites default-stack="datagridrelay">
 {% for site in infinispan_jgroups_relay_sites %}
                 <remote-site name="{{ site }}"/>
@@ -50,12 +66,10 @@
     </jgroups>
 
     <cache-container name="default" statistics="true">
-{% if infinispan_jgroups_relay and infinispan_jgroups_jdbcping %}
+{% if infinispan_jgroups_relay %}
       <transport cluster="{{ infinispan_jgroups_relay_site }}" stack="xsite" node-name="{{ infinispan_nodename }}"  machine="{{ inventory_hostname }}" site="{{ infinispan_jgroups_relay_site }}"/>
-{% elif infinispan_keycloak_cache.enabled or infinispan_jgroups_jdbcping %}
-      <transport cluster="datagrid" stack="datagrid" node-name="{{ infinispan_nodename }}" machine="{{ inventory_hostname }}"/>
 {% else %}
-      <transport cluster="datagrid" stack="tcp" node-name="{{ infinispan_nodename }}"/>
+      <transport cluster="datagrid" stack="datagrid" node-name="{{ infinispan_nodename }}" machine="{{ inventory_hostname }}"/>
 {% endif %}
       <security>
         <authorization>

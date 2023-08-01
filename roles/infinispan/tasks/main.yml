@@ -46,14 +46,29 @@
   tags:
     - systemd
 
-- name: Determine JAVA_HOME for selected JVM RPM  # noqa blocked_modules
-  ansible.builtin.shell: |
-    set -o pipefail
-    rpm -ql {{ infinispan_jvm_package }} | grep -Po '/usr/lib/jvm/.*(?=/bin/java$)'
-  args:
-    executable: /bin/bash
-  changed_when: False
-  register: rpm_java_home
+- name: Create infinispan cluster node members
+  ansible.builtin.set_fact:
+    infinispan_cluster_nodes: >
+      {{ infinispan_cluster_nodes | default([]) + [
+           {
+             "name": item,
+             "address": host_address,
+             "inventory_host": host_address + '[' + host_port + ']',
+             "port": host_port,
+             "value": "tcp://" + host_address + ":" + host_port
+           }
+         ] }}
+  loop: "{{ ansible_play_batch }}"
+  vars:
+    host_iface: "{{ 'ansible_' + infinispan_jgroups_iface }}"
+    host_address: "{{ hostvars[item][host_iface]['address'] | default(hostvars[item][host_iface]['ipv4']['address'] | default(hostvars[item]['ansible_host'])) }}"
+    host_port: "{{ (((infinispan_jgroups_port | int + infinispan_port_offset | int) | abs) | string) }}"
+  when:
+    - infinispan_jgroups_discovery == 'TCPPING'
+
+- name: Determine JAVA_HOME for selected JVM RPM
+  ansible.builtin.set_fact:
+    rpm_java_home: "/etc/alternatives/jre_{{ infinispan_jvm_package | regex_search('(?<=java-)[0-9.]+') }}"
 
 - name: "Ensure {{ infinispan.service.name }} service configuration is deployed: server.conf"
   ansible.builtin.template:
@@ -64,7 +79,7 @@
     mode: 0644
     backup: yes
   vars:
-    jdg_rpm_java_home: "{{ rpm_java_home.stdout }}"
+    jdg_rpm_java_home: "{{ rpm_java_home }}"
   notify:
     - restart infinispan
   become: yes
@@ -113,7 +128,7 @@
     group: "{{ infinispan.group.name }}"
     mode: 0644
   when:
-    - infinispan_jgroups_jdbcping
+    - infinispan_jgroups_discovery == 'JDBC_PING'
   become: yes
 
 - name: Include users tasks
@@ -127,7 +142,7 @@
 - name: "Ensure {{ infinispan.service.name }} service is running and enabled (first node)"
   ansible.builtin.include_tasks: start.yml
   run_once: yes
-  when: infinispan_jgroups_jdbcping or infinispan_keycloak_persistence
+  when: infinispan_jgroups_discovery == 'JDBC_PING' or infinispan_keycloak_persistence
 
 - name: "Ensure {{ infinispan.service.name }} service is running and enabled (all nodes)"
   ansible.builtin.include_tasks: start.yml
