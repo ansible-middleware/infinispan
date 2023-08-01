@@ -2,13 +2,16 @@
 
 <!--start build_status -->
 [![Build Status](https://github.com/ansible-middleware/infinispan/workflows/CI/badge.svg?branch=main)](https://github.com/ansible-middleware/infinispan/actions/workflows/ci.yml)
+
+> **_NOTE:_ If you are Red Hat customer, install `redhat.data_grid` from [Automation Hub](https://console.redhat.com/ansible/ansible-dashboard) as the certified version of this collection.**
 <!--end build_status -->
 
-This an Ansible collection dedicated to [Infinispan](https://infinispan.org/).
+<!--start upstream_downstream -->
+This is an Ansible collection dedicated to [Infinispan](https://infinispan.org/).
 
-Note that Infinispan can be used as remote caches for other software, such as [Keycloak](https://www.keycloak.org/) or [Wildfly](https://https://www.wildfly.org/).
+Infinispan can be used as remote caches for other software, such as [Keycloak](https://www.keycloak.org/) or [Wildfly](https://https://www.wildfly.org/).
+<!--end upstream_downstream -->
 
-> **_NOTE:_** For Red Hat customers, this collection is also available on [Red Hat Ansible Automation Hub](https://www.ansible.com/products/automation-hub) (```redhat.datagrid```). This collection can be used to managed the Red Hat product [Red Hat DataGrid](https://www.redhat.com/en/technologies/jboss-middleware/data-grid), which can also be used as remote caches for [Red Hat Single Sign-On](https://access.redhat.com/products/red-hat-single-sign-on) or [Red Hat JBoss EAP](https://www.redhat.com/en/technologies/jboss-middleware/application-platform).
 
 <!--start requires_ansible-->
 ## Ansible version compatibility
