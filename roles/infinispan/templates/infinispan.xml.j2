@@ -72,10 +72,8 @@
     <cache-container name="default" statistics="true">
 {% if infinispan_jgroups_relay %}
       <transport cluster="{{ infinispan_jgroups_relay_site }}" stack="xsite" node-name="{{ infinispan_nodename }}"  machine="{{ inventory_hostname }}" site="{{ infinispan_jgroups_relay_site }}"/>
-{% elif infinispan_keycloak_cache.enabled or infinispan_jgroups_jdbcping %}
-      <transport cluster="datagrid" stack="datagrid" node-name="{{ infinispan_nodename }}" machine="{{ inventory_hostname }}"/>
 {% else %}
-      <transport cluster="datagrid" stack="tcp" node-name="{{ infinispan_nodename }}"/>
+      <transport cluster="datagrid" stack="datagrid" node-name="{{ infinispan_nodename }}" machine="{{ inventory_hostname }}"/>
 {% endif %}
       <security>
         <authorization>

@@ -128,7 +128,7 @@
     group: "{{ infinispan.group.name }}"
     mode: 0644
   when:
-    - infinispan_jgroups_discovery is 'JDBC_PING'
+    - infinispan_jgroups_discovery == 'JDBC_PING'
   become: yes
 
 - name: Include users tasks
@@ -142,7 +142,7 @@
 - name: "Ensure {{ infinispan.service.name }} service is running and enabled (first node)"
   ansible.builtin.include_tasks: start.yml
   run_once: yes
-  when: infinispan_jgroups_discovery is 'JDBC_PING' or infinispan_keycloak_persistence
+  when: infinispan_jgroups_discovery == 'JDBC_PING' or infinispan_keycloak_persistence
 
 - name: "Ensure {{ infinispan.service.name }} service is running and enabled (all nodes)"
   ansible.builtin.include_tasks: start.yml
