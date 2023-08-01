@@ -60,15 +60,15 @@
          ] }}
   loop: "{{ ansible_play_batch }}"
   vars:
-    host_iface: "{{ 'ansible_' + infinispan_cluster_iface }}"
+    host_iface: "{{ 'ansible_' + infinispan_jgroups_iface }}"
     host_address: "{{ hostvars[item][host_iface]['address'] | default(hostvars[item][host_iface]['ipv4']['address'] | default(hostvars[item]['ansible_host'])) }}"
-    host_port: "{{ (((infinispan_jgroups_port | int + activemq_ports_offset | int) | abs) | string) }}"
+    host_port: "{{ (((infinispan_jgroups_port | int + infinispan_port_offset | int) | abs) | string) }}"
   when:
     - infinispan_jgroups_discovery == 'TCPPING'
 
 - name: Determine JAVA_HOME for selected JVM RPM
   ansible.builtin.set_fact:
-    rpm_java_home: "/etc/alternatives/jre_{{ activemq_jvm_package | regex_search('(?<=java-)[0-9.]+') }}"
+    rpm_java_home: "/etc/alternatives/jre_{{ infinispan_jvm_package | regex_search('(?<=java-)[0-9.]+') }}"
 
 - name: "Ensure {{ infinispan.service.name }} service configuration is deployed: server.conf"
   ansible.builtin.template:

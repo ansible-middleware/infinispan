@@ -20,6 +20,7 @@ Role Defaults
 |`infinispan_jgroups_relay_sites`| List of site names for cross-DC relaying | `[]` |
 |`infinispan_jgroups_relay_site`| Site the inventory host is in when cross-DC is enabled | `''` |
 |`infinispan_jgroups_discovery`| Clustering discovery protocol, value from [`PING`,`TCPPING`,`JDBC_PING`] | `` |
+|`infinispan_jgroups_iface` | The NIC name to be used for cluster IPv4 addresses (ie. 'eth0') | `default_ipv4` |
 |`infinispan_keycloak_persistence`| Enable persitence datasource for keycloak caches | `False` |
 |`infinispan_service_user`| Posix account for the service installation | `ispn` |
 |`infinispan_service_group`| Posix group for the service installation | `ispn` |

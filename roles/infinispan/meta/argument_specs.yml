@@ -64,6 +64,10 @@ argument_specs:
                 default: 7801
                 description: "Alternate port for the jgroups relaying cluster"
                 type: "int"
+            infinispan_jgroups_iface:
+                default: "default_ipv4"
+                description: "The NIC name to be used for cluster IPv4 addresses (ie. 'eth0')."
+                type: "str"
             infinispan_port_offset:
                 default: 0
                 description: "Optional port offset for colocated installations"
