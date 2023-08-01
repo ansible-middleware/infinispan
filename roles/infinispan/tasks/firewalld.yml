@@ -18,7 +18,7 @@
     port: "{{ item }}"
     permanent: true
     state: enabled
-    immediate: yes
+    immediate: true
   loop:
     - "{{ infinispan.port }}/tcp"
     - "{{ infinispan.jgroups_port }}/tcp"

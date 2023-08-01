@@ -19,6 +19,8 @@ jobs:
     strategy:
       matrix:
         python_version: ["3.11"]
+        molecule_test:
+          - default
     steps:
       - name: Check out code
         uses: actions/checkout@v2
@@ -67,7 +69,7 @@ jobs:
         working-directory: ./ansible_collections/middleware_automation/infinispan
 
       - name: Run molecule test
-        run: molecule test --all
+        run: molecule test -s ${{ matrix.molecule_test }}
         working-directory: ./ansible_collections/middleware_automation/infinispan
         env:
           PY_COLORS: '1'
