@@ -97,7 +97,7 @@ argument_specs:
                 description: "Key passphrase for TLS server identity"
                 type: "str"
             infinispan_jgroups_discovery:
-                default: "{{ 'JDBC_PING' if infinispan_keycloak_caches else `TCPPING` }}"
+                default: "{{ 'JDBC_PING' if infinispan_keycloak_caches else 'TCPPING' }}"
                 description: "jGroups clustering discovery protocol, choice from [`PING`,`TCPPING`,`JDBC_PING`]"
                 type: "str"
             infinispan_jgroups_relay:
