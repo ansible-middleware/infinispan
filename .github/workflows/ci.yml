@@ -14,14 +14,68 @@ env:
   PYTEST_ADDOPTS: '--color=yes'
 
 jobs:
+  linter:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python_version: ["3.11"]
+        ansible_version: ["2.15"]
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          path: ansible_collections/middleware_automation/infinispan
+
+      - name: Set up Python ${{ matrix.python_version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python_version }}
+          cache: 'pip'
+
+      - name: Create default collection path
+        run: |
+          mkdir -p /home/runner/.ansible/
+          ln -s ${{ github.workspace }} /home/runner/.ansible/collections
+
+      - name: Install yamllint, ansible and dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install yamllint ansible-core==${{ matrix.ansible_version }} ansible-lint
+          if [ -f ansible_collections/middleware_automation/infinispan/requirements.txt ]; then
+            pip install -r ansible_collections/middleware_automation/infinispan/requirements.txt
+          fi
+          if [ -f ansible_collections/middleware_automation/infinispan/requirements.yml ]; then
+            ansible-galaxy collection install -r ansible_collections/middleware_automation/infinispan/requirements.yml -p /home/runner/.ansible/collections --force-with-deps
+          fi
+
+      - name: Install ansible-lint custom rules
+        uses: actions/checkout@v3
+        with:
+          repository: ansible-middleware/ansible-lint-custom-rules
+          path: ansible-lint-custom-rules/
+
+      - name: Run linter
+        run: |
+          ansible-lint --version
+          ansible-lint -v
+        working-directory: ./ansible_collections/middleware_automation/keycloak
+
   sanity:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python_version: ["3.9", "3.11"]
+        python_version: ["3.8", "3.9", "3.11"]
+        ansible_version: ["2.11", "2.15"]
+        exclude:
+          - python_version: "3.8"
+            ansible_version: "2.15"
+          - python_version: "3.9"
+            ansible_version: "2.15"
+          - python_version: "3.11"
+            ansible_version: "2.11"
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: ansible_collections/middleware_automation/infinispan
 
@@ -39,25 +93,13 @@ jobs:
       - name: Install yamllint, ansible
         run: |
           python -m pip install --upgrade pip
-          pip install yamllint ansible-core flake8 ansible-lint voluptuous
+          pip install yamllint ansible-core==${{ matrix.ansible_version }} flake8 ansible-lint voluptuous
           if [ -f ansible_collections/middleware_automation/infinispan/requirements.txt ]; then
             pip install -r ansible_collections/middleware_automation/infinispan/requirements.txt
           fi
           if [ -f ansible_collections/middleware_automation/infinispan/requirements.yml ]; then
             ansible-galaxy collection install -r ansible_collections/middleware_automation/infinispan/requirements.yml -p /home/runner/.ansible/collections --force-with-deps
           fi
-
-      - name: Install ansible-lint custom rules
-        uses: actions/checkout@v2
-        with:
-          repository: ansible-middleware/ansible-lint-custom-rules
-          path: ansible_collections/ansible-lint-custom-rules/
-
-      - name: Run linter
-        run: |
-          ansible-lint --version
-          ansible-lint -v
-        working-directory: ./ansible_collections/middleware_automation/infinispan
 
       - name: Run sanity tests
         run: ansible-test sanity -v --color --python ${{ matrix.python_version }} --exclude changelogs/fragments/.gitignore --skip-test symlinks
@@ -73,14 +115,9 @@ jobs:
           - default
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: ansible_collections/middleware_automation/infinispan
-
-      - name: Create default collection path
-        run: |
-          mkdir -p /home/runner/.ansible/
-          ln -s /home/runner/work/infinispan/infinispan /home/runner/.ansible/collections
 
       - name: Set up Python ${{ matrix.python_version }}
         uses: actions/setup-python@v4
