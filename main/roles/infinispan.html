@@ -12,11 +12,11 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -113,10 +113,10 @@
            <div itemprop="articleBody">
              
   <section id="infinispan">
-<h1>infinispan<a class="headerlink" href="#infinispan" title="Permalink to this heading"></a></h1>
+<h1>infinispan<a class="headerlink" href="#infinispan" title="Link to this heading"></a></h1>
 <p>Install <a class="reference external" href="https://infinispan.org/">Infinispan</a> or <a class="reference external" href="https://www.redhat.com/en/technologies/jboss-middleware/data-grid">Red Hat DataGrid</a> server configurations.</p>
 <section id="role-defaults">
-<h2>Role Defaults<a class="headerlink" href="#role-defaults" title="Permalink to this heading"></a></h2>
+<h2>Role Defaults<a class="headerlink" href="#role-defaults" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>Service configuration defaults</p></li>
 </ul>
@@ -325,7 +325,7 @@
 </table>
 </section>
 <section id="role-variables">
-<h2>Role Variables<a class="headerlink" href="#role-variables" title="Permalink to this heading"></a></h2>
+<h2>Role Variables<a class="headerlink" href="#role-variables" title="Link to this heading"></a></h2>
 <p>The following are a set of required variables for the role:</p>
 <table class="docutils align-default">
 <thead>
@@ -389,7 +389,7 @@
 <p>When setting up cross-DC relaying, also setup mariadb in active-active mode (ie. with galera cluster), and switch the JDBC to url to the <code class="docutils literal notranslate"><span class="pre">sequential</span></code> scheme; similar configuration for other database engines.</p>
 </section>
 <section id="dependencies">
-<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h2>
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h2>
 <p>The role depends on the following collections:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/ansible-middleware/common">middleware_automation.common</a></p></li>
@@ -405,7 +405,7 @@
 </div>
 </section>
 <section id="example-playbook">
-<h2>Example Playbook<a class="headerlink" href="#example-playbook" title="Permalink to this heading"></a></h2>
+<h2>Example Playbook<a class="headerlink" href="#example-playbook" title="Link to this heading"></a></h2>
 <p>The following is an example playbook that makes use of the role to install Infinispan</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
@@ -422,7 +422,7 @@
 </div>
 </section>
 <section id="offline-installation">
-<h2>Offline installation<a class="headerlink" href="#offline-installation" title="Permalink to this heading"></a></h2>
+<h2>Offline installation<a class="headerlink" href="#offline-installation" title="Link to this heading"></a></h2>
 <p>Performing an offline installation is possible by:</p>
 <ul class="simple">
 <li><p>setting <code class="docutils literal notranslate"><span class="pre">infinispan_offline_install</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
@@ -430,7 +430,7 @@
 </ul>
 </section>
 <section id="keycloak-integration">
-<h2>Keycloak integration<a class="headerlink" href="#keycloak-integration" title="Permalink to this heading"></a></h2>
+<h2>Keycloak integration<a class="headerlink" href="#keycloak-integration" title="Link to this heading"></a></h2>
 <p>Enabling <code class="docutils literal notranslate"><span class="pre">infinispan_keycloak_caches</span></code> will prepare the following caches in a dedicated cache container for remote keycloak access:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- sessions
 - offlineSessions
@@ -444,7 +444,7 @@
 <p>for more details, refer to the: <a class="reference external" href="https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.5/html-single/server_installation_and_configuration_guide/index#cache">INSTALLATION AND CONFIGURATION GUIDE - 3.4.6. Infinispan caches</a></p>
 </section>
 <section id="deploying-custom-cache-configurations">
-<h2>Deploying custom cache configurations<a class="headerlink" href="#deploying-custom-cache-configurations" title="Permalink to this heading"></a></h2>
+<h2>Deploying custom cache configurations<a class="headerlink" href="#deploying-custom-cache-configurations" title="Link to this heading"></a></h2>
 <p>It is possible to deploy caches statically in the infinispan.xml server configuration, by populating the <code class="docutils literal notranslate"><span class="pre">infinispan_caches</span></code> list of dicts.
 In case of clustered deployments, this configuration must be executed against all nodes in the cluster, as they are not propagated by the service.
 To deploy cache configurations at runtime, refer to the <code class="docutils literal notranslate"><span class="pre">infinispan_cache</span></code> role instead.</p>
@@ -455,7 +455,7 @@ To deploy cache configurations at runtime, refer to the <code class="docutils li
 </ul>
 </section>
 <section id="how-to-configure-caches">
-<h2>How to configure caches<a class="headerlink" href="#how-to-configure-caches" title="Permalink to this heading"></a></h2>
+<h2>How to configure caches<a class="headerlink" href="#how-to-configure-caches" title="Link to this heading"></a></h2>
 <p>A cache configuration can be passed-in as an XML file or string, as it is generated by the infinispan server console; otherwise,
 it is possible to define configuration dicts, used to populate the available templates.</p>
 <p>To pass XML directly, as string or with a file:</p>
@@ -479,11 +479,11 @@ it is possible to define configuration dicts, used to populate the available tem
 <p>It is possible to mix and match the two configurations in the <code class="docutils literal notranslate"><span class="pre">infinispan_caches</span></code> list.</p>
 </section>
 <section id="license">
-<h2>License<a class="headerlink" href="#license" title="Permalink to this heading"></a></h2>
+<h2>License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
 <p>Apache License 2.0</p>
 </section>
 <section id="author-information">
-<h2>Author Information<a class="headerlink" href="#author-information" title="Permalink to this heading"></a></h2>
+<h2>Author Information<a class="headerlink" href="#author-information" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/guidograzioli">Guido Grazioli</a></p></li>
 <li><p><a class="reference external" href="https://github.com/rpelisse">Romain Pelisse</a></p></li>
