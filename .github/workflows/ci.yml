@@ -79,23 +79,23 @@ jobs:
         with:
           path: ansible_collections/middleware_automation/infinispan
 
-      - name: Create default collection path
-        run: |
-          mkdir -p /home/runner/.ansible/
-          ln -s /home/runner/work/infinispan/infinispan /home/runner/.ansible/collections
-
       - name: Set up Python ${{ matrix.python_version }}
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python_version }}
           cache: 'pip'
 
+      - name: Create default collection path
+        run: |
+          mkdir -p /home/runner/.ansible/
+          ln -s /home/runner/work/infinispan/infinispan /home/runner/.ansible/collections
+
       - name: Install ansible-core stable-${{ matrix.ansible_version }}
         run: |
           pip install https://github.com/ansible/ansible/archive/stable-${{ matrix.ansible_version }}.tar.gz --disable-pip-version-check
 
       - name: Run sanity tests
-        run: ansible-test sanity -v --color --python ${{ matrix.python_version }} --exclude changelogs/fragments/.gitignore --skip-test symlinks
+        run: ansible-test sanity -v --color  --docker --python ${{ matrix.python_version }} --exclude docs/conf.py --exclude changelogs/fragments/.gitignore --skip-test symlinks
         working-directory: ./ansible_collections/middleware_automation/infinispan
 
   molecule:

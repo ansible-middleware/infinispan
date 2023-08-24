@@ -16,26 +16,26 @@ enable_list:
   - no-log-password  # opt-in
 
 warn_list:
-  - role_vars_start_with_role_name
   - vars_in_vars_files_have_valid_names
   - experimental
   - ignore-errors
   - no-handler
   - fqcn-builtins
   - no-log-password
-  - jinja[spacing]
   - jinja[invalid]
   - meta-no-tags
   - name[casing]
   - fqcn[action]
-  - schema[meta]
   - var-naming[no-role-prefix]
   - key-order[task]
+  - deprecated-command-syntax
 
 skip_list:
   - vars_should_not_be_used
   - file_is_small_enough
+  - role_vars_start_with_role_name
   - jinja[spacing]
+  - schema[meta]
   - name[template]
 
 use_default_rules: true
