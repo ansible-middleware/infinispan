@@ -1,0 +1,6 @@
+Role Index
+==========
+
+.. toctree::
+    infinispan
+    infinispan_cache
