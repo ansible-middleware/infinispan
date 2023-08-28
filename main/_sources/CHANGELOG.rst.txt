@@ -19,6 +19,11 @@ Minor Changes
 
 - Update to infinispan 14.0.13 `#32 <https://github.com/ansible-middleware/infinispan/pull/32>`_
 
+Bugfixes
+--------
+
+- Force log directory symlink during update `#33 <https://github.com/ansible-middleware/infinispan/pull/33>`_
+
 v1.1.4
 ======
 
