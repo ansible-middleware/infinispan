@@ -28,11 +28,11 @@
             storage="{{ cache_config.indexing_storage|default('filesystem') }}"
             path="{{ cache_config.indexing_path|default('.') }}" >
     <indexed-entities>
-{% for entity in cache_config.indexing_entities %}    
+{% for entity in cache_config.indexing_entities %}
       <indexed-entity>{{ entity }}</indexed-entity>
-{% endfor %}      
+{% endfor %}
     </indexed-entities>
-  </indexing>            
+  </indexing>
 {% endif %}
   <partition-handling when-split="{{ cache_config.partition_handling_when_split|default('ALLOW_READ_WRITES') }}" />
 {% if cache_config.persistence is defined and cache_config.persistence %}
@@ -45,7 +45,7 @@
         <jdbc:timestamp-column name="version" type="BIGINT"/>
         <jdbc:segment-column name="S" type="INT"/>
       </jdbc:string-keyed-table>
-    </jdbc:string-keyed-jdbc-store>    
+    </jdbc:string-keyed-jdbc-store>
   </persistence>
 {% endif %}
 {% if cache_config.state_transfer is defined and cache_config.state_transfer %}

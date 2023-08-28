@@ -16,10 +16,10 @@
            acquire-timeout="{{ cache_config.isolation_acquire_timeout|default('10000') }}"
            concurrency-level="{{ cache_config.isolation_concurrency_level|default('32') }}"/>
 
-  <transaction mode="{{ cache_config.transaction_mode|default('NONE') }}" 
+  <transaction mode="{{ cache_config.transaction_mode|default('NONE') }}"
                locking="{{ cache_config.transaction_locking|default('OPTIMISTIC') }}"/>
 
-  <expiration lifespan="{{ cache_config.expiration_lifespan|default('-1') }}" 
+  <expiration lifespan="{{ cache_config.expiration_lifespan|default('-1') }}"
               max-idle="{{ cache_config.expiration_max_idle|default('-1') }}"
               interval="{{ cache_config.expiration_interval|default('60000') }}" />
 
@@ -32,9 +32,9 @@
             storage="{{ cache_config.indexing_storage|default('filesystem') }}"
             path="{{ cache_config.indexing_path|default('.') }}" >
     <indexed-entities>
-{% for entity in cache_config.indexing_entities %}    
+{% for entity in cache_config.indexing_entities %}
       <indexed-entity>{{ entity }}</indexed-entity>
-{% endfor %}      
+{% endfor %}
     </indexed-entities>
   </indexing>
 {% endif %}
@@ -49,7 +49,7 @@
         <jdbc:timestamp-column name="version" type="BIGINT"/>
         <jdbc:segment-column name="S" type="INT"/>
       </jdbc:string-keyed-table>
-    </jdbc:string-keyed-jdbc-store>    
+    </jdbc:string-keyed-jdbc-store>
   </persistence>
 {% endif %}
 {% if cache_config.state_transfer is defined and cache_config.state_transfer %}
