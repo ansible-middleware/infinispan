@@ -6,6 +6,25 @@ middleware_automation.infinispan Release Notes
 
 This changelog describes changes after version 0.1.9.
 
+v1.2.0
+======
+
+Major Changes
+-------------
+
+- Provide jgroups configuration `#31 <https://github.com/ansible-middleware/infinispan/pull/31>`_
+
+Minor Changes
+-------------
+
+- Update to infinispan 14.0.13 `#32 <https://github.com/ansible-middleware/infinispan/pull/32>`_
+- infinispan_cache: remove dependency on json_query `#34 <https://github.com/ansible-middleware/infinispan/pull/34>`_
+
+Bugfixes
+--------
+
+- Force log directory symlink during update `#33 <https://github.com/ansible-middleware/infinispan/pull/33>`_
+
 v1.1.4
 ======
 

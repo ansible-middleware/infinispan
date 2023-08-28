@@ -95,3 +95,26 @@ releases:
     - 25.yaml
     - 26.yaml
     release_date: '2023-06-20'
+  1.2.0:
+    changes:
+      bugfixes:
+      - 'Force log directory symlink during update `#33 <https://github.com/ansible-middleware/infinispan/pull/33>`_
+
+        '
+      major_changes:
+      - 'Provide jgroups configuration `#31 <https://github.com/ansible-middleware/infinispan/pull/31>`_
+
+        '
+      minor_changes:
+      - 'Update to infinispan 14.0.13 `#32 <https://github.com/ansible-middleware/infinispan/pull/32>`_
+
+        '
+      - 'infinispan_cache: remove dependency on json_query `#34 <https://github.com/ansible-middleware/infinispan/pull/34>`_
+
+        '
+    fragments:
+    - 31.yaml
+    - 32.yaml
+    - 33.yaml
+    - 34.yaml
+    release_date: '2023-08-28'
