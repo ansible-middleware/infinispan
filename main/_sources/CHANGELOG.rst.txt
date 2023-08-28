@@ -14,6 +14,11 @@ Major Changes
 
 - Provide jgroups configuration `#31 <https://github.com/ansible-middleware/infinispan/pull/31>`_
 
+Minor Changes
+-------------
+
+- Update to infinispan 14.0.13 `#32 <https://github.com/ansible-middleware/infinispan/pull/32>`_
+
 v1.1.4
 ======
 
