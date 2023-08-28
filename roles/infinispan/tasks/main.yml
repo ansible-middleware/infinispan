@@ -150,6 +150,7 @@
 - name: Link default logs directory
   ansible.builtin.file:
     state: link
-    src: "{{ infinispan.home }}/server/log"
+    src: "{{ infinispan.home }}server/log"
     dest: "/var/log/infinispan{{ '-' + infinispan_nodename if infinispan_nodename != inventory_hostname else '' }}"
+    force: true
   become: yes
