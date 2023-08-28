@@ -18,6 +18,7 @@ Minor Changes
 -------------
 
 - Update to infinispan 14.0.13 `#32 <https://github.com/ansible-middleware/infinispan/pull/32>`_
+- infinispan_cache: remove dependency on json_query `#34 <https://github.com/ansible-middleware/infinispan/pull/34>`_
 
 Bugfixes
 --------
