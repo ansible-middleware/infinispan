@@ -1,3 +1,5 @@
+python3-devel [compile platform:rpm]
+python39-devel [compile platform:centos-8 platform:rhel-8]
 python3-lxml [platform:rpm]
 python3-jmespath [platform:rpm]
-
+python3-requests [platform:rpm]
