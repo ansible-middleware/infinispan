@@ -9,6 +9,11 @@ This changelog describes changes after version 0.1.9.
 v1.2.1-devel
 ============
 
+Minor Changes
+-------------
+
+- Update to infinispan 14.0.19 `#36 <https://github.com/ansible-middleware/infinispan/pull/36>`_
+
 v1.2.0
 ======
 
