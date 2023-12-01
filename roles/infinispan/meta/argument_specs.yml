@@ -10,7 +10,7 @@ argument_specs:
                 description: "Ensure firewalld is running and configure infinispan/datagrid ports"
                 type: "bool"
             infinispan_version:
-                default: "14.0.13.Final"
+                default: "14.0.19.Final"
                 description: "Infinispan version to install"
                 type: "str"
             infinispan_bundle:
