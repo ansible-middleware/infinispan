@@ -68,12 +68,12 @@ A requirement file is provided to install:
 
     pip install -r requirements.txt
 
-
+<!--start roles_paths -->
 ### Included roles
 
 * [`infinispan`](https://github.com/ansible-middleware/infinispan/tree/main/roles/infinispan): performs an installation of Infinispan or DataGrid nodes or cluster, with configuration of static caches.
 * [`infinispan_cache`](https://github.com/ansible-middleware/infinispan/tree/main/roles/infinispan_cache): creates Infinispan or DataGrid caches at runtime.
-
+<!--end roles_paths -->
 
 <!--start support -->
 <!--end support -->
