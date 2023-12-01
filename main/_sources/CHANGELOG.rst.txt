@@ -6,13 +6,18 @@ middleware_automation.infinispan Release Notes
 
 This changelog describes changes after version 0.1.9.
 
-v1.2.1-devel
+v1.3.0-devel
 ============
 
 Minor Changes
 -------------
 
 - Update to infinispan 14.0.19 `#36 <https://github.com/ansible-middleware/infinispan/pull/36>`_
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- Update minimum ansible-core version to 2.14 `#37 <https://github.com/ansible-middleware/infinispan/pull/37>`_
 
 v1.2.0
 ======
