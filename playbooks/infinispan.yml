@@ -5,6 +5,7 @@
   roles:
     - role: infinispan
       infinispan_supervisor_password: "remembertochangeme"
+      infinispan_jgroups_discovery: PING
       infinispan_users: []
     - role: infinispan_cache
       infinispan_deployer_user: "supervisor"
