@@ -2,3 +2,8 @@
 - name: "Restart {{ infinispan.name }}"
   ansible.builtin.include_tasks: restart.yml
   listen: "restart infinispan"
+
+- name: Restart firewalld
+  ansible.builtin.service:
+    name: firewalld
+    state: restarted
