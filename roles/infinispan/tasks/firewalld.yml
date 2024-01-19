@@ -23,3 +23,5 @@
     - "{{ infinispan.port }}/tcp"
     - "{{ infinispan.jgroups_port }}/tcp"
     - "{{ infinispan.jgroups_relay_port }}/tcp"
+  notify:
+    - Restart firewalld
