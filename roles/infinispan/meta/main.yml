@@ -15,9 +15,10 @@ galaxy_info:
   min_ansible_version: "2.14"
 
   platforms:
-   - name: EL
-     versions:
-     - "8"
+    - name: EL
+      versions:
+        - "8"
+        - "9"
 
   galaxy_tags:
     - infinispan
@@ -26,3 +27,4 @@ galaxy_info:
     - rhel
     - rhn
     - server
+    - cache

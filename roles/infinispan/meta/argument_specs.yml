@@ -192,10 +192,14 @@ argument_specs:
                 default: "Infinispan"
                 description: "Description of the systemd service unit"
                 type: "str"
+            infinispan_resp_cache:
+                default: ""
+                description: "Name of the cache on which to enable the RESP protocol; if empty, disable RESP"
+                type: "str"
     downstream:
         options:
             data_grid_version:
-                default: "8.4.1"
+                default: "8.4.6"
                 description: "Red Hat Data Grid version to install"
                 type: "str"
             data_grid_installation_path:

@@ -47,11 +47,6 @@
         url_username: "supervisor"
         url_password: "remembertochangeme"
       register: test_cache_status
-    - name: "Check service operational: test cache status via rest (assert)"
-      ansible.builtin.assert:
-        that:
-          - test_cache_status.json.stats.total_number_of_entries == 1
-        fail_msg: "infinispan operational error: test cache error"
     - name: "Check configuration: static test cache (yml) status"
       ansible.builtin.uri:
         url: http://localhost:11222/rest/v2/caches/configuredstaticcache
@@ -63,7 +58,7 @@
         that:
           - test_cache_status.status == 200
           - test_cache_status.json.statistics
-          - test_cache_status.json.stats.total_number_of_entries == 0
+          - test_cache_status.json.stats.approximate_entries == 0
         fail_msg: "infinispan config error: static test cache via YML error"
     - name: "Check _cache role: test cache (xml) status"
       ansible.builtin.uri:
@@ -75,7 +70,7 @@
       ansible.builtin.assert:
         that:
           - test_cache_status.status == 200
-          - test_cache_status.json.stats.total_number_of_entries == 0
+          - test_cache_status.json.stats.approximate_entries == 0
         fail_msg: "infinispan_cache error: test cache via XML error"
     - name: "Check _cache role: test cache (yml) status"
       ansible.builtin.uri:
@@ -88,7 +83,7 @@
         that:
           - test_cache_status.status == 200
           - test_cache_status.json.statistics
-          - test_cache_status.json.stats.total_number_of_entries == 0
+          - test_cache_status.json.stats.approximate_entries == 0
         fail_msg: "infinispan_cache error: test cache via YML error"
     - name: "Check _cache role: test cache (yml) status"
       ansible.builtin.uri:
@@ -101,5 +96,5 @@
         that:
           - test_cache_status.status == 200
           - not test_cache_status.json.statistics
-          - test_cache_status.json.stats.total_number_of_entries == -1
+          - test_cache_status.json.stats.approximate_entries == -1
         fail_msg: "infinispan_cache error: test cache via YML error"

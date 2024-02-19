@@ -19,6 +19,7 @@ tags:
   - infrastructure
   - runtimes
   - middleware
+  - cache
   - a4mw
 dependencies:
   "middleware_automation.common": ">=1.1.0"

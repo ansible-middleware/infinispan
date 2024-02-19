@@ -1,5 +1,5 @@
 ---
-infinispan_version: "14.0.19.Final"
+infinispan_version: "14.0.21.Final"
 infinispan_bundle: "infinispan-server-{{ infinispan_version }}.zip"
 infinispan_download_url: "https://downloads.jboss.org/infinispan/{{ infinispan_version }}/{{ infinispan_bundle }}"
 infinispan_dest: /opt/infinispan
@@ -19,7 +19,7 @@ infinispan_jgroups_iface: default_ipv4
 infinispan_service_user: ispn
 infinispan_service_group: ispn
 infinispan_port_offset: 0
-infinispan_jvm_package: java-11-openjdk-headless
+infinispan_jvm_package: java-17-openjdk-headless
 infinispan_java_home:
 infinispan_configure_firewalld: False
 
@@ -76,3 +76,6 @@ infinispan_logfile_maxsize: '100 MB'
 
 # declarative cache configuration
 infinispan_caches: []
+
+# experimental redis protocol
+infinispan_resp_cache: ''
