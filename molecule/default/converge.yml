@@ -19,6 +19,7 @@
             template: replicated
             mode: ASYNC
             statistics: True
+      infinispan_resp_cache: configuredstaticcache
     - role: infinispan
       infinispan_nodename: instance2
       infinispan_service_name: instance2
@@ -37,6 +38,7 @@
             template: replicated
             mode: ASYNC
             statistics: True
+      infinispan_resp_cache: configuredstaticcache
     - role: infinispan_cache
       infinispan_deployer_user: "supervisor"
       infinispan_deployer_password: "remembertochangeme"
