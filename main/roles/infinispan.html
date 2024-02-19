@@ -244,7 +244,7 @@
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_service_restart_on_failure</span></code></p></td>
 <td class="text-left"><p>systemd restart-on-failure behavior activation</p></td>
-<td class="text-left"><p>True</p></td>
+<td class="text-left"><p>`True``</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_service_startlimitintervalsec</span></code></p></td>
 <td class="text-left"><p>systemd StartLimitIntervalSec</p></td>
@@ -257,6 +257,10 @@
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_service_restartsec</span></code></p></td>
 <td class="text-left"><p>systemd RestartSec</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">10s</span></code> if <code class="docutils literal notranslate"><span class="pre">infinispan_service_restart_on_failure</span></code> else ``</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_resp_cache</span></code></p></td>
+<td class="text-left"><p>Name of the cache on which to enable the RESP protocol; if empty, disable RESP</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">''</span></code></p></td>
 </tr>
 </tbody>
 </table>
