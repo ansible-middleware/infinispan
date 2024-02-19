@@ -76,3 +76,6 @@ infinispan_logfile_maxsize: '100 MB'
 
 # declarative cache configuration
 infinispan_caches: []
+
+# experimental redis protocol
+infinispan_resp_cache: ''

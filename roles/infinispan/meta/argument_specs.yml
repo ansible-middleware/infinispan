@@ -192,6 +192,10 @@ argument_specs:
                 default: "Infinispan"
                 description: "Description of the systemd service unit"
                 type: "str"
+            infinispan_resp_cache:
+                default: ""
+                description: "Name of the cache on which to enable the RESP protocol; if empty, disable RESP"
+                type: "str"
     downstream:
         options:
             data_grid_version:

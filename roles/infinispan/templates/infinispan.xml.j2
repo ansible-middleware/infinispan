@@ -204,6 +204,9 @@
         <endpoint socket-binding="default" security-realm="default">
 {% endif %}
         <hotrod-connector name="hotrod"/>
+{% if infinispan_resp_cache | length > 0 %}
+        <resp-connector cache="{{ infinispan_resp_cache }}"/>
+{% endif %}
         <rest-connector name="rest">
           <authentication mechanisms="DIGEST BASIC"/>
         </rest-connector>
