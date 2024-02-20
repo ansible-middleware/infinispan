@@ -1,10 +1,23 @@
-==============================================
-middleware_automation.infinispan Release Notes
-==============================================
+===============================================
+middleware\_automation.infinispan Release Notes
+===============================================
 
 .. contents:: Topics
 
 This changelog describes changes after version 0.1.9.
+
+v1.3.0
+======
+
+Minor Changes
+-------------
+
+- Update infinispan to 14.0.21, data_grid to 8.4.6 `#39 <https://github.com/ansible-middleware/infinispan/pull/39>`_
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- Update minimum ansible-core version to 2.14 `#37 <https://github.com/ansible-middleware/infinispan/pull/37>`_
 
 v1.2.0
 ======
@@ -74,7 +87,6 @@ Release Summary
 
 Patch release containing an important bugfix for downloaded archives filemodes.
 
-
 v1.0.2
 ======
 
@@ -102,7 +114,6 @@ Release Summary
 
 Patch release containing only cleanup and documentation changes.
 
-
 v1.0.0
 ======
 
@@ -110,4 +121,3 @@ Release Summary
 ---------------
 
 This is the first stable release of the ``middleware_automation.infinispan`` collection.
-
