@@ -58,9 +58,7 @@
                 can_forward_local_cluster="true" relay_multicasts="false" async_relay_creation="true" />
             <remote-sites default-stack="datagridrelay">
 {% for site in infinispan_jgroups_relay_sites %}
-{% if site != infinispan_jgroups_relay_site %}
                 <remote-site name="{{ site }}"/>
-{% endif %}
 {% endfor %}
             </remote-sites>
         </stack>
