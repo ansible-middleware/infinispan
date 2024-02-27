@@ -52,6 +52,7 @@
       {{ infinispan_cluster_nodes | default([]) + [
            {
              "name": item,
+             "site": host_site,
              "address": host_address,
              "inventory_host": host_address + '[' + host_port + ']',
              "port": host_port,
@@ -63,6 +64,7 @@
     host_iface: "{{ 'ansible_' + infinispan_jgroups_iface }}"
     host_address: "{{ hostvars[item][host_iface]['address'] | default(hostvars[item][host_iface]['ipv4']['address'] | default(hostvars[item]['ansible_host'])) }}"
     host_port: "{{ (((infinispan_jgroups_port | int + infinispan_port_offset | int) | abs) | string) }}"
+    host_site: "{{ hostvars[item]['infinispan_jgroups_relay_site'] }}"
   when:
     - infinispan_jgroups_discovery == 'TCPPING'
 

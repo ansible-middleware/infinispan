@@ -44,7 +44,7 @@ infinispan_jgroups_discovery: "{{ 'JDBC_PING' if infinispan_keycloak_caches else
 infinispan_jgroups_relay: False
 # list of sites (clusters) in the cross-DC global view
 infinispan_jgroups_relay_sites: []
-# site (cluster) this node belongs to
+# site (cluster) this node belongs to, all nodes belong to default if not overridden
 infinispan_jgroups_relay_site: ''
 
 # flag to enable keycloak integration
