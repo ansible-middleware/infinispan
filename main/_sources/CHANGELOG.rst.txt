@@ -9,6 +9,11 @@ This changelog describes changes after version 0.1.9.
 v1.3.1-devel
 ============
 
+Minor Changes
+-------------
+
+- Add parameter ``infinispan_jgroups_cluster_nodes`` to explicitly set the node connection config `#43 <https://github.com/ansible-middleware/infinispan/pull/43>`_
+
 Bugfixes
 --------
 

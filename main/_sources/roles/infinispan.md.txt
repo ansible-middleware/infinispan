@@ -16,11 +16,6 @@ Role Defaults
 |`infinispan_jgroups_relay_port`| Alternate port for the jgroups relaying cluster | `7801` |
 |`infinispan_port_offset`| Optional port offset for colocated installations | `0` |
 |`infinispan_nodename`| Instance name for service (ie. cluster node identifier) | `{{ inventory_hostname }}` |
-|`infinispan_jgroups_relay`| Enable cross-DC relaying | `False` |
-|`infinispan_jgroups_relay_sites`| List of site names for cross-DC relaying | `[]` |
-|`infinispan_jgroups_relay_site`| Site the inventory host is in when cross-DC is enabled | `''` |
-|`infinispan_jgroups_discovery`| Clustering discovery protocol, value from [`PING`,`TCPPING`,`JDBC_PING`] | `` |
-|`infinispan_jgroups_iface` | The NIC name to be used for cluster IPv4 addresses (ie. 'eth0') | `default_ipv4` |
 |`infinispan_keycloak_persistence`| Enable persitence datasource for keycloak caches | `False` |
 |`infinispan_service_user`| Posix account for the service installation | `ispn` |
 |`infinispan_service_group`| Posix group for the service installation | `ispn` |
@@ -44,6 +39,40 @@ Role Defaults
 |`infinispan_service_startlimitburst`| systemd StartLimitBurst | `5` if `infinispan_service_restart_on_failure` else `` |
 |`infinispan_service_restartsec`| systemd RestartSec | `10s` if `infinispan_service_restart_on_failure` else `` |
 |`infinispan_resp_cache`| Name of the cache on which to enable the RESP protocol; if empty, disable RESP | `''` |
+
+
+* Cluster configuration
+
+| Variable | Description | Default |
+|:---------|:------------|:--------|
+|`infinispan_jgroups_relay`| Enable cross-DC relaying | `False` |
+|`infinispan_jgroups_relay_sites`| List of site names for cross-DC relaying | `[]` |
+|`infinispan_jgroups_relay_site`| Site the inventory host is in when cross-DC is enabled | `''` |
+|`infinispan_jgroups_discovery`| Clustering discovery protocol, value from [`PING`,`TCPPING`,`JDBC_PING`] | `` |
+|`infinispan_jgroups_iface` | The NIC name to be used for cluster IPv4 addresses (ie. 'eth0') | `default_ipv4` |
+|`infinispan_jgroups_cluster_nodes`| List of node definitions for jgroups cluster, read below for the format | `[]` |
+
+The `infinispan_jgroups_cluster_nodes` parameter, when empty, tell the collection to geenrate the list from the hosts variables in `ansible_play_hosts`;
+otherwise, it can be passed-in using the following dictionary format:
+
+```yaml
+infinispan_jgroups_cluster_nodes:
+  - address: 10.0.0.175
+    inventory_host: '10.0.0.175[7800]'
+    name: us-east-2-datagrid-1
+    port: 7800
+    site: us-east-2
+    value: 'tcp://10.0.0.175:7800'
+  - address: 10.0.0.179
+    inventory_host: "10.0.0.179[7800]"
+    name: us-east-2-datagrid-2
+    port: 7800
+    site: us-east-2
+    value: 'tcp://10.0.0.179:7800'
+```
+
+where `address`, `port`, and `inventory_host` are connection details; `name` is the name of the host in the cluster, `site` is the name of the cluster in the xsite configuration,
+and `value` is explicit connection string.
 
 
 * Download and install defaults
