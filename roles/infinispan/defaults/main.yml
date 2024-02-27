@@ -46,6 +46,7 @@ infinispan_jgroups_relay: False
 infinispan_jgroups_relay_sites: []
 # site (cluster) this node belongs to, all nodes belong to default if not overridden
 infinispan_jgroups_relay_site: ''
+infinispan_jgroups_cluster_nodes: []
 
 # flag to enable keycloak integration
 infinispan_keycloak_caches: False

@@ -196,6 +196,10 @@ argument_specs:
                 default: ""
                 description: "Name of the cache on which to enable the RESP protocol; if empty, disable RESP"
                 type: "str"
+            infinispan_jgroups_cluster_nodes:
+                description: "List of node definitions for jgroups cluster, each node is a dictionary"
+                default: []
+                type: "list"
     downstream:
         options:
             data_grid_version:
