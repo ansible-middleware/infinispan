@@ -25,7 +25,7 @@
 {% if infinispan_jgroups_discovery == 'TCPPING' %}
             <!-- TCP local cluster with TCPPING discovery -->
             <TCPPING  stack.combine="REPLACE" stack.position="MPING"
-                  initial_hosts="{{ infinispan_cluster_nodes | selectattr('site', "equalto", infinispan_jgroups_relay_site) | map(attribute='inventory_host') | join (',') }}"
+                  initial_hosts="{{ infinispan_cluster_nodes | selectattr('site', 'equalto', infinispan_jgroups_relay_site) | map(attribute='inventory_host') | join (',') }}"
                   port_range="0" />
             <pbcast.GMS join_timeout="3000" />
 {% endif %}
@@ -47,7 +47,7 @@
 {% if infinispan_jgroups_discovery == 'TCPPING' %}
             <!-- TCP local cluster with TCPPING discovery -->
             <TCPPING  stack.combine="REPLACE" stack.position="MPING"
-                  initial_hosts="{{ infinispan_cluster_nodes | selectattr('site', "equalto", infinispan_jgroups_relay_site) | map(attribute='inventory_host') | join (',') }}"
+                  initial_hosts="{{ infinispan_cluster_nodes | selectattr('site', 'equalto', infinispan_jgroups_relay_site) | map(attribute='inventory_host') | join (',') }}"
                   port_range="1" />
             <pbcast.GMS join_timeout="3000" />
 {% endif %}
