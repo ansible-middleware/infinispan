@@ -24,16 +24,16 @@
 {% endif %}
 {% if infinispan_jgroups_discovery == 'TCPPING' %}
             <!-- TCP local cluster with TCPPING discovery -->
-            <TCPPING  stack.combine="REPLACE" stack.position="MPING" 
-                  initial_hosts="{{ infinispan_cluster_nodes | map(attribute='inventory_host') | join (',') }}"
+            <TCPPING  stack.combine="REPLACE" stack.position="MPING"
+                  initial_hosts="{{ infinispan_cluster_nodes | selectattr('site', 'equalto', infinispan_jgroups_relay_site) | map(attribute='inventory_host') | join (',') }}"
                   port_range="0" />
             <pbcast.GMS join_timeout="3000" />
 {% endif %}
         </stack>
 {% if infinispan_jgroups_relay %}
-        <!-- TCP RELAY with JDBCPING discovery -->
         <stack name="datagridrelay" extends="tcp">
 {% if infinispan_jgroups_discovery == 'JDBC_PING' %}
+            <!-- TCP RELAY with JDBCPING discovery -->
             <JDBC_PING  stack.combine="REPLACE" stack.position="MPING"
                 connection_url="{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].connection_url }}"
                 connection_username="{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].db_user }}"
@@ -46,8 +46,8 @@
 {% endif %}
 {% if infinispan_jgroups_discovery == 'TCPPING' %}
             <!-- TCP local cluster with TCPPING discovery -->
-            <TCPPING  stack.combine="REPLACE" stack.position="MPING" 
-                  initial_hosts="{{ infinispan_cluster_nodes | map(attribute='inventory_host') | join (',') }}"
+            <TCPPING  stack.combine="REPLACE" stack.position="MPING"
+                  initial_hosts="{{ infinispan_cluster_nodes | selectattr('site', 'equalto', infinispan_jgroups_relay_site) | map(attribute='inventory_host') | join (',') }}"
                   port_range="1" />
             <pbcast.GMS join_timeout="3000" />
 {% endif %}
@@ -58,7 +58,9 @@
                 can_forward_local_cluster="true" relay_multicasts="false" async_relay_creation="true" />
             <remote-sites default-stack="datagridrelay">
 {% for site in infinispan_jgroups_relay_sites %}
+{% if site != infinispan_jgroups_relay_site %}
                 <remote-site name="{{ site }}"/>
+{% endif %}
 {% endfor %}
             </remote-sites>
         </stack>
