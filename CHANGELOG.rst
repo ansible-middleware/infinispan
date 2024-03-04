@@ -6,6 +6,19 @@ middleware\_automation.infinispan Release Notes
 
 This changelog describes changes after version 0.1.9.
 
+v1.3.1
+======
+
+Minor Changes
+-------------
+
+- New parameter ``infinispan_jgroups_cluster_nodes`` to explicitly set initial nodes `#43 <https://github.com/ansible-middleware/infinispan/pull/43>`_
+
+Bugfixes
+--------
+
+- Output cluster initial node list for TCPPING grouped by site when relay is enabled `#42 <https://github.com/ansible-middleware/infinispan/pull/42>`_
+
 v1.3.0
 ======
 
