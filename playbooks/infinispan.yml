@@ -12,5 +12,5 @@
       infinispan_deployer_password: "remembertochangeme"
       infinispan_cache_xml: >
         <local-cache name="testcache" statistics="true">
-          <encoding media-type="application/x-protostream"/>
+          <encoding media-type="application/octet-stream"/>
         </local-cache>

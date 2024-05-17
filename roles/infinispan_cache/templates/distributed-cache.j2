@@ -9,7 +9,7 @@
                    unreliable-return-values="{{ infinispan_cache_config.unreliable_return_values|default('false')|lower }}">
 
 
-  <encoding media-type="{{ infinispan_cache_config.encoding|default('application/x-protostream') }}"/>
+  <encoding media-type="{{ infinispan_cache_config.encoding|default('application/octet-stream') }}"/>
 
   <locking isolation="{{ infinispan_cache_config.isolation|default('REPEATABLE_READ') }}"
            striping="{{ infinispan_cache_config.isolation_striping|default('false')|lower }}"
