@@ -1,5 +1,5 @@
 ---
-infinispan_version: "14.0.21.Final"
+infinispan_version: "15.0.2.Final"
 infinispan_bundle: "infinispan-server-{{ infinispan_version }}.zip"
 infinispan_download_url: "https://downloads.jboss.org/infinispan/{{ infinispan_version }}/{{ infinispan_bundle }}"
 infinispan_dest: /opt/infinispan

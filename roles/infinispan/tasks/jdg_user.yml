@@ -12,10 +12,10 @@
     dest: "{{ infinispan.home }}/server/conf/{{ infinispan.config.users }}"
     owner: "{{ infinispan.user.name }}"
     group: "{{ infinispan.group.name }}"
-    mode: 0644
+    mode: '0644'
   notify:
     - restart infinispan
-  become: yes
+  become: true
 
 - name: "Ensure {{ infinispan.config.groups }} exists"
   ansible.builtin.template:
@@ -23,7 +23,7 @@
     dest: "{{ infinispan.home }}/server/conf/{{ infinispan.config.groups }}"
     owner: "{{ infinispan.user.name }}"
     group: "{{ infinispan.group.name }}"
-    mode: 0644
+    mode: '0644'
   notify:
     - restart infinispan
-  become: yes
+  become: true

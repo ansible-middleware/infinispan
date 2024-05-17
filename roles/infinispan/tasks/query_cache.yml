@@ -14,5 +14,5 @@
     method: "{{ method }}"
     user: "{{ jdg_username | default(omit) }}"
     password: "{{ jdg_password | default(omit) }}"
-    force_basic_auth: yes
+    force_basic_auth: true
     status_code: 200

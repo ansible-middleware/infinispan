@@ -62,7 +62,10 @@
   loop: "{{ ansible_play_batch }}"
   vars:
     host_iface: "{{ 'ansible_' + infinispan_jgroups_iface }}"
-    host_address: "{{ hostvars[item][host_iface]['address'] | default(hostvars[item][host_iface]['ipv4']['address'] | default(hostvars[item]['ansible_host'])) }}"
+    host_address: "{{ hostvars[item][host_iface]['address'] | \
+                      default(hostvars[item][host_iface]['ipv4']['address'] | \
+                      default(hostvars[item]['ansible_host']) | \
+                      default(hostvars[item]['inventory_hostname_short'])) }}"
     host_port: "{{ (((infinispan_jgroups_port | int + infinispan_port_offset | int) | abs) | string) }}"
     host_site: "{{ hostvars[item]['infinispan_jgroups_relay_site'] | default(infinispan_jgroups_relay_site) if infinispan_jgroups_relay else '' }}"
   when:
@@ -86,21 +89,21 @@
     dest: "{{ infinispan.home }}/bin/server.conf"
     owner: "{{ infinispan.user.name }}"
     group: "{{ infinispan.group.name }}"
-    mode: 0644
-    backup: yes
+    mode: '0644'
+    backup: true
   vars:
     jdg_rpm_java_home: "{{ rpm_java_home }}"
   notify:
     - restart infinispan
-  become: yes
+  become: true
 
 - name: "Get xsd schema versions"
   ansible.builtin.find:
     paths: "{{ infinispan.home }}/docs/schema/"
-    use_regex: yes
+    use_regex: true
     patterns: ['^.*-server-[0-9.]*[.]xsd$']
   register: server_schema
-  become: yes
+  become: true
 
 - name: "Set fetched schema version for template"
   ansible.builtin.set_fact:
@@ -112,11 +115,11 @@
     dest: "{{ infinispan.home }}/server/conf/{{ infinispan.config.name }}"
     owner: "{{ infinispan.user.name }}"
     group: "{{ infinispan.group.name }}"
-    mode: 0644
-    backup: yes
+    mode: '0644'
+    backup: true
   notify:
     - restart infinispan
-  become: yes
+  become: true
 
 - name: "Ensure {{ infinispan.service.name }} log4j2 configuration is deployed"
   ansible.builtin.template:
@@ -124,11 +127,11 @@
     dest: "{{ infinispan.home }}/server/conf/log4j2.xml"
     owner: "{{ infinispan.user.name }}"
     group: "{{ infinispan.group.name }}"
-    mode: 0644
-    backup: yes
+    mode: '0644'
+    backup: true
   notify:
     - restart infinispan
-  become: yes
+  become: true
 
 - name: Download database driver jar to target
   ansible.builtin.get_url:
@@ -136,10 +139,10 @@
     dest: "{{ infinispan.home }}/lib/{{ infinispan_jgroups_jdbc[infinispan_jdbc_engine].driver_jar_filename }}"
     owner: "{{ infinispan.user.name }}"
     group: "{{ infinispan.group.name }}"
-    mode: 0644
+    mode: '0644'
   when:
     - infinispan_jgroups_discovery == 'JDBC_PING'
-  become: yes
+  become: true
 
 - name: Include users tasks
   ansible.builtin.include_tasks: jdg_user.yml
@@ -151,7 +154,7 @@
 
 - name: "Ensure {{ infinispan.service.name }} service is running and enabled (first node)"
   ansible.builtin.include_tasks: start.yml
-  run_once: yes
+  run_once: true
   when: infinispan_jgroups_discovery == 'JDBC_PING' or infinispan_keycloak_persistence
 
 - name: "Ensure {{ infinispan.service.name }} service is running and enabled (all nodes)"
@@ -163,4 +166,4 @@
     src: "{{ infinispan.home }}server/log"
     dest: "/var/log/infinispan{{ '-' + infinispan_nodename if infinispan_nodename != inventory_hostname else '' }}"
     force: true
-  become: yes
+  become: true

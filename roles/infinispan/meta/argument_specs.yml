@@ -10,7 +10,7 @@ argument_specs:
                 description: "Ensure firewalld is running and configure infinispan/datagrid ports"
                 type: "bool"
             infinispan_version:
-                default: "14.0.19.Final"
+                default: "15.0.2.Final"
                 description: "Infinispan version to install"
                 type: "str"
             infinispan_bundle:
@@ -203,7 +203,7 @@ argument_specs:
     downstream:
         options:
             data_grid_version:
-                default: "8.4.6"
+                default: "8.4.8"
                 description: "Red Hat Data Grid version to install"
                 type: "str"
             data_grid_installation_path:

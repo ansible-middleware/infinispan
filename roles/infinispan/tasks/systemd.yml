@@ -4,16 +4,16 @@
     dest: "{{ infinispan.service.unit_dir }}/{{ infinispan.service.unit_file }}.service"
     owner: root
     group: root
-    mode: 0644
-  become: yes
+    mode: '0644'
+  become: true
   register: ispn_daemon_reload
   notify:
     - restart infinispan
 
 - name: "Perform daemon-reload to ensure the changes on {{ infinispan.service.name }} service are picked up"
   ansible.builtin.systemd:
-    daemon_reload: yes
+    daemon_reload: true
   when:
     - ispn_daemon_reload is defined
     - ispn_daemon_reload.changed
-  become: yes
+  become: true
