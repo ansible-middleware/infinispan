@@ -12,7 +12,7 @@
       infinispan_caches:
         - cache_xml: >
             <local-cache name="teststaticcachexml" statistics="true">
-              <encoding media-type="application/x-protostream"/>
+              <encoding media-type="application/octet-stream"/>
             </local-cache>
         - cache_config:
             name: configuredstaticcache
@@ -31,7 +31,7 @@
       infinispan_caches:
         - cache_xml: >
             <local-cache name="teststaticcachexml" statistics="true">
-              <encoding media-type="application/x-protostream"/>
+              <encoding media-type="application/octet-stream"/>
             </local-cache>
         - cache_config:
             name: configuredstaticcache
@@ -44,7 +44,7 @@
       infinispan_deployer_password: "remembertochangeme"
       infinispan_cache_xml: >
         <local-cache name="testcachexml" statistics="true">
-          <encoding media-type="application/x-protostream"/>
+          <encoding media-type="application/octet-stream"/>
         </local-cache>
     - role: infinispan_cache
       infinispan_deployer_user: "supervisor"
@@ -81,5 +81,4 @@
         statistics: false
         indexing: true
         indexing_entities:
-          - org.infinispan.sample.Car
-          - book_sample.Book
+          - org.infinispan.server.configuration.AddressType

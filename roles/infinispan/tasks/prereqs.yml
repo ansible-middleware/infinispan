@@ -4,7 +4,7 @@
     that:
       - (rhn_username is defined and data_grid_enable is defined and data_grid_enable) or not data_grid_enable is defined or not data_grid_enable or infinispan_offline_install
       - (rhn_password is defined and data_grid_enable is defined and data_grid_enable) or not data_grid_enable is defined or not data_grid_enable or infinispan_offline_install
-    quiet: True
+    quiet: true
     fail_msg: "Cannot install {{ infinispan.name }} without RHN credentials. Check rhn_username and rhn_password are defined"
     success_msg: "Installing {{ infinispan_service_desc }}"
 
@@ -12,7 +12,7 @@
   ansible.builtin.assert:
     that:
       - infinispan_supervisor_password | length > 12
-    quiet: True
+    quiet: true
     fail_msg: "The console administrator password is empty or invalid. Please set the infinispan_supervisor_password variable to a 12+ char long string"
     success_msg: "{{ 'Console administrator password OK' }}"
 

@@ -4,14 +4,14 @@
     name: "{{ infinispan.group.name }}"
     state: present
     gid: "{{ infinispan.group.id | default(omit) }}"
-  become: yes
+  become: true
 
 - name: "Create user {{ infinispan.user.name }}"
   ansible.builtin.user:
     name: "{{ infinispan.user.name }}"
     state: present
     uid: "{{ infinispan.user.id | default(omit) }}"
-  become: yes
+  become: true
 
 - name: "Create download directory"
   ansible.builtin.file:
@@ -19,8 +19,8 @@
     state: directory
     owner: "{{ infinispan.user.name }}"
     group: "{{ infinispan.group.name }}"
-    mode: 0750
-  become: yes
+    mode: '0750'
+  become: true
 
 ## check remote archive
 - name: Set download archive path
@@ -31,7 +31,7 @@
   ansible.builtin.stat:
     path: "{{ archive }}"
   register: archive_path
-  become: yes
+  become: true
 
 - name: Check local download archive path
   ansible.builtin.stat:
@@ -44,7 +44,7 @@
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ infinispan_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ infinispan.bundle }}"
-    mode: 0644
+    mode: '0644'
   delegate_to: localhost
   when:
     - archive_path is defined
@@ -55,7 +55,7 @@
 
 - name: Download Red Hat Data Grid from RHN using JBoss Network API
   delegate_to: localhost
-  run_once: yes
+  run_once: true
   when:
     - archive_path is defined
     - archive_path.stat is defined
@@ -73,13 +73,13 @@
         product_category: "{{ data_grid_product_category }}"
       register: rhn_products
       delegate_to: localhost
-      run_once: yes
+      run_once: true
 
     - name: Determine install zipfile from search results
       ansible.builtin.set_fact:
         rhn_filtered_products: "{{ rhn_products.results | selectattr('file_path', 'match', '.*/redhat-datagrid-' + data_grid_version + '-server.zip') }}"
       delegate_to: localhost
-      run_once: yes
+      run_once: true
 
     - name: Download Data Grid
       middleware_automation.common.product_download:
@@ -89,13 +89,13 @@
         dest: "{{ local_path.stat.path }}/{{ infinispan.bundle }}"
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
-      run_once: yes
+      run_once: true
 
 - name: Download Data Grid archive from alternate location
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ infinispan_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ infinispan.bundle }}"
-    mode: 0644
+    mode: '0644'
   delegate_to: localhost
   when:
     - jdg_download_url is defined and jdg_download_url | length > 0
@@ -120,18 +120,18 @@
     dest: "{{ archive }}"
     owner: "{{ infinispan.user.name }}"
     group: "{{ infinispan.group.name }}"
-    mode: 0640
+    mode: '0640'
   register: new_version_downloaded
   when:
     - local_archive_path.stat is defined
     - local_archive_path.stat.exists
-  become: yes
+  become: true
 
 - name: "Check target directory: {{ infinispan.installation_path }}"
   ansible.builtin.stat:
     path: "{{ infinispan.installation_path }}/bin"
   register: path_to_workdir
-  become: yes
+  become: true
 
 - name: "Create target directory {{ infinispan.installation_path | dirname }}"
   ansible.builtin.file:
@@ -139,18 +139,18 @@
     path: "{{ infinispan.installation_path | dirname }}"
     owner: "{{ infinispan.user.name }}"
     group: "{{ infinispan.group.name }}"
-    mode: 0750
-  become: yes
+    mode: '0750'
+  become: true
 
 - name: "Extract {{ infinispan.name }} archive on target {{ infinispan.installation_path }}"
   ansible.builtin.unarchive:
-    remote_src: yes
+    remote_src: true
     src: "{{ archive }}"
     dest: "{{ infinispan.installation_path | dirname | dirname }}"
     creates: "{{ infinispan.installation_path }}/bin"
     owner: "{{ infinispan.user.name }}"
     group: "{{ infinispan.group.name }}"
-  become: yes
+  become: true
   when:
     - new_version_downloaded.changed or not path_to_workdir.stat.exists
   notify:
@@ -168,5 +168,5 @@
     owner: "{{ infinispan.user.name }}"
     group: "{{ infinispan.group.name }}"
     recurse: true
-  become: yes
+  become: true
   changed_when: false
