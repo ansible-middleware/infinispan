@@ -12,7 +12,7 @@ v1.3.2-devel
 Minor Changes
 -------------
 
-- Update to 15.0.2 / 8.4.8 `#44 <https://github.com/ansible-middleware/infinispan/pull/44>`_
+- Update to 8.4.8 / linter pass / remove deprecated configs `#44 <https://github.com/ansible-middleware/infinispan/pull/44>`_
 
 v1.3.1
 ======
