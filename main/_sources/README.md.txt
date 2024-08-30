@@ -3,7 +3,7 @@
 <!--start build_status -->
 [![Build Status](https://github.com/ansible-middleware/infinispan/workflows/CI/badge.svg?branch=main)](https://github.com/ansible-middleware/infinispan/actions/workflows/ci.yml)
 
-> **_NOTE:_ If you are Red Hat customer, install `redhat.data_grid` from [Automation Hub](https://console.redhat.com/ansible/ansible-dashboard) as the certified version of this collection.**
+> **_NOTE:_ If you are Red Hat customer, install `redhat.data_grid` from [Automation Hub](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/data_grid/) as the certified version of this collection.**
 <!--end build_status -->
 
 <!--start upstream_downstream -->
@@ -16,7 +16,7 @@ Infinispan can be used as remote caches for other software, such as [Keycloak](h
 <!--start requires_ansible-->
 ## Ansible version compatibility
 
-This collection has been tested against following Ansible versions: **>=2.14.0**.
+This collection has been tested against following Ansible versions: **>=2.15.0**.
 
 Plugins and modules within a collection may be tested with only specific Ansible versions. A collection may contain metadata that identifies these versions.
 <!--end requires_ansible-->
