@@ -68,12 +68,36 @@ A requirement file is provided to install:
 
     pip install -r requirements.txt
 
+
 <!--start roles_paths -->
 ### Included roles
 
 * [`infinispan`](https://github.com/ansible-middleware/infinispan/tree/main/roles/infinispan): performs an installation of Infinispan or DataGrid nodes or cluster, with configuration of static caches.
 * [`infinispan_cache`](https://github.com/ansible-middleware/infinispan/tree/main/roles/infinispan_cache): creates Infinispan or DataGrid caches at runtime.
 <!--end roles_paths -->
+
+### Install playbook
+
+* [`playbooks/infinispan.yml`](https://github.com/ansible-middleware/amq/blob/main/playbooks/infinispan.yml) deploys based on the collections defaults.
+
+
+#### Controller node install zipfile path
+
+By default the collection will download the desired version of the install zipfile to the ansible controller node, then it will distribute to target nodes.
+
+
+#### Offline from controller node
+
+Making the install zipfile archive available to the playbook working directory, and setting `infinispan_offline_install` to `true`, allows to skip
+the download tasks. The local path for the archive does match the downloaded archive path, so that it is also used as a cache when multiple hosts are provisioned in a cluster.
+
+```yaml
+infinispan_offline_install: true
+```
+
+<!--start rhn_credentials -->
+<!--end rhn_credentials -->
+
 
 <!--start support -->
 <!--end support -->

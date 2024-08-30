@@ -56,6 +56,6 @@ A correction to the README would be considered a bug fix and the PATCH increment
 Only the PATCH version should be increased for a release that contains changes limited to revised documentation.
 
 
-# Release automation
+## Release automation
 
 New releases are triggered by annotated git tags named after semantic versioning. The automation publishes the built artifacts to ansible-galaxy and github releases page.

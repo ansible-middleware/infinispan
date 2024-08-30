@@ -9,6 +9,7 @@ jobs:
     with:
       collection_fqcn: 'middleware_automation.infinispan'
       downstream_name: 'dg'
+      release_summary: "${{ github.event.inputs.release_summary }}"
     secrets:
       galaxy_token: ${{ secrets.ANSIBLE_GALAXY_API_KEY }}
       jira_webhook: ${{ secrets.JIRA_WEBHOOK_CREATE_VERSION }}
