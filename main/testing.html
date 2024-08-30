@@ -22,8 +22,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Contributor’s Guidelines" href="developing.html" />
-    <link rel="prev" title="infinispan_cache" href="roles/infinispan_cache.html" /> 
+    <link rel="next" title="Collection Versioning Strategy" href="releasing.html" />
+    <link rel="prev" title="Developing" href="developing.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,22 +49,18 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="README.html">Ansible Collection - middleware_automation.infinispan</a></li>
 <li class="toctree-l1"><a class="reference internal" href="roles/index.html">Role Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Developer documentation</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html#contributor-s-guidelines">Contributor’s Guidelines</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Testing</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#continuous-integration">Continuous integration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#integration-testing">Integration testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#test-playbooks">Test playbooks</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="developing.html">Contributor’s Guidelines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="releasing.html">Collection Versioning Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="releasing.html#release-automation">Release automation</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">General</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releasing.html">Releasing</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Middleware collections</span></p>
 <ul>
@@ -74,7 +70,6 @@
 <li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/jws/">Tomcat / Red Hat JWS</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/amq/">ActiveMQ / Red Hat AMQ</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/amq_streams/">Kafka / Red Hat AMQ Streams</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/redhat-csp-download/">Red Hat CSP Download</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/ansible_collections_jcliff/">JCliff</a></li>
 </ul>
 
@@ -106,24 +101,8 @@
 <h1>Testing<a class="headerlink" href="#testing" title="Link to this heading"></a></h1>
 <section id="continuous-integration">
 <h2>Continuous integration<a class="headerlink" href="#continuous-integration" title="Link to this heading"></a></h2>
-<p>The collection is tested with a <a class="reference external" href="https://github.com/ansible-community/molecule">molecule</a> setup covering the included roles and verifying correct installation and idempotency.
-In order to run the molecule tests locally with python 3.9 available, after cloning the repository:</p>
-<div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">pip install yamllint &#39;molecule[docker]~=3.5.2&#39; ansible-core flake8 ansible-lint voluptuous</span>
-<span class="l l-Scalar l-Scalar-Plain">molecule test --all</span>
-</pre></div>
-</div>
-</section>
-<section id="integration-testing">
-<h2>Integration testing<a class="headerlink" href="#integration-testing" title="Link to this heading"></a></h2>
-<p>Demo repositories which depend on the collection, and aggregate functionality with other middleware_automation collections, are automatically rebuilt
-at every collection release to ensure non-breaking changes and consistent behaviour.</p>
-<p>The repository are:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/ansible-middleware/flange-demo">Flange demo</a>
-A deployment of Wildfly cluster integrated with keycloak and infinispan.</p></li>
-<li><p><a class="reference external" href="https://github.com/ansible-middleware/cross-dc-rhsso-demo">CrossDC keycloak demo</a>
-A clustered multi-regional installation of keycloak with infinispan remote caches.</p></li>
-</ul>
+<p>The collection is tested with a <a class="reference external" href="https://github.com/ansible-community/molecule">molecule</a> setup covering the included roles and verifying correct installation, configuration, and idempotency.
+The test scenarios are available on the source code repository each on his own subdirectory under <a class="reference external" href="https://github.com/ansible-middleware/infinispan/molecule">molecule/</a>.</p>
 </section>
 <section id="test-playbooks">
 <h2>Test playbooks<a class="headerlink" href="#test-playbooks" title="Link to this heading"></a></h2>
@@ -153,8 +132,8 @@ A clustered multi-regional installation of keycloak with infinispan remote cache
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="roles/infinispan_cache.html" class="btn btn-neutral float-left" title="infinispan_cache" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="developing.html" class="btn btn-neutral float-right" title="Contributor’s Guidelines" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="developing.html" class="btn btn-neutral float-left" title="Developing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="releasing.html" class="btn btn-neutral float-right" title="Collection Versioning Strategy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
