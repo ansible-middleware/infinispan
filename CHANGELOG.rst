@@ -6,6 +6,15 @@ middleware\_automation.infinispan Release Notes
 
 This changelog describes changes after version 0.1.9.
 
+v1.3.2
+======
+
+Minor Changes
+-------------
+
+- Update minimum ansible-core >= 2.15 `#46 <https://github.com/ansible-middleware/infinispan/pull/46>`_
+- Update to 8.4.8 / 15.0.2 and remove deprecated configs `#44 <https://github.com/ansible-middleware/infinispan/pull/44>`_
+
 v1.3.1
 ======
 
