@@ -1,7 +1,7 @@
 ---
-infinispan_bind_address: localhost
-infinispan_port: 11222
-infinispan_tls: False
-infinispan_deployer_user: supervisor
+infinispan_bind_address: localhost     # noqa var-naming
+infinispan_port: 11222                 # noqa var-naming
+infinispan_tls: False                  # noqa var-naming
+infinispan_deployer_user: supervisor   # noqa var-naming
 infinispan_cache_xml: ''
 infinispan_cache_config: {}

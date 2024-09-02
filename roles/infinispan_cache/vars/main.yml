@@ -1,8 +1,8 @@
 ---
 # Required variables
-infinispan_deployer_password:
+infinispan_deployer_password:  # noqa var-naming
 
 # Internal variables
-infinispan_rest_cache_api_path: /rest/v2/caches/
-infinispan_scheme: "{{ 'https' if infinispan_tls else 'http' }}"
-infinispan_url: "{{ infinispan_scheme }}://{{ infinispan_bind_address }}:{{ infinispan_port }}{{ infinispan_rest_cache_api_path }}"
+infinispan_rest_cache_api_path: /rest/v2/caches/ # noqa var-naming
+infinispan_scheme: "{{ 'https' if infinispan_tls else 'http' }}" # noqa var-naming
+infinispan_url: "{{ infinispan_scheme }}://{{ infinispan_bind_address }}:{{ infinispan_port }}{{ infinispan_rest_cache_api_path }}" # noqa var-naming

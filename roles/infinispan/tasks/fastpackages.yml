@@ -12,7 +12,7 @@
 
 - name: "Install packages: {{ packages_to_install }}"
   become: true
-  ansible.builtin.yum:
+  ansible.builtin.package:
     name: "{{ packages_to_install }}"
     state: present
   when: packages_to_install | default([]) | length > 0
