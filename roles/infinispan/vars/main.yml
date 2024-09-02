@@ -11,7 +11,7 @@ infinispan_supervisor:
   password: "{{ infinispan_supervisor_password }}"
   roles: 'admin'
 
-infinispan:
+infinispan:   # noqa var-naming
   home: "{{ infinispan_installation_path }}"
   version: "{{ infinispan_version }}"
   bundle: "{{ infinispan_bundle }}"
