@@ -5,7 +5,7 @@
     owner: root
     group: root
     mode: '0644'
-  become: true
+  become: "{{ infinispan_install_requires_become | default(true) }}"
   register: ispn_daemon_reload
   notify:
     - restart infinispan
@@ -16,4 +16,4 @@
   when:
     - ispn_daemon_reload is defined
     - ispn_daemon_reload.changed
-  become: true
+  become: "{{ infinispan_install_requires_become | default(true) }}"

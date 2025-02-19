@@ -6,11 +6,11 @@
     ansible.builtin.systemd:
       name: "{{ infinispan.service.unit_file }}"
       state: restarted
-    become: true
+    become: "{{ infinispan_install_requires_become | default(true) }}"
   - name: "Wait for used port to be open"
     ansible.builtin.wait_for:
       port: "{{ infinispan.port }}"
       delay: 0
     when:
       - infinispan_healthcheck
-    become: true
+    become: "{{ infinispan_install_requires_become | default(true) }}"

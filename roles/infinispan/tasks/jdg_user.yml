@@ -15,7 +15,7 @@
     mode: '0644'
   notify:
     - restart infinispan
-  become: true
+  become: "{{ infinispan_install_requires_become | default(true) }}"
 
 - name: "Ensure {{ infinispan.config.groups }} exists"
   ansible.builtin.template:
@@ -26,4 +26,4 @@
     mode: '0644'
   notify:
     - restart infinispan
-  become: true
+  become: "{{ infinispan_install_requires_become | default(true) }}"

@@ -95,7 +95,7 @@
     jdg_rpm_java_home: "{{ rpm_java_home }}"
   notify:
     - restart infinispan
-  become: true
+  become: "{{ infinispan_install_requires_become | default(true) }}"
 
 - name: "Get xsd schema versions"
   ansible.builtin.find:
@@ -103,7 +103,7 @@
     use_regex: true
     patterns: ['^.*-server-[0-9.]*[.]xsd$']
   register: server_schema
-  become: true
+  become: "{{ infinispan_install_requires_become | default(true) }}"
 
 - name: "Set fetched schema version for template"
   ansible.builtin.set_fact:
@@ -119,7 +119,7 @@
     backup: true
   notify:
     - restart infinispan
-  become: true
+  become: "{{ infinispan_install_requires_become | default(true) }}"
 
 - name: "Ensure {{ infinispan.service.name }} log4j2 configuration is deployed"
   ansible.builtin.template:
@@ -131,7 +131,7 @@
     backup: true
   notify:
     - restart infinispan
-  become: true
+  become: "{{ infinispan_install_requires_become | default(true) }}"
 
 - name: Download database driver jar to target
   ansible.builtin.get_url:
@@ -142,7 +142,7 @@
     mode: '0644'
   when:
     - infinispan_jgroups_discovery == 'JDBC_PING'
-  become: true
+  become: "{{ infinispan_install_requires_become | default(true) }}"
 
 - name: Include users tasks
   ansible.builtin.include_tasks: jdg_user.yml
@@ -166,4 +166,4 @@
     src: "{{ infinispan.home }}server/log"
     dest: "/var/log/infinispan{{ '-' + infinispan_nodename if infinispan_nodename != inventory_hostname else '' }}"
     force: true
-  become: true
+  become: "{{ infinispan_install_requires_become | default(true) }}"

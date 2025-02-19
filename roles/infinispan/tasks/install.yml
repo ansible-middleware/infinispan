@@ -4,14 +4,14 @@
     name: "{{ infinispan.group.name }}"
     state: present
     gid: "{{ infinispan.group.id | default(omit) }}"
-  become: true
+  become: "{{ infinispan_install_requires_become | default(true) }}"
 
 - name: "Create user {{ infinispan.user.name }}"
   ansible.builtin.user:
     name: "{{ infinispan.user.name }}"
     state: present
     uid: "{{ infinispan.user.id | default(omit) }}"
-  become: true
+  become: "{{ infinispan_install_requires_become | default(true) }}"
 
 - name: "Create download directory"
   ansible.builtin.file:
@@ -20,7 +20,7 @@
     owner: "{{ infinispan.user.name }}"
     group: "{{ infinispan.group.name }}"
     mode: '0750'
-  become: true
+  become: "{{ infinispan_install_requires_become | default(true) }}"
 
 ## check remote archive
 - name: Set download archive path
@@ -31,7 +31,7 @@
   ansible.builtin.stat:
     path: "{{ archive }}"
   register: archive_path
-  become: true
+  become: "{{ infinispan_install_requires_become | default(true) }}"
 
 - name: Check local download archive path
   ansible.builtin.stat:
@@ -125,13 +125,13 @@
   when:
     - local_archive_path.stat is defined
     - local_archive_path.stat.exists
-  become: true
+  become: "{{ infinispan_install_requires_become | default(true) }}"
 
 - name: "Check target directory: {{ infinispan.installation_path }}"
   ansible.builtin.stat:
     path: "{{ infinispan.installation_path }}/bin"
   register: path_to_workdir
-  become: true
+  become: "{{ infinispan_install_requires_become | default(true) }}"
 
 - name: "Create target directory {{ infinispan.installation_path | dirname }}"
   ansible.builtin.file:
@@ -140,7 +140,7 @@
     owner: "{{ infinispan.user.name }}"
     group: "{{ infinispan.group.name }}"
     mode: '0750'
-  become: true
+  become: "{{ infinispan_install_requires_become | default(true) }}"
 
 - name: "Extract {{ infinispan.name }} archive on target {{ infinispan.installation_path }}"
   ansible.builtin.unarchive:
@@ -150,7 +150,7 @@
     creates: "{{ infinispan.installation_path }}/bin"
     owner: "{{ infinispan.user.name }}"
     group: "{{ infinispan.group.name }}"
-  become: true
+  become: "{{ infinispan_install_requires_become | default(true) }}"
   when:
     - new_version_downloaded.changed or not path_to_workdir.stat.exists
   notify:
@@ -168,5 +168,5 @@
     owner: "{{ infinispan.user.name }}"
     group: "{{ infinispan.group.name }}"
     recurse: true
-  become: true
+  become: "{{ infinispan_install_requires_become | default(true) }}"
   changed_when: false

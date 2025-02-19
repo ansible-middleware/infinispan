@@ -11,9 +11,10 @@ on:
 
 jobs:
   ci:
-    uses: ansible-middleware/github-actions/.github/workflows/ci.yml@main
+    uses: ansible-middleware/github-actions/.github/workflows/ci.yml@rootperm
     secrets: inherit
     with:
       fqcn: 'middleware_automation/infinispan'
+      root_permission_varname: 'infinispan_install_requires_become'
       molecule_tests: >-
           [ "default" ]

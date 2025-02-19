@@ -1,7 +1,7 @@
 # Ansible Collection - middleware_automation.infinispan
 
 <!--start build_status -->
-[![Build Status](https://github.com/ansible-middleware/infinispan/workflows/CI/badge.svg?branch=main)](https://github.com/ansible-middleware/infinispan/actions/workflows/ci.yml)
+[![Build Status](https://github.com/ansible-middleware/infinispan/workflows/CI/badge.svg)](https://github.com/ansible-middleware/infinispan/actions/workflows/ci.yml)
 
 > **_NOTE:_ If you are Red Hat customer, install `redhat.data_grid` from [Automation Hub](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/data_grid/) as the certified version of this collection.**
 <!--end build_status -->

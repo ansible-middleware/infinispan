@@ -1,7 +1,7 @@
 ---
 - name: Playbook for infinispan Hosts
   hosts: all
-  become: yes
+  become: "{{ infinispan_install_requires_become | default(true) }}"
   roles:
     - role: infinispan
       infinispan_supervisor_password: "remembertochangeme"

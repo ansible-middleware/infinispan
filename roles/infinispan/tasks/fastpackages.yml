@@ -11,7 +11,7 @@
                              map('regex_findall', 'package (.+) is not installed$') | default([]) | flatten }}"
 
 - name: "Install packages: {{ packages_to_install }}"
-  become: true
+  become: "{{ infinispan_install_requires_become | default(true) }}"
   ansible.builtin.package:
     name: "{{ packages_to_install }}"
     state: present
