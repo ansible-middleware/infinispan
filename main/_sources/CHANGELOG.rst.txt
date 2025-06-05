@@ -9,10 +9,10 @@ This changelog describes changes after version 0.1.9.
 v1.3.3-devel
 ============
 
-Release Summary
----------------
+Minor Changes
+-------------
 
-Internal release, documentation or test changes only.
+- Update to infinispan 15.2 / datagrid 8.5 `#49 <https://github.com/ansible-middleware/infinispan/pull/49>`_
 
 v1.3.2
 ======
