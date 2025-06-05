@@ -45,7 +45,7 @@
       method: "GET"
       user: "{{ infinispan_deployer_user }}"
       password: "{{ infinispan_deployer_password }}"
-      force_basic_auth: yes
+      force_basic_auth: true
       status_code: 404
     register: cache_status
     retries: 5
@@ -60,7 +60,7 @@
         Content-Type: application/xml
       user: "{{ infinispan_deployer_user }}"
       password: "{{ infinispan_deployer_password }}"
-      force_basic_auth: yes
+      force_basic_auth: true
       status_code:
         - 200
         - 201

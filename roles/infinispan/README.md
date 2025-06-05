@@ -16,25 +16,25 @@ Role Defaults
 |`infinispan_jgroups_relay_port`| Alternate port for the jgroups relaying cluster | `7801` |
 |`infinispan_port_offset`| Optional port offset for colocated installations | `0` |
 |`infinispan_nodename`| Instance name for service (ie. cluster node identifier) | `{{ inventory_hostname }}` |
-|`infinispan_keycloak_persistence`| Enable persitence datasource for keycloak caches | `False` |
+|`infinispan_keycloak_persistence`| Enable persitence datasource for keycloak caches | `false` |
 |`infinispan_service_user`| Posix account for the service installation | `ispn` |
 |`infinispan_service_group`| Posix group for the service installation | `ispn` |
 |`infinispan_logfile_format`| Main logfile format: FILE or JSON-FILE | `FILE` |
 |`infinispan_logfile_root_level`| Root logging level: TRACE, DEBUG, INFO, WARN, ERROR | `INFO` |
-|`infinispan_logfile_enable_audit`| Enable additional audit.log logfile | `True` |
-|`infinispan_logfile_enable_hotrod_accesslog`| Enable additional hotrod-access.log | `False` |
-|`infinispan_logfile_enable_rest_accesslog`| Enable additional rest-access.log | `False` |
+|`infinispan_logfile_enable_audit`| Enable additional audit.log logfile | `true` |
+|`infinispan_logfile_enable_hotrod_accesslog`| Enable additional hotrod-access.log | `false` |
+|`infinispan_logfile_enable_rest_accesslog`| Enable additional rest-access.log | `false` |
 |`infinispan_logfile_maxsize`| Max file size, triggers rotation | `100 MB` |
-|`infinispan_default_realm_tls`| Enable TLS server certificate | `False` |
+|`infinispan_default_realm_tls`| Enable TLS server certificate | `false` |
 |`infinispan_keystore_path`| Path to keystore containing server identity certificate | `/etc/pki/java/cacerts` |
 |`infinispan_keystore_password`| Keystore password | `changeit` |
 |`infinispan_keystore_alias`| Alias for the certificate to load from keystore | `{{ inventory_hostname }}` |
 |`infinispan_keystore_key_password`| Key passphrase for TLS server identity | `''`|
-|`infinispan_keycloak_caches`| Creates remote caches for keycloak | `False` |
+|`infinispan_keycloak_caches`| Creates remote caches for keycloak | `false` |
 |`infinispan_jvm_package`| RHEL java package runtime | `java-11-openjdk-headless` |
 |`infinispan_service_name`| Name of the systemd service unit, appended with `-{{infinispan_port_offset}}` when not 0 | `infinispan` |
 |`infinispan_service_desc` | Description of the systemd service unit | `Infinispan` |
-|`infinispan_service_restart_on_failure`| systemd restart-on-failure behavior activation | `True`` |
+|`infinispan_service_restart_on_failure`| systemd restart-on-failure behavior activation | `true`` |
 |`infinispan_service_startlimitintervalsec`| systemd StartLimitIntervalSec | `300` if `infinispan_service_restart_on_failure` else `` |
 |`infinispan_service_startlimitburst`| systemd StartLimitBurst | `5` if `infinispan_service_restart_on_failure` else `` |
 |`infinispan_service_restartsec`| systemd RestartSec | `10s` if `infinispan_service_restart_on_failure` else `` |
@@ -45,7 +45,7 @@ Role Defaults
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
-|`infinispan_jgroups_relay`| Enable cross-DC relaying | `False` |
+|`infinispan_jgroups_relay`| Enable cross-DC relaying | `false` |
 |`infinispan_jgroups_relay_sites`| List of site names for cross-DC relaying | `[]` |
 |`infinispan_jgroups_relay_site`| Site the inventory host is in when cross-DC is enabled | `''` |
 |`infinispan_jgroups_discovery`| Clustering discovery protocol, value from [`PING`,`TCPPING`,`JDBC_PING`] | `` |
@@ -79,19 +79,19 @@ and `value` is explicit connection string.
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
-|`infinispan_offline_install`| Perform an offline install |`False`|
+|`infinispan_offline_install`| Perform an offline install |`false`|
 |`infinispan_version`| Infinispan version to install | `14.0.13.Final` |
 |`infinispan_bundle`| Archive name for Infinispan download | `infinispan-server-{{ infinispan_version }}.zip` |
 |`infinispan_download_url`| Download URL for infinispan | `https://downloads.jboss.org/infinispan/{{ infinispan_version }}/{{ infinispan_bundle }}` |
 |`infinispan_dest`| Directory where to extract installation archives | `/opt/infinispan` |
 |`infinispan_installation_path`| Specific unxtracted installation path for infinispan | `/opt/infinispan/infinispan-server-{{ infinispan_version }}/` |
 |`infinispan_app_download_dir`| Directory where to download archives | `/opt/infinispan` |
-|`infinispan_healthcheck`| Check health of service at end of installation | `True` |
+|`infinispan_healthcheck`| Check health of service at end of installation | `true` |
 |`infinispan_bind_address`| Alternate bind address for the daemon | `localhost` |
 |`infinispan_caches`| List of cache definitions to configure statically | `[]` |
 |`infinispan_users`| List of users to create | `[]` |
 |`infinispan_rest_cache_api_path`| Path of infinispan rest api | `/rest/v2/caches/` |
-|`infinispan_configure_firewalld`| Ensure firewalld is running and configure infinispan ports | `False` |
+|`infinispan_configure_firewalld`| Ensure firewalld is running and configure infinispan ports | `false` |
 
 
 Role Variables
@@ -101,9 +101,9 @@ The following are a set of required variables for the role:
 
 | Variable | Description | Required |
 |:---------|:------------|:---------|
-|`infinispan_supervisor_password`| Password for the administration console user account | `yes` |
-|`infinispan_users`| List of _user definitions_ to create | `no` |
-|`infinispan_java_home`| JAVA_HOME of installed JRE, leave empty for using specified `infinispan_jvm_package` RPM path | `no` |
+|`infinispan_supervisor_password`| Password for the administration console user account | `true` |
+|`infinispan_users`| List of _user definitions_ to create | `false` |
+|`infinispan_java_home`| JAVA_HOME of installed JRE, leave empty for using specified `infinispan_jvm_package` RPM path | `false` |
 
 Sample _user definition_ format:
 
@@ -168,7 +168,7 @@ Offline installation
 
 Performing an offline installation is possible by:
 
-* setting `infinispan_offline_install` to `True`
+* setting `infinispan_offline_install` to `true`
 * making the file available to ansible controller, using as filename `infinispan_bundle`.
 
 
@@ -227,7 +227,7 @@ infinispan_caches:
       name: 'my-distributed-cache'
       template: 'distribute-cache'
       encoding: 'application/x-jboss-marshalling'
-      persistence: False
+      persistence: false
 
 ```
 

@@ -21,7 +21,7 @@
           - sudo_pkg_name in ansible_facts.packages
 
     - name: Install requirements for tests
-      become: yes
+      become: true
       ansible.builtin.yum:
         name:
           - iproute

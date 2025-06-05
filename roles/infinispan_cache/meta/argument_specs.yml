@@ -65,11 +65,11 @@ argument_specs:
                 type: "str"
             data_grid_enable:
                 # line 17 of infinispan/defaults/main.yml
-                default: True
+                default: true
                 description: "Install Red Hat Data Grid when true, Infinispan otherwise"
                 type: "bool"
             data_grid_offline_install:
                 # line 19 of infinispan/defaults/main.yml
-                default: True
+                default: true
                 description: "Perform an offline install"
                 type: "bool"

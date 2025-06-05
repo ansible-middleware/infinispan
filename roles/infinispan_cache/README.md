@@ -22,7 +22,7 @@ Role Defaults
 |`infinispan_scheme`| Choose rest api protocol | `{{ 'https' if infinispan_tls else 'http' }}` |
 |`infinispan_url`| Complete URL for connecting to infinispan rest api | `{{ infinispan_scheme }}://{{ infinispan_bind_address }}:{{ infinispan_port }}{{ infinispan_rest_cache_api_path }}` |
 |`infinispan_port`| Alternate port for the service | `11222` |
-|`infinispan_tls`| Server REST API/hotrod have TLS enabled | `False` |
+|`infinispan_tls`| Server REST API/hotrod have TLS enabled | `false` |
 |`infinispan_deployer_user`| Username that performs the API call | `supervisor` |
 |`infinispan_cache_xml`| XML declaration for the cache to deploy as string | `None` |
 |`infinispan_cache_config`| dict object with configuration for the cache to deploy | `{}`, see below for specs |
