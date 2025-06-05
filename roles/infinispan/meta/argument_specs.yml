@@ -18,7 +18,7 @@ argument_specs:
                 description: "Archive name for Infinispan download"
                 type: "str"
             infinispan_download_url:
-                default: "https://downloads.jboss.org/infinispan/{{ infinispan_version }}/{{ infinispan_bundle }}"
+                default: "https://github.com/infinispan/infinispan/releases/download/{{ infinispan_version }}/{{ infinispan_bundle }}"
                 description: "Download URL for infinispan"
                 type: "str"
             infinispan_installation_path:

@@ -1,7 +1,7 @@
 ---
 infinispan_version: "15.2.0.Final"
 infinispan_bundle: "infinispan-server-{{ infinispan_version }}.zip"
-infinispan_download_url: "https://downloads.jboss.org/infinispan/{{ infinispan_version }}/{{ infinispan_bundle }}"
+infinispan_download_url: "https://github.com/infinispan/infinispan/releases/download/{{ infinispan_version }}/{{ infinispan_bundle }}"
 infinispan_dest: /opt/infinispan
 infinispan_installation_path: "{{ infinispan_dest }}/infinispan-server-{{ infinispan_version }}/"
 
