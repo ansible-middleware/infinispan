@@ -6,6 +6,14 @@ middleware\_automation.infinispan Release Notes
 
 This changelog describes changes after version 0.1.9.
 
+v1.3.3
+======
+
+Minor Changes
+-------------
+
+- Update to infinispan 15.2 / datagrid 8.5 `#49 <https://github.com/ansible-middleware/infinispan/pull/49>`_
+
 v1.3.2
 ======
 
