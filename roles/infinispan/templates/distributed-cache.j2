@@ -6,10 +6,11 @@
                    remote-timeout="{{ cache_config.remote_timeout|default('60000') }}"
                    statistics="{{ cache_config.statistics|default('false')|lower }}"
                    segments="{{ cache_config.segments|default('256') }}"
+                   {% if cache_config.key_partitioner | d('') != '' %}key-partitioner="{{ cache_config.key_partitioner }}"{% endif %}
                    unreliable-return-values="{{ cache_config.unreliable_return_values|default('false')|lower }}">
 
 
-  <encoding media-type="{{ cache_config.encoding|default('application/octet-stream') }}"/>
+  <encoding media-type="{{ cache_config.encoding|default('application/x-protostream') }}"/>
 
   <locking isolation="{{ cache_config.isolation|default('REPEATABLE_READ') }}"
            striping="{{ cache_config.isolation_striping|default('false')|lower }}"
@@ -23,12 +24,12 @@
               max-idle="{{ cache_config.expiration_max_idle|default('-1') }}"
               interval="{{ cache_config.expiration_interval|default('60000') }}" />
 
-  <memory {% if cache_config.memory_max_count is defined %}max-count="{{ cache_config.memory_max_count|default('-1') }}" {% endif %} 
-          {% if cache_config.memory_max_size is defined and not cache_config.memory_max_count is defined %}max-size="{{ cache_config.memory_max_size|default('') }}" {% endif %} 
+  <memory {% if cache_config.memory_max_count is defined %}max-count="{{ cache_config.memory_max_count|default('-1') }}" {% endif %}
+          {% if cache_config.memory_max_size is defined and not cache_config.memory_max_count is defined %}max-size="{{ cache_config.memory_max_size|default('') }}" {% endif %}
           when-full="{{ cache_config.memory_when_full|default('NONE') }}"
           storage="{{ cache_config.memory_storage|default('HEAP') }}"/>
 {% if cache_config.indexing is defined and cache_config.indexing %}
-  <indexing enabled="true" 
+  <indexing enabled="true"
             storage="{{ cache_config.indexing_storage|default('filesystem') }}"
             path="{{ cache_config.indexing_path|default('.') }}" >
     <indexed-entities>

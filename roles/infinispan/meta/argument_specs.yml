@@ -10,7 +10,7 @@ argument_specs:
                 description: "Ensure firewalld is running and configure infinispan/datagrid ports"
                 type: "bool"
             infinispan_version:
-                default: "15.0.2.Final"
+                default: "15.2.0.Final"
                 description: "Infinispan version to install"
                 type: "str"
             infinispan_bundle:
@@ -18,7 +18,7 @@ argument_specs:
                 description: "Archive name for Infinispan download"
                 type: "str"
             infinispan_download_url:
-                default: "https://downloads.jboss.org/infinispan/{{ infinispan_version }}/{{ infinispan_bundle }}"
+                default: "https://github.com/infinispan/infinispan/releases/download/{{ infinispan_version }}/{{ infinispan_bundle }}"
                 description: "Download URL for infinispan"
                 type: "str"
             infinispan_installation_path:
@@ -203,7 +203,7 @@ argument_specs:
     downstream:
         options:
             data_grid_version:
-                default: "8.4.8"
+                default: "8.5.3"
                 description: "Red Hat Data Grid version to install"
                 type: "str"
             data_grid_installation_path:
@@ -215,11 +215,11 @@ argument_specs:
                 description: "Archive name for Red Hat Data Grid"
                 type: "str"
             data_grid_enable:
-                default: True
+                default: true
                 description: "Install Red Hat Data Grid when true, Infinispan otherwise"
                 type: "bool"
             data_grid_offline_install:
-                default: False
+                default: false
                 description: "Perform an offline install"
                 type: "bool"
             data_grid_service_name:

@@ -6,35 +6,36 @@
                    remote-timeout="{{ infinispan_cache_config.remote_timeout|default('60000') }}"
                    statistics="{{ infinispan_cache_config.statistics|default('false')|lower }}"
                    segments="{{ infinispan_cache_config.segments|default('256') }}"
+                   {% if infinispan_cache_config.key_partitioner | d('') != '' %}key-partitioner="{{ infinispan_cache_config.key_partitioner }}"{% endif %}
                    unreliable-return-values="{{ infinispan_cache_config.unreliable_return_values|default('false')|lower }}">
 
 
-  <encoding media-type="{{ infinispan_cache_config.encoding|default('application/octet-stream') }}"/>
+  <encoding media-type="{{ infinispan_cache_config.encoding|default('application/x-protostream') }}"/>
 
   <locking isolation="{{ infinispan_cache_config.isolation|default('REPEATABLE_READ') }}"
            striping="{{ infinispan_cache_config.isolation_striping|default('false')|lower }}"
            acquire-timeout="{{ infinispan_cache_config.isolation_acquire_timeout|default('10000') }}"
            concurrency-level="{{ infinispan_cache_config.isolation_concurrency_level|default('32') }}"/>
 
-  <transaction mode="{{ infinispan_cache_config.transaction_mode|default('NONE') }}" 
+  <transaction mode="{{ infinispan_cache_config.transaction_mode|default('NONE') }}"
                locking="{{ infinispan_cache_config.transaction_locking|default('OPTIMISTIC') }}"/>
 
-  <expiration lifespan="{{ infinispan_cache_config.expiration_lifespan|default('-1') }}" 
+  <expiration lifespan="{{ infinispan_cache_config.expiration_lifespan|default('-1') }}"
               max-idle="{{ infinispan_cache_config.expiration_max_idle|default('-1') }}"
               interval="{{ infinispan_cache_config.expiration_interval|default('60000') }}" />
 
-  <memory {% if infinispan_cache_config.memory_max_count is defined %}max-count="{{ infinispan_cache_config.memory_max_count|default('-1') }}" {% endif %} 
-          {% if infinispan_cache_config.memory_max_size is defined and not infinispan_cache_config.memory_max_count is defined %}max-size="{{ infinispan_cache_config.memory_max_size|default('') }}" {% endif %} 
+  <memory {% if infinispan_cache_config.memory_max_count is defined %}max-count="{{ infinispan_cache_config.memory_max_count|default('-1') }}" {% endif %}
+          {% if infinispan_cache_config.memory_max_size is defined and not infinispan_cache_config.memory_max_count is defined %}max-size="{{ infinispan_cache_config.memory_max_size|default('') }}" {% endif %}
           when-full="{{ infinispan_cache_config.memory_when_full|default('NONE') }}"
           storage="{{ infinispan_cache_config.memory_storage|default('HEAP') }}"/>
 {% if infinispan_cache_config.indexing is defined and infinispan_cache_config.indexing %}
-  <indexing enabled="true" 
+  <indexing enabled="true"
             storage="{{ infinispan_cache_config.indexing_storage|default('filesystem') }}"
             path="{{ infinispan_cache_config.indexing_path|default('.') }}" >
     <indexed-entities>
-{% for entity in infinispan_cache_config.indexing_entities %}    
+{% for entity in infinispan_cache_config.indexing_entities %}
       <indexed-entity>{{ entity }}</indexed-entity>
-{% endfor %}      
+{% endfor %}
     </indexed-entities>
   </indexing>
 {% endif %}
@@ -49,7 +50,7 @@
         <jdbc:timestamp-column name="version" type="BIGINT"/>
         <jdbc:segment-column name="S" type="INT"/>
       </jdbc:string-keyed-table>
-    </jdbc:string-keyed-jdbc-store>    
+    </jdbc:string-keyed-jdbc-store>
   </persistence>
 {% endif %}
 {% if infinispan_cache_config.state_transfer is defined and infinispan_cache_config.state_transfer %}

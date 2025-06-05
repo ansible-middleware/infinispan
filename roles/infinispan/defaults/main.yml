@@ -1,16 +1,16 @@
 ---
-infinispan_version: "14.0.21.Final"
+infinispan_version: "15.2.0.Final"
 infinispan_bundle: "infinispan-server-{{ infinispan_version }}.zip"
-infinispan_download_url: "https://downloads.jboss.org/infinispan/{{ infinispan_version }}/{{ infinispan_bundle }}"
+infinispan_download_url: "https://github.com/infinispan/infinispan/releases/download/{{ infinispan_version }}/{{ infinispan_bundle }}"
 infinispan_dest: /opt/infinispan
 infinispan_installation_path: "{{ infinispan_dest }}/infinispan-server-{{ infinispan_version }}/"
 
-infinispan_offline_install: False
+infinispan_offline_install: false
 
 # common config for datagrid/infinispan service
 infinispan_nodename: "{{ inventory_hostname }}"
 infinispan_app_download_dir: "{{ infinispan_dest }}"
-infinispan_healthcheck: True
+infinispan_healthcheck: true
 infinispan_bind_address: localhost
 infinispan_port: 11222
 infinispan_jgroups_port: 7800
@@ -21,18 +21,18 @@ infinispan_service_group: ispn
 infinispan_port_offset: 0
 infinispan_jvm_package: java-17-openjdk-headless
 infinispan_java_home:
-infinispan_configure_firewalld: False
+infinispan_configure_firewalld: false
 
 # systemd
 infinispan_service_name: infinispan
 infinispan_service_desc: Infinispan
-infinispan_service_restart_on_failure: True
+infinispan_service_restart_on_failure: true
 infinispan_service_startlimitintervalsec: "{{ 300 if infinispan_service_restart_on_failure else '' }}"
 infinispan_service_startlimitburst: "{{ 5 if infinispan_service_restart_on_failure else '' }}"
 infinispan_service_restartsec: "{{ '10s' if infinispan_service_restart_on_failure else '' }}"
 
 # flag to enable protocol encryption
-infinispan_default_realm_tls: False
+infinispan_default_realm_tls: false
 infinispan_keystore_path: /etc/pki/java/cacerts
 infinispan_keystore_password: changeit
 infinispan_keystore_alias: "{{ inventory_hostname }}"
@@ -41,7 +41,7 @@ infinispan_keystore_key_password: ''
 # flag to enable clustering on jdbc discovery
 infinispan_jgroups_discovery: "{{ 'JDBC_PING' if infinispan_keycloak_caches else 'TCPPING' }}"
 # flag to enable cross-DC relay
-infinispan_jgroups_relay: False
+infinispan_jgroups_relay: false
 # list of sites (clusters) in the cross-DC global view
 infinispan_jgroups_relay_sites: []
 # site (cluster) this node belongs to, all nodes belong to default if not overridden
@@ -49,10 +49,10 @@ infinispan_jgroups_relay_site: ''
 infinispan_jgroups_cluster_nodes: []
 
 # flag to enable keycloak integration
-infinispan_keycloak_caches: False
+infinispan_keycloak_caches: false
 
 # flag to enable datasource for keycloak integration
-infinispan_keycloak_persistence: False
+infinispan_keycloak_persistence: false
 
 # datasource configuration
 infinispan_jdbc_engine: mariadb
@@ -67,11 +67,11 @@ infinispan_logfile_format: FILE
 # root logging level TRACE, DEBUG, INFO, WARN, ERROR
 infinispan_logfile_root_level: INFO
 # enable additional audit.log logfile
-infinispan_logfile_enable_audit: True
+infinispan_logfile_enable_audit: true
 # enable additional hotrod-access.log
-infinispan_logfile_enable_hotrod_accesslog: False
+infinispan_logfile_enable_hotrod_accesslog: false
 # enable additional rest-access.log
-infinispan_logfile_enable_rest_accesslog: False
+infinispan_logfile_enable_rest_accesslog: false
 # max file size, triggers rotation
 infinispan_logfile_maxsize: '100 MB'
 

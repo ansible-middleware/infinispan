@@ -89,12 +89,12 @@
 {% if infinispan_jgroups_relay %}
       <transport cluster="{{ infinispan_jgroups_relay_site }}" stack="xsite" node-name="{{ infinispan_nodename }}"  machine="{{ inventory_hostname }}" site="{{ infinispan_jgroups_relay_site }}"/>
       <replicated-cache name="work">
-        <encoding media-type="application/x-jboss-marshalling"/>
+        <encoding media-type="application/x-protostream"/>
         <transaction mode="NON_XA"/>
       </replicated-cache>
 {% for keycloak_cache in infinispan_keycloak_cache.caches %}
       <distributed-cache name="{{ keycloak_cache }}" mode="SYNC" owners="2" xmlns:jdbc="urn:infinispan:config:store:jdbc:12.0">
-        <encoding media-type="application/x-jboss-marshalling"/>
+        <encoding media-type="application/x-protostream"/>
         <state-transfer timeout="60000"/>
         <transaction mode="NON_XA"/>
         <locking acquire-timeout="0" />
@@ -127,14 +127,29 @@
 {% else %}
       <transport cluster="datagrid" stack="datagrid" node-name="{{ infinispan_nodename }}" machine="{{ inventory_hostname }}"/>
       <replicated-cache name="work">
-        <encoding media-type="application/x-jboss-marshalling"/>
+        <encoding media-type="application/x-protostream"/>
         <transaction mode="NON_XA"/>
       </replicated-cache>
 {% for keycloak_cache in infinispan_keycloak_cache.caches %}
-      <replicated-cache name="{{ keycloak_cache }}" mode="SYNC">
-        <transaction mode="NONE" locking="PESSIMISTIC"/>
+      <distributed-cache name="{{ keycloak_cache }}" mode="SYNC" owners="2" xmlns:jdbc="urn:infinispan:config:store:jdbc:12.0">
+        <encoding media-type="application/x-protostream"/>
+        <state-transfer timeout="60000"/>
+        <transaction mode="NON_XA"/>
         <locking acquire-timeout="0" />
-      </replicated-cache>
+{% if infinispan_keycloak_persistence %}
+        <persistence passivation="false">
+           <jdbc:string-keyed-jdbc-store fetch-state="false" shared="true" preload="false">
+               <jdbc:data-source jndi-url="jdbc/datasource"/>
+               <jdbc:string-keyed-table drop-on-exit="false" create-on-start="true" prefix="DATAGRID">
+                   <jdbc:id-column name="id" type="VARCHAR(255)"/>
+                   <jdbc:data-column name="datum" type="VARBINARY(4000)"/>
+                   <jdbc:timestamp-column name="version" type="BIGINT"/>
+                   <jdbc:segment-column name="S" type="INT"/>
+               </jdbc:string-keyed-table>
+            </jdbc:string-keyed-jdbc-store>
+        </persistence>
+{% endif %}
+      </distributed-cache>
 {% endfor %}
       <security>
         <authorization>

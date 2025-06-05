@@ -1,7 +1,7 @@
 ---
 - name: Playbook for infinispan Hosts
   hosts: all
-  become: yes
+  become: true
   roles:
     - role: infinispan
       infinispan_supervisor_password: "remembertochangeme"
