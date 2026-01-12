@@ -39,4 +39,3 @@ skip_list:
   - name[template]
 
 use_default_rules: true
-parseable: true

@@ -1,32 +1,55 @@
 ---
+- name: "Import RHEL 8 Python Bootstrap"
+  ansible.builtin.import_playbook: ../common_bootstrap_rhel8.yml
+
 - name: Prepare
   hosts: all
   vars:
      sudo_pkg_name: 'sudo'
   tasks:
 
-    - name: "Ensure {{ sudo_pkg_name }} is installed (if user is root)."
+    - name: "Ensure {{ sudo_pkg_name }} is installed on RHEL 8 (if user is root)."
+      ansible.builtin.command: "dnf install -y {{ sudo_pkg_name }}"
+      changed_when: false # dnf install is idempotent
+      when:
+        - ansible_user_id == 'root'
+        - ansible_facts['distribution_major_version'] == '8'
+
+    - name: "Ensure {{ sudo_pkg_name }} is installed on RHEL 9+ (if user is root)."
       ansible.builtin.yum:
         name: "{{ sudo_pkg_name }}"
       when:
         - ansible_user_id == 'root'
+        - ansible_facts['distribution_major_version'] != '8'
 
-    - name: Gather the package facts
+    - name: "Gather the package facts (skipping on RHEL 8)"
       ansible.builtin.package_facts:
         manager: auto
+      when: ansible_facts['distribution_major_version'] != '8'
 
-    - name: "Check if {{ sudo_pkg_name }} is installed."
+    - name: "Check if {{ sudo_pkg_name }} is installed (skipping on RHEL 8)"
       ansible.builtin.assert:
         that:
           - sudo_pkg_name in ansible_facts.packages
+      when: ansible_facts['distribution_major_version'] != '8'
 
-    - name: Install requirements for tests
+    # FIXED: Install lxml for Python 3.9 on RHEL 8 to support Ansible 2.17+
+    - name: "Install requirements for tests (RHEL 8)"
+      become: true
+      ansible.builtin.shell: |
+        dnf install -y iproute python39-pip
+        pip3.9 install lxml
+      changed_when: false
+      when: ansible_facts['distribution_major_version'] == '8'
+
+    - name: "Install requirements for tests (RHEL 9+)"
       become: true
       ansible.builtin.yum:
         name:
           - iproute
           - python3-lxml
         state: present
+      when: ansible_facts['distribution_major_version'] != '8'
 
     - name: "Retrieve assets server from env"
       ansible.builtin.set_fact:

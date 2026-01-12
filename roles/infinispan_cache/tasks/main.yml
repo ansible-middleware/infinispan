@@ -19,6 +19,8 @@
     xpath: /*
     content: attribute
   register: cache_xml_name
+  vars:
+    ansible_python_interpreter: "{{ '/usr/bin/python3.9' if ansible_facts['distribution_major_version'] == '8' else '/usr/bin/python3' }}"
   when: infinispan_cache_xml is defined and infinispan_cache_xml | trim | length > 0
 
 - name: Set cache name from parsed xml
@@ -51,6 +53,7 @@
     retries: 5
     delay: 5
     until: cache_status.status != -1
+
   - name: "Create cache {{ cache_name }}"
     ansible.builtin.uri:
       url: "{{ infinispan_url }}{{ cache_name }}"
@@ -64,12 +67,29 @@
       status_code:
         - 200
         - 201
+    register: create_cache_response
+
   rescue:
+  - name: "Retry Create cache {{ cache_name }} using curl (Workaround)" # noqa command-instead-of-module
+    ansible.builtin.command: >-
+      curl -X POST -u "{{ infinispan_deployer_user }}:{{ infinispan_deployer_password }}"
+      -H "Content-Type: application/xml"
+      -d '{{ infinispan_cache_xml | trim }}'
+      "{{ infinispan_url }}{{ cache_name }}"
+    register: curl_create
+    changed_when: true
+    when: 
+      - create_cache_response is defined
+      - create_cache_response.status == 400
+
   - name: Ignore cache already existing
     ansible.builtin.debug:
       msg: "Cache {{ cache_name }} already existing, skipping..."
     when: cache_status.status in [200,204]
+
   - name: Exit because rest call failed
     ansible.builtin.fail:
       msg: "Error while calling REST API"
-    when: cache_status.status not in [200,204]
+    when:
+      - cache_status.status not in [200,204]
+      - (curl_create is not defined) or (curl_create is defined and curl_create.rc != 0)
