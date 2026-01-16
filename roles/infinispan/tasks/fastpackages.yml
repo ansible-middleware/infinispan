@@ -10,9 +10,20 @@
     packages_to_install: "{{ packages_to_install | default([]) + rpm_info.stdout_lines | \
                              map('regex_findall', 'package (.+) is not installed$') | default([]) | flatten }}"
 
+- name: "Install packages (RHEL 8)" # noqa command-instead-of-module
+  become: true
+  ansible.builtin.command: "dnf install -y {{ packages_to_install | join(' ') }}"
+  register: _dnf_install_rhel8
+  changed_when: "'Installing' in _dnf_install_rhel8.stdout"
+  when:
+    - packages_to_install | default([]) | length > 0
+    - ansible_facts['distribution_major_version'] == '8'
+
 - name: "Install packages: {{ packages_to_install }}"
   become: true
   ansible.builtin.package:
     name: "{{ packages_to_install }}"
     state: present
-  when: packages_to_install | default([]) | length > 0
+  when:
+    - packages_to_install | default([]) | length > 0
+    - ansible_facts['distribution_major_version'] != '8'

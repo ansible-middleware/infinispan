@@ -10,7 +10,7 @@ argument_specs:
                 description: "Ensure firewalld is running and configure infinispan/datagrid ports"
                 type: "bool"
             infinispan_version:
-                default: "15.2.0.Final"
+                default: "16.0.5"
                 description: "Infinispan version to install"
                 type: "str"
             infinispan_bundle:
@@ -30,7 +30,7 @@ argument_specs:
                 description: "Perform an offline install"
                 type: "bool"
             infinispan_jvm_package:
-                default: "java-11-openjdk-headless"
+                default: "java-21-openjdk-headless"
                 description: "RHEL java package runtime"
                 type: "str"
             infinispan_java_home:
@@ -203,7 +203,7 @@ argument_specs:
     downstream:
         options:
             data_grid_version:
-                default: "8.5.3"
+                default: "8.5.5"
                 description: "Red Hat Data Grid version to install"
                 type: "str"
             data_grid_installation_path:
