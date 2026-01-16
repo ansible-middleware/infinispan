@@ -9,6 +9,11 @@ This changelog describes changes after version 0.1.9.
 v1.3.4-devel
 ============
 
+Major Changes
+-------------
+
+- AMW-466 Ensure infinispan collection is compatible with RHEL 10 `#52 <https://github.com/ansible-middleware/infinispan/pull/52>`_
+
 Bugfixes
 --------
 

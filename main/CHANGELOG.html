@@ -8,15 +8,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>middleware_automation.infinispan Release Notes &mdash; Infinispan Ansible Collection  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/ansible-basic-sphinx-ext.css" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="_static/documentation_options.js?v=5929fcd5"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -49,6 +49,7 @@
 <li class="toctree-l1"><a class="reference internal" href="roles/index.html">Role Index</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#v1-3-4-devel">v1.3.4-devel</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#major-changes">Major Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#bugfixes">Bugfixes</a></li>
 </ul>
 </li>
@@ -57,43 +58,43 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-3-2">v1.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id3">Minor Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Minor Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-3-1">v1.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id6">Minor Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">Bugfixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Minor Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Bugfixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-3-0">v1.3.0</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id10">Minor Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">Minor Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#breaking-changes-porting-guide">Breaking Changes / Porting Guide</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-2-0">v1.2.0</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#major-changes">Major Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id14">Minor Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id17">Bugfixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Major Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">Minor Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id19">Bugfixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-1-4">v1.1.4</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id19">Minor Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id21">Minor Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-1-3">v1.1.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id22">Minor Changes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#v1-1-2">v1.1.2</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id24">Minor Changes</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#v1-1-2">v1.1.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id26">Minor Changes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-1-1">v1.1.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id26">Bugfixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id28">Bugfixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-1-0">v1.1.0</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id28">Breaking Changes / Porting Guide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id30">Breaking Changes / Porting Guide</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-0-3">v1.0.3</a><ul>
@@ -101,17 +102,17 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-0-2">v1.0.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id30">Major Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id32">Minor Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id35">Bugfixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id32">Major Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id34">Minor Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id37">Bugfixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-0-1">v1.0.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id37">Release Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id39">Release Summary</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-0-0">v1.0.0</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id38">Release Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id40">Release Summary</a></li>
 </ul>
 </li>
 </ul>
@@ -160,91 +161,92 @@
            <div itemprop="articleBody">
              
   <section id="middleware-automation-infinispan-release-notes">
-<h1><a class="toc-backref" href="#id39" role="doc-backlink">middleware_automation.infinispan Release Notes</a><a class="headerlink" href="#middleware-automation-infinispan-release-notes" title="Link to this heading"></a></h1>
+<h1><a class="toc-backref" href="#id41" role="doc-backlink">middleware_automation.infinispan Release Notes</a><a class="headerlink" href="#middleware-automation-infinispan-release-notes" title="Link to this heading"></a></h1>
 <nav class="contents" id="topics">
 <p class="topic-title">Topics</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#middleware-automation-infinispan-release-notes" id="id39">middleware_automation.infinispan Release Notes</a></p>
+<li><p><a class="reference internal" href="#middleware-automation-infinispan-release-notes" id="id41">middleware_automation.infinispan Release Notes</a></p>
 <ul>
-<li><p><a class="reference internal" href="#v1-3-4-devel" id="id40">v1.3.4-devel</a></p>
+<li><p><a class="reference internal" href="#v1-3-4-devel" id="id42">v1.3.4-devel</a></p>
 <ul>
-<li><p><a class="reference internal" href="#bugfixes" id="id41">Bugfixes</a></p></li>
+<li><p><a class="reference internal" href="#major-changes" id="id43">Major Changes</a></p></li>
+<li><p><a class="reference internal" href="#bugfixes" id="id44">Bugfixes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-3-3" id="id42">v1.3.3</a></p>
+<li><p><a class="reference internal" href="#v1-3-3" id="id45">v1.3.3</a></p>
 <ul>
-<li><p><a class="reference internal" href="#minor-changes" id="id43">Minor Changes</a></p></li>
+<li><p><a class="reference internal" href="#minor-changes" id="id46">Minor Changes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-3-2" id="id44">v1.3.2</a></p>
+<li><p><a class="reference internal" href="#v1-3-2" id="id47">v1.3.2</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id3" id="id45">Minor Changes</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id48">Minor Changes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-3-1" id="id46">v1.3.1</a></p>
+<li><p><a class="reference internal" href="#v1-3-1" id="id49">v1.3.1</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id6" id="id47">Minor Changes</a></p></li>
-<li><p><a class="reference internal" href="#id8" id="id48">Bugfixes</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id50">Minor Changes</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id51">Bugfixes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-3-0" id="id49">v1.3.0</a></p>
+<li><p><a class="reference internal" href="#v1-3-0" id="id52">v1.3.0</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id10" id="id50">Minor Changes</a></p></li>
-<li><p><a class="reference internal" href="#breaking-changes-porting-guide" id="id51">Breaking Changes / Porting Guide</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id53">Minor Changes</a></p></li>
+<li><p><a class="reference internal" href="#breaking-changes-porting-guide" id="id54">Breaking Changes / Porting Guide</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-2-0" id="id52">v1.2.0</a></p>
+<li><p><a class="reference internal" href="#v1-2-0" id="id55">v1.2.0</a></p>
 <ul>
-<li><p><a class="reference internal" href="#major-changes" id="id53">Major Changes</a></p></li>
-<li><p><a class="reference internal" href="#id14" id="id54">Minor Changes</a></p></li>
-<li><p><a class="reference internal" href="#id17" id="id55">Bugfixes</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id56">Major Changes</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id57">Minor Changes</a></p></li>
+<li><p><a class="reference internal" href="#id19" id="id58">Bugfixes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-1-4" id="id56">v1.1.4</a></p>
+<li><p><a class="reference internal" href="#v1-1-4" id="id59">v1.1.4</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id19" id="id57">Minor Changes</a></p></li>
+<li><p><a class="reference internal" href="#id21" id="id60">Minor Changes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-1-3" id="id58">v1.1.3</a></p>
+<li><p><a class="reference internal" href="#v1-1-3" id="id61">v1.1.3</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id22" id="id59">Minor Changes</a></p></li>
+<li><p><a class="reference internal" href="#id24" id="id62">Minor Changes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-1-2" id="id60">v1.1.2</a></p>
+<li><p><a class="reference internal" href="#v1-1-2" id="id63">v1.1.2</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id24" id="id61">Minor Changes</a></p></li>
+<li><p><a class="reference internal" href="#id26" id="id64">Minor Changes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-1-1" id="id62">v1.1.1</a></p>
+<li><p><a class="reference internal" href="#v1-1-1" id="id65">v1.1.1</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id26" id="id63">Bugfixes</a></p></li>
+<li><p><a class="reference internal" href="#id28" id="id66">Bugfixes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-1-0" id="id64">v1.1.0</a></p>
+<li><p><a class="reference internal" href="#v1-1-0" id="id67">v1.1.0</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id28" id="id65">Breaking Changes / Porting Guide</a></p></li>
+<li><p><a class="reference internal" href="#id30" id="id68">Breaking Changes / Porting Guide</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-0-3" id="id66">v1.0.3</a></p>
+<li><p><a class="reference internal" href="#v1-0-3" id="id69">v1.0.3</a></p>
 <ul>
-<li><p><a class="reference internal" href="#release-summary" id="id67">Release Summary</a></p></li>
+<li><p><a class="reference internal" href="#release-summary" id="id70">Release Summary</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-0-2" id="id68">v1.0.2</a></p>
+<li><p><a class="reference internal" href="#v1-0-2" id="id71">v1.0.2</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id30" id="id69">Major Changes</a></p></li>
-<li><p><a class="reference internal" href="#id32" id="id70">Minor Changes</a></p></li>
-<li><p><a class="reference internal" href="#id35" id="id71">Bugfixes</a></p></li>
+<li><p><a class="reference internal" href="#id32" id="id72">Major Changes</a></p></li>
+<li><p><a class="reference internal" href="#id34" id="id73">Minor Changes</a></p></li>
+<li><p><a class="reference internal" href="#id37" id="id74">Bugfixes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-0-1" id="id72">v1.0.1</a></p>
+<li><p><a class="reference internal" href="#v1-0-1" id="id75">v1.0.1</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id37" id="id73">Release Summary</a></p></li>
+<li><p><a class="reference internal" href="#id39" id="id76">Release Summary</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-0-0" id="id74">v1.0.0</a></p>
+<li><p><a class="reference internal" href="#v1-0-0" id="id77">v1.0.0</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id38" id="id75">Release Summary</a></p></li>
+<li><p><a class="reference internal" href="#id40" id="id78">Release Summary</a></p></li>
 </ul>
 </li>
 </ul>
@@ -253,27 +255,33 @@
 </nav>
 <p>This changelog describes changes after version 0.1.9.</p>
 <section id="v1-3-4-devel">
-<h2><a class="toc-backref" href="#id40" role="doc-backlink">v1.3.4-devel</a><a class="headerlink" href="#v1-3-4-devel" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id42" role="doc-backlink">v1.3.4-devel</a><a class="headerlink" href="#v1-3-4-devel" title="Link to this heading"></a></h2>
+<section id="major-changes">
+<h3><a class="toc-backref" href="#id43" role="doc-backlink">Major Changes</a><a class="headerlink" href="#major-changes" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>AMW-466 Ensure infinispan collection is compatible with RHEL 10 <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/52">#52</a></p></li>
+</ul>
+</section>
 <section id="bugfixes">
-<h3><a class="toc-backref" href="#id41" role="doc-backlink">Bugfixes</a><a class="headerlink" href="#bugfixes" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id44" role="doc-backlink">Bugfixes</a><a class="headerlink" href="#bugfixes" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>infinispan collection CI label is showing no status <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/51">#51</a></p></li>
 </ul>
 </section>
 </section>
 <section id="v1-3-3">
-<h2><a class="toc-backref" href="#id42" role="doc-backlink">v1.3.3</a><a class="headerlink" href="#v1-3-3" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id45" role="doc-backlink">v1.3.3</a><a class="headerlink" href="#v1-3-3" title="Link to this heading"></a></h2>
 <section id="minor-changes">
-<h3><a class="toc-backref" href="#id43" role="doc-backlink">Minor Changes</a><a class="headerlink" href="#minor-changes" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id46" role="doc-backlink">Minor Changes</a><a class="headerlink" href="#minor-changes" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Update to infinispan 15.2 / datagrid 8.5 <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/49">#49</a></p></li>
 </ul>
 </section>
 </section>
 <section id="v1-3-2">
-<h2><a class="toc-backref" href="#id44" role="doc-backlink">v1.3.2</a><a class="headerlink" href="#v1-3-2" title="Link to this heading"></a></h2>
-<section id="id3">
-<h3><a class="toc-backref" href="#id45" role="doc-backlink">Minor Changes</a><a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<h2><a class="toc-backref" href="#id47" role="doc-backlink">v1.3.2</a><a class="headerlink" href="#v1-3-2" title="Link to this heading"></a></h2>
+<section id="id4">
+<h3><a class="toc-backref" href="#id48" role="doc-backlink">Minor Changes</a><a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Update minimum ansible-core &gt;= 2.15 <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/46">#46</a></p></li>
 <li><p>Update to 8.4.8 / 15.0.2 and remove deprecated configs <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/44">#44</a></p></li>
@@ -281,61 +289,61 @@
 </section>
 </section>
 <section id="v1-3-1">
-<h2><a class="toc-backref" href="#id46" role="doc-backlink">v1.3.1</a><a class="headerlink" href="#v1-3-1" title="Link to this heading"></a></h2>
-<section id="id6">
-<h3><a class="toc-backref" href="#id47" role="doc-backlink">Minor Changes</a><a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<h2><a class="toc-backref" href="#id49" role="doc-backlink">v1.3.1</a><a class="headerlink" href="#v1-3-1" title="Link to this heading"></a></h2>
+<section id="id7">
+<h3><a class="toc-backref" href="#id50" role="doc-backlink">Minor Changes</a><a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>New parameter <code class="docutils literal notranslate"><span class="pre">infinispan_jgroups_cluster_nodes</span></code> to explicitly set initial nodes <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/43">#43</a></p></li>
 </ul>
 </section>
-<section id="id8">
-<h3><a class="toc-backref" href="#id48" role="doc-backlink">Bugfixes</a><a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<section id="id9">
+<h3><a class="toc-backref" href="#id51" role="doc-backlink">Bugfixes</a><a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Output cluster initial node list for TCPPING grouped by site when relay is enabled <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/42">#42</a></p></li>
 </ul>
 </section>
 </section>
 <section id="v1-3-0">
-<h2><a class="toc-backref" href="#id49" role="doc-backlink">v1.3.0</a><a class="headerlink" href="#v1-3-0" title="Link to this heading"></a></h2>
-<section id="id10">
-<h3><a class="toc-backref" href="#id50" role="doc-backlink">Minor Changes</a><a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<h2><a class="toc-backref" href="#id52" role="doc-backlink">v1.3.0</a><a class="headerlink" href="#v1-3-0" title="Link to this heading"></a></h2>
+<section id="id11">
+<h3><a class="toc-backref" href="#id53" role="doc-backlink">Minor Changes</a><a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Update infinispan to 14.0.21, data_grid to 8.4.6 <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/39">#39</a></p></li>
 </ul>
 </section>
 <section id="breaking-changes-porting-guide">
-<h3><a class="toc-backref" href="#id51" role="doc-backlink">Breaking Changes / Porting Guide</a><a class="headerlink" href="#breaking-changes-porting-guide" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id54" role="doc-backlink">Breaking Changes / Porting Guide</a><a class="headerlink" href="#breaking-changes-porting-guide" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Update minimum ansible-core version to 2.14 <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/37">#37</a></p></li>
 </ul>
 </section>
 </section>
 <section id="v1-2-0">
-<h2><a class="toc-backref" href="#id52" role="doc-backlink">v1.2.0</a><a class="headerlink" href="#v1-2-0" title="Link to this heading"></a></h2>
-<section id="major-changes">
-<h3><a class="toc-backref" href="#id53" role="doc-backlink">Major Changes</a><a class="headerlink" href="#major-changes" title="Link to this heading"></a></h3>
+<h2><a class="toc-backref" href="#id55" role="doc-backlink">v1.2.0</a><a class="headerlink" href="#v1-2-0" title="Link to this heading"></a></h2>
+<section id="id14">
+<h3><a class="toc-backref" href="#id56" role="doc-backlink">Major Changes</a><a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Provide jgroups configuration <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/31">#31</a></p></li>
 </ul>
 </section>
-<section id="id14">
-<h3><a class="toc-backref" href="#id54" role="doc-backlink">Minor Changes</a><a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
+<section id="id16">
+<h3><a class="toc-backref" href="#id57" role="doc-backlink">Minor Changes</a><a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Update to infinispan 14.0.13 <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/32">#32</a></p></li>
 <li><p>infinispan_cache: remove dependency on json_query <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/34">#34</a></p></li>
 </ul>
 </section>
-<section id="id17">
-<h3><a class="toc-backref" href="#id55" role="doc-backlink">Bugfixes</a><a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
+<section id="id19">
+<h3><a class="toc-backref" href="#id58" role="doc-backlink">Bugfixes</a><a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Force log directory symlink during update <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/33">#33</a></p></li>
 </ul>
 </section>
 </section>
 <section id="v1-1-4">
-<h2><a class="toc-backref" href="#id56" role="doc-backlink">v1.1.4</a><a class="headerlink" href="#v1-1-4" title="Link to this heading"></a></h2>
-<section id="id19">
-<h3><a class="toc-backref" href="#id57" role="doc-backlink">Minor Changes</a><a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
+<h2><a class="toc-backref" href="#id59" role="doc-backlink">v1.1.4</a><a class="headerlink" href="#v1-1-4" title="Link to this heading"></a></h2>
+<section id="id21">
+<h3><a class="toc-backref" href="#id60" role="doc-backlink">Minor Changes</a><a class="headerlink" href="#id21" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Add sqlserver to infinispan jdbc configurations <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/25">#25</a></p></li>
 <li><p>Provide systemd unit restart behavior configuration <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/26">#26</a></p></li>
@@ -343,81 +351,81 @@
 </section>
 </section>
 <section id="v1-1-3">
-<h2><a class="toc-backref" href="#id58" role="doc-backlink">v1.1.3</a><a class="headerlink" href="#v1-1-3" title="Link to this heading"></a></h2>
-<section id="id22">
-<h3><a class="toc-backref" href="#id59" role="doc-backlink">Minor Changes</a><a class="headerlink" href="#id22" title="Link to this heading"></a></h3>
+<h2><a class="toc-backref" href="#id61" role="doc-backlink">v1.1.3</a><a class="headerlink" href="#v1-1-3" title="Link to this heading"></a></h2>
+<section id="id24">
+<h3><a class="toc-backref" href="#id62" role="doc-backlink">Minor Changes</a><a class="headerlink" href="#id24" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Switch redhat_csp_download with runtimes_common <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/24">#24</a></p></li>
 </ul>
 </section>
 </section>
 <section id="v1-1-2">
-<h2><a class="toc-backref" href="#id60" role="doc-backlink">v1.1.2</a><a class="headerlink" href="#v1-1-2" title="Link to this heading"></a></h2>
-<section id="id24">
-<h3><a class="toc-backref" href="#id61" role="doc-backlink">Minor Changes</a><a class="headerlink" href="#id24" title="Link to this heading"></a></h3>
+<h2><a class="toc-backref" href="#id63" role="doc-backlink">v1.1.2</a><a class="headerlink" href="#v1-1-2" title="Link to this heading"></a></h2>
+<section id="id26">
+<h3><a class="toc-backref" href="#id64" role="doc-backlink">Minor Changes</a><a class="headerlink" href="#id26" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Update defaults to infinispan 14.0.3 - data grid 8.4.0 <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/23">#23</a></p></li>
 </ul>
 </section>
 </section>
 <section id="v1-1-1">
-<h2><a class="toc-backref" href="#id62" role="doc-backlink">v1.1.1</a><a class="headerlink" href="#v1-1-1" title="Link to this heading"></a></h2>
-<section id="id26">
-<h3><a class="toc-backref" href="#id63" role="doc-backlink">Bugfixes</a><a class="headerlink" href="#id26" title="Link to this heading"></a></h3>
+<h2><a class="toc-backref" href="#id65" role="doc-backlink">v1.1.1</a><a class="headerlink" href="#v1-1-1" title="Link to this heading"></a></h2>
+<section id="id28">
+<h3><a class="toc-backref" href="#id66" role="doc-backlink">Bugfixes</a><a class="headerlink" href="#id28" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Add requirements.yml dependencies to galaxy.yml <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/21">#21</a></p></li>
 </ul>
 </section>
 </section>
 <section id="v1-1-0">
-<h2><a class="toc-backref" href="#id64" role="doc-backlink">v1.1.0</a><a class="headerlink" href="#v1-1-0" title="Link to this heading"></a></h2>
-<section id="id28">
-<h3><a class="toc-backref" href="#id65" role="doc-backlink">Breaking Changes / Porting Guide</a><a class="headerlink" href="#id28" title="Link to this heading"></a></h3>
+<h2><a class="toc-backref" href="#id67" role="doc-backlink">v1.1.0</a><a class="headerlink" href="#v1-1-0" title="Link to this heading"></a></h2>
+<section id="id30">
+<h3><a class="toc-backref" href="#id68" role="doc-backlink">Breaking Changes / Porting Guide</a><a class="headerlink" href="#id30" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Rename roles and variables to have <code class="docutils literal notranslate"><span class="pre">infinispan_</span></code> prefix <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/17">#17</a></p></li>
 </ul>
 </section>
 </section>
 <section id="v1-0-3">
-<h2><a class="toc-backref" href="#id66" role="doc-backlink">v1.0.3</a><a class="headerlink" href="#v1-0-3" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id69" role="doc-backlink">v1.0.3</a><a class="headerlink" href="#v1-0-3" title="Link to this heading"></a></h2>
 <section id="release-summary">
-<h3><a class="toc-backref" href="#id67" role="doc-backlink">Release Summary</a><a class="headerlink" href="#release-summary" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id70" role="doc-backlink">Release Summary</a><a class="headerlink" href="#release-summary" title="Link to this heading"></a></h3>
 <p>Patch release containing an important bugfix for downloaded archives filemodes.</p>
 </section>
 </section>
 <section id="v1-0-2">
-<h2><a class="toc-backref" href="#id68" role="doc-backlink">v1.0.2</a><a class="headerlink" href="#v1-0-2" title="Link to this heading"></a></h2>
-<section id="id30">
-<h3><a class="toc-backref" href="#id69" role="doc-backlink">Major Changes</a><a class="headerlink" href="#id30" title="Link to this heading"></a></h3>
+<h2><a class="toc-backref" href="#id71" role="doc-backlink">v1.0.2</a><a class="headerlink" href="#v1-0-2" title="Link to this heading"></a></h2>
+<section id="id32">
+<h3><a class="toc-backref" href="#id72" role="doc-backlink">Major Changes</a><a class="headerlink" href="#id32" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Make playbook compatible with multiple installations on same host <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/12">#12</a></p></li>
 </ul>
 </section>
-<section id="id32">
-<h3><a class="toc-backref" href="#id70" role="doc-backlink">Minor Changes</a><a class="headerlink" href="#id32" title="Link to this heading"></a></h3>
+<section id="id34">
+<h3><a class="toc-backref" href="#id73" role="doc-backlink">Minor Changes</a><a class="headerlink" href="#id34" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Make <code class="docutils literal notranslate"><span class="pre">supervisor_password</span></code> a default with assert (was: role variable) <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/14">#14</a></p></li>
 <li><p>New <code class="docutils literal notranslate"><span class="pre">jdg_configure_firewalld</span></code> bool parameter controls firewall config <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/13">#13</a></p></li>
 </ul>
 </section>
-<section id="id35">
-<h3><a class="toc-backref" href="#id71" role="doc-backlink">Bugfixes</a><a class="headerlink" href="#id35" title="Link to this heading"></a></h3>
+<section id="id37">
+<h3><a class="toc-backref" href="#id74" role="doc-backlink">Bugfixes</a><a class="headerlink" href="#id37" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>JAVA_HOME should be set according to requested JVM package, or overridden via <code class="docutils literal notranslate"><span class="pre">jdg_java_home</span></code> <a class="reference external" href="https://github.com/ansible-middleware/infinispan/pull/15">#15</a></p></li>
 </ul>
 </section>
 </section>
 <section id="v1-0-1">
-<h2><a class="toc-backref" href="#id72" role="doc-backlink">v1.0.1</a><a class="headerlink" href="#v1-0-1" title="Link to this heading"></a></h2>
-<section id="id37">
-<h3><a class="toc-backref" href="#id73" role="doc-backlink">Release Summary</a><a class="headerlink" href="#id37" title="Link to this heading"></a></h3>
+<h2><a class="toc-backref" href="#id75" role="doc-backlink">v1.0.1</a><a class="headerlink" href="#v1-0-1" title="Link to this heading"></a></h2>
+<section id="id39">
+<h3><a class="toc-backref" href="#id76" role="doc-backlink">Release Summary</a><a class="headerlink" href="#id39" title="Link to this heading"></a></h3>
 <p>Patch release containing only cleanup and documentation changes.</p>
 </section>
 </section>
 <section id="v1-0-0">
-<h2><a class="toc-backref" href="#id74" role="doc-backlink">v1.0.0</a><a class="headerlink" href="#v1-0-0" title="Link to this heading"></a></h2>
-<section id="id38">
-<h3><a class="toc-backref" href="#id75" role="doc-backlink">Release Summary</a><a class="headerlink" href="#id38" title="Link to this heading"></a></h3>
+<h2><a class="toc-backref" href="#id77" role="doc-backlink">v1.0.0</a><a class="headerlink" href="#v1-0-0" title="Link to this heading"></a></h2>
+<section id="id40">
+<h3><a class="toc-backref" href="#id78" role="doc-backlink">Release Summary</a><a class="headerlink" href="#id40" title="Link to this heading"></a></h3>
 <p>This is the first stable release of the <code class="docutils literal notranslate"><span class="pre">middleware_automation.infinispan</span></code> collection.</p>
 </section>
 </section>
@@ -434,7 +442,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, Red Hat, Inc..</p>
+    <p>&#169; Copyright 2026, Red Hat, Inc..</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

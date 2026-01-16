@@ -31,7 +31,7 @@ Role Defaults
 |`infinispan_keystore_alias`| Alias for the certificate to load from keystore | `{{ inventory_hostname }}` |
 |`infinispan_keystore_key_password`| Key passphrase for TLS server identity | `''`|
 |`infinispan_keycloak_caches`| Creates remote caches for keycloak | `false` |
-|`infinispan_jvm_package`| RHEL java package runtime | `java-11-openjdk-headless` |
+|`infinispan_jvm_package`| RHEL java package runtime | `java-21-openjdk-headless` |
 |`infinispan_service_name`| Name of the systemd service unit, appended with `-{{infinispan_port_offset}}` when not 0 | `infinispan` |
 |`infinispan_service_desc` | Description of the systemd service unit | `Infinispan` |
 |`infinispan_service_restart_on_failure`| systemd restart-on-failure behavior activation | `true`` |
