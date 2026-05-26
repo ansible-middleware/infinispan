@@ -32,6 +32,23 @@ where:
 * `infinispan_cache_xml` is an xml cache declaration validating against infinispan cache [xsd](https://infinispan.org/schemas/infinispan-config-12.1.xsd).
 * `infinispan_cache_config` is a yaml dict for templating the cache xml, refer to the [templates](templates/) directory for accepted variables.
 
+### Indexing and vector search (`infinispan_cache_config`)
+
+Indexed caches (including vector search on Infinispan 15+) can be configured with:
+
+| Key | Description | Default |
+|:----|:------------|:--------|
+|`indexing`| Enable indexing for the cache | `false` |
+|`indexing_storage`| Index metadata storage (`filesystem`, `local-heap`, …) | `filesystem` |
+|`indexing_path`| Optional index storage path | omitted |
+|`indexing_startup_mode`| Indexer startup mode (e.g. `AUTO`, `MANUAL`) | omitted |
+|`indexing_entities`| List of ProtoStream entity type names (e.g. `ansible.test.Product`) | `[]` |
+
+When `indexing` is `true`, provide at least one `indexing_entity` and register the ProtoStream schema before creating the cache.
+See the `infinispan` role README for vector search overview and client requirements.
+
+NOTE: While downstream product Data Grid exposes Vector Search capabilities, it's not yet officially supported.
+
 
 Role Variables
 --------------

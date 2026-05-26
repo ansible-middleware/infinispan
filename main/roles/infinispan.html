@@ -48,6 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../README.html">Ansible Collection - middleware_automation.infinispan</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Role Index</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">infinispan</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#role-defaults">Role Defaults</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#role-variables">Role Variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a></li>
@@ -56,6 +57,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#keycloak-integration">Keycloak integration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#deploying-custom-cache-configurations">Deploying custom cache configurations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#how-to-configure-caches">How to configure caches</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vector-search-support">Vector Search Support</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#license">License</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#author-information">Author Information</a></li>
 </ul>
@@ -111,6 +113,15 @@
   <section id="infinispan">
 <h1>infinispan<a class="headerlink" href="#infinispan" title="Link to this heading"></a></h1>
 <p>Install <a class="reference external" href="https://infinispan.org/">Infinispan</a> or <a class="reference external" href="https://www.redhat.com/en/technologies/jboss-middleware/data-grid">Red Hat DataGrid</a> server configurations.</p>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
+<p>Infinispan 16.1+ requires Java 25, which is only available on RHEL 9.7+ and RHEL 10.1+
+For more details please go through the <a class="reference external" href="https://infinispan.org/blog/2026/02/04/infinispan-16-1">official Infinispan 16.1 release notes</a></p>
+<ul class="simple">
+<li><p>RHEL 8 is not supported with Infinispan 16.1+ (Java 25 is not available), More <a class="reference external" href="https://access.redhat.com/articles/1299013">details</a></p></li>
+<li><p>For RHEL 8 systems, use Infinispan 16.0.x or earlier versions</p></li>
+</ul>
+</section>
 <section id="role-defaults">
 <h2>Role Defaults<a class="headerlink" href="#role-defaults" title="Link to this heading"></a></h2>
 <ul class="simple">
@@ -206,7 +217,7 @@
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_jvm_package</span></code></p></td>
 <td class="text-left"><p>RHEL java package runtime</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">java-21-openjdk-headless</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">java-25-openjdk-headless</span></code></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_service_name</span></code></p></td>
 <td class="text-left"><p>Name of the systemd service unit, appended with <code class="docutils literal notranslate"><span class="pre">-{{infinispan_port_offset}}</span></code> when not 0</p></td>
@@ -311,7 +322,7 @@ and <code class="docutils literal notranslate"><span class="pre">value</span></c
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_version</span></code></p></td>
 <td class="text-left"><p>Infinispan version to install</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">14.0.13.Final</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">16.1.4</span></code></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_bundle</span></code></p></td>
 <td class="text-left"><p>Archive name for Infinispan download</p></td>
@@ -319,7 +330,7 @@ and <code class="docutils literal notranslate"><span class="pre">value</span></c
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_download_url</span></code></p></td>
 <td class="text-left"><p>Download URL for infinispan</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">https://downloads.jboss.org/infinispan/{{</span> <span class="pre">infinispan_version</span> <span class="pre">}}/{{</span> <span class="pre">infinispan_bundle</span> <span class="pre">}}</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">https://github.com/infinispan/infinispan/releases/download/{{</span> <span class="pre">infinispan_version</span> <span class="pre">}}/{{</span> <span class="pre">infinispan_bundle</span> <span class="pre">}}</span></code></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_dest</span></code></p></td>
 <td class="text-left"><p>Directory where to extract installation archives</p></td>
@@ -514,6 +525,34 @@ it is possible to define configuration dicts, used to populate the available tem
 </div>
 <p>It is possible to mix and match the two configurations in the <code class="docutils literal notranslate"><span class="pre">infinispan_caches</span></code> list.</p>
 </section>
+<section id="vector-search-support">
+<h2>Vector Search Support<a class="headerlink" href="#vector-search-support" title="Link to this heading"></a></h2>
+<p>Infinispan 15+ natively supports vector search for AI/ML use cases, allowing k-Nearest Neighbor (kNN) queries on vector embeddings.</p>
+<p>To enable vector search, your client application must:</p>
+<ol class="arabic simple">
+<li><p>Define ProtoStream entities with <code class="docutils literal notranslate"><span class="pre">&#64;Vector</span></code> annotations specifying dimension and similarity algorithm</p></li>
+<li><p>Register the ProtoStream schema with Infinispan when connecting</p></li>
+<li><p>Create indexed caches (either via the client API or using the templates in this role with <code class="docutils literal notranslate"><span class="pre">indexing:</span> <span class="pre">true</span></code> and <code class="docutils literal notranslate"><span class="pre">indexing_entities</span></code> pointing to your registered schemas)</p></li>
+</ol>
+<p>The Ansible role supports configuring indexed caches through the <code class="docutils literal notranslate"><span class="pre">indexing</span></code> parameter:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">infinispan_cache_config</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;vector-search-cache&#39;</span>
+<span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;distributed&#39;</span>
+<span class="w">  </span><span class="nt">encoding</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;application/x-protostream&#39;</span>
+<span class="w">  </span><span class="nt">indexing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">indexing_storage</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;filesystem&#39;</span>
+<span class="w">  </span><span class="nt">indexing_entities</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;com.example.YourEntity&#39;</span><span class="w">  </span><span class="c1"># Must be registered first by your application</span>
+</pre></div>
+</div>
+<p><strong>Note:</strong> Infinispan requires at least one indexed entity when indexing is enabled. Your application must register the ProtoStream schema before creating the indexed cache, or the cache creation will fail.</p>
+<p>For more details, refer to:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://infinispan.org/docs/stable/titles/query/query.html#vector-search_ickl">Vector Search Documentation</a></p></li>
+<li><p><a class="reference external" href="https://infinispan.org/blog/2026/04/30/vector-search-quickstart">Vector Search Quickstart</a></p></li>
+</ul>
+<p>NOTE: While downstream product Data Grid exposes Vector Search capabilities, it’s not yet officially supported.</p>
+</section>
 <section id="license">
 <h2>License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
 <p>Apache License 2.0</p>
@@ -524,6 +563,7 @@ it is possible to define configuration dicts, used to populate the available tem
 <li><p><a class="reference external" href="https://github.com/guidograzioli">Guido Grazioli</a></p></li>
 <li><p><a class="reference external" href="https://github.com/rpelisse">Romain Pelisse</a></p></li>
 <li><p><a class="reference external" href="https://github.com/l3acon">Matthew Fernandez</a></p></li>
+<li><p><a class="reference external" href="https://github.com/RanabirChakraborty">Ranabir Chakraborty</a></p></li>
 </ul>
 </section>
 </section>

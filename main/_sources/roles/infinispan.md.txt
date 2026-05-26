@@ -4,6 +4,14 @@ infinispan
 Install [Infinispan](https://infinispan.org/) or [Red Hat DataGrid](https://www.redhat.com/en/technologies/jboss-middleware/data-grid) server configurations.
 
 
+Requirements
+------------
+
+Infinispan 16.1+ requires Java 25, which is only available on RHEL 9.7+ and RHEL 10.1+ 
+For more details please go through the [official Infinispan 16.1 release notes](https://infinispan.org/blog/2026/02/04/infinispan-16-1)
+* RHEL 8 is not supported with Infinispan 16.1+ (Java 25 is not available), More [details](https://access.redhat.com/articles/1299013)
+* For RHEL 8 systems, use Infinispan 16.0.x or earlier versions
+
 Role Defaults
 -------------
 
@@ -31,7 +39,7 @@ Role Defaults
 |`infinispan_keystore_alias`| Alias for the certificate to load from keystore | `{{ inventory_hostname }}` |
 |`infinispan_keystore_key_password`| Key passphrase for TLS server identity | `''`|
 |`infinispan_keycloak_caches`| Creates remote caches for keycloak | `false` |
-|`infinispan_jvm_package`| RHEL java package runtime | `java-21-openjdk-headless` |
+|`infinispan_jvm_package`| RHEL java package runtime | `java-25-openjdk-headless` |
 |`infinispan_service_name`| Name of the systemd service unit, appended with `-{{infinispan_port_offset}}` when not 0 | `infinispan` |
 |`infinispan_service_desc` | Description of the systemd service unit | `Infinispan` |
 |`infinispan_service_restart_on_failure`| systemd restart-on-failure behavior activation | `true`` |
@@ -80,9 +88,9 @@ and `value` is explicit connection string.
 | Variable | Description | Default |
 |:---------|:------------|:--------|
 |`infinispan_offline_install`| Perform an offline install |`false`|
-|`infinispan_version`| Infinispan version to install | `14.0.13.Final` |
+|`infinispan_version`| Infinispan version to install | `16.1.4` |
 |`infinispan_bundle`| Archive name for Infinispan download | `infinispan-server-{{ infinispan_version }}.zip` |
-|`infinispan_download_url`| Download URL for infinispan | `https://downloads.jboss.org/infinispan/{{ infinispan_version }}/{{ infinispan_bundle }}` |
+|`infinispan_download_url`| Download URL for infinispan | `https://github.com/infinispan/infinispan/releases/download/{{ infinispan_version }}/{{ infinispan_bundle }}` |
 |`infinispan_dest`| Directory where to extract installation archives | `/opt/infinispan` |
 |`infinispan_installation_path`| Specific unxtracted installation path for infinispan | `/opt/infinispan/infinispan-server-{{ infinispan_version }}/` |
 |`infinispan_app_download_dir`| Directory where to download archives | `/opt/infinispan` |
@@ -234,6 +242,38 @@ infinispan_caches:
 It is possible to mix and match the two configurations in the `infinispan_caches` list.
 
 
+Vector Search Support
+---------------------
+
+Infinispan 15+ natively supports vector search for AI/ML use cases, allowing k-Nearest Neighbor (kNN) queries on vector embeddings.
+
+To enable vector search, your client application must:
+
+1. Define ProtoStream entities with `@Vector` annotations specifying dimension and similarity algorithm
+2. Register the ProtoStream schema with Infinispan when connecting
+3. Create indexed caches (either via the client API or using the templates in this role with `indexing: true` and `indexing_entities` pointing to your registered schemas)
+
+The Ansible role supports configuring indexed caches through the `indexing` parameter:
+
+```yaml
+infinispan_cache_config:
+  name: 'vector-search-cache'
+  template: 'distributed'
+  encoding: 'application/x-protostream'
+  indexing: true
+  indexing_storage: 'filesystem'
+  indexing_entities:
+    - 'com.example.YourEntity'  # Must be registered first by your application
+```
+
+**Note:** Infinispan requires at least one indexed entity when indexing is enabled. Your application must register the ProtoStream schema before creating the indexed cache, or the cache creation will fail.
+
+For more details, refer to:
+* [Vector Search Documentation](https://infinispan.org/docs/stable/titles/query/query.html#vector-search_ickl)
+* [Vector Search Quickstart](https://infinispan.org/blog/2026/04/30/vector-search-quickstart)
+
+NOTE: While downstream product Data Grid exposes Vector Search capabilities, it's not yet officially supported.
+
 License
 -------
 
@@ -246,3 +286,4 @@ Author Information
 * [Guido Grazioli](https://github.com/guidograzioli)
 * [Romain Pelisse](https://github.com/rpelisse)
 * [Matthew Fernandez](https://github.com/l3acon)
+* [Ranabir Chakraborty](https://github.com/RanabirChakraborty)

@@ -16,7 +16,7 @@ Infinispan can be used as remote caches for other software, such as [Keycloak](h
 <!--start requires_ansible-->
 ## Ansible version compatibility
 
-This collection has been tested against following Ansible versions: **>=2.15.0**.
+This collection has been tested against following Ansible versions: **>=2.16.0**.
 
 Plugins and modules within a collection may be tested with only specific Ansible versions. A collection may contain metadata that identifies these versions.
 <!--end requires_ansible-->
@@ -99,8 +99,18 @@ infinispan_offline_install: true
 <!--end rhn_credentials -->
 
 
+## Support
+
 <!--start support -->
+
+For bug reports and feature requests, use [GitHub Issues](https://github.com/ansible-middleware/infinispan/issues).
+
 <!--end support -->
+
+
+## Release and Upgrade Notes
+
+See the [changelog](https://github.com/ansible-middleware/infinispan/blob/main/CHANGELOG.rst) for more details.
 
 
 ## License

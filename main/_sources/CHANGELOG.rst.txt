@@ -13,6 +13,13 @@ Major Changes
 -------------
 
 - AMW-466 Ensure infinispan collection is compatible with RHEL 10 `#52 <https://github.com/ansible-middleware/infinispan/pull/52>`_
+- AMW-525 Infinispan version update to the latest 16.1.4 `#54 <https://github.com/ansible-middleware/infinispan/pull/54>`_
+- AMW-527 Infinispan collection to support Vector search feature `#56 <https://github.com/ansible-middleware/infinispan/pull/56>`_
+
+Minor Changes
+-------------
+
+- Enhance replicated-cache with backup sites `#53 <https://github.com/ansible-middleware/infinispan/pull/53>`_
 
 Bugfixes
 --------
