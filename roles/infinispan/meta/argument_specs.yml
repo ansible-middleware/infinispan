@@ -238,7 +238,7 @@ argument_specs:
                 default: "jdg"
                 description: "Posix group for the service installation"
                 type: "str"
-            data_grid_product_category:
+            data_grid_product_code:
                 default: "data.grid"
-                description: "Unified Downloads API category for data_grid"
+                description: "Unified Downloads API product code for data_grid"
                 type: "str"

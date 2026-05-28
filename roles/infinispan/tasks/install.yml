@@ -70,14 +70,14 @@
         client_secret: "{{ rhn_password }}"
         product_type: DISTRIBUTION
         product_version: "{{ data_grid_version }}"
-        product_category: "{{ data_grid_product_category }}"
+        product_code: "{{ data_grid_product_code }}"
       register: infinispan_rhn_products
       delegate_to: localhost
       run_once: true
 
     - name: Determine install zipfile from search results
       ansible.builtin.set_fact:
-        infinispan_rhn_filtered_products: "{{ infinispan_rhn_products.results | selectattr('file_path', 'match', '.*/redhat-datagrid-' + data_grid_version + '-server.zip') }}"
+        infinispan_rhn_filtered_products: "{{ infinispan_rhn_products.data | selectattr('file_name', 'match', '.*/redhat-datagrid-' + data_grid_version + '-server.zip') }}"
       delegate_to: localhost
       run_once: true
 
