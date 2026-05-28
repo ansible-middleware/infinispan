@@ -152,7 +152,7 @@ in the infinispan.xml server configuration, use the <code class="docutils litera
 <td class="text-left"><p>Server REST API/hotrod have TLS enabled</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_deployer_user</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_cache_deployer_user</span></code></p></td>
 <td class="text-left"><p>Username that performs the API call</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">supervisor</span></code></p></td>
 </tr>
@@ -220,7 +220,7 @@ See the <code class="docutils literal notranslate"><span class="pre">infinispan<
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_deployer_password</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_cache_deployer_password</span></code></p></td>
 <td class="text-left"><p>Password for the user performing the API call</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">yes</span></code></p></td>
 </tr>
@@ -246,7 +246,7 @@ To install, from the collection root directory, run:</p>
 <span class="w">         </span><span class="nt">include_role</span><span class="p">:</span>
 <span class="w">           </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infinispan_cache</span>
 <span class="w">         </span><span class="nt">vars</span><span class="p">:</span>
-<span class="w">           </span><span class="nt">infinispan_deployer_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">changeme</span>
+<span class="w">           </span><span class="nt">infinispan_cache_deployer_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">changeme</span>
 <span class="w">           </span><span class="nt">infinispan_cache_xml</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{lookup(&#39;file&#39;,</span><span class="nv"> </span><span class="s">&#39;templates/my_cache.xml&#39;)</span><span class="nv"> </span><span class="s">}}&quot;</span>
 </pre></div>
 </div>
@@ -258,7 +258,7 @@ To install, from the collection root directory, run:</p>
 <span class="w">         </span><span class="nt">include_role</span><span class="p">:</span>
 <span class="w">           </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infinispan_cache</span>
 <span class="w">         </span><span class="nt">vars</span><span class="p">:</span>
-<span class="w">           </span><span class="nt">infinispan_deployer_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">changeme</span>
+<span class="w">           </span><span class="nt">infinispan_cache_deployer_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">changeme</span>
 <span class="w">           </span><span class="nt">infinispan_cache_xml</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
 <span class="w">             </span><span class="no">&lt;local-cache name=&quot;testcachexml&quot; statistics=&quot;true&quot;&gt;</span>
 <span class="w">               </span><span class="no">&lt;encoding media-type=&quot;application/x-protostream&quot;/&gt;</span>
@@ -273,8 +273,8 @@ To install, from the collection root directory, run:</p>
 <span class="w">         </span><span class="nt">include_role</span><span class="p">:</span>
 <span class="w">           </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">../../roles/infinispan_cache</span>
 <span class="w">         </span><span class="nt">vars</span><span class="p">:</span>
-<span class="w">           </span><span class="nt">infinispan_deployer_user</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;supervisor&quot;</span>
-<span class="w">           </span><span class="nt">infinispan_deployer_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;remembertochangeme&quot;</span>
+<span class="w">           </span><span class="nt">infinispan_cache_deployer_user</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;supervisor&quot;</span>
+<span class="w">           </span><span class="nt">infinispan_cache_deployer_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;remembertochangeme&quot;</span>
 <span class="w">           </span><span class="nt">infinispan_cache_config</span><span class="p">:</span>
 <span class="w">             </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">configuredcache</span>
 <span class="w">             </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">replicated</span>

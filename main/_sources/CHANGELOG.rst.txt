@@ -9,10 +9,15 @@ This changelog describes changes after version 0.1.9.
 v1.3.5-devel
 ============
 
-Release Summary
----------------
+Major Changes
+-------------
 
-Internal release, documentation or test changes only.
+- Fix certification requirements for Infinispan `#57 <https://github.com/ansible-middleware/infinispan/pull/57>`_
+
+Minor Changes
+-------------
+
+- Fixing common module usage `#60 <https://github.com/ansible-middleware/infinispan/pull/60>`_
 
 v1.3.4
 ======

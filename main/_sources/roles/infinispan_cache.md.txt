@@ -23,7 +23,7 @@ Role Defaults
 |`infinispan_url`| Complete URL for connecting to infinispan rest api | `{{ infinispan_scheme }}://{{ infinispan_bind_address }}:{{ infinispan_port }}{{ infinispan_rest_cache_api_path }}` |
 |`infinispan_port`| Alternate port for the service | `11222` |
 |`infinispan_tls`| Server REST API/hotrod have TLS enabled | `false` |
-|`infinispan_deployer_user`| Username that performs the API call | `supervisor` |
+|`infinispan_cache_deployer_user`| Username that performs the API call | `supervisor` |
 |`infinispan_cache_xml`| XML declaration for the cache to deploy as string | `None` |
 |`infinispan_cache_config`| dict object with configuration for the cache to deploy | `{}`, see below for specs |
 
@@ -57,7 +57,7 @@ The following are a set of required variables for the role:
 
 | Variable | Description | Required |
 |:---------|:------------|:---------|
-|`infinispan_deployer_password`| Password for the user performing the API call | `yes` |
+|`infinispan_cache_deployer_password`| Password for the user performing the API call | `yes` |
 
 
 Dependencies
@@ -83,7 +83,7 @@ The following are example playbooks that make use of the role to create Infinisp
          include_role:
            name: infinispan_cache
          vars:
-           infinispan_deployer_password: changeme
+           infinispan_cache_deployer_password: changeme
            infinispan_cache_xml: "{{lookup('file', 'templates/my_cache.xml') }}"
 ```
 
@@ -96,7 +96,7 @@ The following are example playbooks that make use of the role to create Infinisp
          include_role:
            name: infinispan_cache
          vars:
-           infinispan_deployer_password: changeme
+           infinispan_cache_deployer_password: changeme
            infinispan_cache_xml: >
              <local-cache name="testcachexml" statistics="true">
                <encoding media-type="application/x-protostream"/>
@@ -113,8 +113,8 @@ The following are example playbooks that make use of the role to create Infinisp
          include_role:
            name: ../../roles/infinispan_cache
          vars:
-           infinispan_deployer_user: "supervisor"
-           infinispan_deployer_password: "remembertochangeme"
+           infinispan_cache_deployer_user: "supervisor"
+           infinispan_cache_deployer_password: "remembertochangeme"
            infinispan_cache_config:
              name: configuredcache
              template: replicated

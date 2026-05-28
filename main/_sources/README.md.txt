@@ -110,7 +110,7 @@ For bug reports and feature requests, use [GitHub Issues](https://github.com/ans
 
 ## Release and Upgrade Notes
 
-See the [changelog](https://github.com/ansible-middleware/infinispan/blob/main/CHANGELOG.rst) for more details.
+For details on changes between versions, please see the [CHANGELOG](https://github.com/ansible-middleware/infinispan/blob/main/CHANGELOG.rst) for this collection.
 
 
 ## License
