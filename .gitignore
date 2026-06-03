@@ -13,3 +13,4 @@ inventory
 changelogs/.plugin-cache.yaml
 molecule/vector-search/test-app/target/
 molecule/vector-search/files/*.jar
+.ansible
