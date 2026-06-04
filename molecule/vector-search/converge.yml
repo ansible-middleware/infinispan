@@ -7,6 +7,8 @@
       ansible.builtin.include_role:
         name: infinispan
       vars:
+        infinispan_nodename: instance1
+        infinispan_service_name: instance1
         infinispan_supervisor_password: "vectorsearch123"
         infinispan_users:
           - { name: 'vectoruser', password: 'vectorpass', roles: 'admin' }
