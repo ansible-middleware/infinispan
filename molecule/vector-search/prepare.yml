@@ -3,7 +3,6 @@
   hosts: all
   vars:
     sudo_pkg_name: 'sudo'
-    vector_search_test_jar: "{{ playbook_dir }}/test-app/target/vector-search-test-1.0.0.jar"
   tasks:
 
     - name: "Ensure {{ sudo_pkg_name }} is installed (if user is root)."
@@ -53,45 +52,8 @@
         name: java-25-openjdk-headless
         state: present
 
-    - name: Install Java 25 on controller for Maven build
-      ansible.builtin.shell: |
-        set -euo pipefail
-        if command -v apt-get >/dev/null 2>&1; then
-          apt-get update -qq
-          DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-25-jdk-headless
-        elif command -v dnf >/dev/null 2>&1; then
-          dnf install -y java-25-openjdk-devel
-        else
-          echo "No supported package manager on controller for Java 25" >&2
-          exit 1
-        fi
-      args:
-        executable: /bin/bash
-      delegate_to: localhost
-      become: true
-      run_once: true
-      changed_when: true
-
-    - name: Build vector-search test JAR on controller
-      ansible.builtin.shell: |
-        set -euo pipefail
-        if [ -d /usr/lib/jvm/java-25-openjdk-amd64 ]; then
-          export JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64
-        elif [ -d /usr/lib/jvm/java-25-openjdk ]; then
-          export JAVA_HOME=/usr/lib/jvm/java-25-openjdk
-        else
-          export JAVA_HOME="$(dirname "$(dirname "$(readlink -f "$(command -v java)")")")"
-        fi
-        cd "{{ playbook_dir }}/test-app"
-        mvn -q package -DskipTests
-      args:
-        creates: "{{ vector_search_test_jar }}"
-        executable: /bin/bash
-      delegate_to: localhost
-      run_once: true
-
-    - name: Copy vector-search-test.jar to /tmp
+    - name: "Copy vector-search-test.jar to /tmp"
       ansible.builtin.copy:
-        src: "{{ vector_search_test_jar }}"
+        src: vector-search-test.jar
         dest: /tmp/vector-search-test.jar
         mode: '0644'
