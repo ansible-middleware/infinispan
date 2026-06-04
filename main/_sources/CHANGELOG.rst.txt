@@ -17,6 +17,7 @@ Major Changes
 Minor Changes
 -------------
 
+- AMW-559 Fix data_grid collection with runtimes_common release `#62 <https://github.com/ansible-middleware/infinispan/pull/62>`_
 - Fixing common module usage `#60 <https://github.com/ansible-middleware/infinispan/pull/60>`_
 
 v1.3.4
