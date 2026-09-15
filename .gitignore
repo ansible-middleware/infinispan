@@ -11,6 +11,8 @@ docs/_build/
 *.retry
 inventory
 changelogs/.plugin-cache.yaml
+changelogs/fragments/*.yml
+changelogs/fragments/*.yaml
 molecule/vector-search/test-app/target/
 molecule/vector-search/files/*.jar
 .ansible
