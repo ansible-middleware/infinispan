@@ -290,17 +290,17 @@ For more details please go through the <a class="reference external" href="https
 otherwise, it can be passed-in using the following dictionary format:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">infinispan_jgroups_cluster_nodes</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.175</span>
-<span class="w">    </span><span class="nt">inventory_host</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;10.0.0.175[7800]&#39;</span>
+<span class="w">    </span><span class="nt">inventory_host</span><span class="p">:</span><span class="w"> </span><span class="s">'10.0.0.175[7800]'</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">us-east-2-datagrid-1</span>
 <span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7800</span>
 <span class="w">    </span><span class="nt">site</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">us-east-2</span>
-<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;tcp://10.0.0.175:7800&#39;</span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">'tcp://10.0.0.175:7800'</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.179</span>
-<span class="w">    </span><span class="nt">inventory_host</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.0.0.179[7800]&quot;</span>
+<span class="w">    </span><span class="nt">inventory_host</span><span class="p">:</span><span class="w"> </span><span class="s">"10.0.0.179[7800]"</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">us-east-2-datagrid-2</span>
 <span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7800</span>
 <span class="w">    </span><span class="nt">site</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">us-east-2</span>
-<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;tcp://10.0.0.179:7800&#39;</span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">'tcp://10.0.0.179:7800'</span>
 </pre></div>
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">address</span></code>, <code class="docutils literal notranslate"><span class="pre">port</span></code>, and <code class="docutils literal notranslate"><span class="pre">inventory_host</span></code> are connection details; <code class="docutils literal notranslate"><span class="pre">name</span></code> is the name of the host in the cluster, <code class="docutils literal notranslate"><span class="pre">site</span></code> is the name of the cluster in the xsite configuration,
@@ -398,8 +398,8 @@ and <code class="docutils literal notranslate"><span class="pre">value</span></c
 </table>
 <p>Sample <em>user definition</em> format:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">infinispan_users</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;testuser1&#39;</span><span class="p p-Indicator">,</span><span class="nt"> password</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;test&#39;</span><span class="p p-Indicator">,</span><span class="nt"> roles</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;observer&#39;</span><span class="w"> </span><span class="p p-Indicator">}</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;testuser2&#39;</span><span class="p p-Indicator">,</span><span class="nt"> password</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;test&#39;</span><span class="p p-Indicator">,</span><span class="nt"> roles</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;application&#39;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> name</span><span class="p">:</span><span class="w"> </span><span class="s">'testuser1'</span><span class="p p-Indicator">,</span><span class="nt"> password</span><span class="p">:</span><span class="w"> </span><span class="s">'test'</span><span class="p p-Indicator">,</span><span class="nt"> roles</span><span class="p">:</span><span class="w"> </span><span class="s">'observer'</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> name</span><span class="p">:</span><span class="w"> </span><span class="s">'testuser2'</span><span class="p p-Indicator">,</span><span class="nt"> password</span><span class="p">:</span><span class="w"> </span><span class="s">'test'</span><span class="p p-Indicator">,</span><span class="nt"> roles</span><span class="p">:</span><span class="w"> </span><span class="s">'application'</span><span class="w"> </span><span class="p p-Indicator">}</span>
 </pre></div>
 </div>
 <p>The following are <em>required</em> when <code class="docutils literal notranslate"><span class="pre">infinispan_jgroups_discovery</span></code> is <code class="docutils literal notranslate"><span class="pre">JDBC_PING</span></code>:</p>
@@ -463,7 +463,7 @@ and <code class="docutils literal notranslate"><span class="pre">value</span></c
 <span class="w">          </span><span class="nt">include_role</span><span class="p">:</span>
 <span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infinispan</span>
 <span class="w">          </span><span class="nt">vars</span><span class="p">:</span>
-<span class="w">            </span><span class="nt">infinispan_supervisor_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;changeme&quot;</span>
+<span class="w">            </span><span class="nt">infinispan_supervisor_password</span><span class="p">:</span><span class="w"> </span><span class="s">"changeme"</span>
 <span class="w">            </span><span class="nt">infinispan_users</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
 </pre></div>
 </div>
@@ -508,18 +508,18 @@ it is possible to define configuration dicts, used to populate the available tem
 <p>To pass XML directly, as string or with a file:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nt">infinispan_caches</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">cache_xml</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
-<span class="w">          </span><span class="no">&lt;local-cache name=&quot;testcachexml&quot; statistics=&quot;true&quot;&gt;</span>
-<span class="w">            </span><span class="no">&lt;encoding media-type=&quot;application/x-protostream&quot;/&gt;</span>
+<span class="w">          </span><span class="no">&lt;local-cache name="testcachexml" statistics="true"&gt;</span>
+<span class="w">            </span><span class="no">&lt;encoding media-type="application/x-protostream"/&gt;</span>
 <span class="w">          </span><span class="no">&lt;/local-cache&gt;</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">cache_xml</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">lookup</span><span class="o">(</span><span class="s1">&#39;file&#39;</span><span class="o">,</span> <span class="nv">user_data_file</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">cache_xml</span><span class="p">:</span><span class="w"> </span><span class="s">"</span><span class="cp">{{</span> <span class="nv">lookup</span><span class="o">(</span><span class="s1">'file'</span><span class="o">,</span> <span class="nv">user_data_file</span><span class="o">)</span> <span class="cp">}}</span><span class="s">"</span>
 </pre></div>
 </div>
 <p>To configure caches:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nt">infinispan_caches</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">cache_config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;my-distributed-cache&#39;</span>
-<span class="w">      </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;distribute-cache&#39;</span>
-<span class="w">      </span><span class="nt">encoding</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;application/x-jboss-marshalling&#39;</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">'my-distributed-cache'</span>
+<span class="w">      </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="s">'distribute-cache'</span>
+<span class="w">      </span><span class="nt">encoding</span><span class="p">:</span><span class="w"> </span><span class="s">'application/x-jboss-marshalling'</span>
 <span class="w">      </span><span class="nt">persistence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 </pre></div>
 </div>
@@ -536,13 +536,13 @@ it is possible to define configuration dicts, used to populate the available tem
 </ol>
 <p>The Ansible role supports configuring indexed caches through the <code class="docutils literal notranslate"><span class="pre">indexing</span></code> parameter:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">infinispan_cache_config</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;vector-search-cache&#39;</span>
-<span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;distributed&#39;</span>
-<span class="w">  </span><span class="nt">encoding</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;application/x-protostream&#39;</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">'vector-search-cache'</span>
+<span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="s">'distributed'</span>
+<span class="w">  </span><span class="nt">encoding</span><span class="p">:</span><span class="w"> </span><span class="s">'application/x-protostream'</span>
 <span class="w">  </span><span class="nt">indexing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">indexing_storage</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;filesystem&#39;</span>
+<span class="w">  </span><span class="nt">indexing_storage</span><span class="p">:</span><span class="w"> </span><span class="s">'filesystem'</span>
 <span class="w">  </span><span class="nt">indexing_entities</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;com.example.YourEntity&#39;</span><span class="w">  </span><span class="c1"># Must be registered first by your application</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'com.example.YourEntity'</span><span class="w">  </span><span class="c1"># Must be registered first by your application</span>
 </pre></div>
 </div>
 <p><strong>Note:</strong> Infinispan requires at least one indexed entity when indexing is enabled. Your application must register the ProtoStream schema before creating the indexed cache, or the cache creation will fail.</p>

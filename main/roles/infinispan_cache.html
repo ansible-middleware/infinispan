@@ -247,7 +247,7 @@ To install, from the collection root directory, run:</p>
 <span class="w">           </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infinispan_cache</span>
 <span class="w">         </span><span class="nt">vars</span><span class="p">:</span>
 <span class="w">           </span><span class="nt">infinispan_cache_deployer_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">changeme</span>
-<span class="w">           </span><span class="nt">infinispan_cache_xml</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{lookup(&#39;file&#39;,</span><span class="nv"> </span><span class="s">&#39;templates/my_cache.xml&#39;)</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">           </span><span class="nt">infinispan_cache_xml</span><span class="p">:</span><span class="w"> </span><span class="s">"{{lookup('file',</span><span class="nv"> </span><span class="s">'templates/my_cache.xml')</span><span class="nv"> </span><span class="s">}}"</span>
 </pre></div>
 </div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
@@ -260,8 +260,8 @@ To install, from the collection root directory, run:</p>
 <span class="w">         </span><span class="nt">vars</span><span class="p">:</span>
 <span class="w">           </span><span class="nt">infinispan_cache_deployer_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">changeme</span>
 <span class="w">           </span><span class="nt">infinispan_cache_xml</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
-<span class="w">             </span><span class="no">&lt;local-cache name=&quot;testcachexml&quot; statistics=&quot;true&quot;&gt;</span>
-<span class="w">               </span><span class="no">&lt;encoding media-type=&quot;application/x-protostream&quot;/&gt;</span>
+<span class="w">             </span><span class="no">&lt;local-cache name="testcachexml" statistics="true"&gt;</span>
+<span class="w">               </span><span class="no">&lt;encoding media-type="application/x-protostream"/&gt;</span>
 <span class="w">             </span><span class="no">&lt;/local-cache&gt;</span>
 </pre></div>
 </div>
@@ -269,12 +269,12 @@ To install, from the collection root directory, run:</p>
 <span class="w">      </span><span class="nt">collections</span><span class="p">:</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">middleware_automation.infinispan</span>
 <span class="w">      </span><span class="nt">tasks</span><span class="p">:</span>
-<span class="w">       </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;infinispan</span><span class="nv"> </span><span class="s">cache</span><span class="nv"> </span><span class="s">role</span><span class="nv"> </span><span class="s">(yml)&quot;</span>
+<span class="w">       </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"infinispan</span><span class="nv"> </span><span class="s">cache</span><span class="nv"> </span><span class="s">role</span><span class="nv"> </span><span class="s">(yml)"</span>
 <span class="w">         </span><span class="nt">include_role</span><span class="p">:</span>
 <span class="w">           </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">../../roles/infinispan_cache</span>
 <span class="w">         </span><span class="nt">vars</span><span class="p">:</span>
-<span class="w">           </span><span class="nt">infinispan_cache_deployer_user</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;supervisor&quot;</span>
-<span class="w">           </span><span class="nt">infinispan_cache_deployer_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;remembertochangeme&quot;</span>
+<span class="w">           </span><span class="nt">infinispan_cache_deployer_user</span><span class="p">:</span><span class="w"> </span><span class="s">"supervisor"</span>
+<span class="w">           </span><span class="nt">infinispan_cache_deployer_password</span><span class="p">:</span><span class="w"> </span><span class="s">"remembertochangeme"</span>
 <span class="w">           </span><span class="nt">infinispan_cache_config</span><span class="p">:</span>
 <span class="w">             </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">configuredcache</span>
 <span class="w">             </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">replicated</span>
@@ -282,8 +282,8 @@ To install, from the collection root directory, run:</p>
 <span class="w">             </span><span class="nt">unreliable_return_values</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">             </span><span class="nt">transaction_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NONE</span>
 <span class="w">             </span><span class="nt">transaction_locking</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PESSIMISTIC</span>
-<span class="w">             </span><span class="nt">memory_max_size</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;100MB&#39;</span>
-<span class="w">             </span><span class="nt">memory_when_full</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;REMOVE&#39;</span>
+<span class="w">             </span><span class="nt">memory_max_size</span><span class="p">:</span><span class="w"> </span><span class="s">'100MB'</span>
+<span class="w">             </span><span class="nt">memory_when_full</span><span class="p">:</span><span class="w"> </span><span class="s">'REMOVE'</span>
 <span class="w">             </span><span class="nt">expiration_lifespan</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60000</span>
 <span class="w">             </span><span class="nt">expiration_max_idle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
 <span class="w">             </span><span class="nt">persistence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
