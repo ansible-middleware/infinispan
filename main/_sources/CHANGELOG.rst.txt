@@ -20,6 +20,7 @@ Minor Changes
 - AMW-559 data_grid collection Unified Downloads API fix `#62 <https://github.com/ansible-middleware/infinispan/pull/62>`_
 - AMW-561 using .jar instead of creating one `#63 <https://github.com/ansible-middleware/infinispan/pull/63>`_
 - Fixing common module usage `#60 <https://github.com/ansible-middleware/infinispan/pull/60>`_
+- Replace deprecated top-level fact variables with ansible_fact… `#67 <https://github.com/ansible-middleware/infinispan/pull/67>`_
 
 Bugfixes
 --------
